@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { insertarAdmin,eliminarAdmin, validarAdminExisteSi } from "../service/registroAdmin.admin";
+import { insertarAdmin,eliminarAdmin, validarAdminExisteSi } from "../service/registroUsuarios";
 import { handleHttp } from "../utils/error.handle"
 import { encrypt } from "../utils/passwordFunction";
 

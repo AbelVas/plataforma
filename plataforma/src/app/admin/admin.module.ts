@@ -12,6 +12,8 @@ import { OpcionesPerfilComponent } from './margenes/header/components/opciones-p
 import { NotificacionesComponent } from './margenes/header/components/notificaciones/notificaciones.component';
 import { OpcionesMenuComponent } from './margenes/sidebar/opciones-menu/opciones-menu.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
+import { CardsBimestreComponent } from './dashboard/components/cards-bimestre/cards-bimestre.component';
+import { GraficaContenedorComponent } from './dashboard/components/grafica-contenedor/grafica-contenedor.component';
 //
 
 
@@ -30,7 +32,9 @@ import { ConfiguracionesComponent } from './configuraciones/configuraciones.comp
   OpcionesPerfilComponent,
   NotificacionesComponent,
   OpcionesMenuComponent,
-  ConfiguracionesComponent
+  ConfiguracionesComponent,
+  CardsBimestreComponent,
+  GraficaContenedorComponent,
   ],
   exports:[
   ],
