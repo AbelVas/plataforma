@@ -8,7 +8,7 @@ const loginController=async({body}:Request,res:Response)=>{
         const {usuario,pass}=body;
         const responseUser=await loginAdmin(usuario,pass);
         if(responseUser==='Usuario o Contraseña Incorrecta'){
-            res.status(403);
+            //res.status(403);
             res.send(responseUser);
         }else{
             res.send(responseUser);   

@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit{
     usuario:'',
     pass:''
   }
-
+  alertaError='0';
   errorLogininputs='form-control form-control-lg'
   constructor(private router:Router,private loginService:LoginService){}
   ngOnInit(){
@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['admin']);
       },
       error=>{
-        console.log(error);
+        this.errorLogininputs='form-control form-control-lg border-danger';
+        this.alertaError='1'
       }
     )
-   // this.errorLogininputs='form-control form-control-lg border-danger';
   }
 }

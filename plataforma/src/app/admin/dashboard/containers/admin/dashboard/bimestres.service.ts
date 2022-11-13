@@ -10,12 +10,11 @@ export class BimestreService {
   URL='http://localhost:3002';
 
   getUnidades():Observable<any>{
-    //const httOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/unidades/`).pipe(
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/unidades/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-
   private handleError(error:Response){
     console.log(error);
     const msg='Codigo de Error: '+error.status+' Status: '+error.statusText;
