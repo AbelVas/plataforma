@@ -10,22 +10,18 @@
           <h3 class="text-center">Plataforma Acad&eacute;mica</h3><br><br>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg"
-              placeholder="Enter a valid email address" />
-            <label class="form-label" for="form3Example3">Usuario</label>
+            <input type="email" [(ngModel)]="datosLogin.usuario" name="usuario" [class]="errorLogininputs" placeholder="Usuario" />
           </div>
           <!-- Password input -->
           <div class="form-outline mb-3">
-            <input type="password" id="form3Example4" class="form-control form-control-lg"
-              placeholder="Enter password" />
-            <label class="form-label" for="form3Example4">Contrase&ntilde;a</label>
+            <input type="password" [(ngModel)]="datosLogin.pass" name="pass" [class]="errorLogininputs" placeholder="Contraseña" />
           </div>
           <div class="d-flex justify-content-between align-items-center">
-            <a href="#!" class="text-body">Olvidar la contrase&ntilde;a</a>
+            <br><a class="text-body">Olvide mi contraseña?</a>
           </div>
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="button" class="btn btn-primary btn-lg"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+               (click)="loginIn()">Iniciar Sesión</button>
           </div>
         </form>
       </div>

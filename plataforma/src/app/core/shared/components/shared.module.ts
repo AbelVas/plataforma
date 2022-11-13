@@ -3,12 +3,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NotFoundComponent } from "./not-found/not-cound.component";
+import { FormsModule } from "@angular/forms";
+import { LoginService } from "src/app/public/login/components/auth-service.service";
 
 @NgModule({
   imports:[
     HttpClientModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   declarations:[
     NotFoundComponent
@@ -16,9 +19,13 @@ import { NotFoundComponent } from "./not-found/not-cound.component";
   exports:[
     HttpClientModule,
     RouterModule,
+    CommonModule,
+    FormsModule,
     NotFoundComponent
   ],
-  providers:[]
+  providers:[
+    LoginService
+  ]
 })
 
 export class SharedModule{

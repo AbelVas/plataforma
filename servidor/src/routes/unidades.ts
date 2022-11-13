@@ -5,11 +5,19 @@ import { checkJwt } from "../middleware/session";
 
 const router=Router();
 
+router.get("/",getUnidades);
+router.get("/:id",getUnidad);
+router.post("/",postUnidad);
+router.put("/:id",updateUnidades);
+router.delete("/:id",deleteUnidad);
+
+/*
 router.get("/",checkJwt,getUnidades);
 router.get("/:id",checkJwt,getUnidad);
 router.post("/",checkJwt,postUnidad);
 router.put("/:id",checkJwt,updateUnidades);
 router.delete("/:id",checkJwt,deleteUnidad);
+*/
 
 
 export {router};

@@ -12,9 +12,10 @@ import { OpcionesPerfilComponent } from './margenes/header/components/opciones-p
 import { NotificacionesComponent } from './margenes/header/components/notificaciones/notificaciones.component';
 import { OpcionesMenuComponent } from './margenes/sidebar/opciones-menu/opciones-menu.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
-import { CardsBimestreComponent } from './dashboard/components/cards-bimestre/cards-bimestre.component';
+import { CardsBimestreComponent } from './dashboard/components/cards-resumen/cards-bimestre.component';
 import { GraficaContenedorComponent } from './dashboard/components/grafica-contenedor/grafica-contenedor.component';
-//
+import { AjustesUnidadComponent } from './dashboard/components/ajustes-unidad/ajustes-unidad.component';
+import { BimestreService } from "./dashboard/containers/admin/dashboard/bimestres.service";//
 
 
 @NgModule({
@@ -35,10 +36,13 @@ import { GraficaContenedorComponent } from './dashboard/components/grafica-conte
   ConfiguracionesComponent,
   CardsBimestreComponent,
   GraficaContenedorComponent,
+  AjustesUnidadComponent,
   ],
   exports:[
   ],
-  providers:[]
+  providers:[
+    BimestreService
+  ]
 })
 
 export class AdminModule{
