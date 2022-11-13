@@ -12,14 +12,11 @@ export class LoginService {
 
   login(user:any){
     //const httOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    console.log(user);
-    return this.http.post(`${this.URL}/auth/login`,user).pipe(
-      catchError(this.handleError)
-    );
+
+    return this.http.post(`${this.URL}/auth/login`,user);
   }
 
   private handleError(error:Response){
-    console.log(error);
     const msg='Codigo de Error: '+error.status+' Status: '+error.statusText;
     return throwError(msg)
   }
