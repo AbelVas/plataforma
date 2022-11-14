@@ -8,15 +8,13 @@
                 <div class="activite-label">
                   <div class="form-check form-switch">
                     <div *ngIf="u.estado==1; else switchOff" >
-                      <input class="form-check-input" type="checkbox" role="switch" id="{{u.idUnidad}}" checked>
+                      <input class="form-check-input" type="checkbox" (change)="selectedCheck($event,u.idUnidad)" role="switch" value="{{u.idUnidad}}" checked>
                       <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label>
                     </div>
-
                     <ng-template #switchOff>
-                      <input class="form-check-input" type="checkbox" role="switch" id="{{u.idUnidad}}">
-                      <label class="form-check-label text-danger" for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label>
+                      <input class="form-check-input" type="checkbox"(change)="noselectedCheck($event,u.idUnidad)" role="switch" value="{{u.idUnidad}}">
+                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label>
                     </ng-template>
-
                   </div>
                 </div>
             </div>

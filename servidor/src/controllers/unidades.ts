@@ -35,7 +35,7 @@ const updateUnidades=async(req:Request,res:Response)=>{
         const responseUpdate=await updateUnidadService(req.body,id);
         res.send(responseUpdate);
     }catch(e){
-        handleHttp(res,'Error Al obtener la Unidad')
+        handleHttp(res,'Error Al Actualizar la Unidad')
     }
 }
 const deleteUnidad= async(req:Request,res:Response)=>{

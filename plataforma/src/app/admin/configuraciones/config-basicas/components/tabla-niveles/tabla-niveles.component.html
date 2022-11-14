@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-lg-12">
+     <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title">Niveles Actuales</h5>
+
+        </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#basicModal"><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <table class="table">
+           <thead>
+              <tr>
+                 <th scope="col">#</th>
+                 <th scope="col">Nombre</th>
+                 <th scope="col">Acciones</th>
+              </tr>
+           </thead>
+           <tbody>
+              <tr>
+                 <th scope="row">1</th>
+                 <td>Brandon Jacob</td>
+                 <td>Designer</td>
+              </tr>
+           </tbody>
+        </table>
+
+     </div>
+     </div>
+  </div>
+</div>
+
+<div class="modal fade" id="basicModal" tabindex="-1">
+  <div class="modal-dialog">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Agregar Nivel</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    <form class="row g-3">
+        <div class="modal-body">
+             <div class="col-md-12">
+                <div class="form-floating"> <input type="text" class="form-control" id="floatingName" placeholder="Your Name"> <label for="floatingName">Nombre de la Jornada</label></div>
+             </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center"> <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+     </div>
+    </form>
+  </div>
+</div>
+
+

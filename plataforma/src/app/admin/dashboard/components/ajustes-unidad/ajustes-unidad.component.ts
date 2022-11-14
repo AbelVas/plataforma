@@ -9,6 +9,9 @@ import { BimestreService } from '../../containers/admin/dashboard/bimestres.serv
 export class AjustesUnidadComponent implements OnInit {
   unidades:any =[];
   ActivoInactivo='cheked';
+  estadoUnidad:any={
+    estado:''
+  }
   constructor(private servicioBimestre:BimestreService) { }
 
   ngOnInit(): void {
@@ -18,9 +21,54 @@ export class AjustesUnidadComponent implements OnInit {
     this.servicioBimestre.getUnidades().subscribe(
       response=>{
         this.unidades=response;
-        console.log(this.unidades);
       },
       error=>console.log(error)
     )
+  }
+  selectedCheck(e:any,idUnidad:string) { // here e is a native event
+    if(e.target.checked){
+      this.estadoUnidad.estado='1';
+      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
+        response=>{
+          this.getUnidades()
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    }else{
+      this.estadoUnidad.estado='0';
+      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
+        response=>{
+          this.getUnidades()
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    }
+  }
+  noselectedCheck(e:any,idUnidad:string){
+    if(!e.target.checked){
+      this.estadoUnidad.estado='0';
+      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
+        response=>{
+          this.getUnidades()
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    }else{
+      this.estadoUnidad.estado='1';
+      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
+        response=>{
+          this.getUnidades()
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    }
   }
 }

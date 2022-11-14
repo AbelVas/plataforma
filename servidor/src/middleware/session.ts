@@ -4,7 +4,6 @@ import { verifyToken } from "../utils/jwt.generador";
 const checkJwt=(req:Request,res:Response,next:NextFunction)=>{
     try{
         const jwtByUser=req.header('Auth-Token');
-        console.log(jwtByUser);
         if(jwtByUser==""){
             console.log("NUlO");
         }else{

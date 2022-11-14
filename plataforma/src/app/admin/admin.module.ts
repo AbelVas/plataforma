@@ -11,11 +11,17 @@ import { FooterComponent } from "./margenes/footer/footer.component";
 import { OpcionesPerfilComponent } from './margenes/header/components/opciones-perfil/opciones-perfil.component';
 import { NotificacionesComponent } from './margenes/header/components/notificaciones/notificaciones.component';
 import { OpcionesMenuComponent } from './margenes/sidebar/opciones-menu/opciones-menu.component';
-import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { CardsBimestreComponent } from './dashboard/components/cards-resumen/cards-bimestre.component';
 import { GraficaContenedorComponent } from './dashboard/components/grafica-contenedor/grafica-contenedor.component';
 import { AjustesUnidadComponent } from './dashboard/components/ajustes-unidad/ajustes-unidad.component';
-import { BimestreService } from "./dashboard/containers/admin/dashboard/bimestres.service";//
+import { BimestreService } from "./dashboard/containers/admin/dashboard/bimestres.service";
+import { GradosJornadasTabsComponent } from './dashboard/components/grados-jornadas-tabs/grados-jornadas-tabs.component';
+import { ConfigBasicasComponent } from './configuraciones/config-basicas/config-basicas.component';
+import { TablaSeccionesComponent } from './configuraciones/config-basicas/components/tabla-secciones/tabla-secciones.component';
+import { TablaJornadasComponent } from './configuraciones/config-basicas/components/tabla-jornadas/tabla-jornadas.component';
+import { TablaNivelesComponent } from './configuraciones/config-basicas/components/tabla-niveles/tabla-niveles.component';
+import { UnidadesConfigsComponent } from './configuraciones/config-basicas/components/unidades-configs/unidades-configs.component';//
+import { JornadasService } from "./configuraciones/config-basicas/services/jornadas.service";
 
 
 @NgModule({
@@ -33,15 +39,21 @@ import { BimestreService } from "./dashboard/containers/admin/dashboard/bimestre
   OpcionesPerfilComponent,
   NotificacionesComponent,
   OpcionesMenuComponent,
-  ConfiguracionesComponent,
   CardsBimestreComponent,
   GraficaContenedorComponent,
   AjustesUnidadComponent,
+  GradosJornadasTabsComponent,
+  ConfigBasicasComponent,
+  TablaSeccionesComponent,
+  TablaJornadasComponent,
+  TablaNivelesComponent,
+  UnidadesConfigsComponent,
   ],
   exports:[
   ],
   providers:[
-    BimestreService
+    BimestreService,
+    JornadasService
   ]
 })
 

@@ -1,6 +1,6 @@
 <li class="nav-item"> <a class="nav-link " routerLink="dashboard"> <i class="fa-solid fa-gauge"></i> <span>Dashboard</span> </a></li>
      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#"> <i class="fa-solid fa-gauge"></i><span>Components</span><i class="fa-solid fa-chevron-down ms-auto"></i> </a>
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#"> <i class="fa-solid fa-gauge "></i><span>Components</span><i class="fa-solid fa-chevron-down ms-auto"></i> </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
            <li> <a routerLink="/alerts"> <i class="bi bi-circle"></i><span>Alerts</span> </a></li>
            <li> <a routerLink="/accordion"> <i class="bi bi-circle"></i><span>Accordion</span> </a></li>
@@ -19,7 +19,7 @@
         </ul>
      </li>
      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-journal-text"></i><span>Forms</span><i class="fa-solid fa-chevron-down ms-auto"></i></a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
            <li> <a routerLink="/form-elements"> <i class="bi bi-circle"></i><span>Form Elements</span> </a></li>
            <li> <a routerLink="/form-layouts"> <i class="bi bi-circle"></i><span>Form Layouts</span> </a></li>
@@ -48,16 +48,27 @@
            <li> <a routerLink="/icons-boxicons"> <i class="bi bi-circle"></i><span>Boxicons</span> </a></li>
         </ul>
      </li>
-     <li class="nav-heading">Configuraciones</li>
-
+     <li class="nav-heading">Administrativo</li>
      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#config-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+        <a class="nav-link collapsed" data-bs-target="#config-nav" data-bs-toggle="collapse" href="#"> <i class="fa-solid fa-gear"></i><span>Configuraciones</span><i class="fa-solid fa-chevron-down ms-auto"></i> </a>
         <ul id="config-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-           <li> <a routerLink="/icons-boxicons"> <i class="bi bi-circle"></i><span>Boxicons</span> </a></li>
+           <li> <a routerLink="settings/basic"> <i class="fa-solid fa-circle"></i><span> Básico</span> </a></li>
+           <li> <a routerLink="/icons-boxicons"> <i class="fa-solid fa-circle"></i><span> Apariencia</span> </a></li>
         </ul>
      </li>
-
-
-
-
-     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="bi bi-file-earmark"></i> <span>Blank</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="fa-solid fa-book-open-reader"></i> <span>Cursos</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="fa-solid fa-shield-halved"></i> <span>Seguridad</span> </a></li>
+     <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#config-nav-caracters" data-bs-toggle="collapse" href="#"> <i class="fa-solid fa-camera-retro"></i><span>Características</span><i class="fa-solid fa-chevron-down ms-auto"></i> </a>
+      <ul id="config-nav-caracters" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+         <li> <a routerLink="/icons-boxicons"> <i class="fa-solid fa-circle"></i><span> Docentes</span> </a></li>
+         <li> <a routerLink="/icons-boxicons"> <i class="fa-solid fa-circle"></i><span> Alumnos</span> </a></li>
+      </ul>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#config-nav-complementos" data-bs-toggle="collapse" href="#"> <i class="fa-solid fa-puzzle-piece"></i><span>Complementos</span><i class="fa-solid fa-chevron-down ms-auto"></i> </a>
+        <ul id="config-nav-complementos" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+           <li> <a routerLink="/icons-boxicons"> <i class="fa-solid fa-circle"></i><span> Instalados</span> </a></li>
+           <li> <a routerLink="/icons-boxicons"> <i class="fa-solid fa-circle"></i><span> Disponibles</span> </a></li>
+        </ul>
+      </li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="fa-solid fa-code-compare"></i> <span>Versión</span> </a></li>
