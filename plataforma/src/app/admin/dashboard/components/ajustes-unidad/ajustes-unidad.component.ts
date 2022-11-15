@@ -9,6 +9,7 @@ import { BimestreService } from '../../containers/admin/dashboard/bimestres.serv
 export class AjustesUnidadComponent implements OnInit {
   unidades:any =[];
   ActivoInactivo='cheked';
+  errorServicio:any={};
   estadoUnidad:any={
     estado:''
   }
@@ -21,8 +22,12 @@ export class AjustesUnidadComponent implements OnInit {
     this.servicioBimestre.getUnidades().subscribe(
       response=>{
         this.unidades=response;
+        this.errorServicio=''
       },
-      error=>console.log(error)
+      error=>{
+        this.errorServicio=error
+        console.log(this.errorServicio);
+      }
     )
   }
   selectedCheck(e:any,idUnidad:string) { // here e is a native event
@@ -33,7 +38,7 @@ export class AjustesUnidadComponent implements OnInit {
           this.getUnidades()
         },
         error=>{
-          console.log(error)
+          this.errorServicio=error
         }
       )
     }else{
@@ -43,7 +48,7 @@ export class AjustesUnidadComponent implements OnInit {
           this.getUnidades()
         },
         error=>{
-          console.log(error)
+          this.errorServicio=error
         }
       )
     }
@@ -56,7 +61,7 @@ export class AjustesUnidadComponent implements OnInit {
           this.getUnidades()
         },
         error=>{
-          console.log(error)
+          this.errorServicio=error
         }
       )
     }else{
@@ -66,7 +71,7 @@ export class AjustesUnidadComponent implements OnInit {
           this.getUnidades()
         },
         error=>{
-          console.log(error)
+          this.errorServicio=error
         }
       )
     }

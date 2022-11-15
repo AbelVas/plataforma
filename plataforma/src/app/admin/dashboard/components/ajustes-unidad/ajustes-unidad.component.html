@@ -4,6 +4,7 @@
           <h5 class="card-title">Bimestres <span>| Activos/Inactivos</span></h5>
           <div class="activity">
             <!--Aqui debo meter el for-->
+          <div>
             <div class="activity-item d-flex" *ngFor="let u of unidades">
                 <div class="activite-label">
                   <div class="form-check form-switch">
@@ -18,8 +19,12 @@
                   </div>
                 </div>
             </div>
-            <!--aqui finaliza el fot-->
+            <!--aqui finaliza el for-->
           </div>
+          <div *ngIf="errorServicio!=''">
+            <div class="alert alert-danger text-center" role="alert">{{errorServicio.codigoError}} <b>, Detalles:</b> {{errorServicio.Mensaje}}</div>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -3,29 +3,79 @@
      <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between">
-          <h5 class="card-title">Niveles Actuales</h5>
+          <h5 class="card-title">Niveles Acádemicos <span>| Manejo y Configuración</span></h5>
 
         </div>
         <div class="text-end">
-          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#basicModal"><i class="fa-solid fa-plus"></i></button>
+          <button type="button" class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#basicModal"><i class="fa-solid fa-plus"></i></button>
         </div>
-        <table class="table">
+        <table class="table table-hover">
            <thead>
               <tr>
                  <th scope="col">#</th>
                  <th scope="col">Nombre</th>
+                 <th scope="col">Jornada</th>
                  <th scope="col">Acciones</th>
               </tr>
            </thead>
            <tbody>
-              <tr>
-                 <th scope="row">1</th>
-                 <td>Brandon Jacob</td>
-                 <td>Designer</td>
+              <tr *ngFor="let n of nivelesGet;let i=index">
+                 <th scope="row">{{i+1}}</th>
+                 <td>{{n.nivel}}</td>
+                 <td>{{n.jornada}}</td>
+                 <td>
+                  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditNivelModal" (click)="buscarNivelArray(n.idNivel)"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarNivelModal" (click)="buscarNivelArray(n.idNivel)"><i class="fa-solid fa-trash-can"></i></button>
+                 </td>
+              </tr>
+              <tr *ngIf="errorServicio!=''">
+                <td colspan="4">
+                  <div class="alert alert-danger text-center" role="alert">
+                     {{errorServicio.codigoError}} <b>, Detalles:</b> {{errorServicio.Mensaje}}</div>
+                </td>
               </tr>
            </tbody>
         </table>
-
+        <!--modal Editar-->
+        <div class="modal fade" id="EditNivelModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Editar Jornadas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-floating">
+                  <input type="text" class="form-control" name="jornada" [(ngModel)]="nivelIndividual.nivel" autocomplete="off">
+                  <label for="floatingName">Nombre del Nivel</label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editarNivel(nivelIndividual.idNivel)"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--modal Eliminar-->
+        <div class="modal fade" id="EliminarNivelModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Eliminar Jornada</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-warning" role="alert">Si la jornada esá asignada a un nivel, no será posible eliminarla. <b>Esa acción de concretarse no se puede deshacer</b></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarNivel(nivelIndividual.idNivel)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--FIn modales-->
      </div>
      </div>
   </div>
@@ -35,7 +85,7 @@
   <div class="modal-dialog">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title">Agregar Nivel</h5>
+           <h5 class="modal-title">Agregar Jornada</h5>
            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
     <form class="row g-3">
@@ -45,7 +95,7 @@
              </div>
         </div>
         <div class="modal-footer">
-          <div class="text-center"> <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
+          <div class="text-center"> <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="crearNivel()"><i class="fa-solid fa-plus"></i> Crear</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
      </div>

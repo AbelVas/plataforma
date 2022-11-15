@@ -22,6 +22,7 @@ import { TablaJornadasComponent } from './configuraciones/config-basicas/compone
 import { TablaNivelesComponent } from './configuraciones/config-basicas/components/tabla-niveles/tabla-niveles.component';
 import { UnidadesConfigsComponent } from './configuraciones/config-basicas/components/unidades-configs/unidades-configs.component';//
 import { JornadasService } from "./configuraciones/config-basicas/services/jornadas.service";
+import { NivelesService } from "./configuraciones/config-basicas/services/niveles.service";
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { JornadasService } from "./configuraciones/config-basicas/services/jorna
   ],
   providers:[
     BimestreService,
-    JornadasService
+    JornadasService,
+    NivelesService
   ]
 })
 

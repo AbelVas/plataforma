@@ -5,7 +5,7 @@ const JWT_SECRET=process.env.JWT_SECRET || "fc368f3e3407a7606f3d8d85db76a2f439ea
 
 
 const generateToken=(idUsuario:string,idRol:string)=>{
-    const jwt=sign({idUsuario,idRol},JWT_SECRET,{expiresIn:"2h"});
+    const jwt=sign({idUsuario,idRol},JWT_SECRET,{expiresIn:"24h"});
     return jwt;
 }
 const verifyToken=(jwt:any)=>{
