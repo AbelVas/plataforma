@@ -15,6 +15,12 @@ export class NivelesService {
       catchError(this.handleError)
     );
   }
+  updateNiveles(idNivel:string,data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/jornadas/${idNivel}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){
