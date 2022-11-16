@@ -21,5 +21,8 @@ const insertProfesorService=async(data:Request)=>{
     const responseInsert=await conexion.query('INSERT INTO tbProfesor set ?',[data]);
     return responseInsert;
 }
-
-export{obtenerProfesoresService,obtenerProfesorService,updateProfesorService,deleteProfesorService,insertProfesorService}
+const validarAdminExisteSi=async(usuario:string,CUI:string,telefono:string)=>{
+    const data=await conexion.query('SELECT idProfesor FROM tbProfesor WHERE usuario=? and CUI=? and telefono=?',[usuario,CUI,telefono]);
+    return data;
+}
+export{obtenerProfesoresService,obtenerProfesorService,updateProfesorService,deleteProfesorService,insertProfesorService,validarAdminExisteSi}

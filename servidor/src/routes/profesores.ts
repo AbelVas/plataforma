@@ -7,7 +7,7 @@ const router=Router();
 
 router.get("/",checkJwt,getProfesores);
 router.get("/:id",checkJwt,getProfesor);
-router.post("/",checkJwt,insertarProfesor);
+router.put("/",checkJwt,insertarProfesor);
 router.put("/:id",checkJwt,updateProfesor);
 router.delete("/:id",checkJwt,deleteProfesor);
 

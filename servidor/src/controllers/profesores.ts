@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { obtenerProfesoresService,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService } from "../service/profesores";
+import { obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService } from "../service/profesores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -42,10 +42,15 @@ const deleteProfesor= async(req:Request,res:Response)=>{
 }
 const insertarProfesor= async(req:Request,res:Response)=>{
     try{
-        const passEncrypt=await encrypt(req.body.pass);
-        req.body.pass=passEncrypt
-        const resultadoProfesor=await insertProfesorService(req.body);
-        res.send(resultadoProfesor);
+        const validar=await validarAdminExisteSi(req.body.usuario,req.body.CUI,req.body.telefono);
+        if(validar!=''){
+            res.send("Error, Usuario ya existe")
+        }else{
+            const passEncrypt=await encrypt(req.body.pass);
+            req.body.pass=passEncrypt
+            const resultadoProfesor=await insertProfesorService(req.body);
+            res.send(resultadoProfesor);
+        }
     }catch(e){
         handleHttp(res,'Error al Insertar al Profesor',e)
     }

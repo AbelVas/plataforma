@@ -18,7 +18,6 @@ const putAdmin=async(req:Request,res:Response)=>{
          handleHttp(res,'Error ingresar Administrador',e)
      }
 }
-
 const deleteAdmin=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
