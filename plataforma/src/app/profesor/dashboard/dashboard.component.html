@@ -1,1 +1,28 @@
-<p>dashboard works teacher</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Profesor Pececito</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section dashboard">
+     <div class="row">
+        <div class="col-lg-8">
+          <app-card-resumen></app-card-resumen>
+          <app-card-clases-jornadas></app-card-clases-jornadas>
+        </div>
+        <div class="col-lg-4">
+          <!--- Aquí va lo de la segunda columna -->
+          <div class="row">
+
+            <app-all-calendario-profesores></app-all-calendario-profesores>
+            <app-actividades-calificar-profesores></app-actividades-calificar-profesores>
+            <app-guia-plani-profesores></app-guia-plani-profesores>
+
+          </div>
+        </div>
+     </div>
+  </section>
+</main>

@@ -11,6 +11,24 @@ import { OpcionesMenuComponent } from './margenes/sidebar/opciones-menu/opciones
 import { ConfigBasicasComponent } from './configuraciones/config-basicas/config-basicas.component';
 import { OpcionesPerfilComponent } from "./margenes/header/components/opciones-perfil/opciones-perfil.component";
 import { NotificacionesComponent } from "./margenes/header/components/notificaciones/notificaciones.component";
+import { CardResumenComponent } from './dashboard/components/card-resumen/card-resumen.component';
+import { CardClasesJornadasComponent } from './dashboard/components/card-clases-jornadas/card-clases-jornadas.component';
+import { AllCalendarioProfesoresComponent } from './dashboard/components/all-calendario-profesores/all-calendario-profesores.component';
+import { ActividadesCalificarProfesoresComponent } from './dashboard/components/actividades-calificar-profesores/actividades-calificar-profesores.component';
+import { GuiaPlaniProfesoresComponent } from './dashboard/components/guia-plani-profesores/guia-plani-profesores.component';
+import { ForoProfesorComponent } from './foro-profesor/foro-profesor.component';
+import { PlanificacionesProfesorComponent } from './planificaciones-profesor/planificaciones-profesor.component';
+import { GradoGuiaProfesorComponent } from './grado-guia-profesor/grado-guia-profesor.component';
+import { CursosProfesorComponent } from './cursos-profesor/cursos-profesor.component';
+import { CardResumenCursosProfesorComponent } from './cursos-profesor/card-resumen-cursos-profesor/card-resumen-cursos-profesor.component';
+import { CursoCalendarioProfesoresComponent } from './cursos-profesor/curso-calendario-profesores/curso-calendario-profesores.component';
+import { LisAlumnosProfesoresComponent } from './cursos-profesor/lis-alumnos-profesores/lis-alumnos-profesores.component';
+import { ActAnuRecCursosProfesoresComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/act-anu-rec-cursos-profesores.component';
+import { ActividadesCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/actividades-cursos-profesor/actividades-cursos-profesor.component';
+import { AnunciosCursosProfesoresComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/anuncios-cursos-profesores/anuncios-cursos-profesores.component';
+import { RecursosCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/recursos-cursos-profesor/recursos-cursos-profesor.component';
+import { TablaProfesoresComponent } from "./configuraciones/config-basicas/components/prueba-tabla-profesores/prueba-tabla-profesores.component";
+import { ProfesoresService } from "./configuraciones/config-basicas/services/profesores.service";
 //
 
 
@@ -27,12 +45,31 @@ import { NotificacionesComponent } from "./margenes/header/components/notificaci
   HeaderComponent,
   OpcionesMenuComponent,
   ConfigBasicasComponent,
+  TablaProfesoresComponent,
   OpcionesPerfilComponent,
-  NotificacionesComponent
+  NotificacionesComponent,
+  CardResumenComponent,
+  CardClasesJornadasComponent,
+  AllCalendarioProfesoresComponent,
+  ActividadesCalificarProfesoresComponent,
+  GuiaPlaniProfesoresComponent,
+  ForoProfesorComponent,
+  PlanificacionesProfesorComponent,
+  GradoGuiaProfesorComponent,
+  CursosProfesorComponent,
+  CardResumenCursosProfesorComponent,
+  CursoCalendarioProfesoresComponent,
+  LisAlumnosProfesoresComponent,
+  ActAnuRecCursosProfesoresComponent,
+  ActividadesCursosProfesorComponent,
+  AnunciosCursosProfesoresComponent,
+  RecursosCursosProfesorComponent
   ],
   exports:[
   ],
-  providers:[]
+  providers:[
+    ProfesoresService
+  ]
 })
 
 export class ProfesorModule{
