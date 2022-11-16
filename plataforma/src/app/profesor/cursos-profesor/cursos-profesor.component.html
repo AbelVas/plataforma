@@ -1,0 +1,28 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Profesor Pececito</h1>
+     <nav>
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+         <li class="breadcrumb-item active">Curso</li>
+      </ol>
+   </nav>
+  </div>
+  <section class="section dashboard">
+     <div class="row">
+        <div class="col-lg-8">
+          <app-card-resumen-cursos-profesor></app-card-resumen-cursos-profesor>
+          <app-act-anu-rec-cursos-profesores></app-act-anu-rec-cursos-profesores>
+        </div>
+        <div class="col-lg-4">
+          <!--- Aquí va lo de la segunda columna -->
+          <div class="row">
+
+            <app-curso-calendario-profesores></app-curso-calendario-profesores>
+            <app-lis-alumnos-profesores></app-lis-alumnos-profesores>
+
+          </div>
+        </div>
+     </div>
+  </section>
+</main>

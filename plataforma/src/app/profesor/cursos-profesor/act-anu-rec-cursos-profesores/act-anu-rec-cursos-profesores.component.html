@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+       <div class="card-body">
+        <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+          <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100 active" id="actividades-tab" data-bs-toggle="tab" data-bs-target="#actividades-justified" type="button" role="tab" aria-controls="actividades" aria-selected="true">Actividades</button></li>
+          <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios-justified" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Anuncios</button></li>
+          <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="recursos-tab" data-bs-toggle="tab" data-bs-target="#recursos-justified" type="button" role="tab" aria-controls="recursos" aria-selected="false">Recursos</button></li>
+        </ul>
+        <div class="tab-content pt-2" id="myTabjustifiedContent">
+            <div class="tab-pane fade show active" id="actividades-justified" role="tabpanel" aria-labelledby="actividades-tab">
+              <app-actividades-cursos-profesor></app-actividades-cursos-profesor>
+            </div>
+            <div class="tab-pane fade" id="anuncios-justified" role="tabpanel" aria-labelledby="anuncios-tab">
+              <app-anuncios-cursos-profesores></app-anuncios-cursos-profesores>
+            </div>
+            <div class="tab-pane fade" id="recursos-justified" role="tabpanel" aria-labelledby="recursos-tab">
+              <app-recursos-cursos-profesor></app-recursos-cursos-profesor>
+            </div>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
