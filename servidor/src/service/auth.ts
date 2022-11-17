@@ -25,7 +25,6 @@ const loginUser=async(email:string,password:string)=>{
         token,
         user:datos
     }
-    console.log(data);
     return data;
 }
 export {loginUser}
