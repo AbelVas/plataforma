@@ -8,7 +8,6 @@ import { ForoProfesorComponent } from "./foro-profesor/foro-profesor.component";
 import { PlanificacionesProfesorComponent } from "./planificaciones-profesor/planificaciones-profesor.component";
 import { GradoGuiaProfesorComponent } from "./grado-guia-profesor/grado-guia-profesor.component";
 import { PerfilProfesorComponent } from "./perfil-profesor/perfil-profesor.component";
-import { ConfigBasicasComponent } from "./configuraciones/config-basicas/config-basicas.component";
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
 

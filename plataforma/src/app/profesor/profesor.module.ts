@@ -32,8 +32,6 @@ import { EditPerfilProfesorComponent } from './perfil-profesor/components/edit-p
 import { SettingsPefilProfesorComponent } from './perfil-profesor/components/settings-pefil-profesor/settings-pefil-profesor.component';
 import { PasswordPerfilProfesoresComponent } from './perfil-profesor/components/password-perfil-profesores/password-perfil-profesores.component';
 import { PerfilProfesorService } from "./perfil-profesor/services/perfil-profesor.service";
-import { TablaProfesoresComponent } from "./configuraciones/config-basicas/components/prueba-tabla-profesores/prueba-tabla-profesores.component";
-import { ProfesoresService } from "./configuraciones/config-basicas/services/profesores.service";
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
 //
@@ -78,8 +76,7 @@ import { RolesGuard } from "../guards/roles.guard";
   exports:[
   ],
   providers:[
-    PerfilProfesorService
-    ProfesoresService,
+    PerfilProfesorService,
     AuthGuard,
     RolesGuard
   ]
