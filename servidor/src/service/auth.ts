@@ -4,11 +4,12 @@ import conexion from "../config/database";
 import { generateToken } from "../utils/jwt.generador";
 
 const loginUser=async(email:string,password:string)=>{
-    const checkIs=await conexion.query("SELECT idProfesor,idRol,pass FROM `tbProfesor` WHERE `usuario`=? and idRol='1'",[email]);
+    const checkIs=await conexion.query("SELECT idProfesor,idRol,pass FROM `tbProfesor` WHERE `usuario`=?",[email]);
     if(checkIs=='') return "Usuario o Contraseña Incorrecta"
     const dataUsuario:any=Object.values(checkIs[0]);
     const passwordHash=dataUsuario[2]
     const isCorrect=await verified(password,passwordHash);
+    
     // Datos para el Json Web Token
     const idUsuario=dataUsuario[0];
     const idRol=dataUsuario[1];
@@ -24,6 +25,7 @@ const loginUser=async(email:string,password:string)=>{
         token,
         user:datos
     }
+    console.log(data);
     return data;
 }
 export {loginUser}

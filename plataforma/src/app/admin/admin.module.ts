@@ -23,6 +23,9 @@ import { TablaNivelesComponent } from './configuraciones/config-basicas/componen
 import { UnidadesConfigsComponent } from './configuraciones/config-basicas/components/unidades-configs/unidades-configs.component';//
 import { JornadasService } from "./configuraciones/config-basicas/services/jornadas.service";
 import { NivelesService } from "./configuraciones/config-basicas/services/niveles.service";
+import {PerfilService} from "./profile/services/perfil.service"
+import { AuthGuard } from "../guards/auth.guard";
+import { RolesGuard } from "../guards/roles.guard";
 
 
 @NgModule({
@@ -55,7 +58,10 @@ import { NivelesService } from "./configuraciones/config-basicas/services/nivele
   providers:[
     BimestreService,
     JornadasService,
-    NivelesService
+    NivelesService,
+    PerfilService,
+    AuthGuard,
+    RolesGuard
   ]
 })
 

@@ -29,6 +29,8 @@ import { AnunciosCursosProfesoresComponent } from './cursos-profesor/act-anu-rec
 import { RecursosCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/recursos-cursos-profesor/recursos-cursos-profesor.component';
 import { TablaProfesoresComponent } from "./configuraciones/config-basicas/components/prueba-tabla-profesores/prueba-tabla-profesores.component";
 import { ProfesoresService } from "./configuraciones/config-basicas/services/profesores.service";
+import { AuthGuard } from "../guards/auth.guard";
+import { RolesGuard } from "../guards/roles.guard";
 //
 
 
@@ -68,7 +70,9 @@ import { ProfesoresService } from "./configuraciones/config-basicas/services/pro
   exports:[
   ],
   providers:[
-    ProfesoresService
+    ProfesoresService,
+    AuthGuard,
+    RolesGuard
   ]
 })
 
