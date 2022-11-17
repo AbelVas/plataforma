@@ -7,13 +7,20 @@ import{JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
 @Injectable()
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private jwtHelper:JwtHelperService) { }
   URL='http://localhost:3002';
+
 
   login(user:any){
     //const httOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-
     return this.http.post(`${this.URL}/auth/login`,user);
+  }
+  isAuth():boolean{
+    const Token:any=localStorage.getItem('Acces-Token');
+    if(!localStorage.getItem('Acces-Token')||this.jwtHelper.isTokenExpired(Token.toString())){
+      return false; //SI RETORNA FALSE SIGNIFICA QUE LA SESSIÓN YA NO ESTÁ ACTIVA O EL TOKEN EXPIRÓ
+    }
+    return true;
   }
 
   private handleError(error:Response){
