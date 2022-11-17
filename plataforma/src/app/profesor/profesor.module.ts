@@ -8,7 +8,6 @@ import { FooterComponent } from './margenes/footer/footer.component';
 import { SidebarComponent } from './margenes/sidebar/sidebar.component';
 import { HeaderComponent } from './margenes/header/header.component';
 import { OpcionesMenuComponent } from './margenes/sidebar/opciones-menu/opciones-menu.component';
-import { ConfigBasicasComponent } from './configuraciones/config-basicas/config-basicas.component';
 import { OpcionesPerfilComponent } from "./margenes/header/components/opciones-perfil/opciones-perfil.component";
 import { NotificacionesComponent } from "./margenes/header/components/notificaciones/notificaciones.component";
 import { CardResumenComponent } from './dashboard/components/card-resumen/card-resumen.component';
@@ -27,8 +26,12 @@ import { ActAnuRecCursosProfesoresComponent } from './cursos-profesor/act-anu-re
 import { ActividadesCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/actividades-cursos-profesor/actividades-cursos-profesor.component';
 import { AnunciosCursosProfesoresComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/anuncios-cursos-profesores/anuncios-cursos-profesores.component';
 import { RecursosCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/recursos-cursos-profesor/recursos-cursos-profesor.component';
-import { TablaProfesoresComponent } from "./configuraciones/config-basicas/components/prueba-tabla-profesores/prueba-tabla-profesores.component";
-import { ProfesoresService } from "./configuraciones/config-basicas/services/profesores.service";
+import { PerfilProfesorComponent } from './perfil-profesor/perfil-profesor.component';
+import { OverviewPerfilProfesorComponent } from './perfil-profesor/components/overview-perfil-profesor/overview-perfil-profesor.component';
+import { EditPerfilProfesorComponent } from './perfil-profesor/components/edit-perfil-profesor/edit-perfil-profesor.component';
+import { SettingsPefilProfesorComponent } from './perfil-profesor/components/settings-pefil-profesor/settings-pefil-profesor.component';
+import { PasswordPerfilProfesoresComponent } from './perfil-profesor/components/password-perfil-profesores/password-perfil-profesores.component';
+import { PerfilProfesorService } from "./perfil-profesor/services/perfil-profesor.service";
 //
 
 
@@ -44,8 +47,6 @@ import { ProfesoresService } from "./configuraciones/config-basicas/services/pro
   SidebarComponent,
   HeaderComponent,
   OpcionesMenuComponent,
-  ConfigBasicasComponent,
-  TablaProfesoresComponent,
   OpcionesPerfilComponent,
   NotificacionesComponent,
   CardResumenComponent,
@@ -63,12 +64,17 @@ import { ProfesoresService } from "./configuraciones/config-basicas/services/pro
   ActAnuRecCursosProfesoresComponent,
   ActividadesCursosProfesorComponent,
   AnunciosCursosProfesoresComponent,
-  RecursosCursosProfesorComponent
+  RecursosCursosProfesorComponent,
+  PerfilProfesorComponent,
+  OverviewPerfilProfesorComponent,
+  EditPerfilProfesorComponent,
+  SettingsPefilProfesorComponent,
+  PasswordPerfilProfesoresComponent
   ],
   exports:[
   ],
   providers:[
-    ProfesoresService
+    PerfilProfesorService
   ]
 })
 

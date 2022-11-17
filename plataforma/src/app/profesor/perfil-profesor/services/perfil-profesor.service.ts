@@ -1,10 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 
-@Injectable()
-export class ProfesoresService {
+@Injectable({
+  providedIn: 'root'
+})
+export class PerfilProfesorService {
 
   constructor(private http:HttpClient) {}
   URL='http://localhost:3002';
@@ -53,5 +55,4 @@ export class ProfesoresService {
     }
     return throwError(msg)
   }
-
 }

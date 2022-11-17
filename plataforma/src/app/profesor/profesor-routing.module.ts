@@ -7,7 +7,7 @@ import { CursosProfesorComponent } from "./cursos-profesor/cursos-profesor.compo
 import { ForoProfesorComponent } from "./foro-profesor/foro-profesor.component";
 import { PlanificacionesProfesorComponent } from "./planificaciones-profesor/planificaciones-profesor.component";
 import { GradoGuiaProfesorComponent } from "./grado-guia-profesor/grado-guia-profesor.component";
-import { ConfigBasicasComponent } from "./configuraciones/config-basicas/config-basicas.component";
+import { PerfilProfesorComponent } from "./perfil-profesor/perfil-profesor.component";
 
 
 const routes:Routes=[
@@ -17,9 +17,9 @@ const routes:Routes=[
     {path:'dashboard', component:DashboardComponent},
     {path:'contenido/curso', component:CursosProfesorComponent},
     {path:'contenido/foro',component:ForoProfesorComponent},
-    {path:'cotenido/planificaciones',component:PlanificacionesProfesorComponent},
-    {path:'cotenido/grado-guia',component:GradoGuiaProfesorComponent},
-    {path:'cotenido/prueba-profesores',component:ConfigBasicasComponent}
+    {path:'contenido/planificaciones',component:PlanificacionesProfesorComponent},
+    {path:'contenido/grado-guia',component:GradoGuiaProfesorComponent},
+    {path:'contenido/perfil-profesores',component:PerfilProfesorComponent}
   ]
   },
 ]
