@@ -2,7 +2,6 @@ import { Component,OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginService } from "../components/auth-service.service";
 import decode from "jwt-decode"
-import { IfStmt } from "@angular/compiler";
 
 @Component({
   selector: 'app-login',
