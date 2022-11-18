@@ -8,11 +8,12 @@ import { IndexAdminComponent } from "./dashboard/index-admin.component";
 
 
 const routes:Routes=[
-  {path:'',component: AdminComponent,canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },children:
+  {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component: AdminComponent,children:
   [
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
-    {path:'dashboard', component:IndexAdminComponent},
-    {path:'settings/basic',component:ConfigBasicasComponent}
+    {path:'dashboard',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' }, component:IndexAdminComponent},
+    {path:'settings/basic',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ConfigBasicasComponent},
+    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ConfigBasicasComponent}
   ]
   },
 ]

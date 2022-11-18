@@ -13,15 +13,15 @@ import { RolesGuard } from "../guards/roles.guard";
 
 
 const routes:Routes=[
-  {path:'',component: ProfesorComponent,canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },children:
+  {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component: ProfesorComponent,children:
   [
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
-    {path:'dashboard', component:DashboardComponent},
-    {path:'contenido/curso', component:CursosProfesorComponent},
-    {path:'contenido/foro',component:ForoProfesorComponent},
-    {path:'contenido/planificaciones',component:PlanificacionesProfesorComponent},
-    {path:'contenido/grado-guia',component:GradoGuiaProfesorComponent},
-    {path:'contenido/perfil-profesores',component:PerfilProfesorComponent}
+    {path:'dashboard',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:DashboardComponent},
+    {path:'contenido/curso',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:CursosProfesorComponent},
+    {path:'contenido/foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoProfesorComponent},
+    {path:'contenido/planificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PlanificacionesProfesorComponent},
+    {path:'contenido/grado-guia',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:GradoGuiaProfesorComponent},
+    {path:'contenido/perfil-profesores',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PerfilProfesorComponent}
   ]
   },
 ]
