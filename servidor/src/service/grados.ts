@@ -37,4 +37,9 @@ const insertGradoService=async(data:Request)=>{
 
 }
 
-export{GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService}
+const getGradoNivelService=async(idNivel:string)=>{
+    const responseGetNivel=await conexion.query('SELECT * FROM tbGrado WHERE idNivel=?',[idNivel]);
+    return responseGetNivel;
+}
+
+export{GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService, getGradoNivelService}

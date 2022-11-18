@@ -26,4 +26,9 @@ const insertCursosService=async(data:Request)=>{
     return responseInsert;
 }
 
-export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService}
+const obtenerCursosPorGradoService = async(idGrado:string)=>{
+    const responseGet=await conexion.query('SELECT * FROM tbCurso WHERE idGrado=?',idGrado);
+    return responseGet;
+}
+
+export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService}
