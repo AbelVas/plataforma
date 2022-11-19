@@ -2,12 +2,12 @@ import { Request, response, Response } from "express";
 import conexion from "../config/database";
 
 const obtenerCursosService= async() =>{
-    const responseGet=await conexion.query('SELECT * FROM tbCurso');
+    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso');
     return responseGet;
 }
 
 const obtenerCursoService= async(id:string)=>{
-    const responseGet= await conexion.query('SELECT * FROM tbCurso WHERE idCurso=?',[id]);
+    const responseGet= await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso WHERE idCurso=?',[id]);
     return responseGet;
 }
 
@@ -27,7 +27,7 @@ const insertCursosService=async(data:Request)=>{
 }
 
 const obtenerCursosPorGradoService = async(idGrado:string)=>{
-    const responseGet=await conexion.query('SELECT * FROM tbCurso WHERE idGrado=?',idGrado);
+    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso WHERE idGrado=?',idGrado);
     return responseGet;
 }
 

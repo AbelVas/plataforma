@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import conexion from "../config/database";
 
 const obtenerProfesoresService=async()=>{
-    const responseGet=await conexion.query('SELECT * FROM tbProfesor WHERE idRol=2');
+    const responseGet=await conexion.query('SELECT `idProfesor`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo` FROM tbProfesor WHERE idRol=2');
     return responseGet;
 }
 const obtenerProfesorService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT * FROM tbProfesor WHERE idRol=2 and idProfesor=?',[id]);
+    const responseGet=await conexion.query('SELECT `idProfesor`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo` FROM tbProfesor WHERE idRol=2 and idProfesor=?',[id]);
     return responseGet;
 }
 const updateProfesorService=async(data:Request,id:string)=>{

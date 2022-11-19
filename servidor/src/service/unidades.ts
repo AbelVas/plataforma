@@ -6,11 +6,11 @@ const insertUnidadService=async (dato:Request)=>{
     return responseInsert;
 }
 const obtenerUnidadesService=async()=>{
-    const responseGet=await conexion.query('SELECT * FROM tbUnidad');
+    const responseGet=await conexion.query('SELECT `idUnidad`, `unidad`, `fecha_inicio`, `fecha_final`, `estado` FROM tbUnidad');
     return responseGet;
 }
 const obtenerUnidadService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT * FROM tbUnidad WHERE idUnidad=?',[id]);
+    const responseGet=await conexion.query('SELECT `idUnidad`, `unidad`, `fecha_inicio`, `fecha_final`, `estado` FROM tbUnidad WHERE idUnidad=?',[id]);
     return responseGet;
 }
 const updateUnidadService=async(dato:Request,id:string)=>{

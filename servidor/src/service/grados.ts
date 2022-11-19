@@ -4,14 +4,14 @@ import conexion from "../config/database";
 
 const GetGradosService=async()=>{
 
-    const responseGet=await conexion.query('SELECT * FROM tbGrado');
+    const responseGet=await conexion.query('SELECT `idGrado`, `idSeccion`, `nombre_grado`, `estatus` FROM tbGrado');
     return responseGet;
 
 }
 
 const GetGradoService=async(id:string)=>{
 
-    const responseGet=await conexion.query('SELECT * FROM tbGrado WHERE idGrado=?',[id]);
+    const responseGet=await conexion.query('SELECT `idGrado`, `idSeccion`, `nombre_grado`, `estatus` FROM tbGrado WHERE idGrado=?',[id]);
     return responseGet;
 
 }
@@ -38,7 +38,7 @@ const insertGradoService=async(data:Request)=>{
 }
 
 const getGradoNivelService=async(idNivel:string)=>{
-    const responseGetNivel=await conexion.query('SELECT * FROM tbGrado WHERE idNivel=?',[idNivel]);
+    const responseGetNivel=await conexion.query('SELECT `idGrado`, `idNivel`, `idSeccion`, `nombre_grado`, `estatus` FROM tbGrado WHERE idNivel=?',[idNivel]);
     return responseGetNivel;
 }
 

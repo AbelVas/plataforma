@@ -7,11 +7,11 @@ const insertTutoresService=async(data:Request)=>{
     return responseInsert;
 }
 const obtenerTutoresService=async()=>{
-    const responseGet=await conexion.query('SELECT * FROM tbTutor');
+    const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor');
     return responseGet;
 }
 const obtenerTutorService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT * FROM tbTutor WHERE idTutor=?',[id]);
+    const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idTutor=?',[id]);
     return responseGet;
 }
 const updateTutorService=async(data:Request,id:string)=>{

@@ -2,12 +2,12 @@ import { Request, response, Response } from "express";
 import conexion from "../config/database";
 
 const obtenerCodigosService=async()=>{
-    const responseGet = await conexion.query('SELECT * FROM tbCodigo');
+    const responseGet = await conexion.query('SELECT `idCodigo`, `codigo`, `fecha_creado`, `fecha_ingresado`, `activo` FROM tbCodigo');
     return responseGet;
 }
 
 const obtenerCodigoService=async(id:string)=>{
-    const responseGet = await conexion.query('SELECT * FROM tbCodigo WHERE idCodigo=?', [id]);
+    const responseGet = await conexion.query('SELECT `idCodigo`, `codigo`, `fecha_creado`, `fecha_ingresado`, `activo` FROM tbCodigo WHERE idCodigo=?', [id]);
     return responseGet;
 }
 

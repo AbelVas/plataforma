@@ -10,7 +10,7 @@ const obtenerNivelesService=async()=>{
     return response;
 }
 const obtenerNivelService=async(id:string)=>{
-    const response=await conexion.query("SELECT n.idNivel,j.idJornada,j.jornada,n.nivel FROM tbNivel n INNER JOIN tbJornada j on j.idJornada=n.idJornada WHERE idNivel=?",[id]);
+    const response=await conexion.query("SELECT n.idNivel,j.idJornada,j.jornada,n.nivel FROM tbNivel n INNER JOIN tbJornada j on j.idJornada=n.idJornada WHERE n.idNivel=?",[id]);
     return response;
 }
 const eliminarNivelService=async(id:string)=>{
