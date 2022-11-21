@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import conexion from "../config/database";
-import { encrypt } from "../utils/passwordFunction";
+import { encrypt,verified } from "../utils/passwordFunction";
 
 const insertarAdminService=async(req:Request)=>{
         const insert=await conexion.query('INSERT INTO tbProfesor set ?',[req]);
         return insert;
 }
 const getAdminService=async(id:string)=>{
-    const data=await conexion.query("SELECT `idProfesor`, `idCodigo`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo`, `idRol` FROM `tbProfesor` WHERE idProfesor=? and idRol=1",[id])
+    const data=await conexion.query("SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idProfesor=? and p.idRol=1",[id])
     return data;
 }
 const getAdminsService=async()=>{
@@ -27,5 +27,13 @@ const eliminarAdminService=async(id:string)=>{
     const eliminar=await conexion.query('DELETE FROM tbProfesor WHERE idProfesor=?',[id])
     return eliminar;
 }
-
-export {insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService};
+const verifyPassword=async(id:string,pass:string)=>{
+    const compararPass=await conexion.query('SELECT idProfesor,pass FROM tbProfesor WHERE idProfesor=?',[id]);
+    if(compararPass=='') return "Error, Contraseña Incorrecta";
+    const dataUsuario:any=Object.values(compararPass[0]);
+    const passwordHash=dataUsuario[1];
+    const isCorrect=await verified(pass,passwordHash);
+    if(!isCorrect) return "Error, las contraseñas no coinciden ";
+    return '1';
+}
+export {insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService,verifyPassword};

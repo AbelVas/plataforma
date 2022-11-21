@@ -4,7 +4,7 @@ import conexion from "../config/database";
 import { generateToken } from "../utils/jwt.generador";
 
 const loginUser=async(email:string,password:string)=>{
-    const checkIs=await conexion.query("SELECT idProfesor,idRol,pass FROM `tbProfesor` WHERE `usuario`=?",[email]);
+    const checkIs=await conexion.query("SELECT p.idProfesor,p.idRol,p.pass,p.nombre_profesor,p.apellido_profesor,p.usuario,r.rol FROM tbProfesor p INNER JOIN tbRol r WHERE usuario=? GROUP BY p.idProfesor",[email]);
     if(checkIs=='') return "Usuario o Contraseña Incorrecta"
     const dataUsuario:any=Object.values(checkIs[0]);
     const passwordHash=dataUsuario[2]

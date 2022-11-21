@@ -26,6 +26,9 @@ import { NivelesService } from "./configuraciones/config-basicas/services/nivele
 import {PerfilService} from "./profile/services/perfil.service"
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
+import { EditPerfilAdminComponent } from './profile/components/edit-perfil-admin/edit-perfil-admin.component';
+import { OverviewPerfilAdminComponent } from './profile/components/overview-perfil-admin/overview-perfil-admin.component';
+import { PasswordPerfilAdminComponent } from './profile/components/password-perfil-admin/password-perfil-admin.component';
 
 
 @NgModule({
@@ -52,6 +55,9 @@ import { RolesGuard } from "../guards/roles.guard";
   TablaJornadasComponent,
   TablaNivelesComponent,
   UnidadesConfigsComponent,
+  EditPerfilAdminComponent,
+  OverviewPerfilAdminComponent,
+  PasswordPerfilAdminComponent,
   ],
   exports:[
   ],
