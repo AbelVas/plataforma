@@ -7,13 +7,17 @@ import decode from "jwt-decode"
   styleUrls: ['./opciones-perfil.component.css']
 })
 export class OpcionesPerfilComponent implements OnInit {
-  usuario:any;
-  nombre_profesor:any;
+  Usuario:string='';
+  Nombre_profesor:string='';
+  Rol:string='';
+  Apellido_profesor:string='';
   constructor() { }
-
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');
-    const {usuario,nombre_profesor}:any=decode(token);
+    const {usuario,nombre_profesor,rol,apellido_profesor}:any=decode(token);
+    this.Usuario=usuario;
+    this.Nombre_profesor=nombre_profesor;
+    this.Rol=rol
+    this.Apellido_profesor=apellido_profesor
   }
-
 }
