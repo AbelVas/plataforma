@@ -19,6 +19,7 @@ import { LoaderComponent } from './loader/loader.component';
     LoaderComponent,
   ],
   exports:[
+    LoaderComponent
   ],
   providers:[]
 })

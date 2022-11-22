@@ -9,6 +9,7 @@ import  {DatePipe} from "@angular/common"
   styleUrls: ['./overview-perfil-admin.component.css']
 })
 export class OverviewPerfilAdminComponent implements OnInit {
+  sppinerOn:boolean=false;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
   errorServicio:any=[];
@@ -34,6 +35,7 @@ export class OverviewPerfilAdminComponent implements OnInit {
     this.perfilAdminService.disparadorCopiarData.emit(this.adminIndividual);
   }
   obtenerDatosAdmin(){
+    this.sppinerOn=true;
     const {idUsuario}:any=decode(this.token);
     this.perfilAdminService.getAdmin(idUsuario).subscribe(
       response=>{
@@ -49,8 +51,10 @@ export class OverviewPerfilAdminComponent implements OnInit {
           this.classBadgeActive='badge bg-danger';
           this.estado="Inactivo"
         }
+        this.sppinerOn=false;
       },
       error=>{
+        this.sppinerOn=false;
         console.log('Error: '+error);
       }
     )
