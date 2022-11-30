@@ -4,7 +4,7 @@ import conexion from "../config/database";
 import { generateToken } from "../utils/jwt.generador";
 
 const loginUser=async(email:string,password:string)=>{
-    const checkIs=await conexion.query("SELECT idProfesor,idRol,pass FROM `tbProfesor` WHERE `usuario`=?",[email]);
+    const checkIs=await conexion.query("SELECT p.idProfesor,p.idRol,p.pass,p.nombre_profesor,p.apellido_profesor,p.usuario,r.rol FROM tbProfesor p INNER JOIN tbRol r WHERE p.usuario=? GROUP BY p.idProfesor",[email]);
     if(checkIs=='') return "Usuario o Contraseña Incorrecta"
     const dataUsuario:any=Object.values(checkIs[0]);
     const passwordHash=dataUsuario[2]
@@ -13,6 +13,11 @@ const loginUser=async(email:string,password:string)=>{
     // Datos para el Json Web Token
     const idUsuario=dataUsuario[0];
     const idRol=dataUsuario[1];
+    const nombre_profesor=dataUsuario[3];
+    const apellido_profesor=dataUsuario[4];
+    const usuario=dataUsuario[5];
+    const rol=dataUsuario[6];
+
     // Fin de datos para el JSON webToken
     //data en modo objeto
     let results=JSON.parse(JSON.stringify(checkIs))
@@ -20,7 +25,7 @@ const loginUser=async(email:string,password:string)=>{
     let datos = Object.values(results);
     //fin de data en modo objeto
     if(!isCorrect) return "Usuario o Contraseña Incorrecta";
-    const token=generateToken(idUsuario,idRol);
+    const token=generateToken(idUsuario,idRol,nombre_profesor,apellido_profesor,usuario,rol);
     const data={
         token,
         user:datos

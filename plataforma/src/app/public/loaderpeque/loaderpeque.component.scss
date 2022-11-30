@@ -1,0 +1,108 @@
+$black: #36404d;
+$green: #00ff8f;
+$white: #ffffff;
+$bg:    #eee;
+
+body {
+  margin: 0;
+  font-size: 12px;
+  background-color: $white;
+}
+
+.column {
+  width: 50%;
+  margin: 0 auto;
+  background: $bg;
+  text-align: center;
+}
+
+$start: -50%;
+$end:   50%;
+
+@keyframes fly {
+  0%   { left: $start; }
+  10%   { transform: rotate(21deg); }
+  // heading right
+  40%  { transform: rotate(0deg);}
+  50%  { left: $end;
+         // liftoff
+         transform: rotate(10deg);}
+  60%  { transform: rotate(-21deg); }
+  // heading left
+  90%  { transform: rotate(0deg); }
+  100% { left: $start;
+         // liftoff
+         transform: rotate(-10deg); }
+}
+
+.saucer {
+  width: 20em;
+  margin: 2em auto;
+  // background-color: $bg;
+  position: relative;
+  animation-name: fly;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out-in;
+}
+
+.saucer-svg {
+  width: 100%;
+}
+
+.saucer-svg .saucer-top,
+.saucer-svg .saucer-bottom{
+  fill: $black;
+}
+
+@keyframes spinners {
+  0%   { top: 8em; left: 3.7em; }
+  25%  { top: 7em; left: 6.5em; }
+  50%  { top: 6.5em; left: 10em; }
+  75%  { top: 7em; left: 13.5em; }
+  100% { top: 8em; left: 16.6em; }
+}
+
+.light {
+  width: .5em;
+  height: .5em;
+  background-color: $bg;
+  border-radius: 1em;
+  position: absolute;
+  animation-name: spinners;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.light-01 {
+  animation-delay: 0;
+}
+.light-02 {
+  animation-delay: .2s;
+}
+.light-03 {
+  animation-delay: .4s;
+}
+.light-04 {
+  animation-delay: .6s;
+}
+.light-05 {
+  animation-delay: .8s;
+}
+
+// FPO
+
+.light-place {
+  width: .5em;
+  height: .5em;
+  border-radius: 1em;
+  position: absolute;
+  display: none;
+}
+
+.light-place-01 { top: 8em; left: 3.7em; }
+.light-place-02 { top: 7em; left: 6.5em; }
+.light-place-03 { top: 6.5em; left: 10em; }
+.light-place-04 { top: 7em; left: 13.5em; }
+.light-place-05 { top: 8em; left: 16.6em; }

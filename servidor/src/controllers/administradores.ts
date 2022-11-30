@@ -1,5 +1,5 @@
 import { request, Request, Response } from "express";
-import {insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService } from "../service/administradores";
+import {verifyPassword,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService } from "../service/administradores";
 import { handleHttp } from "../utils/error.handle"
 import { encrypt } from "../utils/passwordFunction";
 
@@ -38,10 +38,18 @@ const getAdmins=async(req:Request,res:Response)=>{
 const updateAdmin=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params;
-        const resultado=await updateAdminService(req.body,id);
-        res.send(resultado);
-    } catch (error) {
-        
+        const {pass}=req.body
+        if(pass==null){
+            const resultado=await updateAdminService(req.body,id);
+            res.send(resultado);
+        }else{
+            const passEncrypt=await encrypt(pass);
+            req.body.pass=passEncrypt;
+            const resultado=await updateAdminService(req.body,id);
+            res.send(resultado);
+        }
+    } catch (e) {
+        handleHttp(res,'Error al Editar Administrador',e)
     }
 }
 const deleteAdmin=async(req:Request,res:Response)=>{
@@ -54,4 +62,16 @@ const deleteAdmin=async(req:Request,res:Response)=>{
      }
 }
 
-export {putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin}
+const compararPass=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {pass}=req.body;
+        const resultadoDelete=await verifyPassword(id,pass);
+        res.send(resultadoDelete);
+     }catch(e){
+         handleHttp(res,'Error al Actualizar la contraseña',e)
+     }
+}
+
+
+export {putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,compararPass}

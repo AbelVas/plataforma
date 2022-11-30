@@ -26,43 +26,51 @@ import { NivelesService } from "./configuraciones/config-basicas/services/nivele
 import {PerfilService} from "./profile/services/perfil.service"
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
+import { EditPerfilAdminComponent } from './profile/components/edit-perfil-admin/edit-perfil-admin.component';
+import { OverviewPerfilAdminComponent } from './profile/components/overview-perfil-admin/overview-perfil-admin.component';
+import { PasswordPerfilAdminComponent } from './profile/components/password-perfil-admin/password-perfil-admin.component';
+import { PublicModule } from "../public/public.module";
+
 
 
 @NgModule({
-  imports:[
-    AdminRoutingModule,
-    SharedModule
-  ],
-  declarations:[
-  AdminComponent,
-  IndexAdminComponent,
-  ProfileComponent,
-  HeaderComponent,
-  SidebarComponent,
-  FooterComponent,
-  OpcionesPerfilComponent,
-  NotificacionesComponent,
-  OpcionesMenuComponent,
-  CardsBimestreComponent,
-  GraficaContenedorComponent,
-  AjustesUnidadComponent,
-  GradosJornadasTabsComponent,
-  ConfigBasicasComponent,
-  TablaSeccionesComponent,
-  TablaJornadasComponent,
-  TablaNivelesComponent,
-  UnidadesConfigsComponent,
-  ],
-  exports:[
-  ],
-  providers:[
-    BimestreService,
-    JornadasService,
-    NivelesService,
-    PerfilService,
-    AuthGuard,
-    RolesGuard
-  ]
+    declarations: [
+        AdminComponent,
+        IndexAdminComponent,
+        ProfileComponent,
+        HeaderComponent,
+        SidebarComponent,
+        FooterComponent,
+        OpcionesPerfilComponent,
+        NotificacionesComponent,
+        OpcionesMenuComponent,
+        CardsBimestreComponent,
+        GraficaContenedorComponent,
+        AjustesUnidadComponent,
+        GradosJornadasTabsComponent,
+        ConfigBasicasComponent,
+        TablaSeccionesComponent,
+        TablaJornadasComponent,
+        TablaNivelesComponent,
+        UnidadesConfigsComponent,
+        EditPerfilAdminComponent,
+        OverviewPerfilAdminComponent,
+        PasswordPerfilAdminComponent,
+    ],
+    exports: [],
+    providers: [
+        BimestreService,
+        JornadasService,
+        NivelesService,
+        PerfilService,
+        AuthGuard,
+        RolesGuard
+    ],
+    imports: [
+        AdminRoutingModule,
+        SharedModule,
+        PublicModule,
+    ]
 })
 
 export class AdminModule{

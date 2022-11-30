@@ -31,5 +31,11 @@ const getGraGuiaService=async()=>{
 
 }
 
+const getGuiaPorGuia=async(id:string)=>{
 
-export{updateGraGuiaService,deleteGraGuiaService,insertGraGuiaService,getGraGuiaService}
+    const responseGet=await conexion.query('SELECT gg.idProfesor,g.nombre_grado FROM tbGuiaGrado gg INNER JOIN tbGrado g ON gg.idGrado=g.idGrado WHERE gg.idProfesor=?',[id])
+    return responseGet;
+
+}
+
+export{updateGraGuiaService,deleteGraGuiaService,insertGraGuiaService,getGraGuiaService,getGuiaPorGuia}

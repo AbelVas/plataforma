@@ -1,0 +1,51 @@
+<div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+  <app-loaderpeque></app-loaderpeque>  <!-- aqui tiene que ir el nuevo spinner <app-loaderpeque></app-loaderpeque> -->
+</div>
+<ng-template #MostrarDataPerfilOverview>
+  <div *ngFor="let admin of adminGet">
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label ">Nombre</div>
+       <div class="col-lg-9 col-md-8">{{admin.nombre_profesor}}</div>
+    </div>
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label">Apellido</div>
+       <div class="col-lg-9 col-md-8">{{admin.apellido_profesor}}</div>
+    </div>
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label">Rol</div>
+       <div class="col-lg-9 col-md-8">Administrador</div>
+    </div>
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label">Teléfono</div>
+       <div class="col-lg-9 col-md-8">{{admin.telefono}}</div>
+    </div>
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label">CUI</div>
+       <div class="col-lg-9 col-md-8">{{admin.CUI}}</div>
+    </div>
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label">Fecha de Nacimiento</div>
+       <div class="col-lg-9 col-md-8">{{admin.fecha_nacimiento}}</div>
+    </div>
+    <div class="row">
+       <div class="col-lg-3 col-md-4 label">Email</div>
+       <div class="col-lg-9 col-md-8">{{admin.usuario}}</div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label">Mostrar Correo</div>
+      <div class="col-lg-9 col-md-8" *ngIf="admin.permitir_ver_correo==1;else ElseActivado"><span class="badge bg-success"> Activado</span></div>
+      <ng-template #ElseActivado><div class="col-lg-9 col-md-8"><span class="badge bg-danger"> Desactivado</span></div></ng-template>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label">Codigo de Cuenta</div>
+      <div class="col-lg-9 col-md-8 text-muted">{{admin.codigo}}</div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 label">Estado de la Cuenta</div>
+      <div class="col-lg-9 col-md-8 text-muted"><span [class]="classBadgeActive">{{estado}}</span></div>
+    </div>
+  </div>
+</ng-template>
+
+
