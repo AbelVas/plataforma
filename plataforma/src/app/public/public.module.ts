@@ -6,6 +6,7 @@ import { HomeComponent } from "./home/containers/home.component";
 import { PublicComponent } from "./public.component";
 import { LoginComponent } from "./login/containers/login.component";
 import { LoaderComponent } from './loader/loader.component';
+import { LoaderpequeComponent } from './loaderpeque/loaderpeque.component';
 
 @NgModule({
   imports:[
@@ -17,9 +18,11 @@ import { LoaderComponent } from './loader/loader.component';
     HomeComponent,
     LoginComponent,
     LoaderComponent,
+    LoaderpequeComponent,
   ],
   exports:[
-    LoaderComponent
+    LoaderComponent,
+    LoaderpequeComponent
   ],
   providers:[]
 })

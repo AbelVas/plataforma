@@ -1,5 +1,5 @@
 <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
-<!-- nuevo loader-->
+  <app-loaderpeque></app-loaderpeque>  <!-- aqui tiene que ir el nuevo spinner <app-loaderpeque></app-loaderpeque> -->
 </div>
 <ng-template #MostrarDataPerfilOverview>
   <div *ngFor="let admin of adminGet">

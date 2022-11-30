@@ -1,5 +1,5 @@
 import { Request,response,Response } from "express";
-import {updateGraGuiaService,deleteGraGuiaService,insertGraGuiaService,getGraGuiaService} from "../service/guiagrado";
+import {updateGraGuiaService,deleteGraGuiaService,insertGraGuiaService,getGraGuiaService,getGuiaPorGuia} from "../service/guiagrado";
 import { handleHttp } from "../utils/error.handle";
 
 
@@ -49,5 +49,17 @@ const getGuiaGrado=async(req:Request,res:Response)=>{
 
 
 }
+const getGuiaGuia=async(req:Request,res:Response)=>{
 
-export{updateGuiaGrado,deleteGuiaGrado,insertGuiaGrado,getGuiaGrado}
+    try {
+        const {id} = req.params;
+        const resultadoGuia=await getGuiaPorGuia(id);
+        res.send(resultadoGuia);
+    } catch (e) {
+        handleHttp(res,'Error al Obtener al Grado del Guia',e)
+    }
+
+
+}
+
+export{updateGuiaGrado,deleteGuiaGrado,insertGuiaGrado,getGuiaGrado,getGuiaGuia}
