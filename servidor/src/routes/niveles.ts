@@ -1,5 +1,5 @@
 import { Router} from "express";
-import { getNiveles,getNivel,updateNivel,deleteNivel,insertNivel } from "../controllers/niveles";
+import { getNiveles,getNivel,updateNivel,deleteNivel,insertNivel,getNivelesporJornada} from "../controllers/niveles";
 import { logMiddleware } from "../middleware/log";
 import { checkJwt } from "../middleware/session";
 
@@ -10,5 +10,6 @@ router.get("/:id",checkJwt,getNivel);
 router.post("/",checkJwt,insertNivel);
 router.put("/:id",checkJwt,updateNivel);
 router.delete("/:id",checkJwt,deleteNivel);
+router.get("/nivel-jornada/:id", checkJwt, getNivelesporJornada)
 
 export {router}

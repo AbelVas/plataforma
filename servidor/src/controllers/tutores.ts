@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi} from "../service/tutores";
+import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService} from "../service/tutores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -56,4 +56,14 @@ const insertarTutor= async(req:Request,res:Response)=>{
     }
 }
 
-export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor}
+const getTutorconAlumno=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const resultTutorConAlimn=await getTutorconAlumnoService(id);
+        res.send(resultTutorConAlimn);
+    }catch(e){
+        handleHttp(res,'Error al Obtener al Tutor')
+    }
+}
+
+export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno}

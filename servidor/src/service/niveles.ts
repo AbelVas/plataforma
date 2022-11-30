@@ -22,4 +22,9 @@ const editarNivelService=async(data:Request,id:string)=>{
     return response;
 }
 
-export {insertNivelService,obtenerNivelesService,obtenerNivelService,eliminarNivelService,editarNivelService}
+const getNivelesporJornadaService=async(idJornada:string)=>{
+    const response=await conexion.query("SELECT * FROM tbNivel WHERE idJornada = ?", [idJornada]);
+    return response;
+}
+
+export {insertNivelService,obtenerNivelesService,obtenerNivelService,eliminarNivelService,editarNivelService,getNivelesporJornadaService}

@@ -27,4 +27,9 @@ const validarTutoresExisteSi=async(usuario:string,telefono1:string)=>{
     const data=await conexion.query('SELECT idTutor FROM tbTutor WHERE usuario=? and telefono1=?',[usuario,telefono1]);
     return data;
 }
-export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi}
+
+const getTutorconAlumnoService=async(idAlum:string)=>{
+    const responseGetTutorconAlumno= await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idAlumno=? ',[idAlum])
+    return responseGetTutorconAlumno;
+}
+export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService}

@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { insertNivelService,obtenerNivelesService,obtenerNivelService,eliminarNivelService,editarNivelService } from "../service/niveles"
+import { insertNivelService,obtenerNivelesService,obtenerNivelService,eliminarNivelService,editarNivelService,getNivelesporJornadaService } from "../service/niveles"
 import { handleHttp } from "../utils/error.handle"
 
 const getNiveles=async(req:Request,res:Response)=>{
@@ -46,4 +46,14 @@ const insertNivel=async(req:Request,res:Response)=>{
     }
 }
 
-export {getNiveles,getNivel,updateNivel,deleteNivel,insertNivel}
+const getNivelesporJornada =async(req:Request, res:Response)=>{
+    try{
+        const {id}=req.params;
+        const responseNivelporJornada=await getNivelesporJornadaService(id);
+        res.send(responseNivelporJornada);
+    }catch(e){
+        handleHttp(res,'Error_Request_GetNivelPorJornada ',e)
+    }
+}
+
+export {getNiveles,getNivel,updateNivel,deleteNivel,insertNivel, getNivelesporJornada}
