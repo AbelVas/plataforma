@@ -43,7 +43,7 @@ const getGradoNivelService=async(idNivel:string)=>{
 }
 
 const getGradoPorProfesor=async(id:string)=>{
-    const responseGradoProfesor=await conexion.query('SELECT c.idProfesor,g.nombre_grado,g.idnivel,g.idSeccion,g.idGrado FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado WHERE c.idProfesor=?',[id])
+    const responseGradoProfesor=await conexion.query('SELECT c.idProfesor,g.nombre_grado,g.idnivel,g.idSeccion,g.idGrado FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado WHERE c.idProfesor=? group by g.nombre_grado',[id])
     return responseGradoProfesor;
 }
 
