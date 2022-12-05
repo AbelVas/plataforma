@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import decode from 'jwt-decode';
 import { PerfilProfesorService } from '../../services/perfil-profesor.service';
+import  {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-overview-perfil-profesor',
@@ -8,50 +10,53 @@ import { PerfilProfesorService } from '../../services/perfil-profesor.service';
 })
 export class OverviewPerfilProfesorComponent implements OnInit {
 
-  profesoresGet:any=[];
+  pipe = new DatePipe('en-US');
+  token:any=localStorage.getItem('Acces-Token');
   errorServicio:any=[];
-  profesoresIndividual:any={
+  estado:any;
+  classBadgeActive:any;
+  profesorGet:any=[];
+  profesorIndividual:any={
     idProfesor: '',
-    idCodigo:'',
+    codigo:'',
     nombre_profesor:'',
     apellido_profesor:'',
     telefono:'',
     CUI:'',
     usuario:'',
-    fecha_nacimiento:''
-  }
-  profesoresInsert:any={
-    profesor: ''
-  }
+    fecha_nacimiento:'',
+    estatus:'',
+    permitir_ver_correo:''
+  };
 
-  constructor(private elementRef:ElementRef, private PerfilProfesoresService: PerfilProfesorService) {}
+  constructor(private perfilProfesoresService:PerfilProfesorService) { }
 
   ngOnInit(): void {
-    this.obtenerProfesores()
+    this.obtenerDatosProfesor();
+    this.profesorIndividual=this.profesorGet
+    this.perfilProfesoresService.disparadorCopiarData.emit(this.profesorIndividual);
   }
 
-  obtenerProfesores(){
-    this.PerfilProfesoresService.getProfesores().subscribe(
-      Response=>{
-        this.profesoresGet=Response;
-        this.errorServicio=''
-      },
-      error=>{
-        this.errorServicio=error
-      }
-    )
-  }
-
-  editarProfesor(idProfesor:string){
-    delete this.profesoresIndividual.idProfesor;
-    this.PerfilProfesoresService.updateProfesor(idProfesor,this.profesoresIndividual).subscribe(
+  obtenerDatosProfesor(){
+    const {idUsuario}:any=decode(this.token);
+    this.perfilProfesoresService.getProfesor(idUsuario).subscribe(
       response=>{
-        this.obtenerProfesores();
+        this.profesorGet=response;
+        this.profesorGet[0].fecha_nacimiento=this.pipe.transform((this.profesorGet[0].fecha_nacimiento),'dd/MM/yyyy')
+        this.perfilProfesoresService.disparadorCopiarData.emit({
+          data:this.profesorGet[0]
+        });
+        if(this.profesorGet[0].estatus==1){
+          this.classBadgeActive='badge bg-success';
+          this.estado='Activo';
+        }else{
+          this.classBadgeActive='badge bg-danger';
+          this.estado='Inactivado';
+        }
       },
       error=>{
-        console.log('Error '+error);
+        console.log('Error: '+error);
       }
     )
   }
-
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {map,tap,catchError, mergeScan} from 'rxjs/operators'
@@ -8,32 +8,28 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class PerfilProfesorService {
 
-  constructor(private http:HttpClient) {}
   URL='http://localhost:3002';
+  constructor(private http:HttpClient) {}
 
-  getProfesores():Observable<any>{
+  @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
+
+  getProfesor(idUsuario:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/Profesores/`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/profesores/profesor/${idUsuario}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  updateProfesor(idProfesor:string,data:any){
+  updateProfesor(data:any,idAdmin:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/Profesores/${idProfesor}`,data,httpOptions).pipe(
+    return this.http.put(`${this.URL}/profesores/profesor/${idAdmin}`,data,httpOptions).pipe(
       catchError(this.handleError)
     )
   }
-  insertProfesor(data:any){
+  passwordCompare(idAdmin:string,password:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/Profesores/`,data,httpOptions).pipe(
+    return this.http.post(`${this.URL}/profesores/profesor/pass/${idAdmin}`,password,httpOptions).pipe(
       catchError(this.handleError)
-      );
-  }
-  deleteProfesor(idProfesor:string){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.delete(`${this.URL}/Profesores/${idProfesor}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
+    )
   }
   private handleError(error:HttpErrorResponse){
     var msg={};

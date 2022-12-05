@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import decode from 'jwt-decode';
 import { PerfilProfesorService } from './services/perfil-profesor.service';
 
 @Component({
@@ -7,48 +8,37 @@ import { PerfilProfesorService } from './services/perfil-profesor.service';
   styleUrls: ['./perfil-profesor.component.css']
 })
 export class PerfilProfesorComponent implements OnInit {
-  profesoresGet:any=[];
-  errorServicio:any=[];
-  profesoresIndividual:any={
-    idProfesor: '',
-    idCodigo:'',
-    nombre_profesor:'',
-    apellido_profesor:'',
-    telefono:'',
-    CUI:'',
-    usuario:'',
-    fecha_nacimiento:''
-  }
-  profesoresInsert:any={
-    profesor: ''
-  }
 
-  constructor(public elementRef:ElementRef, public PerfilProfesoresService: PerfilProfesorService) {}
+  token:any=localStorage.getItem('Acces-Token');
+  errorServicio:any=[];
+  estado:any;
+  classBadgeActive:any;
+  profesorGet:any=[];
+  profesorIndividual:any={
+    idProfesor: '',
+    nombre_profesor:'',
+    apellido_profesor:''
+  };
+
+  constructor(private perfilProfesoresService:PerfilProfesorService) {}
 
   ngOnInit(): void {
-    this.obtenerProfesores()
+    this.obtenerDatosProfesor();
+    this.profesorIndividual=this.profesorGet
+    this.perfilProfesoresService.disparadorCopiarData.emit(this.profesorIndividual);
   }
 
-  obtenerProfesores(){
-    this.PerfilProfesoresService.getProfesores().subscribe(
-      Response=>{
-        this.profesoresGet=Response;
-        this.errorServicio=''
-      },
-      error=>{
-        this.errorServicio=error
-      }
-    )
-  }
-
-  editarProfesor(idProfesor:string){
-    delete this.profesoresIndividual.idProfesor;
-    this.PerfilProfesoresService.updateProfesor(idProfesor,this.profesoresIndividual).subscribe(
+  obtenerDatosProfesor(){
+    const {idUsuario}:any=decode(this.token);
+    this.perfilProfesoresService.getProfesor(idUsuario).subscribe(
       response=>{
-        this.obtenerProfesores();
+        this.profesorGet=response;
+        this.perfilProfesoresService.disparadorCopiarData.emit({
+          data:this.profesorGet[0]
+        });
       },
       error=>{
-        console.log('Error '+error);
+        console.log('Error: '+error);
       }
     )
   }

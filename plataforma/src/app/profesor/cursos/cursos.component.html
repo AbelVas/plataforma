@@ -1,0 +1,17 @@
+<main id="main" class="main">
+  <div class="pagetitle" *ngFor="let p of profesorGet">
+     <h1>Profesor {{p.nombre_profesor}} {{p.apellido_profesor}}</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Cursos</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section dashboard">
+     <div class="row">
+        <div class="col-12">
+          <app-card-clases-jornadas></app-card-clases-jornadas>
+        </div>
+     </div>
+  </section>
+</main>

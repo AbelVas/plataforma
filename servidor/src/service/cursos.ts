@@ -31,4 +31,9 @@ const obtenerCursosPorGradoService = async(idGrado:string)=>{
     return responseGet;
 }
 
-export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService}
+const obtenerCursosPorProfesorService = async (idProfesor:string)=>{
+    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso WHERE idProfesor=?',idProfesor);
+    return responseGet;
+}
+
+export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService}

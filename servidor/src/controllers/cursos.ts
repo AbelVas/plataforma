@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService, obtenerCursosPorGradoService} from "../service/cursos"
+import { obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService, obtenerCursosPorGradoService, obtenerCursosPorProfesorService} from "../service/cursos"
 import { handleHttp } from "../utils/error.handle"
 
 const getCursos = async (req:Request, res:Response)=>{
@@ -56,4 +56,13 @@ const getCursoporGrado = async (req:Request, res:Response)=>{
         handleHttp(res,'Error al Obtener el grado')
     }
 }
-export {getCurso, getCursos, updateCurso,deleteCurso, insertCurso,getCursoporGrado}
+
+const getCursoporProfesor = async (req:Request, res:Response)=>{
+    try{
+        const {id} = req.params;
+        const resultadoProfesor=await obtenerCursosPorProfesorService(id)
+        res.send(resultadoProfesor);
+    }catch(e){
+        handleHttp(res,'Error al Obtener el Profesor')    }
+}
+export {getCurso, getCursos, updateCurso,deleteCurso, insertCurso,getCursoporGrado,getCursoporProfesor}

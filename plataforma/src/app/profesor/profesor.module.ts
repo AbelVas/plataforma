@@ -19,21 +19,32 @@ import { ForoProfesorComponent } from './foro-profesor/foro-profesor.component';
 import { PlanificacionesProfesorComponent } from './planificaciones-profesor/planificaciones-profesor.component';
 import { GradoGuiaProfesorComponent } from './grado-guia-profesor/grado-guia-profesor.component';
 import { CursosProfesorComponent } from './cursos-profesor/cursos-profesor.component';
-import { CardResumenCursosProfesorComponent } from './cursos-profesor/card-resumen-cursos-profesor/card-resumen-cursos-profesor.component';
-import { CursoCalendarioProfesoresComponent } from './cursos-profesor/curso-calendario-profesores/curso-calendario-profesores.component';
-import { LisAlumnosProfesoresComponent } from './cursos-profesor/lis-alumnos-profesores/lis-alumnos-profesores.component';
-import { ActAnuRecCursosProfesoresComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/act-anu-rec-cursos-profesores.component';
-import { ActividadesCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/actividades-cursos-profesor/actividades-cursos-profesor.component';
-import { AnunciosCursosProfesoresComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/anuncios-cursos-profesores/anuncios-cursos-profesores.component';
-import { RecursosCursosProfesorComponent } from './cursos-profesor/act-anu-rec-cursos-profesores/recursos-cursos-profesor/recursos-cursos-profesor.component';
 import { PerfilProfesorComponent } from './perfil-profesor/perfil-profesor.component';
 import { OverviewPerfilProfesorComponent } from './perfil-profesor/components/overview-perfil-profesor/overview-perfil-profesor.component';
 import { EditPerfilProfesorComponent } from './perfil-profesor/components/edit-perfil-profesor/edit-perfil-profesor.component';
-import { SettingsPefilProfesorComponent } from './perfil-profesor/components/settings-pefil-profesor/settings-pefil-profesor.component';
 import { PasswordPerfilProfesoresComponent } from './perfil-profesor/components/password-perfil-profesores/password-perfil-profesores.component';
 import { PerfilProfesorService } from "./perfil-profesor/services/perfil-profesor.service";
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
+import { MargenesProfesorService } from "./margenes/services/margenes-profesor.service";
+import { ActividadesCalificarProfesorService } from "./dashboard/services/actividades-calificar-profesor.service";
+import { AllCalendarioProfesoresService } from "./dashboard/services/all-calendario-profesores.service";
+import { CardClasesJornadasService } from "./dashboard/services/card-clases-jornadas.service";
+import { GuiaPlaniProfesoresService } from "./dashboard/services/guia-plani-profesores.service";
+import { CardResumenService } from "./dashboard/services/card-resumen.service";
+import { CursosComponent } from './cursos/cursos.component';
+import { CursosService } from "./cursos/services/cursos.service";
+import { HorarioProfesorComponent } from './dashboard/components/horario-profesor/horario-profesor.component';
+import { HorarioProfesorService } from "./dashboard/services/horario-profesor.service";
+import { DashboardService } from "./dashboard/services/dashboard.service";
+import { PlanificacionesProfesorService } from "./planificaciones-profesor/services/planificaciones-profesor.service";
+import { GradoGuiaProfesorService } from "./grado-guia-profesor/services/grado-guia-profesor.service";
+import { CursosCardResumenComponent } from './cursos-profesor/components/cursos-card-resumen/cursos-card-resumen.component';
+import { OpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/opciones-curso.component';
+import { CalendarioCursoComponent } from './cursos-profesor/components/calendario-curso/calendario-curso.component';
+import { AlumnosCursoComponent } from './cursos-profesor/components/alumnos-curso/alumnos-curso.component';
+import { AlumnosCursoService } from "./cursos-profesor/services/alumnos-curso.service";
+import { CalendarioCursoService } from "./cursos-profesor/services/calendario-curso.service";
 //
 
 
@@ -60,25 +71,38 @@ import { RolesGuard } from "../guards/roles.guard";
   PlanificacionesProfesorComponent,
   GradoGuiaProfesorComponent,
   CursosProfesorComponent,
-  CardResumenCursosProfesorComponent,
-  CursoCalendarioProfesoresComponent,
-  LisAlumnosProfesoresComponent,
-  ActAnuRecCursosProfesoresComponent,
-  ActividadesCursosProfesorComponent,
-  AnunciosCursosProfesoresComponent,
-  RecursosCursosProfesorComponent,
   PerfilProfesorComponent,
   OverviewPerfilProfesorComponent,
   EditPerfilProfesorComponent,
-  SettingsPefilProfesorComponent,
-  PasswordPerfilProfesoresComponent
+  PasswordPerfilProfesoresComponent,
+  CursosComponent,
+  HorarioProfesorComponent,
+  CursosCardResumenComponent,
+  OpcionesCursoComponent,
+  CalendarioCursoComponent,
+  AlumnosCursoComponent
   ],
   exports:[
   ],
   providers:[
     PerfilProfesorService,
+    DashboardService,
     AuthGuard,
-    RolesGuard
+    RolesGuard,
+    MargenesProfesorService,
+    ActividadesCalificarProfesorService,
+    AllCalendarioProfesoresService,
+    CardClasesJornadasService,
+    CardResumenService,
+    GuiaPlaniProfesoresService,
+    CursosService,
+    HorarioProfesorService,
+    PlanificacionesProfesorService,
+    GradoGuiaProfesorService,
+    AlumnosCursoService,
+    CalendarioCursoService,
+    CursosCardResumenComponent,
+    OpcionesCursoComponent
   ]
 })
 

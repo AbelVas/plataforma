@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService } from "../service/profesores";
+import { obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService,verifyPassword } from "../service/profesores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -21,14 +21,20 @@ const getProfesor= async(req:Request,res:Response)=>{
     }
 }
 const updateProfesor= async(req:Request,res:Response)=>{
-    try{
-       const passEncrypt=await encrypt(req.body.pass);
-       req.body.pass=passEncrypt
-       const {id}=req.params;
-       const resultadoProfesor=await updateProfesorService(req.body,id);
-       res.send(resultadoProfesor);
-    }catch(e){
-        handleHttp(res,'Error al Actualizar al Profesor')
+    try {
+        const {id}=req.params;
+        const {pass}=req.body
+        if(pass==null){
+            const resultado=await updateProfesorService(req.body,id);
+            res.send(resultado);
+        }else{
+            const passEncrypt=await encrypt(pass);
+            req.body.pass=passEncrypt;
+            const resultado=await updateProfesorService(req.body,id);
+            res.send(resultado);
+        }
+    } catch (e) {
+        handleHttp(res,'Error al Editar Profesor',e)
     }
 }
 const deleteProfesor= async(req:Request,res:Response)=>{
@@ -55,5 +61,15 @@ const insertarProfesor= async(req:Request,res:Response)=>{
         handleHttp(res,'Error al Insertar al Profesor',e)
     }
 }
+const compararPass=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {pass}=req.body;
+        const resultadoDelete=await verifyPassword(id,pass);
+        res.send(resultadoDelete);
+     }catch(e){
+         handleHttp(res,'Error al Actualizar la contraseña',e)
+     }
+}
 
-export {getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor}
+export {getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass}

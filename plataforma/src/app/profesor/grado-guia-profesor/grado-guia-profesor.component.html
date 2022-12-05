@@ -1,1 +1,29 @@
-<p>grado-guia-profesor works!</p>
+<main id="main" class="main">
+  <div class="pagetitle" *ngFor="let p of profesorGet">
+     <h1>Profesor {{p.nombre_profesor}} {{p.apellido_profesor}}</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Grado Guía</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+           <div class="card-body">
+            <div class="d-flex">
+              <h5 class="card-title">Nombre del grado guía</h5>
+            </div>
+            <div class="tab-content pt-2" id="myTabjustifiedContent">
+              <div class="activity">
+                Ver el listado de los alumnos
+            </div>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
