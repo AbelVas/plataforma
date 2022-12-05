@@ -49,7 +49,7 @@ const getGuiaGrado=async(req:Request,res:Response)=>{
 
 
 }
-const getGuiaGuia=async(req:Request,res:Response)=>{
+const getGradoGuiaProfesor=async(req:Request,res:Response)=>{
 
     try {
         const {id} = req.params;
@@ -62,4 +62,4 @@ const getGuiaGuia=async(req:Request,res:Response)=>{
 
 }
 
-export{updateGuiaGrado,deleteGuiaGrado,insertGuiaGrado,getGuiaGrado,getGuiaGuia}
+export{updateGuiaGrado,deleteGuiaGrado,insertGuiaGrado,getGuiaGrado,getGradoGuiaProfesor}
