@@ -78,7 +78,7 @@ const routes: Routes = [
   { path:'admin', loadChildren:()=>import('./admin/admin.module').then(a=>a.AdminModule)},
   { path:'teacher', loadChildren:()=>import('./profesor/profesor.module').then(b=>b.ProfesorModule)},
   { path:'student', loadChildren:()=>import('./student/student.module').then(c=>c.StudentModule)},
-  { path:'tutor', loadChildren:()=>import('./tutor/tutor.module').then(m=>m.TutorModule)},
+  { path:'tutor', loadChildren:()=>import('./tutor/tutor.module').then(d=>d.TutorModule)},
   { path:'**', component:NotFoundComponent},
 ];
 @NgModule({

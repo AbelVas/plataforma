@@ -1,0 +1,37 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Matemática</h1>
+     <nav>
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item active">Profesor: Pececito Ahogado</li>
+      </ol>
+   </nav>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+         <div class="card-body">
+          <div class="d-flex">
+            <br>
+          </div>
+          <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+            <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100 active" id="tareas-curso-tab" data-bs-toggle="tab" data-bs-target="#tareas-curso-justified" type="button" role="tab" aria-controls="tareas-curso" aria-selected="true">Tareas</button></li>
+            <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="examenes-curso-tab" data-bs-toggle="tab" data-bs-target="#examenes-curso-justified" type="button" role="tab" aria-controls="examenes-curso" aria-selected="false">Examenes</button></li>
+            <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="foros-curso-tab" data-bs-toggle="tab" data-bs-target="#foros-curso-justified" type="button" role="tab" aria-controls="foros-curso" aria-selected="false">Foros</button></li>
+          </ul>
+          <div class="tab-content pt-2" id="myTabjustifiedContent">
+              <div class="tab-pane fade show active" id="tareas-curso-justified" role="tabpanel" aria-labelledby="tareas-curso-tab">
+                <app-tareas-actividades-curso-alumno-tutor></app-tareas-actividades-curso-alumno-tutor>
+              </div>
+              <div class="tab-pane fade" id="examenes-curso-justified" role="tabpanel" aria-labelledby="examenes-curso-tab">
+                <app-examenes-actividades-curso-alumno-tutor></app-examenes-actividades-curso-alumno-tutor>
+              </div>
+              <div class="tab-pane fade" id="foros-curso-justified" role="tabpanel" aria-labelledby="foros-curso-tab">
+                <app-foros-actividades-curso-alumno-tutor></app-foros-actividades-curso-alumno-tutor>
+              </div>
+          </div>
+         </div>
+      </div>
+    </div>
+  </div>
+</main>

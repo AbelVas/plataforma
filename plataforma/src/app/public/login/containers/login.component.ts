@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['teacher']);
         }else if(idRol==3){
           this.sppinerOn=false;
+          this.router.navigate(['tutor']);
+        }else if(idRol==4){
+          this.sppinerOn=false;
           this.router.navigate(['student']);
         }
       },

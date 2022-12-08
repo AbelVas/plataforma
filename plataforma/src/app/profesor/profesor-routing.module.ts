@@ -9,6 +9,8 @@ import { PlanificacionesProfesorComponent } from "./planificaciones-profesor/pla
 import { GradoGuiaProfesorComponent } from "./grado-guia-profesor/grado-guia-profesor.component";
 import { PerfilProfesorComponent } from "./perfil-profesor/perfil-profesor.component";
 import { CursosComponent } from "./cursos/cursos.component";
+import { CalendarioGeneralProfesoresComponent } from "./calendario-general-profesores/calendario-general-profesores.component";
+import { ActividadesCursoIndividualComponent } from "./actividades-curso-individual/actividades-curso-individual.component";
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
 
@@ -23,7 +25,9 @@ const routes:Routes=[
     {path:'foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoProfesorComponent},
     {path:'planificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PlanificacionesProfesorComponent},
     {path:'grado-guia',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:GradoGuiaProfesorComponent},
-    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PerfilProfesorComponent}
+    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PerfilProfesorComponent},
+    {path:'actividades',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ActividadesCursoIndividualComponent},
+    {path:'calendario',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:CalendarioGeneralProfesoresComponent}
   ]
   },
 ]

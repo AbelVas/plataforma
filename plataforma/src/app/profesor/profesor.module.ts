@@ -45,6 +45,15 @@ import { CalendarioCursoComponent } from './cursos-profesor/components/calendari
 import { AlumnosCursoComponent } from './cursos-profesor/components/alumnos-curso/alumnos-curso.component';
 import { AlumnosCursoService } from "./cursos-profesor/services/alumnos-curso.service";
 import { CalendarioCursoService } from "./cursos-profesor/services/calendario-curso.service";
+import { CalendarioGeneralProfesoresComponent } from './calendario-general-profesores/calendario-general-profesores.component';
+import { CalendarioGeneralProfesoresService } from "./calendario-general-profesores/services/calendario-general-profesores.service";
+import { GraficoGradoGuiaComponent } from './grado-guia-profesor/components/grafico-grado-guia/grafico-grado-guia.component';
+import { GraficoGradoGuiaService } from "./grado-guia-profesor/services/grafico-grado-guia.service";
+import { ActividadesCursoIndividualComponent } from './actividades-curso-individual/actividades-curso-individual.component';
+import { ActividadCursosIndividualComponent } from './actividades-curso-individual/components/actividad-cursos-individual/actividad-cursos-individual.component';
+import { CalificacionesActividadCursoIndividualComponent } from './actividades-curso-individual/components/calificaciones-actividad-curso-individual/calificaciones-actividad-curso-individual.component';
+import { AlumnosActividadCursoIndividualComponent } from './actividades-curso-individual/components/alumnos-actividad-curso-individual/alumnos-actividad-curso-individual.component';
+import { GraficosActividadCursoIndividualComponent } from './actividades-curso-individual/components/graficos-actividad-curso-individual/graficos-actividad-curso-individual.component';
 //
 
 
@@ -80,7 +89,14 @@ import { CalendarioCursoService } from "./cursos-profesor/services/calendario-cu
   CursosCardResumenComponent,
   OpcionesCursoComponent,
   CalendarioCursoComponent,
-  AlumnosCursoComponent
+  AlumnosCursoComponent,
+  CalendarioGeneralProfesoresComponent,
+  GraficoGradoGuiaComponent,
+  ActividadesCursoIndividualComponent,
+  ActividadCursosIndividualComponent,
+  CalificacionesActividadCursoIndividualComponent,
+  AlumnosActividadCursoIndividualComponent,
+  GraficosActividadCursoIndividualComponent
   ],
   exports:[
   ],
@@ -102,7 +118,9 @@ import { CalendarioCursoService } from "./cursos-profesor/services/calendario-cu
     AlumnosCursoService,
     CalendarioCursoService,
     CursosCardResumenComponent,
-    OpcionesCursoComponent
+    OpcionesCursoComponent,
+    CalendarioGeneralProfesoresService,
+    GraficoGradoGuiaService
   ]
 })
 

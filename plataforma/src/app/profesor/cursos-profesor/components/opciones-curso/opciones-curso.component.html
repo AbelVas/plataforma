@@ -11,9 +11,22 @@
           <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="recursos-curso-tab" data-bs-toggle="tab" data-bs-target="#recursos-curso-justified" type="button" role="tab" aria-controls="recursos-curso" aria-selected="false">Recursos</button></li>
         </ul>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
-            <div class="tab-pane fade show active" id="actividades-curso-justified" role="tabpanel" aria-labelledby="actividades-curso-tab">Aquí van las actividades del curso</div>
-            <div class="tab-pane fade" id="anuncios-curso-justified" role="tabpanel" aria-labelledby="anuncios-curso-tab">Aquí van los anuncios del curso</div>
-            <div class="tab-pane fade" id="recursos-curso-justified" role="tabpanel" aria-labelledby="recursos-curso-tab">Aquí van los recursos del curso</div>
+            <div class="tab-pane fade show active" id="actividades-curso-justified" role="tabpanel" aria-labelledby="actividades-curso-tab">
+              Aquí van las actividades del curso (meter una tabla, todos los módulos usarán esto) <br><br>
+              Para el botón de "Nueva actividad", crear un nuevo componente donde se muestren 4 opciones: Actividad (para elegir el nombre, subir info y así), Calificaciones (para calificarla), Alumnos (para ver a quiénes se les asigna la tarea) y Gráficos (una de barras para ver cuántos lo entregaron y cuántos no, y otra de pie para promediar las notas)
+              <br>
+              Esa vista se reciclaría para la opción "Ver actividad", la diferencia es que ya no se podría editar nada, solo las notas y las asignaciones de alumnos
+            </div>
+            <div class="tab-pane fade" id="anuncios-curso-justified" role="tabpanel" aria-labelledby="anuncios-curso-tab">
+              Aquí van los anuncios del curso
+              <br><br>
+              La opción de crear y ver se manejaría con un modal, y un botoncito para eliminar
+            </div>
+            <div class="tab-pane fade" id="recursos-curso-justified" role="tabpanel" aria-labelledby="recursos-curso-tab">
+              Aquí van los recursos del curso
+              <br><br>
+              La opción de crear y ver se manejaría con un modal, y un botoncito para eliminar
+            </div>
         </div>
        </div>
     </div>
