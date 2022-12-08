@@ -1,0 +1,20 @@
+<table class="table datatable" #dTable id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Grado</th>
+      <th scope="col">Seccion</th>
+      <th scope="col">Nivel</th>
+      <th scope="col">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let g of gradosLista;let i=index">
+      <td scope="row">{{i+1}}</td>
+      <td>{{g.nombre_grado}}</td>
+      <td>{{g.seccion}}</td>
+      <td>{{g.nivel}}</td>
+      <td>{{g.status}}</td>
+    </tr>
+  </tbody>
+</table>
