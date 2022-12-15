@@ -2,6 +2,14 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from "../core/shared/components/shared.module";
 import { AdminRoutingModule } from "./admin-routing.module";
 
+//Para que funcionen las tablas pd. Hay que importarlos en la parte de abajo
+import { MatTableModule } from "@angular/material/table";
+import {MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+//Fin cosos tabla
+
 import { AdminComponent } from "./admin.component";
 import { IndexAdminComponent } from "./dashboard/index-admin.component";
 import { ProfileComponent } from './profile/profile.component';
@@ -30,6 +38,19 @@ import { EditPerfilAdminComponent } from './profile/components/edit-perfil-admin
 import { OverviewPerfilAdminComponent } from './profile/components/overview-perfil-admin/overview-perfil-admin.component';
 import { PasswordPerfilAdminComponent } from './profile/components/password-perfil-admin/password-perfil-admin.component';
 import { PublicModule } from "../public/public.module";
+import { CardMatutinaComponent } from './dashboard/components/grados-jornadas-tabs/card-matutina/card-matutina.component';
+import { CardVespertinaComponent } from './dashboard/components/grados-jornadas-tabs/card-vespertina/card-vespertina.component';
+import { CardFinSemanaComponent } from './dashboard/components/grados-jornadas-tabs/card-fin-semana/card-fin-semana.component';
+import { GradosService } from "./dashboard/components/services/grados-admin.service";
+import { SeccionesService } from "./configuraciones/config-basicas/services/secciones.service";
+import { DocentesResumenComponent } from './dashboard/components/docentes-resumen/docentes-resumen.component';
+import { GradosComponent } from './grados/grados.component';
+import { CardAlumnosComponent } from './grados/components/card-alumnos/card-alumnos.component';
+import { CardCursosComponent } from './grados/components/card-cursos/card-cursos.component';
+import { CursosAlumnosGradosService } from "./grados/components/services/cursos-alumnos-grados.service";
+import { CursosComponent } from './grados/cursos/cursos.component';
+import { GradosAlumnosService } from "./grados/components/services/grados-alumnos.service";
+import { ProfesoresService } from "./dashboard/components/services/profesores.service";
 
 
 
@@ -56,6 +77,14 @@ import { PublicModule } from "../public/public.module";
         EditPerfilAdminComponent,
         OverviewPerfilAdminComponent,
         PasswordPerfilAdminComponent,
+        CardMatutinaComponent,
+        CardVespertinaComponent,
+        CardFinSemanaComponent,
+        DocentesResumenComponent,
+        GradosComponent,
+        CardAlumnosComponent,
+        CardCursosComponent,
+        CursosComponent,
     ],
     exports: [],
     providers: [
@@ -64,12 +93,22 @@ import { PublicModule } from "../public/public.module";
         NivelesService,
         PerfilService,
         AuthGuard,
-        RolesGuard
+        RolesGuard,
+        GradosService,
+        SeccionesService,
+        CursosAlumnosGradosService,
+        GradosAlumnosService,
+        ProfesoresService
     ],
     imports: [
         AdminRoutingModule,
         SharedModule,
         PublicModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatSortModule,
     ]
 })
 

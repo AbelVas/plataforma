@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -8,6 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 export class NivelesService {
   constructor(private http:HttpClient) { }
   URL='http://localhost:3002';
+  @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
 
   getNiveles():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
@@ -21,6 +22,19 @@ export class NivelesService {
       catchError(this.handleError)
     )
   }
+  getNivelesJornadaMatutina():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/niveles/nivel-jornada/1`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getNivelesJornadaVespertina():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/niveles/nivel-jornada/2`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

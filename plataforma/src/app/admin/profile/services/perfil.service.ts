@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 

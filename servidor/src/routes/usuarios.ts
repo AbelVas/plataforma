@@ -8,7 +8,7 @@ const router=Router();
 
 router.get("/",checkJwt,getAlumnos);
 router.get("/:id",checkJwt,getAlumno);
-router.get("/grado/:id",checkJwt,getAlumnosGrado);
+router.get("/alumno-grado/:id",checkJwt,getAlumnosGrado);
 router.post("/",checkJwt,insertarAlumno);
 router.put("/:id",checkJwt,updateAlumno);
 router.delete("/:id",checkJwt,deleteAlumno);
