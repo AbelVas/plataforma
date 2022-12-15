@@ -1,18 +1,17 @@
+import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import {map,tap,catchError, mergeScan} from 'rxjs/operators'
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListarGradosXJornadaService {
+export class GradosAlumnosService {
   URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
-  getGradoJornada(idJornada:string):Observable<any>{
+  getAlmunosGrado(idGrado:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/grados/grado-jornada/${idJornada}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/usuarios/alumno-grado/${idGrado}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -32,6 +31,13 @@ export class ListarGradosXJornadaService {
           codigoError:error.statusText,
           Mensaje:"Error de conexión con el servidor",
           icono:'<i class="fa-solid fa-shield-xmark"></i>'
+        }
+      }else{
+        if(error.status==500){
+          msg={
+            codigoError:error.statusText,
+            Mensaje:"Error en la Petición",
+          }
         }
       }
     }

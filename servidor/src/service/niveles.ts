@@ -23,7 +23,7 @@ const editarNivelService=async(data:Request,id:string)=>{
 }
 
 const getNivelesporJornadaService=async(idJornada:string)=>{
-    const response=await conexion.query("SELECT * FROM tbNivel WHERE idJornada = ?", [idJornada]);
+    const response=await conexion.query("SELECT n.idNivel,j.idJornada,j.jornada,n.nivel FROM tbNivel n INNER JOIN tbJornada j on j.idJornada=n.idJornada WHERE j.idJornada = ?", [idJornada]);
     return response;
 }
 

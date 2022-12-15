@@ -4,7 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/shared/core.module';
-import {JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt"
+import {JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 /*
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
@@ -98,7 +99,8 @@ export class AppModule { }
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CoreModule,//**1 */
+    CoreModule,
+    BrowserAnimationsModule,//**1 */
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue:JWT_OPTIONS},

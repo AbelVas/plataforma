@@ -30,7 +30,7 @@ const getGradoNivelService=async(idNivel:string)=>{
     return responseGetNivel;
 }
 const getGradoxJornada=async(id:string)=>{
-    const responseGradoJornada=await conexion.query('SELECT g.idGrado,g.nombre_grado,s.seccion,n.nivel,g.estatus FROM ((tbGrado g INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE j.idJornada=? group by g.nombre_grado',[id])
+    const responseGradoJornada=await conexion.query('SELECT g.idGrado,g.idNivel,g.idSeccion,g.nombre_grado,s.seccion,n.nivel,g.estatus,count(al.idAlumno) as Alumnos FROM (((tbGrado g INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado WHERE j.idJornada=?  group by g.nombre_grado ORDER BY n.idNivel,g.idGrado',[id])
     return responseGradoJornada;
 }
 export{GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService, getGradoNivelService,getGradoxJornada}

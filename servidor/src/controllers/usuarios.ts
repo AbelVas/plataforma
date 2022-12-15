@@ -32,11 +32,17 @@ const getAlumnosGrado= async(req:Request,res:Response)=>{
 
 const updateAlumno= async(req:Request,res:Response)=>{
     try{
-       const passEncrypt=await encrypt(req.body.pass);
-       req.body.pass=passEncrypt
        const {id}=req.params;
-       const resultadoAlumno=await updateAlumnosService(req.body,id);
-       res.send(resultadoAlumno);
+       const {pass}=req.body
+        if(pass==null){
+            const resultado=await updateAlumnosService(req.body,id);
+            res.send(resultado);
+        }else{
+            const passEncrypt=await encrypt(req.body.pass);
+            req.body.pass=passEncrypt
+            const resultadoAlumno=await updateAlumnosService(req.body,id);
+            res.send(resultadoAlumno);
+        }
     }catch(e){
         handleHttp(res,'Error al Actualizar al Alumno')
     }

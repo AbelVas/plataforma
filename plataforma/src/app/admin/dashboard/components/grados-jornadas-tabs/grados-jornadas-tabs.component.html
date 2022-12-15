@@ -11,10 +11,10 @@
         </ul>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
           <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
-            <app-card-matutina-admin-grados-jornadas></app-card-matutina-admin-grados-jornadas>
+            <app-card-matutina-admin-grados-jornadas [niveles]="NivelesExport" [secciones]="SeccionesExport"></app-card-matutina-admin-grados-jornadas>
           </div>
           <div class="tab-pane fade" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
-            <app-card-vespertina-admin-grado-x-jornada></app-card-vespertina-admin-grado-x-jornada>
+            <app-card-vespertina-admin-grado-x-jornada [niveles]="NivelesExportVespertina" [secciones]="SeccionesExport"></app-card-vespertina-admin-grado-x-jornada>
           </div>
         </div>
        </div>
