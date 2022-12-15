@@ -63,6 +63,10 @@ import { CrearActividadProfesorService } from "./cursos-profesor/crear-actividad
 import { CrearExamenProfesorService } from "./cursos-profesor/crear-examen-profesor/services/crear-examen-profesor.service";
 import { CrearForoProfesorService } from "./cursos-profesor/crear-foro-profesor/services/crear-foro-profesor.service";
 import { ColumnaDerechaProfesorComponent } from './dashboard/components/columna-derecha-profesor/columna-derecha-profesor.component';
+import { ExamenCursoComponent } from './examen-curso-profesor/components/examen-curso/examen-curso.component';
+import { CalificacionesExamenComponent } from './examen-curso-profesor/components/calificaciones-examen/calificaciones-examen.component';
+import { AlumnosExamenComponent } from './examen-curso-profesor/components/alumnos-examen/alumnos-examen.component';
+import { GraficoExamenComponent } from './examen-curso-profesor/components/grafico-examen/grafico-examen.component';
 //
 
 
@@ -110,6 +114,10 @@ import { ColumnaDerechaProfesorComponent } from './dashboard/components/columna-
   CrearExamenProfesorComponent,
   CrearActividadProfesorComponent,
   ColumnaDerechaProfesorComponent,
+  ExamenCursoComponent,
+  CalificacionesExamenComponent,
+  AlumnosExamenComponent,
+  GraficoExamenComponent,
   ],
   exports:[
   ],

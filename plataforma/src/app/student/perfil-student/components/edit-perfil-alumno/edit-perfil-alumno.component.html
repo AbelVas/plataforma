@@ -1,0 +1,33 @@
+<form autocomplete="off">
+  <div class="row mb-3">
+     <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
+     <div class="col-md-8 col-lg-9">
+        <img src="assets/img/blank_profile.png" alt="Profile">
+        <div class="pt-2"> <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="fa-solid fa-pen-to-square"></i></a> <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="fa-solid fa-trash-can"></i></a></div>
+     </div>
+  </div>
+  <div class="row mb-3">
+     <label class="col-md-4 col-lg-3 col-form-label">Nombre</label>
+     <div class="col-md-8 col-lg-9"> <input name="nombre_tutor" type="text" class="form-control" [(ngModel)]="alumnoIndividual[0].nombres_alumno"></div>
+  </div>
+  <div class="row mb-3">
+     <label class="col-md-4 col-lg-3 col-form-label">Apellidos</label>
+     <div class="col-md-8 col-lg-9"> <input name="apellido_tutor" type="text" class="form-control" [(ngModel)]="alumnoIndividual[0].apellidos_alumno"></div>
+  </div>
+  <div class="row mb-3">
+     <label class="col-md-4 col-lg-3 col-form-label">Rol</label>
+     <div class="col-md-8 col-lg-9"> <input disabled type="text" class="form-control" value="Estudiante"></div>
+  </div>
+  <div class="row mb-3">
+     <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
+     <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="alumnoIndividual[0].usuario"></div>
+  </div>
+  <div class="row mb-3">
+    <label class="col-md-4 col-lg-3 col-form-label">Estado</label>
+    <div class="col-md-8 col-lg-9"><span [class]="classBadgeActive">{{estado}}</span></div>
+  </div>
+  <hr>
+  <div class="text-center"> <button type="submit" class="btn btn-primary" (click)="insertAlumno(alumnoIndividual[0].idAlumno)">Actualizar Datos</button></div>
+</form>
+
+

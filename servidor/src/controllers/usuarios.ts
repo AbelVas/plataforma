@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi} from "../service/usuarios";
+import {insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword} from "../service/usuarios";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -72,4 +72,15 @@ const insertarAlumno= async(req:Request,res:Response)=>{
     }
 }
 
-export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno}
+const compararPass=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {pass}=req.body;
+        const resultadoDelete=await verifyPassword(id,pass);
+        res.send(resultadoDelete);
+     }catch(e){
+         handleHttp(res,'Error al Actualizar la contraseña',e)
+     }
+}
+
+export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass}

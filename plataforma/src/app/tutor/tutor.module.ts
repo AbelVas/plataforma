@@ -29,14 +29,12 @@ import { CalendarioResumenCursoComponent } from './curso-alumno-tutor/resumen-cu
 import { ProgressResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/progress-resumen-curso/progress-resumen-curso.component';
 import { DashboardService } from "./dashboard/services/dashboard.service";
 import { CursoAlumnoTutorService } from "./curso-alumno-tutor/services/curso-alumno-tutor.service";
-import { ExamenesActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/examenes-actividades-curso-alumno-tutor.service";
-import { ForosActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/foros-actividades-curso-alumno-tutor.service";
-import { TareasActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/tareas-actividades-curso-alumno-tutor.service";
 import { EditPerfilTutorComponent } from './perfil-tutor/components/edit-perfil-tutor/edit-perfil-tutor.component';
 import { PerfilTutorService } from "./perfil-tutor/services/perfil-tutor.service";
 import { OverviewPerfilTutorComponent } from './perfil-tutor/components/overview-perfil-tutor/overview-perfil-tutor.component';
 import { PasswordPerfilTutorComponent } from './perfil-tutor/components/password-perfil-tutor/password-perfil-tutor.component';
 import { CalificacionesAlumnoTutorService } from "./calificaciones-alumno-tutor/services/calificaciones-alumno-tutor.service";
+import { ActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/actividades-curso-alumno-tutor.service";
 
 @NgModule({
   imports:[
@@ -78,10 +76,8 @@ import { CalificacionesAlumnoTutorService } from "./calificaciones-alumno-tutor/
     DashboardService,
     CursoAlumnoTutorService,
     CalificacionesAlumnoTutorService,
-    ExamenesActividadesCursoAlumnoTutorService,
-    ForosActividadesCursoAlumnoTutorService,
-    TareasActividadesCursoAlumnoTutorService,
-    PerfilTutorService
+    PerfilTutorService,
+    ActividadesCursoAlumnoTutorService
   ]
 })
 

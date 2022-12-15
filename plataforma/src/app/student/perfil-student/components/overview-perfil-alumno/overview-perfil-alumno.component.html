@@ -1,0 +1,25 @@
+<div *ngFor="let a of alumnoGet">
+  <div class="row">
+     <div class="col-lg-3 col-md-4 label ">Nombre</div>
+     <div class="col-lg-9 col-md-8">{{a.nombres_alumno}}</div>
+  </div>
+  <div class="row">
+     <div class="col-lg-3 col-md-4 label">Apellido</div>
+     <div class="col-lg-9 col-md-8">{{a.apellidos_alumno}}</div>
+  </div>
+  <div class="row">
+     <div class="col-lg-3 col-md-4 label">Rol</div>
+     <div class="col-lg-9 col-md-8">Estudiante</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-4 label">Email</div>
+    <div class="col-lg-9 col-md-8">{{a.usuario}}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-4 label">Estado de la Cuenta</div>
+    <div class="col-lg-9 col-md-8 text-muted"><span [class]="classBadgeActive">{{estado}}</span></div>
+  </div>
+</div>
+
+
+

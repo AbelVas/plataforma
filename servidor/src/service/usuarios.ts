@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import conexion from "../config/database";
+import { encrypt,verified } from "../utils/passwordFunction";
 
 //CRUD
 const insertAlumnosService=async(data:Request)=>{
@@ -31,4 +32,15 @@ const validarAlumnosExisteSi=async(usuario:string)=>{
     const data=await conexion.query('SELECT idAlumno FROM tbAlumno WHERE usuario=?',[usuario]);
     return data;
 }
-export{insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi}
+
+const verifyPassword=async(id:string,pass:string)=>{
+    const compararPass=await conexion.query('SELECT idAlumno,pass FROM tbAlumno WHERE idAlumno=?',[id]);
+    if(compararPass=='') return "Error, Contraseña Incorrecta";
+    const dataUsuario:any=Object.values(compararPass[0]);
+    const passwordHash=dataUsuario[1];
+    const isCorrect=await verified(pass,passwordHash);
+    if(!isCorrect) return "Error, las contraseñas no coinciden ";
+    return '1';
+}
+
+export{insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword}
