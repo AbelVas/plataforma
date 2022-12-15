@@ -27,6 +27,16 @@ import { ForosActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/
 import { CardInfoResumenComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/card-info-resumen/card-info-resumen.component';
 import { CalendarioResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/calendario-resumen-curso/calendario-resumen-curso.component';
 import { ProgressResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/progress-resumen-curso/progress-resumen-curso.component';
+import { DashboardService } from "./dashboard/services/dashboard.service";
+import { CursoAlumnoTutorService } from "./curso-alumno-tutor/services/curso-alumno-tutor.service";
+import { ExamenesActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/examenes-actividades-curso-alumno-tutor.service";
+import { ForosActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/foros-actividades-curso-alumno-tutor.service";
+import { TareasActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/tareas-actividades-curso-alumno-tutor.service";
+import { EditPerfilTutorComponent } from './perfil-tutor/components/edit-perfil-tutor/edit-perfil-tutor.component';
+import { PerfilTutorService } from "./perfil-tutor/services/perfil-tutor.service";
+import { OverviewPerfilTutorComponent } from './perfil-tutor/components/overview-perfil-tutor/overview-perfil-tutor.component';
+import { PasswordPerfilTutorComponent } from './perfil-tutor/components/password-perfil-tutor/password-perfil-tutor.component';
+import { CalificacionesAlumnoTutorService } from "./calificaciones-alumno-tutor/services/calificaciones-alumno-tutor.service";
 
 @NgModule({
   imports:[
@@ -55,13 +65,23 @@ import { ProgressResumenCursoComponent } from './curso-alumno-tutor/resumen-curs
     ForosActividadesCursoAlumnoTutorComponent,
     CardInfoResumenComponent,
     CalendarioResumenCursoComponent,
-    ProgressResumenCursoComponent
+    ProgressResumenCursoComponent,
+    EditPerfilTutorComponent,
+    OverviewPerfilTutorComponent,
+    PasswordPerfilTutorComponent
   ],
   exports:[
   ],
   providers:[
     AuthGuard,
-    RolesGuard
+    RolesGuard,
+    DashboardService,
+    CursoAlumnoTutorService,
+    CalificacionesAlumnoTutorService,
+    ExamenesActividadesCursoAlumnoTutorService,
+    ForosActividadesCursoAlumnoTutorService,
+    TareasActividadesCursoAlumnoTutorService,
+    PerfilTutorService
   ]
 })
 

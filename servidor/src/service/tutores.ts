@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import conexion from "../config/database";
+import { encrypt,verified } from "../utils/passwordFunction";
 
 //CRUD
 const insertTutoresService=async(data:Request)=>{
@@ -28,8 +29,18 @@ const validarTutoresExisteSi=async(usuario:string,telefono1:string)=>{
     return data;
 }
 
+const verifyPassword=async(id:string,pass:string)=>{
+    const compararPass=await conexion.query('SELECT idTutor,pass FROM tbTutor WHERE idTutor=?',[id]);
+    if(compararPass=='') return "Error, Contraseña Incorrecta";
+    const dataUsuario:any=Object.values(compararPass[0]);
+    const passwordHash=dataUsuario[1];
+    const isCorrect=await verified(pass,passwordHash);
+    if(!isCorrect) return "Error, las contraseñas no coinciden ";
+    return '1';
+}
+
 const getTutorconAlumnoService=async(idAlum:string)=>{
     const responseGetTutorconAlumno= await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idAlumno=? ',[idAlum])
     return responseGetTutorconAlumno;
 }
-export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService}
+export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword}

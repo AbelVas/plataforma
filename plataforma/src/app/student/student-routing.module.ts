@@ -1,15 +1,31 @@
 import { NgModule } from "@angular/core";
 import { RouterModule,Routes } from "@angular/router";
 
+import { AuthGuard } from "../guards/auth.guard";
+import { RolesGuard } from "../guards/roles.guard";
+import { CalendarioStudentComponent } from "./calendario-student/calendario-student.component";
+import { CalificacionesStudentComponent } from "./calificaciones-student/calificaciones-student.component";
+import { ActividadesCursoAlumnoComponent } from "./curso-alumno/actividades-curso-alumno/actividades-curso-alumno.component";
+import { ResumenCursoAlumnoComponent } from "./curso-alumno/resumen-curso-alumno/resumen-curso-alumno.component";
+
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { PerfilStudentComponent } from "./perfil-student/perfil-student.component";
+import { PlanificacionesStudentComponent } from "./planificaciones-student/planificaciones-student.component";
 import { StudentComponent } from "./student.component";
 
 
 const routes:Routes=[
-  {path:'',component: StudentComponent,children:
+  {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component: StudentComponent,children:
   [
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
-    {path:'dashboard',component:DashboardComponent}
+    {path:'dashboard',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:DashboardComponent},
+    {path:'calendario',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalendarioStudentComponent},
+    {path:'calificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalificacionesStudentComponent},
+    {path:'planificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:PlanificacionesStudentComponent},
+    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:PerfilStudentComponent},
+    {path:'curso/resumen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ResumenCursoAlumnoComponent},
+    {path:'curso/actividades',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ActividadesCursoAlumnoComponent},
+    {path:'curso/calificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalificacionesStudentComponent}
   ]
   },
 ]

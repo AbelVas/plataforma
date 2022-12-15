@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService} from "../service/tutores";
+import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword} from "../service/tutores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -21,14 +21,20 @@ const getTutor= async(req:Request,res:Response)=>{
     }
 }
 const updateTutor= async(req:Request,res:Response)=>{
-    try{
-       const passEncrypt=await encrypt(req.body.pass);
-       req.body.pass=passEncrypt
-       const {id}=req.params;
-       const resultadoTutores=await updateTutorService(req.body,id);
-       res.send(resultadoTutores);
-    }catch(e){
-        handleHttp(res,'Error al Actualizar al Tutor')
+    try {
+        const {id}=req.params;
+        const {pass}=req.body
+        if(pass==null){
+            const resultado=await updateTutorService(req.body,id);
+            res.send(resultado);
+        }else{
+            const passEncrypt=await encrypt(pass);
+            req.body.pass=passEncrypt;
+            const resultado=await updateTutorService(req.body,id);
+            res.send(resultado);
+        }
+    } catch (e) {
+        handleHttp(res,'Error al Editar Profesor',e)
     }
 }
 const deleteTutor= async(req:Request,res:Response)=>{
@@ -56,6 +62,17 @@ const insertarTutor= async(req:Request,res:Response)=>{
     }
 }
 
+const compararPass=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {pass}=req.body;
+        const resultadoDelete=await verifyPassword(id,pass);
+        res.send(resultadoDelete);
+     }catch(e){
+         handleHttp(res,'Error al Actualizar la contraseña',e)
+     }
+}
+
 const getTutorconAlumno=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
@@ -66,4 +83,4 @@ const getTutorconAlumno=async(req:Request,res:Response)=>{
     }
 }
 
-export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno}
+export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass}

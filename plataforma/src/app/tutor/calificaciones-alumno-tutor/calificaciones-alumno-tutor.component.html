@@ -13,8 +13,23 @@
             <div class="tab-content pt-2" id="myTabjustifiedContent">
               <div class="activity">
                 Aquí van las calificaciones generales de todos los cursos
+              </div>
             </div>
-            </div>
+            <nav class="d-flex justify-content-end">
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalestadisticasgradoguia"> Ver Estadísticas </button>
+                   <div class="modal fade" id="modalestadisticasgradoguia" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                         <div class="modal-content">
+                            <div class="modal-header">
+                               <h5 class="card-title">Nombre del alumno</h5>
+                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos cursos aprobó o reprobó el alumno</div>
+                            <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+                         </div>
+                      </div>
+                   </div>
+            </nav>
            </div>
         </div>
       </div>

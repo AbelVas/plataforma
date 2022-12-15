@@ -6,8 +6,8 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CalificacionesAlumnoTutorComponent } from "./calificaciones-alumno-tutor/calificaciones-alumno-tutor.component";
 import { ActividadesCursoAlumnoTutorComponent } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/actividades-curso-alumno-tutor.component";
 import { CalificacionesCursoAlumnoTutorComponent } from "./curso-alumno-tutor/calificaciones-curso-alumno-tutor/calificaciones-curso-alumno-tutor.component";
-import { CursoAlumnoTutorComponent } from "./curso-alumno-tutor/curso-alumno-tutor.component";
 import { ResumenCursoAlumnoTutorComponent } from "./curso-alumno-tutor/resumen-curso-alumno-tutor/resumen-curso-alumno-tutor.component";
+import { PerfilTutorComponent } from "./perfil-tutor/perfil-tutor.component";
 
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
@@ -17,11 +17,11 @@ const routes:Routes=[
   [
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'dashboard',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:DashboardComponent},
-    {path:'curso',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:CursoAlumnoTutorComponent},
     {path:'calificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:CalificacionesAlumnoTutorComponent},
     {path:'curso/actividades',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:ActividadesCursoAlumnoTutorComponent},
     {path:'curso/calificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:CalificacionesCursoAlumnoTutorComponent},
-    {path:'curso/resumen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:ResumenCursoAlumnoTutorComponent}
+    {path:'curso/resumen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:ResumenCursoAlumnoTutorComponent},
+    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:PerfilTutorComponent}
   ]
   },
 ]

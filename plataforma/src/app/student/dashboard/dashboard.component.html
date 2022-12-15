@@ -1,1 +1,22 @@
-<p>dashboard works student!</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Nombre del Alumno</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section dashboard">
+     <div class="row">
+        <div class="col-lg-8">
+          <app-card-resumen-student></app-card-resumen-student>
+          <app-cursos-student></app-cursos-student>
+        </div>
+        <div class="col-lg-4">
+          <app-columna-derecha-student></app-columna-derecha-student>
+        </div>
+     </div>
+  </section>
+</main>
+
