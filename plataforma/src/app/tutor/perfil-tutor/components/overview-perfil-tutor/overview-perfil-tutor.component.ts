@@ -9,7 +9,7 @@ import  {DatePipe} from "@angular/common";
   styleUrls: ['./overview-perfil-tutor.component.css']
 })
 export class OverviewPerfilTutorComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
   errorServicio:any=[];
@@ -52,8 +52,10 @@ export class OverviewPerfilTutorComponent implements OnInit {
           this.classBadgeActive='badge bg-danger';
           this.estado='Inactivado';
         }
+        this.sppinerOn=false;
       },
       error=>{
+        this.sppinerOn=false;
         console.log('Error: '+error);
       }
     )

@@ -43,4 +43,11 @@ const obtenerCursosPorProfesorGradoSeccionService=async(idProfesor:string,idCurs
     const response=await conexion.query('SELECT c.idCurso,c.nombre_curso,c.abreviatura,c.creado,c.consolidado_bimestre,c.consolidado_anual,c.boletas,CONCAT(g.nombre_grado,", Sección: ",s.seccion) AS grado FROM (tbCurso c INNER JOIN tbGrado g ON g.idGrado=c.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE idProfesor=? and c.idCurso!=?',[idProfesor,idCurso.idCurso]);
     return response
 }
-export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService}
+
+const obtenerCursosPorAlumnoService=async(idAlumno:string)=>{
+    const response=await conexion.query('SELECT c.idCurso,g.idGrado,p.idProfesor,c.nombre_curso,CONCAT(g.nombre_grado,", ",s.seccion) AS grado, CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor FROM (((tbGrado g INNER JOIN tbCurso c ON c.idGrado=g.idGrado)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor WHERE al.idAlumno=?',[idAlumno]);
+    return response
+}
+
+
+export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService}

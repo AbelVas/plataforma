@@ -35,11 +35,14 @@ import { OverviewPerfilTutorComponent } from './perfil-tutor/components/overview
 import { PasswordPerfilTutorComponent } from './perfil-tutor/components/password-perfil-tutor/password-perfil-tutor.component';
 import { CalificacionesAlumnoTutorService } from "./calificaciones-alumno-tutor/services/calificaciones-alumno-tutor.service";
 import { ActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/actividades-curso-alumno-tutor.service";
+import { CardClasesTutorService } from "./dashboard/services/card-clases-tutor.service";
+import { PublicModule } from "../public/public.module";
 
 @NgModule({
   imports:[
     TutorRoutingModule,
-    SharedModule
+    SharedModule,
+    PublicModule
   ],
   declarations:[
     TutorComponent,
@@ -77,7 +80,8 @@ import { ActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/activid
     CursoAlumnoTutorService,
     CalificacionesAlumnoTutorService,
     PerfilTutorService,
-    ActividadesCursoAlumnoTutorService
+    ActividadesCursoAlumnoTutorService,
+    CardClasesTutorService
   ]
 })
 
