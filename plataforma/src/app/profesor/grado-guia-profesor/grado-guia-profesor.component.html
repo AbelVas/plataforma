@@ -8,16 +8,36 @@
      </nav>
   </div>
   <section class="section dashboard">
-    <div class="row">
+    <div class="row" *ngFor="let g of gradosGet">
       <div class="col-12">
         <div class="card">
            <div class="card-body">
             <div class="d-flex">
-              <h5 class="card-title">Nombre del grado guía</h5>
+              <h5 class="card-title">{{g.nombre_grado}}</h5>
             </div>
             <div class="tab-content pt-2" id="myTabjustifiedContent">
-              <div class="activity">
-                Ver el listado de los alumnos
+              <div class="activity" >
+                <table class="table" >
+                  <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Usuario</th>
+                      <th scope="col">Activo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let e of listaalumnos; let i = index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{e.alumno}}</td>
+                      <td>{{e.usuario}}</td>
+                      <td *ngIf="e.activo=='1';else inactivo"><span class="badge bg-success">Activo</span></td>
+                      <ng-template #inactivo>
+                        <td><span class="badge bg-danger">Inactivo</span></td>
+                      </ng-template>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <nav class="d-flex justify-content-end">
