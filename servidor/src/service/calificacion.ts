@@ -1,0 +1,18 @@
+import conexion from "../config/database";
+
+const getAlumnosCalificacionActividadCursUnidadService=async(idActividad:string,idUnidad:string,idCurso:string)=>{
+    const response=await conexion.query('SELECT al.idAlumno,CONCAT(al.apellidos_alumno,", ",al.nombres_alumno) as alumno,NotasActividades(d.idCurso,al.idAlumno,d.idDetalleActividad,d.idUnidad) as nota,d.valor FROM ((((tbCalificacion c RIGHT JOIN tbDetalleActividad d ON d.idDetalleActividad=c.idDetalleActividad)INNER JOIN tbUnidad u ON u.idUnidad=d.idUnidad)INNER JOIN tbCurso cur ON cur.idCurso=d.idCurso)INNER JOIN tbGrado g ON g.idGrado=cur.idGrado)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado WHERE d.idDetalleActividad=? and d.idUnidad=? and d.idCurso=? GROUP BY al.idAlumno',[idActividad,idUnidad,idCurso])
+    return response
+}
+const calificarActividadService=async(idAlumno:string,idDetalleActividad:string,calificacion:string)=>{
+    const selectCalificacion=await conexion.query('SELECT idCalificacion FROM tbCalificacion WHERE idAlumno=? and idDetalleActividad=?',[idAlumno,idDetalleActividad]);
+    if(selectCalificacion!=''){
+        const updateNota=await conexion.query('UPDATE tbCalificacion SET calificacion=? WHERE idAlumno=? and idDetalleActividad=?',[calificacion,idAlumno,idDetalleActividad]);
+        return true
+    }else{
+        const insertNota=await conexion.query('INSERT INTO tbCalificacion(idAlumno,idDetalleActividad,calificacion) VALUES(?, ?, ?)',[idAlumno,idDetalleActividad,calificacion])
+        return true
+    }
+}
+
+export {getAlumnosCalificacionActividadCursUnidadService,calificarActividadService}

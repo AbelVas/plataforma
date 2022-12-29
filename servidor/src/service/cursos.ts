@@ -39,5 +39,8 @@ const obtenerCursosPorGradoProfesorService = async(idGrado:string)=>{
     const responseGet=await conexion.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?',[idGrado]);
     return responseGet;
 }
-
-export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService}
+const obtenerCursosPorProfesorGradoSeccionService=async(idProfesor:string,idCurso:any)=>{
+    const response=await conexion.query('SELECT c.idCurso,c.nombre_curso,c.abreviatura,c.creado,c.consolidado_bimestre,c.consolidado_anual,c.boletas,CONCAT(g.nombre_grado,", Sección: ",s.seccion) AS grado FROM (tbCurso c INNER JOIN tbGrado g ON g.idGrado=c.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE idProfesor=? and c.idCurso!=?',[idProfesor,idCurso.idCurso]);
+    return response
+}
+export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService}
