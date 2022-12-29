@@ -11,14 +11,51 @@
     <div class="col-12">
       <div class="card">
          <div class="card-body">
-          <div class="d-flex">
-            <h5 class="card-title">Karins Apellido</h5>
+          <div class="d-flex" *ngFor="let al of NombreUsuario">
+            <h5 class="card-title">{{al.nombres_alumno+ " " +al.apellidos_alumno}}</h5>
           </div>
           <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="activity">
-              Aquí van las calificaciones del curso
-              <br><br>
-              Se muestra si desde admin la opción está activa
+              <div style="overflow-x: auto;">
+                <table class="table table-striped">
+                  <thead>
+                     <tr>
+                        <th scope="col" class="text-center">Actividad</th>
+                        <th scope="col" class="text-center">Tema</th>
+                        <th scope="col" class="text-center">Entrega</th>
+                        <th scope="col" class="text-center">Punteo</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="center">Examen/Tarea/Foro</td>
+                        <td align="center">Nombre del ____</td>
+                        <td align="center">Si</td>
+                        <td align="center">10</td>
+                     </tr>
+                     <tr>
+                        <td align="center">Examen/Tarea/Foro</td>
+                        <td align="center">Nombre del ____</td>
+                        <td align="center">No</td>
+                        <td align="center">0</td>
+                     </tr>
+                  </tbody>
+               </table>
+              </div>
+              <div style="overflow-x: auto;">
+                <table class="table table-striped">
+                  <thead>
+                     <tr>
+                        <th scope="col" style="text-align: right">Total</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="right">10/100</td>
+                     </tr>
+                  </tbody>
+               </table>
+              </div>
           </div>
           </div>
          </div>

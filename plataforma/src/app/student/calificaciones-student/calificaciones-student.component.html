@@ -12,7 +12,63 @@
             </div>
             <div class="tab-content pt-2" id="myTabjustifiedContent">
               <div class="activity">
-                Aquí van las calificaciones generales de todos los cursos
+                                <div style="overflow-x: auto;">
+                  <table class="table table-striped">
+                    <thead>
+                       <tr>
+                          <th scope="col" class="text-center">Curso</th>
+                          <th scope="col" class="text-center">Primer Bimestre</th>
+                          <th scope="col" class="text-center">Segundo Bimestre</th>
+                          <th scope="col" class="text-center">Tercer Bimestre</th>
+                          <th scope="col" class="text-center">Cuatro Bimestre</th>
+                          <th scope="col" class="text-center">Promedio Curso</th>
+
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                          <td align="center">Nombre del curso</td>
+                          <td align="center">65</td>
+                          <td align="center">70</td>
+                          <td align="center">60</td>
+                          <td align="center">85</td>
+                          <td align="center">70</td>
+                       </tr>
+                       <tr>
+                          <td align="center">Nombre del curso</td>
+                          <td align="center">65</td>
+                          <td align="center">70</td>
+                          <td align="center">60</td>
+                          <td align="center">85</td>
+                          <td align="center">70</td>
+                       </tr>
+                    </tbody>
+                 </table>
+
+                  <table class="table table-striped">
+                    <thead>
+                       <tr>
+                          <th scope="col" class="text-center">Promedios Bimestres</th>
+                          <th scope="col" class="text-center">Primer Bimestre</th>
+                          <th scope="col" class="text-center">Segundo Bimestre</th>
+                          <th scope="col" class="text-center">Tercer Bimestre</th>
+                          <th scope="col" class="text-center">Cuarto Bimestre</th>
+                          <th scope="col" class="text-center">Promedio Final</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                          <td align="center">0</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                       </tr>
+                    </tbody>
+                 </table>
+
+                </div>
               </div>
             </div>
             <nav class="d-flex justify-content-end">
@@ -21,7 +77,7 @@
                       <div class="modal-dialog modal-dialog-centered">
                          <div class="modal-content">
                             <div class="modal-header">
-                               <h5 class="card-title">Nombre del alumno</h5>
+                               <h5 class="card-title">{{NombreUsuario}}</h5>
                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos cursos aprobó o reprobó el alumno</div>

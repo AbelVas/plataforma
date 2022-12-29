@@ -49,13 +49,16 @@ import { ExamenCursoStudentComponent } from './examen-curso-student/examen-curso
 import { ForoCursoStudentService } from "./foro-curso-student/services/foro-curso-student.service";
 import { ActividadCursoStudentService } from "./actividad-curso-student/services/actividad-curso-student.service";
 import { ExamenCursoStudentService } from "./examen-curso-student/examen-curso-student.service";
+import { CalificacionesStudentService } from "./calificaciones-student/services/calificaciones-student.service";
+import { PublicModule } from "../public/public.module";
 //
 
 
 @NgModule({
   imports:[
     StudentRoutingModule,
-    SharedModule
+    SharedModule,
+    PublicModule
   ],
   declarations:[
     StudentComponent,
@@ -108,7 +111,8 @@ import { ExamenCursoStudentService } from "./examen-curso-student/examen-curso-s
     PlanificacionesStudentService,
     ForoCursoStudentService,
     ActividadCursoStudentService,
-    ExamenCursoStudentService
+    ExamenCursoStudentService,
+    CalificacionesStudentService
 
   ]
 })
