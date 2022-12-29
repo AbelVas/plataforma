@@ -3,7 +3,7 @@ import conexion from "../config/database";
 import { encrypt,verified } from "../utils/passwordFunction";
 
 const obtenerProfesoresService=async()=>{
-    const responseGet=await conexion.query('SELECT `idProfesor`, `idCodigo`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo`, `idRol` FROM `tbProfesor` WHERE idRol=2');
+    const responseGet=await conexion.query('SELECT `idProfesor`, `idCodigo`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo`, `idRol` FROM `tbProfesor` WHERE idRol=2 order by apellido_profesor asc');
     return responseGet;
 }
 const obtenerProfesorService=async(id:string)=>{
@@ -15,12 +15,21 @@ const updateProfesorService=async(data:Request,id:string)=>{
     return responseUpdate;
 }
 const deleteProfesorService=async(id:string)=>{
+    const existe=await conexion.query('SELECT idProfesor,idCodigo FROM tbProfesor WHERE idProfesor=? and idRol=2',[id])
+    const dataUsuario:any=Object.values(existe[0]);
+    const activarCodigo=await conexion.query('UPDATE tbCodigo SET activo=1 WHERE idCodigo=?',[dataUsuario[1]])
     const responseDelete=await conexion.query('DELETE FROM tbProfesor WHERE idRol=2 and idProfesor=?',[id]);
     return responseDelete;
 }
-const insertProfesorService=async(data:Request)=>{
-    const responseInsert=await conexion.query('INSERT INTO tbProfesor set ?',[data]);
-    return responseInsert;
+const insertProfesorService=async(data:any)=>{
+    const existe=await conexion.query('SELECT idProfesor FROM tbProfesor WHERE CUI=? OR usuario=?',[data.CUI,data.usuario])
+    if(existe==''){
+        const responseInsert=await conexion.query('INSERT INTO tbProfesor set ?',[data]);
+        const usarCodigo=await conexion.query('UPDATE tbCodigo SET activo="0" WHERE idCodigo=?',[data.idCodigo]);
+        return responseInsert;
+    }else{
+        return false
+    }
 }
 const validarAdminExisteSi=async(usuario:string,CUI:string,telefono:string)=>{
     const data=await conexion.query('SELECT idProfesor FROM tbProfesor WHERE usuario=? and CUI=? and telefono=?',[usuario,CUI,telefono]);

@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { insertUnidadService,obtenerUnidadesService,obtenerUnidadService, updateUnidadService,deleteUnidadService } from "../service/unidades"
+import { insertUnidadService,obtenerUnidadesService,obtenerUnidadService, updateUnidadService,deleteUnidadService,getUnidadesActivasService } from "../service/unidades"
 import { handleHttp } from "../utils/error.handle"
 
 
@@ -47,4 +47,12 @@ const deleteUnidad= async(req:Request,res:Response)=>{
         handleHttp(res,'Error al Eliminar la Unidad: ',e)
     }
 }
-export {getUnidades,getUnidad,postUnidad,updateUnidades,deleteUnidad}
+const getUnidadActiva= async(req:Request,res:Response)=>{
+    try{
+       const resultadoUnidades=await getUnidadesActivasService();
+       res.send(resultadoUnidades);
+    }catch(e){
+        handleHttp(res,'Error Al obtener la Unidades activas',e)
+    }
+}
+export {getUnidades,getUnidad,postUnidad,updateUnidades,deleteUnidad,getUnidadActiva}

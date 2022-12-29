@@ -7,7 +7,7 @@ import { checkJwt } from "../middleware/session";
 const router = Router();
 
 router.get("/", checkJwt,getCodigos);
-router.get("/:id", checkJwt,getCodigo);
+router.post("/verify/", checkJwt,getCodigo);
 router.put("/:id", checkJwt,updateCodigo);
 router.delete("/:id", checkJwt,deleteCodigo);
 router.post("/", checkJwt,insertCodigo);

@@ -1,8 +1,8 @@
 export default{
     database:{
-        host:'75.102.57.88',
-        user:'nthdovqx_academicoverapaz',
+        host:'204.93.224.100',
+        user:'flrsjejd_plataforma',
         password:'macromish40322454',
-        database:'nthdovqx_plataformaplanbasico'
+        database:'flrsjejd_plataformaplanbasico'
     }
 }

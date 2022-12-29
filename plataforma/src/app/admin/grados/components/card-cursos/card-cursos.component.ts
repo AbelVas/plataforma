@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProfesoresService } from 'src/app/admin/dashboard/components/services/profesores.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { ProfesoresService } from 'src/app/admin/dashboard/components/services/p
   styleUrls: ['./card-cursos.component.css']
 })
 export class CardCursosComponent implements OnInit {
+  idGrado:string=''
   filterValue:string=''
   listaCursos:any=[]
   listaDocentes:any=[]
@@ -20,10 +22,15 @@ export class CardCursosComponent implements OnInit {
   cursoVacioError='form-control';
   @Input() cursos:any=[{}];
   @Input() secciones:any=[{}];
+  hoy:any=new Date();
+  mesActual=this.hoy.getMonth()+1;
+  fecha=this.hoy.getFullYear()+'-'+this.mesActual+'-'+this.hoy.getDate()
 
-  constructor(private profesoresService:ProfesoresService) { }
+  constructor(private profesoresService:ProfesoresService,private activedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    const params=this.activedRoute.snapshot.params;
+    this.idGrado=params['id'];
     this.getDocentes()
     this.listaCursos=this.cursos
   }
@@ -31,16 +38,12 @@ export class CardCursosComponent implements OnInit {
 
   }
   crearCurso(){
-    var hoy=new Date();
-    var fecha=hoy.getFullYear()+'-'+hoy.getMonth()+'-'+hoy.getDate()
-
-    console.log(fecha)
+    console.log(this.fecha)
   }
   getDocentes(){
     this.profesoresService.getProfesoresListaSelectCursos().subscribe(
       res=>{
         this.listaDocentes=res;
-        console.log(this.listaDocentes)
       },
       err=>{
         console.log(err)

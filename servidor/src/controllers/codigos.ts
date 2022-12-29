@@ -13,8 +13,8 @@ const getCodigos = async (req:Request, res:Response)=>{
 
 const getCodigo = async (req:Request, res:Response) =>{
     try{
-        const {id}=req.params;
-        const resultadoCodigo=await obtenerCodigoService(id);
+
+        const resultadoCodigo=await obtenerCodigoService(req.body.codigo,req.body.idTipoCodigo);
         res.send(resultadoCodigo);
     }catch(e){
         handleHttp(res,'Error al Obtener el Codigo')

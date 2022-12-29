@@ -37,7 +37,7 @@ export class SeccionesService {
   }
   updateSeccion(idSeccion:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/jornadas/${idSeccion}`,data,httpOptions).pipe(
+    return this.http.put(`${this.URL}/secciones/${idSeccion}`,data,httpOptions).pipe(
       catchError(this.handleError)
     )
   }
