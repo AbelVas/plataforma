@@ -11,5 +11,5 @@ router.put("/:id",checkJwt,updateGuiaGrado);
 router.delete("/:id",checkJwt,deleteGuiaGrado);
 router.post("/",checkJwt,insertGuiaGrado);
 router.get("/gradoguia-profesor/:id",checkJwt,getGradoGuiaProfesor)
-
+//api que
 export{router};

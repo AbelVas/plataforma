@@ -12,7 +12,6 @@ export class CardAlumnosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaAlumnos=this.alumnos
-    console.log(this.listaAlumnos)
   }
 
 }
