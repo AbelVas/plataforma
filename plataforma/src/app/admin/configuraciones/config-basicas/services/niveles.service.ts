@@ -18,7 +18,7 @@ export class NivelesService {
   }
   updateNiveles(idNivel:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/jornadas/${idNivel}`,data,httpOptions).pipe(
+    return this.http.put(`${this.URL}/niveles/${idNivel}`,data,httpOptions).pipe(
       catchError(this.handleError)
     )
   }
@@ -31,6 +31,18 @@ export class NivelesService {
   getNivelesJornadaVespertina():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/niveles/nivel-jornada/2`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  crearNivel(data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/niveles/`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  deleteNivel(idNivel:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/niveles/${idNivel}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }

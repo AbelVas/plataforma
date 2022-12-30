@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import conexion from "../config/database";
 
 const obtenerJornadasService=async()=>{
-    const responseGet=await conexion.query('SELECT idJornada, jornada, creada, activa FROM tbJornada');
+    const responseGet=await conexion.query('SELECT idJornada, jornada, creada, activo FROM tbJornada');
     return responseGet;
 }
 const obtenerJornadaService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT idJornada, jornada, creada, activa FROM tbJornada WHERE idJornada=?',[id]);
+    const responseGet=await conexion.query('SELECT idJornada, jornada, creada, activo FROM tbJornada WHERE idJornada=?',[id]);
     return responseGet;
 }
 const updateJornadaService=async(data:Request,id:string)=>{

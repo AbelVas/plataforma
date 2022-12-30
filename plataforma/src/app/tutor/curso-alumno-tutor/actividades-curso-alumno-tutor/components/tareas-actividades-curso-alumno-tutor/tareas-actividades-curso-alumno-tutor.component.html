@@ -1,3 +1,36 @@
-<div>
-  <p>Aquí van las tareas del curso</p>
+<div style="overflow-x: auto;">
+  <table class="table table-hover">
+    <thead>
+       <tr>
+          <th scope="col" class="text-center">Tarea</th>
+          <th scope="col" class="text-center">Descripción</th>
+          <th scope="col" class="text-center">Comentario del profesor</th>
+          <th scope="col" class="text-center">Entrega</th>
+          <th scope="col" class="text-center">Puntuación</th>
+       </tr>
+    </thead>
+    <tbody>
+       <tr>
+          <td align="center">Nombre de la Tarea</td>
+          <td align="center">Descripcion de la actividad</td>
+          <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario"> Ver Comentario</button> </td>
+          <td align="center">A tiempo</td>
+          <td align="center">28/30</td>
+
+          <div class="modal fade" id="ModalComentario" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title">Comentario de Profesor</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">Comentario típico de profesor</div>
+                  <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+               </div>
+            </div>
+         </div>
+
+       </tr>
+    </tbody>
+ </table>
 </div>

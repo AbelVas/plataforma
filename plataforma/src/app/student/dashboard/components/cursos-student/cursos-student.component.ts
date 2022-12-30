@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import decode from 'jwt-decode';
+import {DahboardService } from '../../services/dahboard.service';
 
 @Component({
   selector: 'app-cursos-student',
@@ -6,10 +8,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cursos-student.component.css']
 })
 export class CursosStudentComponent implements OnInit {
+  sppinerOn:boolean=true;
+  CursosLista:any=[];
+  errorServicio:any={};
+  errorService:any={
+    codigoError:''
+  };
 
-  constructor() { }
+  constructor(public cardClasesAlumnos:DahboardService) { }
 
   ngOnInit(): void {
+    this.getCursosAlumno()
+  }
+
+  getCursosAlumno(){
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario}:any=decode(token);
+    this.cardClasesAlumnos. getCursoparaAlumno( idUsuario).subscribe(
+      res=>{
+        console.log(res)
+        this.CursosLista=res;
+        this.sppinerOn=false;
+      },
+      err=>{
+        this.sppinerOn=false;
+        this.errorServicio=err;
+      }
+    )
   }
 
 }

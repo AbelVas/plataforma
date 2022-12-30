@@ -9,7 +9,7 @@ import  {DatePipe} from "@angular/common";
   styleUrls: ['./overview-perfil-alumno.component.css']
 })
 export class OverviewPerfilAlumnoComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
   errorServicio:any=[];
@@ -47,8 +47,10 @@ export class OverviewPerfilAlumnoComponent implements OnInit {
           this.classBadgeActive='badge bg-danger';
           this.estado='Inactivado';
         }
+        this.sppinerOn=false;
       },
       error=>{
+        this.sppinerOn=false;
         console.log('Error: '+error);
       }
     )

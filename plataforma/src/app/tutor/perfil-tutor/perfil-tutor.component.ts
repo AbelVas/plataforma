@@ -8,7 +8,6 @@ import { PerfilTutorService } from './services/perfil-tutor.service';
   styleUrls: ['./perfil-tutor.component.css']
 })
 export class PerfilTutorComponent implements OnInit {
-
   token:any=localStorage.getItem('Acces-Token');
   errorServicio:any=[];
   estado:any;

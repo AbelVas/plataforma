@@ -1,56 +1,112 @@
-<div class="row">
-  <div class="col-lg-12">
-     <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <h5 class="card-title">Secciones <span>| Manejo y Configuración</span></h5>
 
-        </div>
-        <div class="text-end">
-          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#basicModal"><i class="fa-solid fa-plus"></i></button>
-        </div>
-        <table class="table">
-           <thead>
-              <tr>
-                 <th scope="col">#</th>
-                 <th scope="col">Nombre</th>
-                 <th scope="col">Acciones</th>
-              </tr>
-           </thead>
-           <tbody>
-              <tr>
-                 <th scope="row">1</th>
-                 <td>Brandon Jacob</td>
-                 <td>Designer</td>
-              </tr>
-           </tbody>
-        </table>
-
-     </div>
-     </div>
-  </div>
+<div class="text-end">
+  <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#crearSeccion"><i class="fa-solid fa-plus"></i></button>
 </div>
 
-<div class="modal fade" id="basicModal" tabindex="-1">
+<mat-label>Buscar: </mat-label>
+<mat-form-field>
+  <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
+  <ng-container matColumnDef="no">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> No </th>
+    <td mat-cell *matCellDef="let s=index" class="text-center">{{s+1}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Sección </th>
+    <td mat-cell *matCellDef="let s" class="text-center">{{s.seccion}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+    <td mat-cell *matCellDef="let s" class="text-center">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditSeccionModal" (click)="buscarSeccionArray(s.idSeccion)"><i class="fa-solid fa-pen-to-square"></i></button>
+      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarSeccionModal" (click)="buscarSeccionArray(s.idSeccion)"><i class="fa-solid fa-trash"></i></button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
+  </tr>
+
+</table>
+<mat-paginator [pageSize]="seccionesPorPagina" aria-label="Select page of users"></mat-paginator>
+<!--modal Editar-->
+<div class="modal fade" id="EditSeccionModal" tabindex="-1">
   <div class="modal-dialog">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h5 class="modal-title">Agregar Secciones</h5>
-           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Sección</h5>
+        <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    <form class="row g-3" [formGroup]="seccionForm" (ngSubmit)="editarSeccion(seccionIndividual.idSeccion)" autocomplete="off">
+      <div class="modal-body">
+        <div class="form-floating">
+          <input type="text" class="form-control" formControlName="seccion" autocomplete="off">
+          <label for="floatingName">Nombre de la Sección:</label>
+          <span>Sección Actual: <b>{{seccionIndividual.seccion}}</b></span>
         </div>
-    <form class="row g-3">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!--modal Eliminar-->
+<div class="modal fade" id="EliminarSeccionModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Jornada</h5>
+        <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning" role="alert">Si la sección está asignada a un grado, no será posible eliminarla. <b>Esa acción de concretarse no se puede deshacer</b></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarSeccion(seccionIndividual.idSeccion)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal crear-->
+<div class="modal fade" id="crearSeccion" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Sección</h5>
+        <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="row g-3" [formGroup]="seccionForm" (ngSubmit)="crearSeccion()" autocomplete="off">
         <div class="modal-body">
-             <div class="col-md-12">
-                <div class="form-floating"> <input type="text" class="form-control" id="floatingName" placeholder="Your Name"> <label for="floatingName">Nombre de la Jornada</label></div>
-             </div>
+          <div class="col-md-12">
+
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="seccion" id="floatingName" [ngClass]="{ 'is-invalid': submitted && f.seccion.errors }">
+              <label for="floatingName">Nombre de la Sección</label>
+            </div>
+            <span class="text-danger" *ngIf="submitted&&f.seccion.invalid">*** Campo Obligatorio ***</span>
+
+          </div>
         </div>
         <div class="modal-footer">
-          <div class="text-center"> <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <div class="text-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
+          </div>
         </div>
-     </div>
-    </form>
+      </form>
   </div>
+</div>
 </div>
 
 

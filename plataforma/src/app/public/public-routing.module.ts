@@ -9,8 +9,7 @@ import { LoginComponent } from "./login/containers/login.component";
 const routes:Routes=[
   {path:'',component: PublicComponent,children:
   [
-    {path:'',redirectTo:'home',pathMatch:'full'},
-    {path:'home', component:HomeComponent},
+    {path:'',redirectTo:'login',pathMatch:'full'},
     {path:'login',component:LoginComponent}
   ]
   }

@@ -1,72 +1,125 @@
-<div class="row">
-  <div class="col-lg-12">
-     <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <h5 class="card-title">Niveles Acádemicos <span>| Manejo y Configuración</span></h5>
+<div class="text-end">
+  <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#basicModal"><i class="fa-solid fa-plus"></i></button>
+</div>
 
+<mat-label>Buscar: </mat-label>
+<mat-form-field>
+  <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
+  <ng-container matColumnDef="no">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> No </th>
+    <td mat-cell *matCellDef="let n=index" class="text-center">{{n+1}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Nivel </th>
+    <td mat-cell *matCellDef="let n" class="text-center">{{n.nivel}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="jornada">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Jornada </th>
+    <td mat-cell *matCellDef="let n" class="text-center">{{n.jornada}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+    <td mat-cell *matCellDef="let n" class="text-center">
+      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditNivelModal"  (click)="buscarNivelArray(n.idNivel)"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarNivelModal" (click)="buscarNivelArray(n.idNivel)"><i class="fa-solid fa-trash"></i></button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
+  </tr>
+</table>
+<mat-paginator [pageSize]="nivelesPorPagina" aria-label="Select page of users"></mat-paginator>
+<!--FIn modales-->
+<div class="modal fade" id="basicModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Nivel</h5>
+        <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="row g-3" [formGroup]="nivelForm" (ngSubmit)="crearNivel()" autocomplete="off">
+        <div class="modal-body">
+          <div class="col-md-12">
+
+            <div class="mb-3">
+              <label class="form-label">Jornada:</label>
+              <select formControlName="idJornada" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idJornada.errors }" aria-label="Default select example">
+                <option *ngFor="let j of jornadasGet" value="{{j.idJornada}}">{{j.jornada}}</option>
+              </select>
+              <span class="text-danger" *ngIf="submitted&&f.idJornada.invalid">*** Campo Obligatorio ***</span>
+            </div>
+
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="nivel" id="floatingName" [ngClass]="{ 'is-invalid': submitted && f.nivel.errors }">
+              <label for="floatingName">Nombre del Nivel</label>
+            </div>
+            <span class="text-danger" *ngIf="submitted&&f.nivel.invalid">*** Campo Obligatorio ***</span>
+          </div>
         </div>
-        <div class="text-end">
-          <button type="button" class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#basicModal"><i class="fa-solid fa-plus"></i></button>
+        <div class="modal-footer">
+          <div class="text-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
+          </div>
         </div>
-        <table class="table table-hover">
-           <thead>
-              <tr>
-                 <th scope="col">#</th>
-                 <th scope="col">Nombre</th>
-                 <th scope="col">Jornada</th>
-                 <th scope="col">Acciones</th>
-              </tr>
-           </thead>
-           <tbody>
-              <tr *ngFor="let n of nivelesGet;let i=index">
-                 <th scope="row">{{i+1}}</th>
-                 <td>{{n.nivel}}</td>
-                 <td>{{n.jornada}}</td>
-                 <td>
-                  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditNivelModal" (click)="buscarNivelArray(n.idNivel)"><i class="fa-solid fa-pen-to-square"></i></button>
-                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarNivelModal" (click)="buscarNivelArray(n.idNivel)"><i class="fa-solid fa-trash-can"></i></button>
-                 </td>
-              </tr>
-              <tr *ngIf="errorServicio!=''">
-                <td colspan="4">
-                  <div class="alert alert-danger text-center" role="alert">
-                     {{errorServicio.codigoError}} <b>, Detalles:</b> {{errorServicio.Mensaje}}</div>
-                </td>
-              </tr>
-           </tbody>
-        </table>
-        <!--modal Editar-->
-        <div class="modal fade" id="EditNivelModal" tabindex="-1">
+      </form>
+  </div>
+</div>
+</div>
+<!--modal Editar-->
+<div class="modal fade" id="EditNivelModal" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Editar Jornadas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Editar Nivel</h5>
+                <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+            <form class="row g-3" [formGroup]="nivelForm" (ngSubmit)="editarNivel(nivelIndividual.idNivel)" autocomplete="off">
               <div class="modal-body">
+
+                <div class="mb-3">
+                  <label for="">Jornada: </label>
+                  <select formControlName="idJornada" class="form-select" aria-label="Default select example">
+                    <option selected></option>
+                    <option *ngFor="let n of jornadasGet" value="{{n.idJornada}}">{{n.jornada}}</option>
+                  </select>
+                  <span>Jornada Actual: <b>{{nivelIndividual.jornada}}</b></span>
+
+                </div>
                 <div class="form-floating">
-                  <input type="text" class="form-control" name="jornada" [(ngModel)]="nivelIndividual.nivel" autocomplete="off">
+                  <input type="text" class="form-control" formControlName="nivel" autocomplete="off">
                   <label for="floatingName">Nombre del Nivel</label>
+                  <span>Jornada Actual: <b>{{nivelIndividual.nivel}}</b></span>
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editarNivel(nivelIndividual.idNivel)"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
               </div>
+            </form>
             </div>
           </div>
-        </div>
-        <!--modal Eliminar-->
-        <div class="modal fade" id="EliminarNivelModal" tabindex="-1">
+</div>
+<!--modal Eliminar-->
+<div class="modal fade" id="EliminarNivelModal" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Eliminar Jornada</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <div class="alert alert-warning" role="alert">Si la jornada esá asignada a un nivel, no será posible eliminarla. <b>Esa acción de concretarse no se puede deshacer</b></div>
+                <div class="alert alert-warning" role="alert">Si la jornada está asignada a un nivel, no será posible eliminarla. <b>Esa acción de concretarse no se puede deshacer</b></div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -74,33 +127,4 @@
               </div>
             </div>
           </div>
-        </div>
-        <!--FIn modales-->
-     </div>
-     </div>
-  </div>
 </div>
-
-<div class="modal fade" id="basicModal" tabindex="-1">
-  <div class="modal-dialog">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h5 class="modal-title">Agregar Jornada</h5>
-           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-    <form class="row g-3">
-        <div class="modal-body">
-             <div class="col-md-12">
-                <div class="form-floating"> <input type="text" class="form-control" id="floatingName" placeholder="Your Name"> <label for="floatingName">Nombre de la Jornada</label></div>
-             </div>
-        </div>
-        <div class="modal-footer">
-          <div class="text-center"> <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="crearNivel()"><i class="fa-solid fa-plus"></i> Crear</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-     </div>
-    </form>
-  </div>
-</div>
-
-

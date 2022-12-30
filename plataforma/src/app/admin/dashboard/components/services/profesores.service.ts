@@ -10,9 +10,27 @@ export class ProfesoresService {
   URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
-  getProfesoresListaSelectCursos(){
+  getProfesoresListaSelectCursos():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/profesores/profesor/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  insertDocente(data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/profesores/profesor/`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  deleteProfesor(idProfesor:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/profesores/profesor/${idProfesor}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateProfesor(idProfesor:string,data:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/profesores/profesor/${idProfesor}`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }

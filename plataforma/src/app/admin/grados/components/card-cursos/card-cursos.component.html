@@ -13,7 +13,7 @@
     <tbody>
         <tr *ngFor="let c of listaCursos;let i = index">
             <td class="text-center">{{i+1}}</td>
-            <td class="text-center"><a routerLink="/admin/grado/curso/{{c.idCurso}}">{{c.nombre_curso}}</a></td>
+            <td class="text-center"><a routerLink="/admin/grado/curso/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}">{{c.nombre_curso}}</a></td>
             <td class="text-center">{{c.profesor}}</td>
             <td class="text-center">{{c.idProfesor}}</td>
             <td class="text-center">

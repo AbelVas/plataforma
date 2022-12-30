@@ -1,1 +1,28 @@
-<p>cursos works!</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Curso:</h1>
+    <nav>
+       <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a class="enlacerouter" routerLink="/admin/">Home</a></li>
+          <li class="breadcrumb-item "><a class="enlacerouter" routerLink="/admin/grado/{{idGrado}}">Grado</a></li>
+          <li class="breadcrumb-item active">Curso</li>
+       </ol>
+    </nav>
+    <section class="section dashboard">
+      <div class="row">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex">
+                  <h5 class="card-title">Actividades del Curso</h5>
+                </div>
+                <app-lista-actividades-admin [idCurso]="idCurso"></app-lista-actividades-admin>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

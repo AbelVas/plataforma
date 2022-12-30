@@ -8,6 +8,8 @@ import {MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { ReactiveFormsModule } from "@angular/forms";
+//Cosito notificaciones
 //Fin cosos tabla
 
 import { AdminComponent } from "./admin.component";
@@ -51,6 +53,14 @@ import { CursosAlumnosGradosService } from "./grados/components/services/cursos-
 import { CursosComponent } from './grados/cursos/cursos.component';
 import { GradosAlumnosService } from "./grados/components/services/grados-alumnos.service";
 import { ProfesoresService } from "./dashboard/components/services/profesores.service";
+import { ListaActividadesComponent } from './grados/cursos/components/lista-actividades/lista-actividades.component';
+import { ActividadService } from "./grados/cursos/components/services/actividad.service";
+import { UnidadesService } from "./configuraciones/config-basicas/services/unidades.service";
+import { CodigosService } from "./dashboard/components/services/codigos.service";
+import { CodigosComponent } from './codigos/codigos.component';
+import { ListaGradosComponent } from './lista-grados/lista-grados.component';
+import { ComplementosComponent } from './complementos/complementos.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
 
@@ -85,6 +95,11 @@ import { ProfesoresService } from "./dashboard/components/services/profesores.se
         CardAlumnosComponent,
         CardCursosComponent,
         CursosComponent,
+        ListaActividadesComponent,
+        CodigosComponent,
+        ListaGradosComponent,
+        ComplementosComponent,
+        UsuariosComponent,
     ],
     exports: [],
     providers: [
@@ -98,7 +113,10 @@ import { ProfesoresService } from "./dashboard/components/services/profesores.se
         SeccionesService,
         CursosAlumnosGradosService,
         GradosAlumnosService,
-        ProfesoresService
+        ProfesoresService,
+        ActividadService,
+        UnidadesService,
+        CodigosService
     ],
     imports: [
         AdminRoutingModule,
@@ -109,6 +127,7 @@ import { ProfesoresService } from "./dashboard/components/services/profesores.se
         MatInputModule,
         MatPaginatorModule,
         MatSortModule,
+        ReactiveFormsModule,
     ]
 })
 

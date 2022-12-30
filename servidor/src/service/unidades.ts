@@ -21,4 +21,8 @@ const deleteUnidadService=async(id:string)=>{
     const responseDelete=await conexion.query('DELETE FROM tbUnidad WHERE idUnidad=?',[id]);
     return responseDelete;
 }
-export {insertUnidadService,obtenerUnidadesService,obtenerUnidadService,updateUnidadService,deleteUnidadService};
+const getUnidadesActivasService=async()=>{
+    const responseGet=await conexion.query('SELECT `idUnidad`, `unidad` FROM tbUnidad WHERE estado=1');
+    return responseGet;
+}
+export {insertUnidadService,obtenerUnidadesService,obtenerUnidadService,updateUnidadService,deleteUnidadService,getUnidadesActivasService};
