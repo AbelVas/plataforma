@@ -12,7 +12,6 @@ import { OpcionesPerfilComponent } from "./margenes/header/components/opciones-p
 import { NotificacionesComponent } from "./margenes/header/components/notificaciones/notificaciones.component";
 import { CardResumenComponent } from './dashboard/components/card-resumen/card-resumen.component';
 import { CardClasesJornadasComponent } from './dashboard/components/card-clases-jornadas/card-clases-jornadas.component';
-import { PlanificacionesProfesorComponent } from './planificaciones-profesor/planificaciones-profesor.component';
 import { GradoGuiaProfesorComponent } from './grado-guia-profesor/grado-guia-profesor.component';
 import { CursosProfesorComponent } from './cursos-profesor/cursos-profesor.component';
 import { PerfilProfesorComponent } from './perfil-profesor/perfil-profesor.component';
@@ -25,12 +24,9 @@ import { RolesGuard } from "../guards/roles.guard";
 import { MargenesProfesorService } from "./margenes/services/margenes-profesor.service";
 import { CardClasesJornadasService } from "./dashboard/services/card-clases-jornadas.service";
 import { CardResumenService } from "./dashboard/services/card-resumen.service";
-import { CursosComponent } from './cursos/cursos.component';
-import { CursosService } from "./cursos/services/cursos.service";
 import { HorarioProfesorComponent } from './dashboard/components/horario-profesor/horario-profesor.component';
 import { HorarioProfesorService } from "./dashboard/services/horario-profesor.service";
 import { DashboardService } from "./dashboard/services/dashboard.service";
-import { PlanificacionesProfesorService } from "./planificaciones-profesor/services/planificaciones-profesor.service";
 import { GradoGuiaProfesorService } from "./grado-guia-profesor/services/grado-guia-profesor.service";
 import { CursosCardResumenComponent } from './cursos-profesor/components/cursos-card-resumen/cursos-card-resumen.component';
 import { OpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/opciones-curso.component';
@@ -56,17 +52,12 @@ import { CalificacionesActividadComponent } from './actividad-curso-profesor/com
 import { AlumnosActividadComponent } from './actividad-curso-profesor/components/alumnos-actividad/alumnos-actividad.component';
 import { GraficoActividadComponent } from './actividad-curso-profesor/components/grafico-actividad/grafico-actividad.component';
 import { ActividadCursoProfesorService } from "./actividad-curso-profesor/services/actividad-curso-profesor.service";
-import { CrearForoProfesorComponent } from './cursos-profesor/crear-foro-profesor/crear-foro-profesor.component';
-import { CrearExamenProfesorComponent } from './cursos-profesor/crear-examen-profesor/crear-examen-profesor.component';
-import { CrearActividadProfesorComponent } from './cursos-profesor/crear-actividad-profesor/crear-actividad-profesor.component';
-import { CrearActividadProfesorService } from "./cursos-profesor/crear-actividad-profesor/services/crear-actividad-profesor.service";
-import { CrearExamenProfesorService } from "./cursos-profesor/crear-examen-profesor/services/crear-examen-profesor.service";
-import { CrearForoProfesorService } from "./cursos-profesor/crear-foro-profesor/services/crear-foro-profesor.service";
 import { ColumnaDerechaProfesorComponent } from './dashboard/components/columna-derecha-profesor/columna-derecha-profesor.component';
 import { ExamenCursoComponent } from './examen-curso-profesor/components/examen-curso/examen-curso.component';
 import { CalificacionesExamenComponent } from './examen-curso-profesor/components/calificaciones-examen/calificaciones-examen.component';
 import { AlumnosExamenComponent } from './examen-curso-profesor/components/alumnos-examen/alumnos-examen.component';
 import { GraficoExamenComponent } from './examen-curso-profesor/components/grafico-examen/grafico-examen.component';
+import { CursosComponent } from "./cursos/cursos.component";
 //
 
 
@@ -86,14 +77,12 @@ import { GraficoExamenComponent } from './examen-curso-profesor/components/grafi
   NotificacionesComponent,
   CardResumenComponent,
   CardClasesJornadasComponent,
-  PlanificacionesProfesorComponent,
   GradoGuiaProfesorComponent,
   CursosProfesorComponent,
   PerfilProfesorComponent,
   OverviewPerfilProfesorComponent,
   EditPerfilProfesorComponent,
   PasswordPerfilProfesoresComponent,
-  CursosComponent,
   HorarioProfesorComponent,
   CursosCardResumenComponent,
   OpcionesCursoComponent,
@@ -110,14 +99,12 @@ import { GraficoExamenComponent } from './examen-curso-profesor/components/grafi
   CalificacionesActividadComponent,
   AlumnosActividadComponent,
   GraficoActividadComponent,
-  CrearForoProfesorComponent,
-  CrearExamenProfesorComponent,
-  CrearActividadProfesorComponent,
   ColumnaDerechaProfesorComponent,
   ExamenCursoComponent,
   CalificacionesExamenComponent,
   AlumnosExamenComponent,
   GraficoExamenComponent,
+  CursosComponent
   ],
   exports:[
   ],
@@ -129,9 +116,7 @@ import { GraficoExamenComponent } from './examen-curso-profesor/components/grafi
     MargenesProfesorService,
     CardClasesJornadasService,
     CardResumenService,
-    CursosService,
     HorarioProfesorService,
-    PlanificacionesProfesorService,
     GradoGuiaProfesorService,
     AlumnosCursoService,
     CalendarioCursoService,
@@ -143,10 +128,7 @@ import { GraficoExamenComponent } from './examen-curso-profesor/components/grafi
     CalendarioProfesorService,
     ForoCursoProfesorService,
     ExamenCursoProfesorService,
-    ActividadCursoProfesorService,
-    CrearActividadProfesorService,
-    CrearExamenProfesorService,
-    CrearForoProfesorService
+    ActividadCursoProfesorService
   ]
 })
 

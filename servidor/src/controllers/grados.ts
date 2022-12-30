@@ -1,5 +1,5 @@
 import { Request,response,Response } from "express";
-import {GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService, getGradoNivelService,getGradoxJornada} from "../service/grados";
+import {GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService, getGradoNivelService,getGradoxJornada,getGradoProfesorService} from "../service/grados";
 import { handleHttp } from "../utils/error.handle";
 // Mi primer Appi Queza
 
@@ -56,6 +56,15 @@ const getGradosNivel=async(req:Request, res:Response)=>{
         handleHttp(res,'Error al buscar el Grado por nivel',e)
     }
 }
+const getGradoProfesor=async(req:Request, res:Response)=>{
+    try{
+        const {id}=req.params;
+        const resultadoGradoProfesor=await getGradoProfesorService(id);
+        res.send(resultadoGradoProfesor)
+    }catch(e){
+        handleHttp(res,'Error al buscar al Grado por Profesor',e)
+    }
+}
 const getGradoJornada=async(req:Request, res:Response)=>{
     try{
         const {id}=req.params;
@@ -66,4 +75,4 @@ const getGradoJornada=async(req:Request, res:Response)=>{
     }
 }
 
-export{getGrados,getGrado,updateGrado,deleteGrado,insertarGrado,getGradosNivel,getGradoJornada}
+export{getGrados,getGrado,updateGrado,deleteGrado,insertarGrado,getGradosNivel,getGradoJornada,getGradoProfesor}

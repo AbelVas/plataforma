@@ -32,7 +32,7 @@ const obtenerCursosPorGradoService = async(idGrado:string)=>{
 }
 
 const obtenerCursosPorProfesorService = async (idProfesor:string)=>{
-    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso WHERE idProfesor=?',idProfesor);
+    const responseGet=await conexion.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbJornada j ON n.idJornada=j.idJornada WHERE idProfesor=?',idProfesor);
     return responseGet;
 }
 const obtenerCursosPorGradoProfesorService = async(idGrado:string)=>{

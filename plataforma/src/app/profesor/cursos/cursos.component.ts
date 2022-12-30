@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import decode from 'jwt-decode';
-import { CursosService } from './services/cursos.service';
+import { DashboardService } from '../dashboard/services/dashboard.service';
 
 @Component({
   selector: 'app-cursos',
@@ -17,7 +17,7 @@ export class CursosComponent implements OnInit {
     apellido_profesor:''
   };
 
-  constructor( private cursosService:CursosService ) { }
+  constructor( private cursosService:DashboardService ) { }
 
   ngOnInit(): void {
     this.obtenerDatosProfesor();
