@@ -58,6 +58,9 @@ import { ActividadService } from "./grados/cursos/components/services/actividad.
 import { UnidadesService } from "./configuraciones/config-basicas/services/unidades.service";
 import { CodigosService } from "./dashboard/components/services/codigos.service";
 import { CodigosComponent } from './codigos/codigos.component';
+import { ListaGradosComponent } from './lista-grados/lista-grados.component';
+import { ComplementosComponent } from './complementos/complementos.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
 
@@ -94,6 +97,9 @@ import { CodigosComponent } from './codigos/codigos.component';
         CursosComponent,
         ListaActividadesComponent,
         CodigosComponent,
+        ListaGradosComponent,
+        ComplementosComponent,
+        UsuariosComponent,
     ],
     exports: [],
     providers: [

@@ -10,6 +10,12 @@ export class GradosService {
   URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
+  getGradoNivel(idNivel:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/grados/grado-nivel/${idNivel}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   getGradoJornada(idJornada:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/grados/grado-jornada/${idJornada}`,httpOptions).pipe(

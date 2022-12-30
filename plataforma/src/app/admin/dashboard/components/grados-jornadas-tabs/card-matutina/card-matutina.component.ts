@@ -56,6 +56,7 @@ export class CardMatutinaComponent implements OnInit {
     const idJornada='1';
     this.gradoService.getGradoJornada(idJornada).subscribe(
       res=>{
+        console.log(res)
         this.gradosLista=res;
         this.dataSource = new MatTableDataSource(this.gradosLista);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';
