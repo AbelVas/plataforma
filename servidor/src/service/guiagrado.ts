@@ -21,9 +21,11 @@ const getGraGuiaService=async()=>{
     return responseGet;
 }
 const getGuiaPorGuia=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT gg.idProfesor,g.nombre_grado,g.idGrado FROM tbGuiaGrado gg INNER JOIN tbGrado g ON gg.idGrado=g.idGrado WHERE gg.idProfesor=?',[id])
+    const responseGet=await conexion.query('SELECT gg.idProfesor,g.nombre_grado,g.idGrado,p.nombre_profesor,p.apellido_profesor FROM (tbGuiaGrado gg INNER JOIN tbGrado g ON gg.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=gg.idProfesor WHERE g.idGrado=?',[id])
     return responseGet;
 
 }
+
+//buscar por profesor
 
 export{updateGraGuiaService,deleteGraGuiaService,insertGraGuiaService,getGraGuiaService,getGuiaPorGuia}

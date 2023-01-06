@@ -13,55 +13,30 @@ export class GradoGuiaProfesorComponent implements OnInit {
   token:any=localStorage.getItem('Acces-Token');
   profesorGet:any=[];
   profesorIndividual:any={
-    idProfesor: '',
-    nombre_profesor:'',
-    apellido_profesor:''
-  };
 
-  GradoGuiaget:any=[];
-  GradoGuiaIndividual:any={
-    idGuias:'',
-    idProfesor:'',
-    idGrado:''
-  }
-  EstudiantesGet:any=[];
-  EstudiantesTodos:any={
-    idAlumno:'',
-    nombres_Alumno:'',
-    apellidos_Alumno:''
-  }
+  };
   listaalumnos:any=[]
   gradosGet:any=[]
-
+  gradosSelecionado:any=''
+  isSelected:any='0'
+  profesorData:any=[]
   constructor( private gradoGuiaProfesorService:GradoGuiaProfesorService ) { }
 
   ngOnInit(): void {
-    this.obtenerDatosProfesor();
-    this.obtenerGradoGuia();
-    this.profesorIndividual=this.profesorGet
-    this.gradoGuiaProfesorService.disparadorCopiarData.emit(this.profesorIndividual);
-    this.GradoGuiaIndividual=this.GradoGuiaget
+    this.profesorData=this.profesorIndividual;
+
   }
 
-  obtenerDatosProfesor(){
-    const {idUsuario}:any=decode(this.token);
-    this.gradoGuiaProfesorService.getProfesor(idUsuario).subscribe(
-      response=>{
-        this.profesorGet=response;
-      },
-      error=>{
-        console.log('Error: '+error);
-      }
-    )
-  }
 
-  obtenerGradoGuia(){
+  obtenerGradoGuia(idGrado:string){
+    this.isSelected='1'
     const{idUsuario}:any=decode(this.token);
-    this.gradoGuiaProfesorService.getGradoGuia(idUsuario).subscribe(
+    this.gradoGuiaProfesorService.getGradoGuia(idGrado).subscribe(
       response=>{
-        this.gradosGet=response;  
-        console.log(this.gradosGet[0].idGrado)
+        console.log(response);
+        this.gradosGet=response;
         this.obtenerEstudiantesGuiaGrado(this.gradosGet[0].idGrado)
+        //console.log(this.profesorIndividual)
       },
       error=>{
         console.log('Error: '+ error)
@@ -73,12 +48,32 @@ export class GradoGuiaProfesorComponent implements OnInit {
     this.gradoGuiaProfesorService.getEstudiantesGuiaGrado(idGrado).subscribe(
       response=>{
         this.listaalumnos=response;
-        console.log(this.listaalumnos)
       },
       error=>{
         console.log('Error: '+ error)
       }
     )
   }
+
+  selectValue(e:any){
+    this.gradosSelecionado=e.target.value
+    console.log(this.gradosSelecionado)
+    this.obtenerGradoGuia(this.gradosSelecionado)
+  }
+  obtenerGradoGuiaInicio(){
+    const{idUsuario}:any=decode(this.token);
+    this.gradoGuiaProfesorService.getGradoGuiaInicio(idUsuario).subscribe(
+      response=>{
+        console.log(response);
+        this.gradosGet=response;
+        this.obtenerEstudiantesGuiaGrado(this.gradosGet[0].idGrado)
+        //console.log(this.profesorIndividual)
+      },
+      error=>{
+        console.log('Error: '+ error)
+      }
+    )
+  }
+
 
 }

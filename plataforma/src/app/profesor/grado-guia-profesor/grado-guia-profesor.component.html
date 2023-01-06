@@ -1,64 +1,78 @@
 <main id="main" class="main">
   <div class="pagetitle" *ngFor="let p of profesorGet">
-     <h1>Profesor {{p.nombre_profesor}} {{p.apellido_profesor}}</h1>
-     <nav>
-        <ol class="breadcrumb">
-           <li class="breadcrumb-item"><a routerLink="/">Grado Guía</a></li>
-        </ol>
-     </nav>
+    <h1>Profesor {{p.nombre_profesor}} {{p.apellido_profesor}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Grado Guía</a></li>
+      </ol>
+    </nav>
   </div>
   <section class="section dashboard">
-    <div class="row" *ngFor="let g of gradosGet">
+    <div class="row">
       <div class="col-12">
-        <div class="card">
-           <div class="card-body">
-            <div class="d-flex">
-              <h5 class="card-title">{{g.nombre_grado}}</h5>
-            </div>
-            <div class="tab-content pt-2" id="myTabjustifiedContent">
-              <div class="activity" >
-                <table class="table" >
-                  <thead>
-                    <tr>
-                      <th scope="col">No.</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Usuario</th>
-                      <th scope="col">Activo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let e of listaalumnos; let i = index">
-                      <th scope="row">{{i+1}}</th>
-                      <td>{{e.alumno}}</td>
-                      <td>{{e.usuario}}</td>
-                      <td *ngIf="e.activo=='1';else inactivo"><span class="badge bg-success">Activo</span></td>
-                      <ng-template #inactivo>
-                        <td><span class="badge bg-danger">Inactivo</span></td>
-                      </ng-template>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <nav class="d-flex justify-content-end">
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalestadisticasgradoguia"> Ver Estadísticas </button>
-                   <div class="modal fade" id="modalestadisticasgradoguia" tabindex="-1">
-                      <div class="modal-dialog modal-dialog-centered">
-                         <div class="modal-content">
-                            <div class="modal-header">
-                               <h5 class="card-title">Nombre del grado guía</h5>
-                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos alumnos aprobaron o reprobaron todos los cursos (tipo, sería por promedio total)</div>
-                            <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
-                         </div>
-                      </div>
-                   </div>
-            </nav>
-           </div>
+        <div class="text-center">
+          <select class="form-select" (change)="selectValue($event)">
+            <option selected>Nivel...</option>
+            <option *ngFor="let a of gradosGet" value="{{a.idGrado}}">{{a.nombre_grado}}</option>
+            <!-- <option *ngFor="let n of nivelesGet" value="{{n.idNivel}}">{{n.nivel+', '+n.jornada}}</option>-->
+          </select>
         </div>
+        <div *ngIf="isSelected=='1'; else NoSelecionado">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex">
+                <h5 class="card-title">Aqui Va nombre del grado</h5>
+              </div>
+
+              <div class="tab-content pt-2" id="myTabjustifiedContent">
+                <div class="activity">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Activo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let e of listaalumnos; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{e.alumno}}</td>
+                        <td>{{e.usuario}}</td>
+                        <td *ngIf="e.activo=='1';else inactivo"><span class="badge bg-success">Activo</span></td>
+                        <ng-template #inactivo>
+                          <td><span class="badge bg-danger">Inactivo</span></td>
+                        </ng-template>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <nav class="d-flex justify-content-end">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                  data-bs-target="#modalestadisticasgradoguia"> Ver Estadísticas </button>
+                <div class="modal fade" id="modalestadisticasgradoguia" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="card-title">Nombre del grado guía</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos alumnos aprobaron o
+                        reprobaron todos los cursos (tipo, sería por promedio total)</div>
+                      <div class="modal-footer"> <button type="button" class="btn btn-secondary"
+                          data-bs-dismiss="modal">Close</button></div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <ng-template #NoSelecionado></ng-template>
       </div>
     </div>
   </section>
 </main>
-

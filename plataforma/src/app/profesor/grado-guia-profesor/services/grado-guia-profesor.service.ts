@@ -25,6 +25,12 @@ export class GradoGuiaProfesorService {
       catchError(this.handleError)
     );
   }
+  getGradoGuiaInicio(idUsuario:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/guiagrado/gradoguia-profesorInicio/${idUsuario}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   getEstudiantesGuiaGrado(idUsuario:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/usuarios/alumno-grado/${idUsuario}`,httpOptions).pipe(
