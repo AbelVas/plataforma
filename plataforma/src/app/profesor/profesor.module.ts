@@ -2,6 +2,10 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from "../core/shared/components/shared.module";
 import { ProfesorRoutingModule } from "./profesor-routing.module";
 
+import { PublicModule } from "../public/public.module";
+import { FullCalendarModule } from "@fullcalendar/angular";
+import { CalendariogeneralComponent } from "./calendariogeneral/calendariogeneral.component";
+
 import { ProfesorComponent } from "./profesor.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './margenes/footer/footer.component';
@@ -51,13 +55,8 @@ import { AlumnosExamenComponent } from './examen-curso-profesor/components/alumn
 import { GraficoExamenComponent } from './examen-curso-profesor/components/grafico-examen/grafico-examen.component';
 import { CursosComponent } from "./cursos/cursos.component";
 import { ReactiveFormsModule } from "@angular/forms";
-<<<<<<< HEAD
 import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-individual/grado-guia-individual.component';
-=======
-import { CalendariogeneralComponent } from './calendariogeneral/calendariogeneral.component';
-import { FullCalendarComponent, FullCalendarModule } from "@fullcalendar/angular";
-import { PublicModule } from "../public/public.module";
->>>>>>> 968da4fe32f0f362158b2682a547366a3ac25ff0
+import { CalendarioCursoService } from "./cursos-profesor/services/calendario-curso.service";
 //
 
 
@@ -108,11 +107,8 @@ import { PublicModule } from "../public/public.module";
   AlumnosExamenComponent,
   GraficoExamenComponent,
   CursosComponent,
-<<<<<<< HEAD
-  GradoGuiaIndividualComponent
-=======
+  GradoGuiaIndividualComponent,
   CalendariogeneralComponent
->>>>>>> 968da4fe32f0f362158b2682a547366a3ac25ff0
   ],
   exports:[
   ],
@@ -128,7 +124,8 @@ import { PublicModule } from "../public/public.module";
     CalendarioProfesorService,
     ForoCursoProfesorService,
     ExamenCursoProfesorService,
-    ActividadCursoProfesorService
+    ActividadCursoProfesorService,
+    CalendarioCursoService
   ]
 })
 

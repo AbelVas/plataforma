@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
-import { Calendar } from '@fullcalendar/core';
 import { CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
