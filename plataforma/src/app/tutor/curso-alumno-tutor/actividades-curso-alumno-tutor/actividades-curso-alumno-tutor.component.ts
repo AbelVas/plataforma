@@ -9,7 +9,7 @@ import { ActividadesCursoAlumnoTutorService } from './services/actividades-curso
   styleUrls: ['./actividades-curso-alumno-tutor.component.css']
 })
 export class ActividadesCursoAlumnoTutorComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idEstudiante:string='';
   calificacionesGet:any=[];
   calificacionIndividual:any={
@@ -51,6 +51,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     datoParaNota.idAlumno=idAlumnito;
       this.actividadesCursoAlumnoTutorService.getCalificacionesAlumno(idAlumnito,datoParaNota).subscribe(
       res=>{
+        this.sppinerOn=false;
         var cantidad=res.length;
         this.calificacionesGet=res;
         var AuxForos=0;
@@ -70,6 +71,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

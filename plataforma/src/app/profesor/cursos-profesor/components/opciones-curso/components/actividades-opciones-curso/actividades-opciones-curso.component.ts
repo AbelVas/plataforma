@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./actividades-opciones-curso.component.css']
 })
 export class ActividadesOpcionesCursoComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idGrado:string=''
   listaActividades:any=[]
   tiposActividad:any=[]
@@ -191,11 +191,13 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   getTareas(){
     this.actividadesOpcionesCursoService.getTareasCurso(this.idCurso).subscribe(
       res=>{
+        this.sppinerOn=false;
         this.listaActividades=res
         console.log(this.idCurso)
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }

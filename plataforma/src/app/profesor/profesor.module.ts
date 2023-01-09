@@ -58,6 +58,9 @@ import { AlumnosExamenComponent } from './examen-curso-profesor/components/alumn
 import { GraficoExamenComponent } from './examen-curso-profesor/components/grafico-examen/grafico-examen.component';
 import { CursosComponent } from "./cursos/cursos.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { CalendariogeneralComponent } from './calendariogeneral/calendariogeneral.component';
+import { FullCalendarComponent, FullCalendarModule } from "@fullcalendar/angular";
+import { PublicModule } from "../public/public.module";
 //
 
 
@@ -65,7 +68,9 @@ import { ReactiveFormsModule } from "@angular/forms";
   imports:[
     ProfesorRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule,
+    PublicModule
   ],
   declarations:[
   ProfesorComponent,
@@ -105,7 +110,8 @@ import { ReactiveFormsModule } from "@angular/forms";
   CalificacionesExamenComponent,
   AlumnosExamenComponent,
   GraficoExamenComponent,
-  CursosComponent
+  CursosComponent,
+  CalendariogeneralComponent
   ],
   exports:[
   ],

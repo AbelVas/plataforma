@@ -8,7 +8,7 @@ import { CalificacionesAlumnoTutorService } from './services/calificaciones-alum
   styleUrls: ['./calificaciones-alumno-tutor.component.css']
 })
 export class CalificacionesAlumnoTutorComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idTutorPrincipal:string='';
   Nombre_profesor:string='';
 
@@ -42,9 +42,11 @@ export class CalificacionesAlumnoTutorComponent implements OnInit {
     this.calificacionesAlumnoTutorService.getAlumnoporTutor(this.idTutorPrincipal).subscribe(
       response=>{
         this.alumnosGet=response;
+        this.sppinerOn=false;
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

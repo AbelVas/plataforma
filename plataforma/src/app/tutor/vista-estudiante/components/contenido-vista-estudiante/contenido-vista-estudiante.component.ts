@@ -8,7 +8,7 @@ import { VistaEstudianteService } from '../../services/vista-estudiante.service'
   styleUrls: ['./contenido-vista-estudiante.component.css']
 })
 export class ContenidoVistaEstudianteComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idStudent:string='';
   estudianteGet:any=[];
   estudianteIndividual:any={
@@ -39,9 +39,11 @@ export class ContenidoVistaEstudianteComponent implements OnInit {
     this.vistaEstudianteService.getAlumno(idAlumno).subscribe(
       response=>{
         this.estudianteGet=response;
+        this.sppinerOn=false;
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }
@@ -50,9 +52,11 @@ export class ContenidoVistaEstudianteComponent implements OnInit {
     this.vistaEstudianteService.getCursoporAlumno(idAlumno).subscribe(
       response=>{
         this.cursosGet=response;
+        this.sppinerOn=false;
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

@@ -43,6 +43,11 @@
     <a class="btn btn-warning"  data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-plus"></i></a>
   </div>
 
+  <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+    <app-loaderpeque></app-loaderpeque>
+ </div>
+
+ <ng-template #MostrarDataPerfilOverview>
   <!--Actividades en Cards-->
   <div class="row" *ngIf="listaActividades!='';else tablaVacia">
     <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let a of listaActividades;let i = index">
@@ -65,6 +70,7 @@
      </div>
     </div>
   </div>
+  </ng-template>
   <ng-template #tablaVacia>
       <div colspan="7" class="alert alert-warning text-center" role="alert">
         Sin registros, puedes agregar actividades en cualquier momento

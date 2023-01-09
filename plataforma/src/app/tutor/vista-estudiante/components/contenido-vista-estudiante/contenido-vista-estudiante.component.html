@@ -6,6 +6,11 @@
         <div class="d-flex" *ngFor="let a of estudianteGet">
           <h5 class="card-title">Cursos de {{a.nombres_alumno}}</h5>
         </div>
+        <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+          <app-loaderpeque></app-loaderpeque>
+       </div>
+
+       <ng-template #MostrarDataPerfilOverview>
         <div class="tab-content pt-2">
             <div class="row" *ngIf="cursosGet!='';else tablaVacia">
               <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let ca of cursosGet">
@@ -29,6 +34,7 @@
               </div>
             </ng-template>
         </div>
+        </ng-template>
        </div>
     </div>
   </div>
