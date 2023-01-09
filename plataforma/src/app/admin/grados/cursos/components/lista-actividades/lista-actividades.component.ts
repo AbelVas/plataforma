@@ -205,8 +205,6 @@ export class ListaActividadesComponent implements OnInit {
 
     //delete this.ActividadIndividualEdit.disponible
     //delete this.ActividadIndividualEdit.entrega_fuera_fecha
-    console.log(this.ActividadIndividualEdit);
-
     this.actividadService.updateActividad(idActividad,this.ActividadIndividualEdit).subscribe(
       res=>{
         this.modalCloseEditar.nativeElement.click();

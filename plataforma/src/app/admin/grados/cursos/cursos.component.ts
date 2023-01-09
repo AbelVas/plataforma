@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cursos.component.css']
 })
 export class CursosComponent implements OnInit {
-
+  idNivelSeleccionado:string=''
   idCurso:any='';
   idGrado:any='';
   idProfesor:any=''
@@ -16,6 +16,9 @@ export class CursosComponent implements OnInit {
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
+    if(params['idNivelLista']!=null){
+      this.idNivelSeleccionado=params['idNivelLista'];
+    }
     this.idCurso=params['id'];
     this.idGrado=params['idGrado'];
     this.idProfesor=params['idProfesor'];

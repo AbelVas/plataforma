@@ -3,15 +3,16 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { ProfesoresService } from '../services/profesores.service';
-import { CodigosService } from '../services/codigos.service';
+import { ProfesoresService } from '../../dashboard/components/services/profesores.service';
+import { CodigosService } from '../../dashboard/components/services/codigos.service';
+
 
 @Component({
-  selector: 'app-docentes-resumen-admin-dashboard',
-  templateUrl: './docentes-resumen.component.html',
-  styleUrls: ['./docentes-resumen.component.css']
+  selector: 'app-tutores-admin-list',
+  templateUrl: './tutores.component.html',
+  styleUrls: ['./tutores.component.css']
 })
-export class DocentesResumenComponent implements OnInit {
+export class TutoresComponent implements OnInit {
   listaDocentes:any=[];
   docenteIndividual:any={}
   isEditPassword:string='0'

@@ -3,6 +3,9 @@ import { GradosService } from 'src/app/admin/dashboard/components/services/grado
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { CuadroGuiaService } from 'src/app/admin/grados/components/services/cuadro-guia.service';
+import { CursosAlumnosGradosService } from 'src/app/admin/grados/components/services/cursos-alumnos-grados.service';
+import { GradosAlumnosService } from 'src/app/admin/grados/components/services/grados-alumnos.service';
 
 
 
@@ -46,17 +49,46 @@ export class CardMatutinaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  constructor(private gradoService:GradosService) { }
+  consolidadoList:any=[]
+  bimestreSeleccionadoConsolidado:any={
+    idUnidad:''
+  }
+  cursosConsolidado:any=[]
+  alumnosConsolidado:any=[]
+  notasCursoConsolidado:any=[]
+  noAlumnosConsolidado:any=[]
+  consolidado_resumen:any=[]
+  constructor(private gradoService:GradosService,private cuadroGuiaService:CuadroGuiaService,private cursoGradoService:CursosAlumnosGradosService, private alumnosGrado:GradosAlumnosService) { }
   ngOnInit(): void {
     this.getGradosMatutina()
     this.nivelesModal=(this.niveles);
     this.seccionesModal=this.secciones;
   }
+  consolidado(idGrado:string){
+
+    this.cursoGradoService.getCursosGrado(idGrado).subscribe(
+      res=>{
+        this.cursosConsolidado=res
+          this.bimestreSeleccionadoConsolidado={idUnidad:'1'}
+          this.cuadroGuiaService.getCursosNotasGradoGuia(idGrado,this.bimestreSeleccionadoConsolidado).subscribe(
+            res=>{
+              this.notasCursoConsolidado=res
+              console.log(this.notasCursoConsolidado)
+            },
+            err=>{
+              console.log(err)
+            }
+          )
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
   getGradosMatutina(){
     const idJornada='1';
     this.gradoService.getGradoJornada(idJornada).subscribe(
       res=>{
-        console.log(res)
         this.gradosLista=res;
         this.dataSource = new MatTableDataSource(this.gradosLista);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';

@@ -4,7 +4,7 @@ import conexion from "../config/database";
 
 const GetGradosService=async()=>{
 
-    const responseGet=await conexion.query('SELECT `idGrado`, `idSeccion`, `nombre_grado`, `estatus` FROM tbGrado');
+    const responseGet=await conexion.query('SELECT g.`idGrado`,g.`nombre_grado`, s.seccion,n.nivel, g.`estatus` FROM (tbGrado g INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion) INNER JOIN tbNivel n ON n.idNivel=g.idNivel INNER JOIN tbJornada j ON j.idJornada=n.idJornada ORDER BY g.idGrado');
     return responseGet;
 }
 const GetGradoService=async(id:string)=>{
@@ -26,7 +26,7 @@ const insertGradoService=async(data:Request)=>{
     return responseInsert;
 }
 const getGradoNivelService=async(idNivel:string)=>{
-    const responseGetNivel=await conexion.query('SELECT g.idGrado, g.idNivel, g.idSeccion, g.nombre_grado, g.estatus,s.seccion FROM tbGrado g INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE g.idNivel=?',[idNivel]);
+    const responseGetNivel=await conexion.query('SELECT g.idGrado,g.idNivel,g.idSeccion,n.idJornada,g.nombre_grado,s.seccion,n.nivel,g.estatus,count(al.idAlumno) as Alumnos,j.jornada FROM (((tbGrado g INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)LEFT JOIN tbAlumno al ON al.idGrado=g.idGrado WHERE n.idNivel=?  group by g.nombre_grado ORDER BY n.idNivel,g.idGrado',[idNivel]);
     return responseGetNivel;
 }
 

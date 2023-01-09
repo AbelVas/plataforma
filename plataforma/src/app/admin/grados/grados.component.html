@@ -2,10 +2,16 @@
     <div class="pagetitle">
        <h1>Grado:</h1>
        <nav>
-          <ol class="breadcrumb">
+          <ol class="breadcrumb" *ngIf="rutaParaVerElRetorno=='';else otraRuta">
              <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
              <li class="breadcrumb-item active">Grado</li>
           </ol>
+          <ng-template #otraRuta>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+              <li class="breadcrumb-item active"><a routerLink="/admin/grados/{{rutaParaVerElRetorno}}">Lista de Grados</a></li>
+           </ol>
+          </ng-template>
        </nav>
     </div>
     <section class="section dashboard">
@@ -24,12 +30,12 @@
                   <div class="tab-content pt-2" id="myTabjustifiedContent">
                     <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
 
-                        <app-card-cursos-grado-admin [cursos]="cursosExport"></app-card-cursos-grado-admin>
+                        <app-card-cursos-grado-admin></app-card-cursos-grado-admin>
 
                     </div>
                     <div class="tab-pane fade" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
 
-                       <app-card-alumnos-grado-admin [alumnos]="alumnosExport"></app-card-alumnos-grado-admin>
+                       <app-card-alumnos-grado-admin ></app-card-alumnos-grado-admin>
 
                     </div>
                   </div>

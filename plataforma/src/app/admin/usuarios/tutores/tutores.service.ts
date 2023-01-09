@@ -1,39 +1,40 @@
-import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import {catchError} from 'rxjs/operators'
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class CursosAlumnosGradosService {
+export class TutoresService {
   URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
-  getCursosGrado(idGrado:string):Observable<any>{
+  getTutor():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/curso-profesor-grado/${idGrado}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/tutores/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  insertCursosGrado(data:any){
+  insertTutor(data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/cursos/`,data,httpOptions).pipe(
+    return this.http.post(`${this.URL}/tutores/`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  deleteCurso(idCurso:string){
+  deleteTutor(idTutor:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.delete(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
+    return this.http.delete(`${this.URL}/tutores/${idTutor}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  updateCurso(idCurso:string,data:any){
+  editTutor(idTutor:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/cursos/${idCurso}`,data,httpOptions).pipe(
+    return this.http.put(`${this.URL}/tutores/${idTutor}`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-
 
   private handleError(error:HttpErrorResponse){
     var msg={};

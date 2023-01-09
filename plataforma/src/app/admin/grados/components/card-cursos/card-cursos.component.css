@@ -2,3 +2,16 @@
   border: 0.5px solid black;
 
 }
+@media print{
+  .oculto-impresion, .oculto-impresion *{
+    display: none !important;
+  }
+}
+
+.tablaConsolidado{
+  display: table;
+  width: 100%;
+}
+.tdConsolidado{
+  border: 1px solid;
+}

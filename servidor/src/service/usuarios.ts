@@ -3,12 +3,18 @@ import conexion from "../config/database";
 import { encrypt,verified } from "../utils/passwordFunction";
 
 //CRUD
-const insertAlumnosService=async(data:Request)=>{
-    const responseInsert=await conexion.query('INSERT INTO tbAlumno set ?',[data]);
-    return responseInsert;
+const insertAlumnosService=async(data:any)=>{
+    const existe=await conexion.query('SELECT idAlumno FROM tbAlumno WHERE usuario=?',[data.usuario])
+    if(existe==''){
+        const responseInsert=await conexion.query('INSERT INTO tbAlumno set ?',[data]);
+        const usarCodigo=await conexion.query('UPDATE tbCodigo SET activo="0" WHERE idCodigo=?',[data.idCodigo]);
+        return responseInsert;
+    }else{
+        return false
+    }
 }
 const obtenerAlumnosService=async()=>{
-    const responseGet=await conexion.query('SELECT * FROM tbAlumno WHERE idRol=4');
+    const responseGet=await conexion.query('SELECT al.idAlumno,al.nombres_alumno,al.apellidos_alumno,al.sexo,al.usuario,al.activo,g.nombre_grado,s.seccion FROM (tbAlumno al INNER JOIN tbGrado g on g.idGrado=al.idGrado)INNER JOIN tbSeccion s on s.idSeccion=g.idSeccion WHERE idRol=4');
     return responseGet;
 }
 const obtenerAlumnosGradoService=async(id:string)=>{

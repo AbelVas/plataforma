@@ -26,7 +26,10 @@ const routes:Routes=[
     {path:'codigos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CodigosComponent},
     {path:'grados',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ListaGradosComponent},
     {path:'usuarios',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:UsuariosComponent},
-    {path:'complementos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ComplementosComponent}
+    {path:'complementos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ComplementosComponent},
+    {path:'grado/:id/:data',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:GradosComponent},
+    {path:'grados/:id',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ListaGradosComponent},
+    {path:'grado/curso/:idGrado/:id/:idProfesor/:idNivelLista',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CursosComponent},
   ]
   },
 ]

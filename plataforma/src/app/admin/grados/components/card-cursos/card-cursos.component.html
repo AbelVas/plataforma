@@ -13,51 +13,251 @@
     <tbody>
         <tr *ngFor="let c of listaCursos;let i = index">
             <td class="text-center">{{i+1}}</td>
-            <td class="text-center"><a routerLink="/admin/grado/curso/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}">{{c.nombre_curso}}</a></td>
+            <td class="text-center" *ngIf="idNivelSeleccionado!='';else otroCursoLink"><a routerLink="/admin/grado/curso/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}/{{idNivelSeleccionado}}">{{c.nombre_curso}}</a></td>
+            <ng-template #otroCursoLink><td class="text-center"><a routerLink="/admin/grado/curso/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}">{{c.nombre_curso}}</a></td></ng-template>
             <td class="text-center">{{c.profesor}}</td>
             <td class="text-center">{{c.idProfesor}}</td>
             <td class="text-center">
-                <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#CursoEdit"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="btn btn-success"><i class="fa-solid fa-table"></i></button>
-                <button class="btn btn-warning"><i class="fa-solid fa-table-columns"></i></button>
-                <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#CursoEdit" (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#CuadroCurso"(click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-table"></i></button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarCurso"  (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-trash-can"></i></button>
             </td>
         </tr>
     </tbody>
 </table>
+     <!--Alerta-->
+     <div [class]="alertaValor.classAlerta" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i [class]="alertaValor.icon"></i> {{alertaValor.mensajeAlerta}}
+        </div>
+        <button type="button" #CerrarAlerta class="btn btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">x</button>
+      </div>
+    </div>
+    <!--Alerta-->
+<!-- Modal Curso-->
+<div class="modal fade" id="CuadroCurso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Cuadro de {{cursoIndividual.nombre_curso+', '}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body oculto-impresion" id="print-section">
 
+        <table class="table" id="tablaConsolidado">
+          <thead>
+            <th class="text-center tdConsolidado" style="border: 1px solid;">No</th>
+            <th class="text-center tdConsolidado">Alumno</th>
+            <th class="text-center tdConsolidado">Acti 1</th>
+          </thead>
+          <tbody>
+            <td class="text-center tdConsolidado">1</td>
+            <td class="text-center tdConsolidado">Juan</td>
+            <td class="text-center tdConsolidado">20</td>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="printer()"><i class="fa-solid fa-print"></i>Imprimir</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Editar Curso-->
+<div class="modal fade" id="CursoEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Curso</h1>
+        <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="row g-3" [formGroup]="cursoForm" (ngSubmit)="editarCurso(cursoIndividual.idCurso)" autocomplete="off">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Nombre del Curso</label>
+          <input autocomplete="off" formControlName="nombre_curso" value="{{cursoIndividual.nombre_curso}}" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Abreviatura</label>
+          <input autocomplete="off" formControlName="abreviatura" value="{{cursoIndividual.abreviatura}}" type="text" class="form-control" >
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Docente:</label>
+          <select class="form-select" formControlName="idProfesor" aria-label="Default select example">
+              <option *ngFor="let p of listaDocentes" value="{{p.idProfesor}}">{{p.apellido_profesor+', '+p.nombre_profesor}}</option>
+              </select>
+          <label>Docente Actual: <b>{{cursoIndividual.profesor}}</b></label>
+        </div>
+
+        <hr>
+
+        <div class="mb-3 form-check">
+          <div *ngIf="cursoIndividual.consolidado_bimestre=='1';else elseIndividualBimestre">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="selectedCheckCBimestral($event)" checked>
+            <label class="form-check-label text-success" for="flexCheckDefault">
+               Disponible Consolidado Bimestral
+            </label>
+          </div>
+          <ng-template #elseIndividualBimestre>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="noselectedCheckCBimestral($event)">
+            <label class="form-check-label text-danger" for="flexCheckDefault">
+               Disponible Consolidado Bimestral
+            </label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3 form-check">
+          <div *ngIf="cursoIndividual.consolidado_anual=='1';else elseIndividualFinal">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="selectedCheckCFinal($event)" checked>
+            <label class="form-check-label text-success" for="flexCheckDefault">
+               Disponible Consolidado Final
+            </label>
+          </div>
+          <ng-template #elseIndividualFinal>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="noselectedCheckCFinal($event)">
+            <label class="form-check-label text-danger" for="flexCheckDefault">
+               Disponible Consolidado Final
+            </label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3 form-check">
+          <div *ngIf="cursoIndividual.boletas=='1';else elseIndividualBoleta">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="selectedCheckBoletas($event)" checked>
+            <label class="form-check-label text-success" for="flexCheckDefault">
+               Disponible Boletas Alumno
+            </label>
+          </div>
+          <ng-template #elseIndividualBoleta>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="noselectedCheckBoletas($event)">
+            <label class="form-check-label text-danger" for="flexCheckDefault">
+              Disponible Boletas Alumno
+            </label>
+          </ng-template>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Editar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!--Modal Eliminar Curso-->
+<div class="modal fade" id="EliminarCurso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Curso</h1>
+        <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading">Alerta</h4>
+          <p>No se podrá eliminar el curso, si aún se tienen asignadas actividades y docentes, para eliminar, asigna y/o elimina esos datos primero</p>
+          <hr>
+          <p class="mb-0">De realizarse esta acción, los datos no pordrán recuperarse</p>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarCurso(cursoIndividual.idCurso)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Crear Curso-->
 <div class="modal fade" id="AgregarCurso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Grado</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Curso</h1>
+          <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form class="row g-3" [formGroup]="cursoForm" (ngSubmit)="crearCurso()" autocomplete="off">
         <div class="modal-body">
 
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nombre del Curso</label>
-            <input autocomplete="off" type="text" name="nombreGrado" [class]="cursoVacioError" id="exampleFormControlInput1" required>
+            <input autocomplete="off" formControlName="nombre_curso" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_curso.errors }">
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Abreviatura</label>
-            <input autocomplete="off" type="text" name="nombreGrado" [class]="cursoVacioError" id="exampleFormControlInput1" required>
+            <input autocomplete="off" formControlName="abreviatura" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.abreviatura.errors }">
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Docente:</label>
-            <select class="form-select" aria-label="Default select example">
+            <select formControlName="idProfesor" class="form-select" aria-label="Default select example" [ngClass]="{ 'is-invalid': submitted && f.idProfesor.errors }">
+                <option selected>Seleccione un docente</option>
                 <option *ngFor="let p of listaDocentes" value="{{p.idProfesor}}">{{p.apellido_profesor+', '+p.nombre_profesor}}</option>
                 </select>
-            <label>Docente Actual: <b>Variable Pendiente</b></label>
           </div>
+
+          <hr>
+
+          <div class="mb-3 form-check">
+            <div *ngIf="consolidadoBimestralINSERT=='1';else bimestralElse">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="selectedCheckCBimestral($event)" checked>
+              <label class="form-check-label text-success" for="flexCheckDefault">
+                Disponible Consolidado Bimestral
+              </label>
+            </div>
+            <ng-template #bimestralElse>
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="noselectedCheckCBimestral($event)">
+              <label class="form-check-label text-danger" for="flexCheckDefault">
+                Disponible Consolidado Bimestral
+              </label>
+            </ng-template>
+          </div>
+
+          <div class="mb-3 form-check">
+            <div *ngIf="consolidadoFinalINSERT=='1';else FinalElse">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="selectedCheckCFinal($event)" checked>
+              <label class="form-check-label text-success" for="flexCheckDefault">
+                Disponible Consolidado Final
+              </label>
+            </div>
+            <ng-template #FinalElse>
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="noselectedCheckCFinal($event)">
+              <label class="form-check-label text-danger" for="flexCheckDefault">
+                Disponible Consolidado Final
+              </label>
+            </ng-template>
+          </div>
+
+          <div class="mb-3 form-check">
+            <div *ngIf="consolidadoBoletasINSERT=='1';else BoletasElse">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="selectedCheckBoletas($event)" checked>
+              <label class="form-check-label text-success" for="flexCheckDefault">
+                Disponible Boletas Estudiante
+              </label>
+            </div>
+            <ng-template #BoletasElse>
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="noselectedCheckBoletas($event)">
+              <label class="form-check-label text-danger" for="flexCheckDefault">
+                Disponible Boletas Estudiante
+              </label>
+            </ng-template>
+          </div>
+
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="crearCurso()">Actualizar</button>
+          <button type="submit" class="btn btn-primary">Crear</button>
         </div>
+
+      </form>
       </div>
     </div>
   </div>

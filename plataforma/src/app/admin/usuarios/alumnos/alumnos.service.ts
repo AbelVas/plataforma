@@ -1,35 +1,36 @@
-import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import {catchError} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
-export class CursosAlumnosGradosService {
+export class AlumnosService {
   URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
-  getCursosGrado(idGrado:string):Observable<any>{
+  getAlumno():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/curso-profesor-grado/${idGrado}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/usuarios/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  insertCursosGrado(data:any){
+  insertAlumno(data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/cursos/`,data,httpOptions).pipe(
+    return this.http.post(`${this.URL}/usuarios/`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  deleteCurso(idCurso:string){
+  deleteAlumno(idAlumno:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.delete(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
+    return this.http.delete(`${this.URL}/usuarios/${idAlumno}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  updateCurso(idCurso:string,data:any){
+  editAlumno(idAlumno:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/cursos/${idCurso}`,data,httpOptions).pipe(
+    return this.http.put(`${this.URL}/usuarios/${idAlumno}`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }

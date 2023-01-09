@@ -2,11 +2,18 @@
   <div class="pagetitle">
     <h1>Curso:</h1>
     <nav>
-       <ol class="breadcrumb">
+       <ol class="breadcrumb" *ngIf="idNivelSeleccionado=='';else otraRuta">
           <li class="breadcrumb-item"><a class="enlacerouter" routerLink="/admin/">Home</a></li>
           <li class="breadcrumb-item "><a class="enlacerouter" routerLink="/admin/grado/{{idGrado}}">Grado</a></li>
           <li class="breadcrumb-item active">Curso</li>
        </ol>
+       <ng-template #otraRuta>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+          <li class="breadcrumb-item active"><a routerLink="/admin/grados/{{idNivelSeleccionado}}">Lista de Grados</a></li>
+          <li class="breadcrumb-item "><a class="enlacerouter" routerLink="/admin/grado/{{idGrado}}/{{idNivelSeleccionado}}">Grado</a></li>
+       </ol>
+      </ng-template>
     </nav>
     <section class="section dashboard">
       <div class="row">

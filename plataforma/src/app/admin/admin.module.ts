@@ -61,7 +61,11 @@ import { CodigosComponent } from './codigos/codigos.component';
 import { ListaGradosComponent } from './lista-grados/lista-grados.component';
 import { ComplementosComponent } from './complementos/complementos.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-
+import { AlumnosComponent } from './usuarios/alumnos/alumnos.component';
+import { TutoresComponent } from './usuarios/tutores/tutores.component';
+import { CuadroGuiaService } from "./grados/components/services/cuadro-guia.service";
+import { TutoresService } from "./usuarios/tutores/tutores.service";
+import { AlumnosService } from "./usuarios/alumnos/alumnos.service";
 
 
 @NgModule({
@@ -100,6 +104,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
         ListaGradosComponent,
         ComplementosComponent,
         UsuariosComponent,
+        AlumnosComponent,
+        TutoresComponent,
     ],
     exports: [],
     providers: [
@@ -116,7 +122,10 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
         ProfesoresService,
         ActividadService,
         UnidadesService,
-        CodigosService
+        CodigosService,
+        CuadroGuiaService,
+        TutoresService,
+        AlumnosService,
     ],
     imports: [
         AdminRoutingModule,
@@ -127,7 +136,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
         MatInputModule,
         MatPaginatorModule,
         MatSortModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule
     ]
 })
 

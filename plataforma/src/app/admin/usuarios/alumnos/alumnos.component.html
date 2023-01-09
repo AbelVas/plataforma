@@ -3,10 +3,10 @@
     <div class="card">
        <div class="card-body">
         <div class="d-flex">
-          <h5 class="card-title">Docentes <span>| Listado Rápido </span></h5>
+          <h5 class="card-title">Alumnos <span>| Listado Rápido </span></h5>
         </div>
         <div class="text-end">
-          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#modalCrear"><i class="fa-solid fa-plus"></i></button>
+          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#modalCrearAlumno"><i class="fa-solid fa-plus"></i></button>
         </div>
         <mat-label>Buscar: </mat-label>
         <mat-form-field>
@@ -19,9 +19,14 @@
             <td mat-cell *matCellDef="let p=index" class="text-center">{{p+1}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="docente">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Docente </th>
-            <td mat-cell *matCellDef="let p" class="text-center">{{p.apellido_profesor+' '+p.nombre_profesor}}</td>
+          <ng-container matColumnDef="alumno">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Alumno </th>
+            <td mat-cell *matCellDef="let p" class="text-center">{{p.apellidos_alumno+' '+p.nombres_alumno}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="grado">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Grado </th>
+            <td mat-cell *matCellDef="let p" class="text-center">{{p.nombre_grado+', '+p.seccion}}</td>
           </ng-container>
 
           <ng-container matColumnDef="usuario">
@@ -32,7 +37,7 @@
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <span class="badge bg-success" *ngIf="p.estatus=='1';else activoInactivo">Activo</span>
+              <span class="badge bg-success" *ngIf="p.activo=='1';else activoInactivo">Activo</span>
               <ng-template #activoInactivo>
                 <span class="badge bg-danger">Inactivo</span>
               </ng-template>
@@ -42,8 +47,8 @@
           <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditProfesorModal"  (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorModal" (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditProfesorModal"  (click)="buscarAlumnoArray(p.idAlumno)"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarAlumnoModal" (click)="buscarAlumnoArray(p.idAlumno)"><i class="fa-solid fa-trash"></i></button>
             </td>
           </ng-container>
 
@@ -54,7 +59,7 @@
             <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
           </tr>
         </table>
-        <mat-paginator [pageSize]="docentesPorPagina" aria-label="Select page of users"></mat-paginator>
+        <mat-paginator [pageSize]="alumnosPorPagina" aria-label="Select page of users"></mat-paginator>
          <!--Alerta-->
          <div [class]="alertaValor.classAlerta" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="d-flex">
@@ -69,7 +74,7 @@
     </div>
   </div>
   </div>
-<!--modal Editar-->
+<!--modal Editar
 <div class="modal fade" id="EditProfesorModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -121,7 +126,7 @@
                 <label class="form-check-label" for="flexSwitchCheckChecked"> <b>Cambiar Contraseña</b></label>
               </ng-template>
             </div>
-            <!--confirm-->
+
             <div *ngIf="isEditPassword!='0'">
               <div class="mb-3">
                 <label class="form-label">Contraseña:</label>
@@ -149,33 +154,38 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 <!--modal Eliminar-->
-<div class="modal fade" id="EliminarProfesorModal" tabindex="-1">
+<div class="modal fade" id="EliminarAlumnoModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Eliminar Docente</h5>
+        <h5 class="modal-title">Eliminar Alumno</h5>
         <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="alert alert-warning" role="alert">Si el Docente tiene asignados cursos y/o actividades, no se podrá eliminar, para ello asigna las actividades y los cursos a otro docente y así se podrá eliminar <b>Esa acción de concretarse no se puede deshacer</b></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarDocente(docenteIndividual.idProfesor)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
-      </div>
+      <form action="" (ngSubmit)="eliminarAlumno(alumnoInfividual.idAlumno)">
+
+        <div class="modal-body">
+          <div class="alert alert-warning" role="alert">Se eliminara el alumno junto con todas las notas, <b>Esta acción de concretarse no se puede deshacer</b></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+        </div>
+
+      </form>
     </div>
   </div>
 </div>
 <!--Modal Crear-->
-<div class="modal fade" id="modalCrear" tabindex="-1">
+<div class="modal fade" id="modalCrearAlumno" tabindex="-1">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Agregar Docente</h5>
+        <h5 class="modal-title">Agregar Alumno</h5>
         <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div *ngIf="isCorrectCodigo==false;else codigoCorrect">
         <div class="modal-body" >
           <div class="mb-3">
@@ -191,41 +201,24 @@
 
       <ng-template #codigoCorrect>
         <div>
-          <form class="row g-3" [formGroup]="docenteForm" (ngSubmit)="crearDocente()" autocomplete="off">
+          <form class="row g-3" [formGroup]="alumnoForm" (ngSubmit)="crearAlumno()" autocomplete="off">
             <div class="modal-body">
               <div class="col-md-12">
 
                 <div class="mb-3">
-                  <label class="form-label">Nombre del Docente</label>
-                  <input formControlName="nombre_profesor" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_profesor.errors }">
+                  <label class="form-label">Nombre del Alumno</label>
+                  <input formControlName="nombres_alumno" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombres_alumno.errors }">
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label">Apellido del Docente</label>
-                  <input formControlName="apellido_profesor" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.apellido_profesor.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Fecha de Nacimiento</label>
-                  <input formControlName="fecha_nacimiento" type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fecha_nacimiento.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Teléfono:</label>
-                  <input formControlName="telefono" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">CUI:</label>
-                  <input formControlName="CUI" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.CUI.errors }">
+                  <label class="form-label">Apellido del Alumno</label>
+                  <input formControlName="apellidos_alumno" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.apellidos_alumno.errors }">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Usuario:</label>
                   <input formControlName="usuario" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }">
                 </div>
-
-                <!--confirm-->
 
                 <div class="mb-3">
                   <label class="form-label">Contraseña:</label>
@@ -237,9 +230,24 @@
                   <input formControlName="confirmPass" type="text" class="form-control" [class]="passNoCoincide" [ngClass]="{ 'is-invalid': submitted && f.confirmPass.errors }">
                 </div>
 
+                <div class="mb-3">
+                  <label class="form-label">Sexo:</label>
+                  <select formControlName="sexo" class="form-select" aria-label="Default select example" [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }">
+                    <option value="0">Femenino</option>
+                    <option value="1">Masculino</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Grado:</label>
+                  <select formControlName="idGrado" class="form-select" aria-label="Default select example" [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }">
+                    <option *ngFor="let g of listaGradosSelect" value="{{g.idGrado}}">{{g.nombre_grado+', Sección: '+g.seccion+', Nivel: '+g.nivel}}</option>
+                  </select>
+                </div>
+
               </div>
               <div class="alert alert-dark" role="alert">
-                <i class="fa-solid fa-circle-exclamation"></i> Los Docentes siempre se Crearán Activos
+                <i class="fa-solid fa-circle-exclamation"></i> Los Alumnos siempre se Crearán Activos
               </div>
 
             </div>
@@ -252,6 +260,7 @@
           </form>
         </div>
       </ng-template>
+
     </div>
 </div>
 </div>

@@ -2,7 +2,7 @@ import conexion from "../config/database";
 
 //traigo las tareas por curso (tanto foros, examenes, etc...)
 const getActividadesCursoService=async(idCurso:string)=>{
-    const response=await conexion.query('SELECT ac.idDetalleActividad,ac.nombre_actividad,ac.detalle,ac.cotejo,ac.fecha_entrega,ac.valor,ac.recurso,ac.ruta_recurso,ac.creada,ac.disponible,ac.entrega_fuera_fecha,ta.tipoActividad,u.idUnidad,u.unidad,ac.ultima_modificacion FROM (tbDetalleActividad ac INNER JOIN tbTipoActividad ta ON ta.idTipoActividad=ac.idTipoActividad)INNER JOIN tbUnidad u ON u.idUnidad=ac.idUnidad WHERE ac.idCurso=? ORDER BY ac.fecha_entrega DESC',[idCurso])
+    const response=await conexion.query('SELECT ac.idDetalleActividad,ac.nombre_actividad,ac.detalle,ac.cotejo, DATE_FORMAT(ac.fecha_entrega, "%Y-%m-%d") as fecha_entrega,ac.valor,ac.recurso,ac.ruta_recurso, DATE_FORMAT(ac.creada, "%Y-%m-%d") as creada,ac.disponible,ac.entrega_fuera_fecha,ta.tipoActividad,u.idUnidad,u.unidad, ac.ultima_modificacion FROM (tbDetalleActividad ac INNER JOIN tbTipoActividad ta ON ta.idTipoActividad=ac.idTipoActividad)INNER JOIN tbUnidad u ON u.idUnidad=ac.idUnidad WHERE ac.idCurso=? ORDER BY ac.fecha_entrega DESC',[idCurso])
     return response;
 }
 const crearTareaService=async(dataActividad:any)=>{
@@ -43,11 +43,10 @@ const updateActividadService=async(data:any,idActividad:string)=>{
     return response
 }
 const duplicarActividades=async(data:any,idActividad:string)=>{
-    const DatosActividadOriginal=await conexion.query('SELECT idUnidad,idTipoActividad,nombre_actividad,detalle,cotejo,fecha_entrega,valor,recurso,ruta_recurso,creada,disponible,vence,entrega_fuera_fecha,ultima_modificacion FROM tbDetalleActividad WHERE idDetalleActividad=?',[idActividad]);
+    const DatosActividadOriginal=await conexion.query('SELECT idUnidad,idTipoActividad,nombre_actividad,detalle,cotejo, DATE_FORMAT(fecha_entrega, "%Y-%m-%d") as fecha_entrega,valor,recurso,ruta_recurso,DATE_FORMAT(creada, "%Y-%m-%d") as creada,disponible,vence,entrega_fuera_fecha,ultima_modificacion FROM tbDetalleActividad WHERE idDetalleActividad=?',[idActividad]);
     var DatosObject:any=JSON.parse(JSON.stringify(DatosActividadOriginal))
     DatosObject[0].idCurso
     var contador=0;
-   
     for(let i=0;i<data.length;i++){
         //console.log(data[i].idCurso)
         var Aux:any=0;
