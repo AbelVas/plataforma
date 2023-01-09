@@ -51,7 +51,13 @@ import { AlumnosExamenComponent } from './examen-curso-profesor/components/alumn
 import { GraficoExamenComponent } from './examen-curso-profesor/components/grafico-examen/grafico-examen.component';
 import { CursosComponent } from "./cursos/cursos.component";
 import { ReactiveFormsModule } from "@angular/forms";
+<<<<<<< HEAD
 import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-individual/grado-guia-individual.component';
+=======
+import { CalendariogeneralComponent } from './calendariogeneral/calendariogeneral.component';
+import { FullCalendarComponent, FullCalendarModule } from "@fullcalendar/angular";
+import { PublicModule } from "../public/public.module";
+>>>>>>> 968da4fe32f0f362158b2682a547366a3ac25ff0
 //
 
 
@@ -59,7 +65,9 @@ import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-i
   imports:[
     ProfesorRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule,
+    PublicModule
   ],
   declarations:[
   ProfesorComponent,
@@ -100,7 +108,11 @@ import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-i
   AlumnosExamenComponent,
   GraficoExamenComponent,
   CursosComponent,
+<<<<<<< HEAD
   GradoGuiaIndividualComponent
+=======
+  CalendariogeneralComponent
+>>>>>>> 968da4fe32f0f362158b2682a547366a3ac25ff0
   ],
   exports:[
   ],

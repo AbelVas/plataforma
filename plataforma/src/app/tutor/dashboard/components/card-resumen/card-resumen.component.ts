@@ -8,7 +8,7 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./card-resumen.component.css']
 })
 export class CardResumenComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idTutorPrincipal:string='';
   Nombre_profesor:string='';
 
@@ -40,10 +40,12 @@ export class CardResumenComponent implements OnInit {
     this.dashboardService.getAlumnoporTutor(this.idTutorPrincipal).subscribe(
       response=>{
         this.alumnosGet=response;
+        this.sppinerOn=false;
         console.log('Alumnos: '+response)
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

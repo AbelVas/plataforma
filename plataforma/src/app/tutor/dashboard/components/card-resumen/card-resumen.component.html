@@ -6,6 +6,11 @@
          <div class="d-flex">
            <h5 class="card-title">Elegir al Estudiante</h5>
          </div>
+         <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+          <app-loaderpeque></app-loaderpeque>
+       </div>
+
+       <ng-template #MostrarDataPerfilOverview>
            <div class="row" *ngIf="alumnosGet!='';else tablaVacia">
              <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let a of alumnosGet;let i = index">
                <div class="card h-100">
@@ -23,6 +28,7 @@
                </div>
              </div>
            </div>
+           </ng-template>
            <ng-template #tablaVacia>
              <div class="alert alert-warning" role="alert">
                Sin registros, no tiene ningún alumno asignado

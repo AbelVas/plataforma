@@ -12,6 +12,11 @@
       <div class="col-12">
         <div class="card">
            <div class="card-body">
+            <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+              <app-loaderpeque></app-loaderpeque>
+           </div>
+
+           <ng-template #MostrarDataPerfilOverview>
             <div class="d-flex" *ngFor="let a of alumnosGet">
               <h5 class="card-title">Calificaciones de {{a.nombres_alumno}} {{a.apellidos_alumno}}, {{a.nombre_grado}} "{{a.seccion}}"</h5>
             </div>
@@ -86,6 +91,7 @@
                       </div>
                    </div>
             </nav>
+            </ng-template>
            </div>
         </div>
       </div>

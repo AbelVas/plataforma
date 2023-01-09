@@ -9,7 +9,7 @@ import { CalificacionesVistaEstudianteService } from './services/calificaciones-
   styleUrls: ['./calificaciones-vista-estudiante.component.css']
 })
 export class CalificacionesVistaEstudianteComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idStudent:string='';
   cursosGet:any=[];
   cursosIndividual:any={
@@ -51,9 +51,11 @@ export class CalificacionesVistaEstudianteComponent implements OnInit {
       response=>{
         this.cursosGet=response;
         this.cantidad_cursos=response
+        this.sppinerOn=false;
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }
@@ -62,9 +64,11 @@ export class CalificacionesVistaEstudianteComponent implements OnInit {
     this.calificacionesVistaEstudianteService.getAlumno(idAlumno).subscribe(
       response=>{
         this.alumnosGet=response;
+        this.sppinerOn=false;
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

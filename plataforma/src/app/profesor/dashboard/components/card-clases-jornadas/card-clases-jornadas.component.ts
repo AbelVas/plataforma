@@ -8,7 +8,7 @@ import { CardResumenService } from '../../services/card-resumen.service';
   styleUrls: ['./card-clases-jornadas.component.css']
 })
 export class CardClasesJornadasComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   token:any=localStorage.getItem('Acces-Token');
   cursosGet:any=[];
   cursosIndividual:any={
@@ -37,6 +37,7 @@ export class CardClasesJornadasComponent implements OnInit {
     const {idUsuario}:any=decode(this.token);
     this.cardResumenService.getCursoporProfesor(idUsuario).subscribe(
       response=>{
+        this.sppinerOn=false;
         var cantidad=response.length
         this.cursosGet=response;
         var AuxMatutina=0;
@@ -53,6 +54,7 @@ export class CardClasesJornadasComponent implements OnInit {
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

@@ -34,12 +34,13 @@ import { VistaEstudianteService } from "./vista-estudiante/services/vista-estudi
 import { ContenidoVistaEstudianteComponent } from './vista-estudiante/components/contenido-vista-estudiante/contenido-vista-estudiante.component';
 import { CalificacionesVistaEstudianteComponent } from './calificaciones-vista-estudiante/calificaciones-vista-estudiante.component';
 import { CalificacionesVistaEstudianteService } from "./calificaciones-vista-estudiante/services/calificaciones-vista-estudiante.service";
-
+import { FullCalendarModule } from "@fullcalendar/angular";
 @NgModule({
   imports:[
     TutorRoutingModule,
     SharedModule,
-    PublicModule
+    PublicModule,
+    FullCalendarModule
   ],
   declarations:[
     TutorComponent,
