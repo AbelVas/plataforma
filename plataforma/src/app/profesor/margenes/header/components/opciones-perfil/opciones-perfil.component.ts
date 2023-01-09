@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import decode from 'jwt-decode';
-import { MargenesProfesorService } from '../../../services/margenes-profesor.service';
+import decode from "jwt-decode"
 
 @Component({
   selector: 'app-teacher-opciones-nav-perfil',
@@ -9,38 +8,20 @@ import { MargenesProfesorService } from '../../../services/margenes-profesor.ser
 })
 export class OpcionesPerfilComponent implements OnInit {
 
-  token:any=localStorage.getItem('Acces-Token');
-  errorServicio:any=[];
-  estado:any;
-  classBadgeActive:any;
-  profesorGet:any=[];
-  profesorIndividual:any={
-    idProfesor: '',
-    nombre_profesor:'',
-    apellido_profesor:''
-  };
+  Usuario:string='';
+  Nombre_profesor:string='';
+  Rol:string='';
+  Apellido_profesor:string='';
 
-  constructor(private margenesProfesoresService:MargenesProfesorService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.obtenerDatosProfesor();
-    this.profesorIndividual=this.profesorGet
-    this.margenesProfesoresService.disparadorCopiarData.emit(this.profesorIndividual);
-  }
-
-  obtenerDatosProfesor(){
-    const {idUsuario}:any=decode(this.token);
-    this.margenesProfesoresService.getProfesor(idUsuario).subscribe(
-      response=>{
-        this.profesorGet=response;
-        this.margenesProfesoresService.disparadorCopiarData.emit({
-          data:this.profesorGet[0]
-        });
-      },
-      error=>{
-        console.log('Error: '+error);
-      }
-    )
+    const token:any = localStorage.getItem('Acces-Token');
+    const {usuario,nombre_profesor,rol,apellido_profesor}:any=decode(token);
+    this.Usuario=usuario;
+    this.Nombre_profesor=nombre_profesor;
+    this.Rol=rol
+    this.Apellido_profesor=apellido_profesor
   }
 
 }

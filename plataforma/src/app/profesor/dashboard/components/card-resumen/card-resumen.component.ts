@@ -26,11 +26,9 @@ export class CardResumenComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerDatosCursos();
     this.cursosIndividual=this.cursosGet
-    this.cardResumenService.disparadorCopiarData.emit(this.cursosIndividual);
 
     this.obtenerDatosGrados();
     this.gradosIndividual=this.gradosGet
-    this.cardResumenService.disparadorCopiarData.emit(this.gradosIndividual);
   }
 
   obtenerDatosCursos(){
@@ -38,9 +36,6 @@ export class CardResumenComponent implements OnInit {
     this.cardResumenService.getCursoporProfesor(idUsuario).subscribe(
       response=>{
         this.cursosGet=response;
-        this.cardResumenService.disparadorCopiarData.emit({
-          data:this.cursosGet[0]
-        });
         this.cantidad_cursos=response
       },
       error=>{
@@ -54,9 +49,6 @@ export class CardResumenComponent implements OnInit {
     this.cardResumenService.getGradoPorProfesor(idUsuario).subscribe(
       response=>{
         this.gradosGet=response;
-        this.cardResumenService.disparadorCopiarData.emit({
-          data:this.gradosGet[0]
-        });
         this.cantidad_grados=response;
       },
       error=>{

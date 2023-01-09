@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { getAlumnosCalificacionActividadCursUnidadService,calificarActividadService } from "../service/calificacion";
+import { getAlumnosCalificacionActividadCursUnidadService,calificarActividadService,getCalificacionesAlumnoActividadService } from "../service/calificacion";
 import { handleHttp } from "../utils/error.handle"
 
 const getAlumnosCalificacionActividadCursUnidad=async(req:Request,res:Response)=>{
@@ -25,4 +25,15 @@ const calificarActividad=async(req:Request,res:Response)=>{
     }
 }
 
-export {getAlumnosCalificacionActividadCursUnidad,calificarActividad}
+const getCalificacionesAlumnoActividad=async(req:Request,res:Response)=>{
+    try{
+        const {idAlumno} = req.params;
+        const {idCurso} = req.body
+        const resultadoCalificaciones=await getCalificacionesAlumnoActividadService(idCurso, idAlumno)
+        res.send(resultadoCalificaciones);
+    }catch(e){
+        handleHttp(res,'Error al Obtener la calificacion')
+    }
+}
+
+export {getAlumnosCalificacionActividadCursUnidad,calificarActividad,getCalificacionesAlumnoActividad}

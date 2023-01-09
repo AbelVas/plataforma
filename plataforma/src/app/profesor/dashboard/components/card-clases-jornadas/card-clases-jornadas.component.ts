@@ -12,7 +12,9 @@ export class CardClasesJornadasComponent implements OnInit {
   token:any=localStorage.getItem('Acces-Token');
   cursosGet:any=[];
   cursosIndividual:any={
-    idCurso: '',
+    idProfesor:'',
+    idCurso:'',
+    idGrado:'',
     nombre_grado:'',
     nivel:'',
     idJornada:'',
@@ -20,23 +22,34 @@ export class CardClasesJornadasComponent implements OnInit {
     jornada:'',
     nombre_curso:''
   };
+  matutina:any=[];
+  vespertina:any=[];
+
 
   constructor( public cardResumenService:CardResumenService ) { }
 
   ngOnInit(): void {
     this.obtenerDatosCursos();
     this.cursosIndividual=this.cursosGet
-    this.cardResumenService.disparadorCopiarData.emit(this.cursosIndividual);
   }
 
   obtenerDatosCursos(){
     const {idUsuario}:any=decode(this.token);
     this.cardResumenService.getCursoporProfesor(idUsuario).subscribe(
       response=>{
+        var cantidad=response.length
         this.cursosGet=response;
-        this.cardResumenService.disparadorCopiarData.emit({
-          data:this.cursosGet[0]
-        });
+        var AuxMatutina=0;
+        var AuxVespertina=0;
+        for(let i = 0; i<cantidad; i++){
+          if(this.cursosGet[i].idJornada=='1'){
+            this.matutina[AuxMatutina]=this.cursosGet[i]
+            AuxMatutina++;
+          }else{
+            this.vespertina[AuxVespertina]=this.cursosGet[i]
+            AuxVespertina++;
+          }
+        }
       },
       error=>{
         console.log('Error: '+error);

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass } from "../controllers/tutores";
+import { getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass,getAlumnoporTutor } from "../controllers/tutores";
 import { logMiddleware } from "../middleware/log";
 import { checkJwt } from "../middleware/session";
  
@@ -11,6 +11,7 @@ router.post("/",logMiddleware,insertarTutor);
 router.put("/:id",checkJwt,updateTutor);
 router.delete("/:id",checkJwt,deleteTutor);
 router.get("/tutor-alumno/:id",checkJwt,getTutorconAlumno);
+router.get("/alumnos/:id",checkJwt,getAlumnoporTutor);
 router.post("/pass/:id",checkJwt,compararPass);
 
 

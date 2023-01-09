@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="activity">
       <nav class="d-flex justify-content-center">
-        <button type="button" class="btn btn-warning mt-4" data-bs-toggle="modal" data-bs-target="#modalestadisticascurso"> Ver Estadísticas </button>
+        <button type="button" class="btn btn-warning mt-4" data-bs-toggle="modal" data-bs-target="#modalestadisticascurso" disabled> Ver Estadísticas </button>
              <div class="modal fade" id="modalestadisticascurso" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                    <div class="modal-content">
@@ -21,14 +21,20 @@
 </div>
 
 <div class="card">
-  <div class="card-body">
+  <div class="card-body"  *ngIf="alumnosGet!='';else tablaVacia">
     <h5 class="card-title">Alumnos del Curso</h5>
-      <div class="activity">
-          <!--Contenido-->
-        Agregar un card para poder ver las estadísticas de los alumnos que reciben ese curso (estadísticas solo del curso como tal),
-        será un modal por mientras
-        <br><br>
-        Ver el listado de los alumnos que reciben ese curso
+      <div class="activity"  *ngFor="let a of alumnosGet">
+        <ul>
+          <li>{{a.alumno}}</li>
+        </ul>
       </div>
   </div>
+  <ng-template #tablaVacia>
+    <div class="card-body">
+      <h5 class="card-title">Alumnos del Curso</h5>
+      <div class="alert alert-warning" role="alert">
+        Sin registros, el curso no tiene ningún alumno asignado
+      </div>
+    </div>
+  </ng-template>
 </div>

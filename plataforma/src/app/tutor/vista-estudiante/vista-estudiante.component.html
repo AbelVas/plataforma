@@ -1,0 +1,52 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Tutor {{NombreUsuario}}</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/tutor/dashboard">Dashboard</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-9">
+        <!--- Aquí va el calendario -->
+        <app-contenido-vista-estudiante></app-contenido-vista-estudiante>
+      </div>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-xxl-12 col-md-12">
+            <section class="section profile">
+              <div class="card info-card customers-card" *ngFor="let a of alumnosGet">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                  <img src="assets/img/blank_profile.png" alt="Profile" class="rounded-circle">
+                  <h5 class="card-title text-center">
+                    {{a.apellidos_alumno}}, {{a.nombres_alumno}}
+                   <hr>
+                   <div><span>Grado: {{a.nombre_grado}}, "{{a.seccion}}"</span></div>
+                    <div><span>Usuario: {{a.usuario}}</span></div>
+                  </h5>
+               </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="col-xxl-12 col-md-12">
+            <div class="card info-card customers-card">
+              <div class="card-body">
+                <h5 class="card-title">Cursos</h5>
+                <div class="d-flex align-items-center">
+                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-book-open-reader"></i></div>
+                   <div class="ps-3">
+                    <h6> {{cantidad_cursos.length}} </h6>
+                   </div>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+  </section>
+</main>
+

@@ -1,23 +1,29 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import { Injectable} from '@angular/core';
+import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import {map,tap,catchError, mergeScan} from 'rxjs/operators'
+import { catchError} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
-export class MargenesProfesorService {
+export class CalificacionesVistaEstudianteService {
 
   URL='http://localhost:3002';
+
   constructor(private http:HttpClient) { }
 
-  @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
-
-  getProfesor(idUsuario:string):Observable<any>{
+  getAlumno(idAlumno:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/profesores/profesor/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/usuarios/${idAlumno}`,httpOptions).pipe(
       catchError(this.handleError)
     );
+  }
+
+  getCursoporAlumno(idAlumno:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/curso-alumno/${idAlumno}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error:HttpErrorResponse){
