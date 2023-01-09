@@ -6,7 +6,7 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class CuadroGuiaService {
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt';
   constructor(private http:HttpClient) { }
 
   getCursosNotasGradoGuia(idGrado:string,data:any){

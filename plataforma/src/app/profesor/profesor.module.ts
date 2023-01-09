@@ -118,8 +118,6 @@ import { CalendarioCursoService } from "./cursos-profesor/services/calendario-cu
     RolesGuard,
     CardResumenService,
     GradoGuiaProfesorService,
-    CursosCardResumenComponent,
-    OpcionesCursoComponent,
     ActividadesOpcionesCursoService,
     CalendarioProfesorService,
     ForoCursoProfesorService,

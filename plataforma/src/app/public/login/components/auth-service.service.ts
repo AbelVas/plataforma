@@ -8,7 +8,7 @@ import{JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
 export class LoginService {
 
   constructor(private http:HttpClient, private jwtHelper:JwtHelperService) { }
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt';
 
 
   login(user:any){

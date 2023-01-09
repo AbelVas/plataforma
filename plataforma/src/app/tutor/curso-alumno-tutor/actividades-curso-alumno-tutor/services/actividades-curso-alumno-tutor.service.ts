@@ -8,7 +8,7 @@ import { catchError} from 'rxjs/operators'
 })
 export class ActividadesCursoAlumnoTutorService {
 
-  URL='https://app.labrincoteca.edu.gt/';
+  URL='https://app.labrincoteca.edu.gt';
 
   constructor(private http:HttpClient) { }
 

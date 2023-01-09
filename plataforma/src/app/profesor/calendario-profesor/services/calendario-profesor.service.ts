@@ -7,7 +7,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CalendarioProfesorService {
-  URL='https://app.labrincoteca.edu.gt/';
+  URL='https://app.labrincoteca.edu.gt';
 
   constructor(private http:HttpClient) { }
 

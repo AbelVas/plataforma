@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const calendario_1 = require("../controllers/calendario");
+const session_1 = require("../middleware/session");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/alumno/:id", session_1.checkJwt, calendario_1.getActividadesAlumno);
+router.get("/profesor/:id", session_1.checkJwt, calendario_1.getActividadesTutor);
+router.get("/tutor/:id", session_1.checkJwt, calendario_1.getActividadesProfesor);
+router.get("/alumno-examen/:id/:al", session_1.checkJwt, calendario_1.getActividadesPorExamen);
+router.get("/alumno-tarea/:id/:al", session_1.checkJwt, calendario_1.getActividadesPorTarea);
+router.get("/alumno-foro/:id/:al", session_1.checkJwt, calendario_1.getActividadesPorForo);
+router.get("/alumno-calificaciones/:id/:al", session_1.checkJwt, calendario_1.getActividadesCalificacion);
+router.get("/alumno-calificaciontotal/:id/:al", session_1.checkJwt, calendario_1.getActividadesCalificacionTotal);

@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const session_1 = require("../middleware/session");
+const estadistica_1 = require("../controllers/estadistica");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/Alumnos-Total/", session_1.checkJwt, estadistica_1.obtenerAlumnosTotal);
+router.get("/Alumnos-Total/grados/", session_1.checkJwt, estadistica_1.obtenerAlumnosTotalPorGrado);
+router.get("/Alumnos-Hombres/", session_1.checkJwt, estadistica_1.obtenerAlumnosHombres);
+router.get("/Alumnos-Mujeres/", session_1.checkJwt, estadistica_1.obtenerAlumnosMujeres);
+router.get("/Codigos-uso/", session_1.checkJwt, estadistica_1.obtenerCodigosEnUso);
+router.get("/Codigos-desuso", session_1.checkJwt, estadistica_1.obtenerCodigosEnDesuso);
+router.get("/Profesor-Contrasena/Cambiada/", session_1.checkJwt, estadistica_1.obtenerContrasenaProfesorCambiada);
+router.get("/Profesor-Contrasena/No-Cambiada/", session_1.checkJwt, estadistica_1.obtenerContrasenaProfesorNoCambiada);

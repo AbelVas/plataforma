@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators'
 export class SeccionesService {
 
   constructor(private http:HttpClient) { }
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt';
 
   getSecciones():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
