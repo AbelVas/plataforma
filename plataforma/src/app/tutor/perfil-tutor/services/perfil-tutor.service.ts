@@ -8,7 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class PerfilTutorService {
 
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt/';
 
   constructor(private http:HttpClient) {}
 
