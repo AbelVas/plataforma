@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './calendario-student.component.html',
   styleUrls: ['./calendario-student.component.css']
 })
+
 export class CalendarioStudentComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

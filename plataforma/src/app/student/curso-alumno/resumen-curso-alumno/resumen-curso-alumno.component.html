@@ -1,9 +1,11 @@
 <main id="main" class="main">
-  <div class="pagetitle">
-    <h1>Matemática</h1>
-    <nav>
+  <div class="pagetitle" *ngFor="let ci of CursoInfo">
+    <h1>{{ci.nombre_curso}}</h1>
+    <nav *ngFor="let np of NombreProfe">
      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Profesor: Pececito Ahogado</li>
+        <li class="breadcrumb-item"><a routerLink="/student/dashboard" >Inicio</a></li>
+        <li class="breadcrumb-item"><a >Curso</a></li>
+        <li class="breadcrumb-item active">Profesor: {{np.NombreProfesor}}</li>
      </ol>
   </nav>
  </div>
@@ -11,11 +13,13 @@
      <div class="row">
         <div class="col-lg-8">
           <app-card-info-resumen></app-card-info-resumen>
-          <app-anuncios-recursos-resumen-curso></app-anuncios-recursos-resumen-curso>
-          <app-progress-resumen-curso></app-progress-resumen-curso>
+          <app-actividades-curso-alumno></app-actividades-curso-alumno>
+         <!-- <app-anuncios-recursos-resumen-curso></app-anuncios-recursos-resumen-curso> -->
+          <app-calificaciones-curso-alumno></app-calificaciones-curso-alumno>
         </div>
         <div class="col-lg-4">
           <app-calendario-resumen-curso></app-calendario-resumen-curso>
+          <!--<app-progress-resumen-curso></app-progress-resumen-curso>-->
         </div>
      </div>
   </section>

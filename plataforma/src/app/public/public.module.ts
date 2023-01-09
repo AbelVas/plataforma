@@ -7,11 +7,15 @@ import { PublicComponent } from "./public.component";
 import { LoginComponent } from "./login/containers/login.component";
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderpequeComponent } from './loaderpeque/loaderpeque.component';
+import { CalendarioComponent } from './calendario/calendario.component';
+import { FullCalendarModule } from "@fullcalendar/angular";
+import { CalendarioService } from "./calendario/calendario.service";
 
 @NgModule({
   imports:[
     PublicRoutingModule,
-    SharedModule
+    SharedModule,
+    FullCalendarModule,
   ],
   declarations:[
     PublicComponent,
@@ -19,12 +23,16 @@ import { LoaderpequeComponent } from './loaderpeque/loaderpeque.component';
     LoginComponent,
     LoaderComponent,
     LoaderpequeComponent,
+    CalendarioComponent,
   ],
   exports:[
     LoaderComponent,
-    LoaderpequeComponent
+    LoaderpequeComponent,
+    CalendarioComponent,
   ],
-  providers:[]
+  providers:[
+    CalendarioService
+  ]
 })
 
 export class PublicModule{

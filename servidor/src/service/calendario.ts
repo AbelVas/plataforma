@@ -16,18 +16,28 @@ const getActividadesPorProfesor=async(idUsuario:string)=>{
 }
 
 //para el curso
-const getActividadesPorTipoExamen=async(idUsuario:string)=>{
-    const response=await conexion.query('SELECT ac.nombre_actividad,ta.idExamen FROM tbDetalleActividad ac INNER JOIN tbExamen ta ON ta.idDetalleActividad=ac.idDetalleActividad WHERE ac.idCurso=?',[idUsuario])
+const getActividadesPorTipoExamen=async(idUsuario:string,idAlum:string)=>{
+    const response=await conexion.query('SELECT ac.nombre_actividad,ac.detalle,ta.idExamen,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbExamen ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
     return response;
 }
 
-const getActividadesPorTipoTarea=async(idUsuario:string)=>{
-    const response=await conexion.query('SELECT ac.nombre_actividad,ta.idTarea FROM tbDetalleActividad ac INNER JOIN tbTarea ta ON ta.idDetalleActividad=ac.idDetalleActividad WHERE ac.idCurso=?',[idUsuario])
+const getActividadesPorTipoTarea=async(idUsuario:string,idAlum:string)=>{
+    const response=await conexion.query('SELECT ac.nombre_actividad,ac.detalle,ta.idTarea,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbTarea ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
     return response;
 }
 
-const getActividadesPorTipoForo=async(idUsuario:string)=>{
-    const response=await conexion.query('SELECT ac.nombre_actividad,ta.idForo FROM tbDetalleActividad ac INNER JOIN tbForo ta ON ta.idDetalleActividad=ac.idDetalleActividad WHERE ac.idCurso=?',[idUsuario])
+const getActividadesPorTipoForo=async(idUsuario:string,idAlum:string)=>{
+    const response=await conexion.query('SELECT ac.nombre_actividad,ac.detalle,ta.idForo,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbForo ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
     return response;
 }
-export{getActividadesPorAlumno,getActividadesPorTutor,getActividadesPorProfesor,getActividadesPorTipoExamen,getActividadesPorTipoTarea,getActividadesPorTipoForo}
+
+const getActividadesCalificacionAlumno=async(idUsuario:string,idAlum:string)=>{
+    const response=await conexion.query('SELECT da.nombre_actividad,ca.calificacion,ta.tipoActividad,da.valor FROM(tbDetalleActividad da INNER JOIN tbTipoActividad ta ON da.idTipoActividad=ta.idTipoActividad)INNER JOIN tbCalificacion ca ON da.idDetalleActividad=ca.idDetalleActividad WHERE da.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
+    return response;
+}
+
+const getActividadesCalificacionAlumnoTotal=async(idUsuario:string,idAlum:string)=>{
+    const response=await conexion.query('SELECT SUM(ca.calificacion) as califitotal FROM(tbDetalleActividad da INNER JOIN tbTipoActividad ta ON da.idTipoActividad=ta.idTipoActividad)INNER JOIN tbCalificacion ca ON da.idDetalleActividad=ca.idDetalleActividad WHERE da.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
+    return response;
+}
+export{getActividadesPorAlumno,getActividadesPorTutor,getActividadesPorProfesor,getActividadesPorTipoExamen,getActividadesPorTipoTarea,getActividadesPorTipoForo,getActividadesCalificacionAlumno,getActividadesCalificacionAlumnoTotal}

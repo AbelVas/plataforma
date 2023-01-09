@@ -15,7 +15,6 @@ import { ColumnaDerechaStudentComponent } from './dashboard/components/columna-d
 import { CursosStudentComponent } from './dashboard/components/cursos-student/cursos-student.component';
 import { CalendarioStudentComponent } from './calendario-student/calendario-student.component';
 import { CalificacionesStudentComponent } from './calificaciones-student/calificaciones-student.component';
-import { PlanificacionesStudentComponent } from './planificaciones-student/planificaciones-student.component';
 import { CursoAlumnoComponent } from './curso-alumno/curso-alumno.component';
 import { PerfilStudentComponent } from './perfil-student/perfil-student.component';
 import { ActividadesCursoAlumnoComponent } from './curso-alumno/actividades-curso-alumno/actividades-curso-alumno.component';
@@ -25,9 +24,6 @@ import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
 import { CursoAlumnoService } from "./curso-alumno/services/curso-alumno.service";
 import { CalendarioStudentService } from "./calendario-student/services/calendario-student.service";
-import { ExamenesActividadesCursoAlumnoComponent } from './curso-alumno/actividades-curso-alumno/components/examenes-actividades-curso-alumno/examenes-actividades-curso-alumno.component';
-import { ForosActividadesCursoAlumnoComponent } from './curso-alumno/actividades-curso-alumno/components/foros-actividades-curso-alumno/foros-actividades-curso-alumno.component';
-import { TareasActividadesCursoAlumnoComponent } from './curso-alumno/actividades-curso-alumno/components/tareas-actividades-curso-alumno/tareas-actividades-curso-alumno.component';
 import { ActividadesCursoAlumnoService } from "./curso-alumno/actividades-curso-alumno/services/actividades-curso-alumno.service";
 import { CardInfoResumenComponent } from './curso-alumno/resumen-curso-alumno/components/card-info-resumen/card-info-resumen.component';
 import { CalendarioResumenCursoComponent } from './curso-alumno/resumen-curso-alumno/components/calendario-resumen-curso/calendario-resumen-curso.component';
@@ -42,7 +38,6 @@ import { PerfilAlumnoService } from "./perfil-student/services/perfil-alumno.ser
 import { EditPerfilAlumnoComponent } from "./perfil-student/components/edit-perfil-alumno/edit-perfil-alumno.component";
 import { OverviewPerfilAlumnoComponent } from "./perfil-student/components/overview-perfil-alumno/overview-perfil-alumno.component";
 import { PasswordPerfilAlumnoComponent } from "./perfil-student/components/password-perfil-alumno/password-perfil-alumno.component";
-import { PlanificacionesStudentService } from "./planificaciones-student/services/planificaciones-student.service";
 import { ForoCursoStudentComponent } from './foro-curso-student/foro-curso-student.component';
 import { ActividadCursoStudentComponent } from './actividad-curso-student/actividad-curso-student.component';
 import { ExamenCursoStudentComponent } from './examen-curso-student/examen-curso-student.component';
@@ -51,6 +46,7 @@ import { ActividadCursoStudentService } from "./actividad-curso-student/services
 import { ExamenCursoStudentService } from "./examen-curso-student/examen-curso-student.service";
 import { CalificacionesStudentService } from "./calificaciones-student/services/calificaciones-student.service";
 import { PublicModule } from "../public/public.module";
+import { FullCalendarModule } from "@fullcalendar/angular";
 //
 
 
@@ -58,7 +54,8 @@ import { PublicModule } from "../public/public.module";
   imports:[
     StudentRoutingModule,
     SharedModule,
-    PublicModule
+    PublicModule,
+    FullCalendarModule
   ],
   declarations:[
     StudentComponent,
@@ -74,15 +71,11 @@ import { PublicModule } from "../public/public.module";
     CursosStudentComponent,
     CalendarioStudentComponent,
     CalificacionesStudentComponent,
-    PlanificacionesStudentComponent,
     CursoAlumnoComponent,
     PerfilStudentComponent,
     ActividadesCursoAlumnoComponent,
     CalificacionesCursoAlumnoComponent,
     ResumenCursoAlumnoComponent,
-    ExamenesActividadesCursoAlumnoComponent,
-    ForosActividadesCursoAlumnoComponent,
-    TareasActividadesCursoAlumnoComponent,
     CardInfoResumenComponent,
     CalendarioResumenCursoComponent,
     ProgressResumenCursoComponent,
@@ -108,7 +101,6 @@ import { PublicModule } from "../public/public.module";
     ResumenCursoAlumnoService,
     DahboardService,
     PerfilAlumnoService,
-    PlanificacionesStudentService,
     ForoCursoStudentService,
     ActividadCursoStudentService,
     ExamenCursoStudentService,

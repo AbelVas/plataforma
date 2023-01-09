@@ -7,7 +7,7 @@
 <mat-form-field>
   <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
 </mat-form-field>
-
+<div style="overflow-x: auto;">
 <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
   <ng-container matColumnDef="no">
     <th mat-header-cell *matHeaderCellDef class="text-center"> No </th>
@@ -35,6 +35,7 @@
   </tr>
 
 </table>
+</div>
 <mat-paginator [pageSize]="seccionesPorPagina" aria-label="Select page of users"></mat-paginator>
 <!--modal Editar-->
 <div class="modal fade" id="EditSeccionModal" tabindex="-1">

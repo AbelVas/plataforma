@@ -18,6 +18,7 @@ export class CardCursosComponent implements OnInit {
   errorService:any={
     codigoError:''
   };
+  sppinerOn:boolean=true;
   //variables para errores
   cursoVacioError='form-control';
   @Input() cursos:any=[{}];
@@ -44,9 +45,11 @@ export class CardCursosComponent implements OnInit {
     this.profesoresService.getProfesoresListaSelectCursos().subscribe(
       res=>{
         this.listaDocentes=res;
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }

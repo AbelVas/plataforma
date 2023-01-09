@@ -2,7 +2,7 @@ import { Request, response, Response } from "express";
 import conexion from "../config/database";
 
 const obtenerCursosService= async() =>{
-    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso');
+    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas`  FROM tbCurso');
     return responseGet;
 }
 
@@ -49,5 +49,9 @@ const obtenerCursosPorAlumnoService=async(idAlumno:string)=>{
     return response
 }
 
+const obtenerProfePorCurso=async(idCurso:string)=>{
+    const response=await conexion.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor where tc.idCurso=? ',[idCurso]);
+    return response
+}
 
-export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService}
+export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService,obtenerProfePorCurso}

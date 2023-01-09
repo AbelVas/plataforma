@@ -2,18 +2,27 @@
   <div class="pagetitle">
      <h1>Calificaciones</h1>
   </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/student/dashboard" >Inicio</a></li>
+    <li class="breadcrumb-item"><a >Calificaciones</a></li>
+ </ol>
   <section class="section dashboard">
     <div class="row">
       <div class="col-12">
         <div class="card">
            <div class="card-body">
             <div class="d-flex">
-              <h5 class="card-title">Primero Básico</h5>
+              <h5 class="card-title" *ngFor="let ig of InfoGrado">{{ig.nombre_grado}}</h5>
             </div>
             <div class="tab-content pt-2" id="myTabjustifiedContent">
               <div class="activity">
+
+                <div class="alert alert-warning" role="alert">
+                  Las calificaciones se mostrarán al final de la unidad...
+                </div>
+                <!--
                                 <div style="overflow-x: auto;">
-                  <table class="table table-striped">
+                  <table class="table table-striped responsive">
                     <thead>
                        <tr>
                           <th scope="col" class="text-center">Curso</th>
@@ -69,10 +78,13 @@
                  </table>
 
                 </div>
+              -->
               </div>
             </div>
             <nav class="d-flex justify-content-end">
+              <!--
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalestadisticasgradoguia"> Ver Estadísticas </button>
+                -->
                    <div class="modal fade" id="modalestadisticasgradoguia" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
                          <div class="modal-content">

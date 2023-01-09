@@ -11,6 +11,7 @@ import { UnidadesService } from '../../services/unidades.service';
   styleUrls: ['./unidades-configs.component.css']
 })
 export class UnidadesConfigsComponent implements OnInit {
+  sppinerOn:boolean=true;
   listaUnidades:any=[]
   unidadIndividual:any={
     idUnidad:'',
@@ -106,11 +107,13 @@ export class UnidadesConfigsComponent implements OnInit {
       res=>{
         this.listaUnidades=res;
         this.dataSource = new MatTableDataSource(this.listaUnidades);
+        this.sppinerOn=false;
         this.paginator._intl.itemsPerPageLabel = 'Unidades por Página: ';
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       err=>{
+        this.sppinerOn=false;
         console.log(err)
       }
     )

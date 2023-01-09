@@ -6,7 +6,7 @@
 <mat-form-field>
   <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
 </mat-form-field>
-
+<div style="overflow-x: auto;">
 <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
   <ng-container matColumnDef="no">
     <th mat-header-cell *matHeaderCellDef class="text-center"> No </th>
@@ -38,6 +38,7 @@
     <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
   </tr>
 </table>
+</div>
 <mat-paginator [pageSize]="nivelesPorPagina" aria-label="Select page of users"></mat-paginator>
 <!--FIn modales-->
 <div class="modal fade" id="basicModal" tabindex="-1">

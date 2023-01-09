@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./lista-grados.component.css']
 })
 export class ListaGradosComponent implements OnInit {
+  sppinerOn:boolean=true;
   nivelSeleccionado:any=[]
   nivelesGet:any=[]
   listaGrados:any=[]
@@ -59,11 +60,13 @@ export class ListaGradosComponent implements OnInit {
       res=>{
         this.listaGrados=res;
         this.dataSource = new MatTableDataSource(this.listaGrados);
+        this.sppinerOn=false;
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       err=>{
+        this.sppinerOn=false;
         console.log(err)
       }
     )

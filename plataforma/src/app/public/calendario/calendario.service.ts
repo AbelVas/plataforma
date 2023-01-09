@@ -6,15 +6,15 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
-export class CalificacionesStudentService {
+export class CalendarioService {
 
   URL='http://localhost:3002';
 
   constructor(private http:HttpClient) { }
 
-  getGrado(idUsuario:string):Observable<any>{
+  getActividadesparaEventos(idUsuario:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/usuarios/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/calendario/alumno/${idUsuario}`,httpOptions).pipe(
       catchError(this.handleError)
     )
   }
@@ -46,5 +46,4 @@ export class CalificacionesStudentService {
     }
     return throwError(msg)
   }
-  }
-
+}

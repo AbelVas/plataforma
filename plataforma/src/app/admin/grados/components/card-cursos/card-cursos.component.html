@@ -2,6 +2,12 @@
 <div class="text-end">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarCurso"><i class="fa-solid fa-plus"></i></button>
   </div>
+  <div style="overflow-x: auto;">
+    <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+      <app-loaderpeque></app-loaderpeque>
+    </div>
+
+    <ng-template #MostrarDataPerfilOverview>
 <table class="table table-striped table-hover">
     <thead>
         <th class="text-center">ID</th>
@@ -25,7 +31,8 @@
         </tr>
     </tbody>
 </table>
-
+</ng-template>
+</div>
 <div class="modal fade" id="AgregarCurso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

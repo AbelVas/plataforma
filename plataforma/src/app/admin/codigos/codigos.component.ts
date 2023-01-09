@@ -11,6 +11,7 @@ import { CodigosService } from '../dashboard/components/services/codigos.service
   styleUrls: ['./codigos.component.css']
 })
 export class CodigosComponent implements OnInit {
+  sppinerOn:boolean=true;
   listaCodigos:any=[]
   codigoIndividual:any={}
   dataTable: any;
@@ -41,11 +42,13 @@ export class CodigosComponent implements OnInit {
         this.listaCodigos=res
         this.cantidadRegistros=this.listaCodigos.length
         this.dataSource = new MatTableDataSource(this.listaCodigos);
+        this.sppinerOn=false;
         this.paginator._intl.itemsPerPageLabel = 'Códigos por Página: ';
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       err=>{
+        this.sppinerOn=false;
         console.log(err)
       }
     )
