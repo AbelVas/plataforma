@@ -44,4 +44,10 @@ const verifyPassword=async(id:string,pass:string)=>{
     if(!isCorrect) return "Error, las contraseñas no coinciden ";
     return '1';
 }
-export{obtenerProfesoresService,obtenerProfesorService,updateProfesorService,deleteProfesorService,insertProfesorService,validarAdminExisteSi,verifyPassword}
+
+const getGradoGuiaProfesorService=async(id:string)=>{
+    const data=await conexion.query('SELECT gg.idGuias, gg.idGrado, g.nombre_grado, n.nivel, j.jornada, s.seccion FROM tbGuiaGrado gg INNER JOIN tbGrado g ON gg.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbJornada j ON n.idJornada=j.idJornada INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion WHERE idProfesor=?',[id]);
+    return data;
+}
+
+export{obtenerProfesoresService,obtenerProfesorService,updateProfesorService,deleteProfesorService,insertProfesorService,validarAdminExisteSi,verifyPassword,getGradoGuiaProfesorService}

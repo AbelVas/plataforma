@@ -10,12 +10,25 @@ import { ResumenCursoAlumnoService } from '../resumen-curso-alumno/services/resu
 })
 export class ActividadesCursoAlumnoComponent implements OnInit {
 
-  constructor(public ruta:ActivatedRoute, public resumenCurso:ResumenCursoAlumnoService) { }
-  ActividadesInfo:any=[];
-  Tareas:any=[];
-  Foro:any=[];
-  Examen:any=[];
-  idCurso:any;
+  constructor(public activedRoute:ActivatedRoute, public resumenCurso:ResumenCursoAlumnoService) { }
+  idEstudiante:string='';
+  calificacionesGet:any=[];
+  calificacionIndividual:any={
+    idDetalleActividad:'',
+    nombre_actividad:'',
+    detalle:'',
+    idTipoActividad:'',
+    valor:'',
+    idUnidad:'',
+    nota:''
+  }
+
+  idCursoCurso:string='';
+  foros:any=[];
+  tareas:any=[];
+  notaActividad:any=[];
+
+  suma:any=0;
   errorServicio:any={};
   errorService:any={
     codigoError:''
@@ -23,58 +36,46 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
   sppinerOn:boolean=true;
 
   ngOnInit(): void {
-    this.obtenerExamen()
-    this.obtenerTarea()
-    this.obtenerForo()
-  }
-
-  obtenerExamen(){
     const token:any = localStorage.getItem('Acces-Token');
     const {idUsuario}:any=decode(token);
-    this.idCurso = this.ruta.snapshot.paramMap.get('id');
-    this.resumenCurso.getActividadPorTipoExamen(this.idCurso, idUsuario).subscribe(
-      response=>{
-        this.Examen=response
-        this.sppinerOn=false;
-        },
+    this.idEstudiante=idUsuario;
+    const params=this.activedRoute.snapshot.params;
+    this.idCursoCurso = params['id'];
+    this.calificacionIndividual=this.calificacionesGet;
+    this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
+    console.log(this.idEstudiante)
+  }
+
+  getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
+    var datoParaNota:any={};
+    datoParaNota.idCurso=idCursoAc;
+    datoParaNota.idAlumno=idAlumnito;
+      this.resumenCurso.getCalificacionesAlumno(idAlumnito,datoParaNota).subscribe(
+      res=>{
+        var cantidad=res.length;
+        this.calificacionesGet=res;
+        var AuxForos=0;
+        var AuxTareas=0;
+        for(let i = 0; i<cantidad; i++){
+          if(this.calificacionesGet[i].idTipoActividad=='1'){
+            this.tareas[AuxTareas]=this.calificacionesGet[i]
+            AuxTareas++;
+          }else{
+            this.foros[AuxForos]=this.calificacionesGet[i]
+            AuxForos++;
+          }
+        }
+        for(let i=0; i<res.length; i++){
+          this.suma=res[i].nota+this.suma
+        }
+      },
       error=>{
         console.log('Error: '+error);
-        this.sppinerOn=false;
       }
     )
   }
 
-  obtenerTarea(){
-    const token:any = localStorage.getItem('Acces-Token');
-    const {idUsuario}:any=decode(token);
-    this.idCurso = this.ruta.snapshot.paramMap.get('id');
-    this.resumenCurso.getActividadPorTipoTarea(this.idCurso, idUsuario).subscribe(
-      response=>{
-        this.Tareas=response
-        this.sppinerOn=false;
-        },
-      error=>{
-        console.log('Error: '+error);
-        this.sppinerOn=false;
-      }
-    )
-  }
 
-  obtenerForo(){
-    const token:any = localStorage.getItem('Acces-Token');
-    const {idUsuario}:any=decode(token);
-    this.idCurso = this.ruta.snapshot.paramMap.get('id');
-    this.resumenCurso.getActividadPorTipoForo(this.idCurso, idUsuario).subscribe(
-      response=>{
-        this.Foro=response
-        this.sppinerOn=false;
-        },
-      error=>{
-        console.log('Error: '+error);
-        this.sppinerOn=false;
-      }
-    )
-  }
 
 
 }

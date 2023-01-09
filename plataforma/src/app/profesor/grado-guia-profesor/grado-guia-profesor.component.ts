@@ -9,71 +9,40 @@ import { GradoGuiaProfesorService } from './services/grado-guia-profesor.service
   styleUrls: ['./grado-guia-profesor.component.css']
 })
 export class GradoGuiaProfesorComponent implements OnInit {
-  
-  token:any=localStorage.getItem('Acces-Token');
-  profesorGet:any=[];
-  profesorIndividual:any={
 
-  };
-  listaalumnos:any=[]
-  gradosGet:any=[]
-  gradosSelecionado:any=''
-  isSelected:any='0'
-  profesorData:any=[]
+  idProfesor:string='';
+  Nombre_profesor:string='';
+  Apellido_profesor:string='';
+
+  idGradoCurso:string='';
+  gradoguiaGet:any=[];
+  gradoguiaIndividual:any={
+    idGuias:'',
+    idGrado:'',
+    nombre_grado:'',
+    seccion:'',
+    jornada:'',
+    nivel:''
+  }
+
   constructor( private gradoGuiaProfesorService:GradoGuiaProfesorService ) { }
 
   ngOnInit(): void {
-    this.profesorData=this.profesorIndividual;
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario,nombre_profesor,apellido_profesor}:any=decode(token);
+    this.idProfesor=idUsuario;
+    this.Nombre_profesor=nombre_profesor;
+    this.Apellido_profesor=apellido_profesor
 
+    this.obtenerGradoGuia();
   }
 
-
-  obtenerGradoGuia(idGrado:string){
-    this.isSelected='1'
-    const{idUsuario}:any=decode(this.token);
-    this.gradoGuiaProfesorService.getGradoGuia(idGrado).subscribe(
+  obtenerGradoGuia(iddelProfesor=this.idProfesor){
+    this.gradoGuiaProfesorService.getGradoGuiaProfesor(iddelProfesor).subscribe(
       response=>{
-        console.log(response);
-        this.gradosGet=response;
-        this.obtenerEstudiantesGuiaGrado(this.gradosGet[0].idGrado)
-        //console.log(this.profesorIndividual)
-      },
-      error=>{
-        console.log('Error: '+ error)
+        this.gradoguiaGet=response;
       }
     )
   }
-
-  obtenerEstudiantesGuiaGrado(idGrado:string){
-    this.gradoGuiaProfesorService.getEstudiantesGuiaGrado(idGrado).subscribe(
-      response=>{
-        this.listaalumnos=response;
-      },
-      error=>{
-        console.log('Error: '+ error)
-      }
-    )
-  }
-
-  selectValue(e:any){
-    this.gradosSelecionado=e.target.value
-    console.log(this.gradosSelecionado)
-    this.obtenerGradoGuia(this.gradosSelecionado)
-  }
-  obtenerGradoGuiaInicio(){
-    const{idUsuario}:any=decode(this.token);
-    this.gradoGuiaProfesorService.getGradoGuiaInicio(idUsuario).subscribe(
-      response=>{
-        console.log(response);
-        this.gradosGet=response;
-        this.obtenerEstudiantesGuiaGrado(this.gradosGet[0].idGrado)
-        //console.log(this.profesorIndividual)
-      },
-      error=>{
-        console.log('Error: '+ error)
-      }
-    )
-  }
-
 
 }

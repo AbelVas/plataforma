@@ -18,7 +18,6 @@ import { CalificacionesStudentComponent } from './calificaciones-student/calific
 import { CursoAlumnoComponent } from './curso-alumno/curso-alumno.component';
 import { PerfilStudentComponent } from './perfil-student/perfil-student.component';
 import { ActividadesCursoAlumnoComponent } from './curso-alumno/actividades-curso-alumno/actividades-curso-alumno.component';
-import { CalificacionesCursoAlumnoComponent } from './curso-alumno/calificaciones-curso-alumno/calificaciones-curso-alumno.component';
 import { ResumenCursoAlumnoComponent } from './curso-alumno/resumen-curso-alumno/resumen-curso-alumno.component';
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
@@ -74,7 +73,6 @@ import { FullCalendarModule } from "@fullcalendar/angular";
     CursoAlumnoComponent,
     PerfilStudentComponent,
     ActividadesCursoAlumnoComponent,
-    CalificacionesCursoAlumnoComponent,
     ResumenCursoAlumnoComponent,
     CardInfoResumenComponent,
     CalendarioResumenCursoComponent,

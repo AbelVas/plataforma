@@ -25,13 +25,10 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
   idCursoCurso:string='';
   foros:any=[];
   tareas:any=[];
-  notaActividad:any=[];
+  cantidad_foros:any=[];
+  cantidad_tareas:any=[];
 
-  datosCalificar:any={}
-  @Input() idCurso:any=''
-  listaCalificacionAlumno:any={
-    nota:''
-  }
+
 
   suma:any=0;
 
@@ -59,9 +56,11 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
           if(this.calificacionesGet[i].idTipoActividad=='1'){
             this.tareas[AuxTareas]=this.calificacionesGet[i]
             AuxTareas++;
+            this.cantidad_tareas=this.tareas
           }else{
             this.foros[AuxForos]=this.calificacionesGet[i]
             AuxForos++;
+            this.cantidad_foros=this.foros
           }
         }
         for(let i=0; i<res.length; i++){

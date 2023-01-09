@@ -13,29 +13,25 @@ export class GradoGuiaProfesorService {
 
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
 
-  getProfesor(idUsuario:string):Observable<any>{
+  getGradoGuiaProfesor(idUsuario:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/profesores/profesor/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/profesores/gradoguia/${idUsuario}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-  getGradoGuia(idUsuario:string):Observable<any>{
+
+  getAlumnosGrado(idGradoAl:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/guiagrado/gradoguia-profesor/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/usuarios/alumno-grado/${idGradoAl}`,httpOptions).pipe(
       catchError(this.handleError)
-    );
+    )
   }
-  getGradoGuiaInicio(idUsuario:string):Observable<any>{
+
+  getGrado(idGrado:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/guiagrado/gradoguia-profesorInicio/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/grados/${idGrado}`,httpOptions).pipe(
       catchError(this.handleError)
-    );
-  }
-  getEstudiantesGuiaGrado(idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/usuarios/alumno-grado/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
+    )
   }
 
 

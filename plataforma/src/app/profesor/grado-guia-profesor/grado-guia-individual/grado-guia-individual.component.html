@@ -1,0 +1,89 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Profesor {{Nombre_profesor}} {{Apellido_profesor}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/teacher/grado-guia">Grado Guía</a></li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div *ngFor="let g of gradosGet">
+              <h5 class="card-title">Grado Guia: {{g.nombre_grado}}</h5>
+            </div>
+              <div class="activity">
+                  <!--Contenido-->
+                  <div class="d-flex">
+            </div>
+            <div class="alert alert-warning" role="alert">
+              Las calificaciones se mostrarán al final de la unidad
+            </div>
+            <div class="tab-content pt-2" id="myTabjustifiedContent">
+              <div class="activity">
+                <div style="overflow-x: auto;">
+                  <table class="table table-striped">
+                    <thead>
+                       <tr>
+                          <th scope="col" class="text-center">Alumno</th>
+                          <th scope="col" class="text-center">Primer Bimestre</th>
+                          <th scope="col" class="text-center">Segundo Bimestre</th>
+                          <th scope="col" class="text-center">Tercer Bimestre</th>
+                          <th scope="col" class="text-center">Cuatro Bimestre</th>
+                          <th scope="col" class="text-center">Promedio Curso</th>
+
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr *ngFor="let a of alumnosGet">
+                          <td align="center">{{a.alumno}}</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                       </tr>
+                    </tbody>
+                 </table>
+
+                  <table class="table table-striped">
+                    <thead>
+                       <tr>
+                          <th scope="col" class="text-center">Promedios Bimestres</th>
+                          <th scope="col" class="text-center">Primer Bimestre</th>
+                          <th scope="col" class="text-center">Segundo Bimestre</th>
+                          <th scope="col" class="text-center">Tercer Bimestre</th>
+                          <th scope="col" class="text-center">Cuarto Bimestre</th>
+                          <th scope="col" class="text-center">Promedio Final</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                          <td align="center">0</td>
+                       </tr>
+                    </tbody>
+                 </table>
+
+                </div>
+              </div>
+            </div>
+                  <ng-template #tablaVacia>
+                    <div class="alert alert-warning" role="alert">
+                      Sin registros, no existen alumnos en este grado
+                    </div>
+                  </ng-template>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -19,8 +19,6 @@ import { CalificacionesAlumnoTutorComponent } from './calificaciones-alumno-tuto
 import { PerfilTutorComponent } from './perfil-tutor/perfil-tutor.component';
 import { ActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/actividades-curso-alumno-tutor.component';
 import { ResumenCursoAlumnoTutorComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/resumen-curso-alumno-tutor.component';
-import { ExamenesActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/components/examenes-actividades-curso-alumno-tutor/examenes-actividades-curso-alumno-tutor.component';
-import { CardInfoResumenComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/card-info-resumen/card-info-resumen.component';
 import { CalendarioResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/calendario-resumen-curso/calendario-resumen-curso.component';
 import { DashboardService } from "./dashboard/services/dashboard.service";
 import { CursoAlumnoTutorService } from "./curso-alumno-tutor/services/curso-alumno-tutor.service";
@@ -58,8 +56,6 @@ import { CalificacionesVistaEstudianteService } from "./calificaciones-vista-est
     PerfilTutorComponent,
     ActividadesCursoAlumnoTutorComponent,
     ResumenCursoAlumnoTutorComponent,
-    ExamenesActividadesCursoAlumnoTutorComponent,
-    CardInfoResumenComponent,
     CalendarioResumenCursoComponent,
     EditPerfilTutorComponent,
     OverviewPerfilTutorComponent,

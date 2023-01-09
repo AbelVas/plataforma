@@ -1,4 +1,49 @@
 <div class="row">
+  <div class="col-xxl-4 col-md-12">
+    <div class="card info-card sales-card">
+       <div class="card-body">
+          <h5 class="card-title">Tareas</h5>
+          <div class="d-flex align-items-center">
+            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-book-open"></i></div>
+             <div class="ps-3">
+                <h6>{{cantidad_tareas.length}}</h6>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+
+  <div class="col-xxl-4 col-md-6">
+    <div class="card info-card revenue-card">
+       <div class="card-body">
+          <h5 class="card-title">Exámenes</h5>
+          <div class="d-flex align-items-center">
+             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-book"></i></div>
+             <div class="ps-3">
+              <h6> 0 </h6>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+
+
+  <div class="col-xxl-4 col-xl-6">
+    <div class="card info-card customers-card">
+       <div class="card-body">
+          <h5 class="card-title">Foros</h5>
+          <div class="d-flex align-items-center">
+             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-comments"></i></div>
+             <div class="ps-3">
+              <h6> 0 </h6>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
     <div class="col-12">
       <div class="card">
          <div class="card-body">
@@ -23,11 +68,14 @@
                     </thead>
                     <tbody>
                        <tr *ngFor="let t of tareas">
-                          <td align="center">{{t.idDetalleActividad+t.nombre_actividad}}</td>
+                          <td align="center">{{t.nombre_actividad}}</td>
                           <td align="center">{{t.detalle}}</td>
                           <!---<td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario"> Ver Comentario</button> </td>-->
                           <td align="center">A tiempo</td>
-                          <td align="center">{{t.nota}}/{{t.valor}}</td>
+                          <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
+                            <ng-template #notaNulaTar>
+                              <td class="text-center">{{t.nota}} /{{t.valor}}</td>
+                            </ng-template>
 
                           <div class="modal fade" id="ModalComentario" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
@@ -53,7 +101,9 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="examenes-curso-justified" role="tabpanel" aria-labelledby="examenes-curso-tab">
-                <app-examenes-actividades-curso-alumno-tutor></app-examenes-actividades-curso-alumno-tutor>
+                <div class="alert alert-warning" role="alert">
+                  Sin registros, no existen exámenes asignados
+                </div>
               </div>
               <div class="tab-pane fade" id="foros-curso-justified" role="tabpanel" aria-labelledby="foros-curso-tab">
                 <div style="overflow-x: auto;">
@@ -69,7 +119,10 @@
                         <tr *ngFor="let f of foros">
                             <td align="center">{{f.nombre_actividad}}</td>
                             <td align="center">5</td>
-                            <td align="center">{{f.nota}}/{{f.valor}}</td>
+                            <td align="center" *ngIf="f.nota==null;else notaNulaFor">No ingresada</td>
+                            <ng-template #notaNulaFor>
+                              <td class="text-center">{{f.nota}} /{{f.valor}}</td>
+                            </ng-template>
                         </tr>
                     </tbody>
                  </table>
@@ -133,7 +186,10 @@
                         <tr *ngFor="let a of calificacionesGet">
                             <td align="center">{{a.tipoActividad}}</td>
                             <td align="center">{{a.nombre_actividad}}</td>
-                            <td align="center">{{a.nota}}</td>
+                            <td align="center" *ngIf="a.nota==null;else notaNulaCal">No ingresada</td>
+                            <ng-template #notaNulaCal>
+                              <td class="text-center">{{a.nota}} /{{a.valor}}</td>
+                            </ng-template>
                         </tr>
                       </tbody>
                     </table>
