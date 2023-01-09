@@ -1,0 +1,100 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Tutor {{NombreUsuario}}</h1>
+     <nav>
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a routerLink="/tutor/calificaciones">Calificaciones</a></li>
+      </ol>
+   </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+           <div class="card-body">
+            <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+              <app-loaderpeque></app-loaderpeque>
+           </div>
+
+           <ng-template #MostrarDataPerfilOverview>
+            <div class="d-flex" *ngFor="let a of alumnosGet">
+              <h5 class="card-title">Calificaciones de {{a.nombres_alumno}} {{a.apellidos_alumno}}, {{a.nombre_grado}} "{{a.seccion}}"</h5>
+            </div>
+            <div class="alert alert-warning" role="alert">
+              Las calificaciones se mostrarán al final de la unidad
+            </div>
+            <!---<div class="tab-content pt-2" id="myTabjustifiedContent">
+              <div class="activity">
+                <div style="overflow-x: auto;">
+                  <table class="table table-striped">
+                    <thead>
+                       <tr>
+                          <th scope="col" class="text-center">Curso</th>
+                          <th scope="col" class="text-center">Primer Bimestre</th>
+                          <th scope="col" class="text-center">Segundo Bimestre</th>
+                          <th scope="col" class="text-center">Tercer Bimestre</th>
+                          <th scope="col" class="text-center">Cuatro Bimestre</th>
+                          <th scope="col" class="text-center">Promedio Curso</th>
+
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr *ngFor="let c of cursosGet">
+                          <td align="center">{{c.nombre_curso}}</td>
+                          <td align="center">65</td>
+                          <td align="center">70</td>
+                          <td align="center">60</td>
+                          <td align="center">85</td>
+                          <td align="center">70</td>
+                       </tr>
+                    </tbody>
+                 </table>
+
+                  <table class="table table-striped">
+                    <thead>
+                       <tr>
+                          <th scope="col" class="text-center">Promedios Bimestres</th>
+                          <th scope="col" class="text-center">Primer Bimestre</th>
+                          <th scope="col" class="text-center">Segundo Bimestre</th>
+                          <th scope="col" class="text-center">Tercer Bimestre</th>
+                          <th scope="col" class="text-center">Cuarto Bimestre</th>
+                          <th scope="col" class="text-center">Promedio Final</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                          <td align="center">0</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                          <td align="center">70</td>
+                       </tr>
+                    </tbody>
+                 </table>
+
+                </div>
+              </div>
+            </div>-->
+            <nav class="d-flex justify-content-end">
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalestadisticasgradoguia" disabled> Ver Estadísticas </button>
+                   <div class="modal fade" id="modalestadisticasgradoguia" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                         <div class="modal-content">
+                            <div class="modal-header">
+                               <h5 class="card-title">Nombre del alumno</h5>
+                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos cursos aprobó o reprobó el alumno</div>
+                            <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+                         </div>
+                      </div>
+                   </div>
+            </nav>
+            </ng-template>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

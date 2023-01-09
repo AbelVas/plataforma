@@ -8,7 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class CardResumenService {
 
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt/';
   constructor(private http:HttpClient) { }
 
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
@@ -25,6 +25,27 @@ export class CardResumenService {
     return this.http.get(`${this.URL}/grados/grado-profesor/${idUsuario}`,httpOptions).pipe(
       catchError(this.handleError)
     )
+  }
+
+  getCurso(idCurso:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getAlumnosGrado(idGradoAl:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/alumno-grado/${idGradoAl}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getTareasCurso(idCursoAl:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/actividades/${idCursoAl}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error:HttpErrorResponse){

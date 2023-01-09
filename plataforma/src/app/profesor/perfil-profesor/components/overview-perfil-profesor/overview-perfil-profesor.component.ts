@@ -9,7 +9,7 @@ import  {DatePipe} from "@angular/common";
   styleUrls: ['./overview-perfil-profesor.component.css']
 })
 export class OverviewPerfilProfesorComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
   errorServicio:any=[];
@@ -41,6 +41,7 @@ export class OverviewPerfilProfesorComponent implements OnInit {
     const {idUsuario}:any=decode(this.token);
     this.perfilProfesoresService.getProfesor(idUsuario).subscribe(
       response=>{
+        this.sppinerOn=false;
         this.profesorGet=response;
         this.profesorGet[0].fecha_nacimiento=this.pipe.transform((this.profesorGet[0].fecha_nacimiento),'dd/MM/yyyy')
         this.perfilProfesoresService.disparadorCopiarData.emit({
@@ -56,6 +57,7 @@ export class OverviewPerfilProfesorComponent implements OnInit {
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

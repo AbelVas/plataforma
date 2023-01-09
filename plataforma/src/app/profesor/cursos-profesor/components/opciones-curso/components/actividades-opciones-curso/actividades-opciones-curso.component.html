@@ -1,6 +1,524 @@
-<div>
-    Aquí van las actividades del curso (meter una tabla, todos los módulos usarán esto) <br><br>
-    Para el botón de "Nueva actividad", crear un nuevo componente donde se muestren 4 opciones: Actividad (para elegir el nombre, subir info y así), Calificaciones (para calificarla), Alumnos (para ver a quiénes se les asigna la tarea) y Gráficos (una de barras para ver cuántos lo entregaron y cuántos no, y otra de pie para promediar las notas)
-    <br>
-    Esa vista se reciclaría para la opción "Ver actividad", la diferencia es que ya no se podría editar nada, solo las notas y las asignaciones de alumnos
+<!--Modal para seleccionar el tipo de actividad-->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Tipo de Actividad</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div  *ngIf="tiposActividad.idTipoActividad!='';else nodata">
+          <div class="row">
+            <div *ngFor="let ta of tiposActividad" class="col-md-4 text-center">
+              <div *ngIf="ta.estado==1;else conEnlace"  >
+                <a   role="button" [attr.data-bs-target]="'#'+ta.modal" data-bs-toggle="modal">
+                  <h5>{{ta.tipoActividad}}</h5>
+                  <div>
+                    <img [src]="ta.icono">
+                  </div>
+                </a>
+              </div>
+              <ng-template #conEnlace>
+                <h5>{{ta.tipoActividad}}</h5>
+                <div>
+                  <img [src]="ta.icono">
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <ng-template #nodata>
+          <div class="alert alert-warning" role="alert">
+            No hay tipos de Actividades Activas, comunícate con Soporte
+          </div>
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-end mb-3">
+    <a class="btn btn-warning"  data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="fa-solid fa-plus"></i></a>
+  </div>
+
+  <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+    <app-loaderpeque></app-loaderpeque>
+ </div>
+
+ <ng-template #MostrarDataPerfilOverview>
+  <!--Actividades en Cards-->
+  <div class="row" *ngIf="listaActividades!='';else tablaVacia">
+    <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let a of listaActividades;let i = index">
+      <div class="card h-100">
+        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+           <h5 class="card-title text-center">
+            {{i+1}}. {{a.nombre_actividad}}
+            <hr>
+            <div><span>Valor: {{a.valor}}</span></div>
+            <div><span>Fecha de Entrega: {{a.fecha_entrega | date:'dd/MM/yyyy'}}</span></div>
+            <div><span>Tipo de Actividad: {{a.tipoActividad}}</span></div>
+            <hr>
+            <button class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
+            <button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#DuplicarActividad" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-copy"></i></button>
+            <button class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#EditarTarea" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#CalificarTarea" (click)="buscarActividadArray(a.idDetalleActividad);getAlumnoCalificacionActividad(a.idDetalleActividad,a.idUnidad)"><i class="fa-solid fa-award"></i></button>
+            <button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#EliminarActividad" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-trash-can"></i></button>
+           </h5>
+        </div>
+     </div>
+    </div>
+  </div>
+  </ng-template>
+  <ng-template #tablaVacia>
+      <div colspan="7" class="alert alert-warning text-center" role="alert">
+        Sin registros, puedes agregar actividades en cualquier momento
+      </div>
+  </ng-template>
+<!-- Calificar Actividad -->
+<div class="modal fade" id="CalificarTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Calificar {{ActividadIndividualEdit.tipoActividad}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <thead>
+            <th class="text-center">
+              No.
+            </th>
+            <th class="text-center">
+              Alumno
+            </th>
+            <th class="text-center">
+              Calificación
+            </th>
+            <th class="text-center">
+              Total
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let al of listaCalificacionAlumno;let i=index">
+              <td class="text-center">
+                {{i+1}}
+              </td>
+              <td class="text-center">
+                {{al.alumno}}
+              </td>
+              <td class="text-center">
+                  <input class="input-group-sm" [attr.id]="al.idAlumno" [value]="" (blur)="calificarActividad($event,ActividadIndividual.idDetalleActividad,al.idAlumno)"></td>
+              <td class="text-center" *ngIf="al.nota==null;else notaNula">Nota no Ingresada /{{al.valor}}</td>
+              <ng-template #notaNula>
+                <td class="text-center">{{al.nota}} /{{al.valor}}</td>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        <button class="btn btn-primary" (click)="validarCalificacionRefresh(ActividadIndividual.idDetalleActividad,ActividadIndividual.idUnidad)"><i class="fa-solid fa-check"></i> Validar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Duplicar-->
+<div class="modal fade" id="DuplicarActividad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Duplicar {{ActividadIndividualEdit.tipoActividad}}</h1>
+        <button type="button" class="btn-close" #duplicarActividadCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-check" *ngFor="let curso of listaCursosDocente;let i=index">
+            <div>
+              <input class="form-check-input" type="checkbox" [value]="curso.idCurso" [name]="curso.nombre_curso" (change)="arregloCursosaCopiar($event)">
+              <label class="form-check-label" for="flexCheckChecked">
+                {{curso.nombre_curso+', '+curso.grado}}
+              </label>
+            </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="duplicarTareas(ActividadIndividual.idDetalleActividad,$event)">Duplicar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal para Editar Actividad-->
+<div class="modal fade" id="EditarTarea" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar {{ActividadIndividualEdit.tipoActividad}}</h1>
+        <button type="button" class="btn-close" #editarActividadCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label"><b>Bimestre:</b></label>
+            <select class="form-select" [(ngModel)]="ActividadIndividualEdit.idUnidad" aria-label="Default select example">
+              <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+            </select>
+            <p class="text-primary">Actual: {{ActividadIndividual.unidad}}</p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><b>Nombre {{ActividadIndividualEdit.tipoActividad}}:</b></label>
+            <input type="text" class="form-control" [(ngModel)]="ActividadIndividualEdit.nombre_actividad">
+            <p class="text-primary">Actual: {{ActividadIndividual.nombre_actividad}}</p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><b>Fecha de Entrega:</b></label>
+            <input type="date" class="form-control" [(ngModel)]="ActividadIndividual.fecha_entrega">
+            <p class="text-primary">Actual: {{ActividadIndividual.fecha_entrega | date:'dd/MM/yyyy'}}</p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><b>Valor:</b></label>
+            <input type="number" [(ngModel)]="ActividadIndividual.valor" class="form-control" min="0">
+            <p class="text-primary">Actual: {{ActividadIndividual.valor+' pts'}}</p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><b>Detalle:</b></label>
+            <textarea [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><b>Cotejo:</b></label>
+            <textarea class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7"></textarea>
+          </div>
+
+          <hr>
+          <div class="mb-3">
+            <label for="formFile" class="form-label"><b>Recurso:</b></label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+
+
+          <div class="form-check" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
+            <hr>
+            <div *ngIf="ActividadIndividualEdit.disponible==1;else disponibleNoCheckAlumno">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" (change)="selectedCheckDisponibleEditar($event)"  checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Disponible para el Alumno
+              </label>
+            </div>
+            <ng-template #disponibleNoCheckAlumno>
+              <input class="form-check-input" type="checkbox" value="" (change)="noselectedCheckDisponibleEditar($event)" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                No Disponible para el Alumno
+              </label><br>
+              <small class="text-danger">(Si la tarea no está disponible para el alumno, servirá de control docente únicamente)</small>
+            </ng-template>
+          </div>
+
+          <div class="form-check" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
+            <hr>
+            <div *ngIf="ActividadIndividualEdit.entrega_fuera_fecha==1;else disponibleNoCheck">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" (change)="selectedCheckFueraFechaEditar($event)" checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Permitir entregas Fuera de Tiempo
+              </label>
+            </div>
+            <ng-template #disponibleNoCheck>
+              <input  class="form-check-input" type="checkbox" value="" (change)="noselectedCheckFueraFechaEditar($event)" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                No Permitir entregas Fuera de Tiempo
+              </label>
+            </ng-template>
+          </div>
+          <hr>
+          <div class="mb-3" *ngIf="ActividadIndividual.ultima_modificacion!=null;else ultimaModifi">
+            <span class="text"><b>Última Modificación: </b>{{ActividadIndividual.ultima_modificacion | date:'dd/MM/yyyy'}}</span>
+          </div>
+          <ng-template #ultimaModifi>
+            <span class="text"><b>Última Modificación:</b><p class="text-primary"> Sin modificar</p></span>
+          </ng-template>
+
+        </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click)="editarActividad(ActividadIndividual.idDetalleActividad)">Editar Actividad</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Ver Actividad Completa-->
+<div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label"><b>Nombre de la Actividad: </b>{{ActividadIndividual.nombre_actividad}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Fecha de Entrega: </b>{{ActividadIndividual.fecha_entrega | date:'dd/MM/yyyy'}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Fecha de Creación: </b>{{ActividadIndividual.creada | date:'dd/MM/yyyy'}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Valor: </b>{{ActividadIndividual.valor+' pts.'}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Unidad: </b>{{ActividadIndividual.unidad}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Tipo de Actividad: </b>{{ActividadIndividual.tipoActividad}}</label>
+        </div>
+
+        <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
+          <label class="form-label"><b>Visible para Alumnos:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label">Coso para Descargar Recurso</label>
+          <ng-template #noDisponible>
+            <label class="form-label">- Sin Recurso Disponible -</label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
+          <label class="form-label"><b>Visible para Alumnos:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label"><span class="badge bg-success">Visible</span></label>
+          <ng-template #noDisponible>
+            <label class="form-label"><span class="badge bg-danger">Sin Visibilidad</span></label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
+          <label class="form-label"><b>Permitir entregas Tarde:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.entrega_fuera_fecha=='1';else noPermitido" class="form-label"><span class="badge bg-success">Permitido</span></label>
+          <ng-template #noPermitido>
+            <label class="form-label"><span class="badge bg-danger">No Permitido</span></label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Detalle:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.detalle!='';else noDetalle" class="form-label">{{ActividadIndividual.detalle}}</label>
+          <ng-template #noDetalle>
+            <label class="form-label">*** No ingresado ***</label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Cotejo:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.cotejo!='';else noCotejo" class="form-label">{{ActividadIndividual.cotejo}}</label>
+          <ng-template #noCotejo>
+            <label class="form-label">*** No ingresado ***</label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Última Modificación:</b></label>
+          <br>
+          <label class="form-label" *ngIf="ActividadIndividual.ultima_modificacion!=undefined;else modificadaTarea">{{ActividadIndividual.ultima_modificacion | date:'dd/MM/yyyy'}}</label>
+          <ng-template #modificadaTarea>
+            <label class="form-label">*** Sin modificar ***</label>
+          </ng-template>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--ModalEliminar-->
+<div class="modal fade" id="EliminarActividad" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Actividad</h1>
+        <button type="button" class="btn-close" #eliminarTareaModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">Si se elimina la actividad, se eliminarán todas las notas y archivos relacionadas a la misma. <br><b>Esa acción de concretarse no se puede deshacer</b></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarActividad(ActividadIndividual.idDetalleActividad)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Crear Foro-->
+<div class="modal fade" id="CrearForo" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Foro</h1>
+        <button type="button" class="btn-close" #crearForoModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="crearTareaForm" (ngSubmit)="crearForo()" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Bimestre:</label>
+            <select formControlName="idUnidad" formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors }" aria-label="Default select example">
+              <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+            </select>
+            <span class="text-danger" *ngIf="submitted&&f.idUnidad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Tema del Foro:</label>
+            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Fecha de Entrega:</label>
+            <input formControlName="fecha_entrega" type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fecha_entrega.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.fecha_entrega.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Valor:</label>
+            <input formControlName="valor" type="number" min="0" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.valor.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.valor.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Detalle:</label>
+            <textarea formControlName="detalle" class="form-control" rows="7"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Cotejo:</label>
+            <textarea formControlName="cotejo" class="form-control" rows="7"></textarea>
+          </div>
+
+          <hr>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Recurso:</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+
+        </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Regresar</button>
+        <button type="submit" class="btn btn-primary">Crear Foro</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!--Modal Crear Tarea-->
+<div class="modal fade" id="CrearTarea" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Tarea</h1>
+        <button type="button" class="btn-close" #crearTareaModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="crearTareaForm" (ngSubmit)="crearTarea()" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Bimestre:</label>
+            <select formControlName="idUnidad" formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors }" aria-label="Default select example">
+              <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+            </select>
+            <span class="text-danger" *ngIf="submitted&&f.idUnidad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Nombre Tarea:</label>
+            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Fecha de Entrega:</label>
+            <input formControlName="fecha_entrega" type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fecha_entrega.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.fecha_entrega.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Valor:</label>
+            <input formControlName="valor" type="number" class="form-control" min="0" [ngClass]="{ 'is-invalid': submitted && f.valor.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.valor.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Detalle:</label>
+            <textarea formControlName="detalle" class="form-control" rows="7"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Cotejo:</label>
+            <textarea formControlName="cotejo" class="form-control" rows="7"></textarea>
+          </div>
+
+          <hr>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Recurso:</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+
+          <hr>
+          <div class="form-check">
+            <div *ngIf="propiedadActividad.disponible==1;else disponibleNoCheckAlumno">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" (change)="selectedCheckDisponible($event)"  checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Disponible para el Alumno
+              </label>
+            </div>
+            <ng-template #disponibleNoCheckAlumno>
+              <input class="form-check-input" type="checkbox" value="" (change)="noselectedCheckDisponible($event)" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                No Disponible para el Alumno
+              </label><br>
+              <small class="text-danger">(Si la tarea no está disponible para el alumno, servirá de control docente únicamente)</small>
+            </ng-template>
+          </div>
+          <hr>
+
+          <div class="form-check">
+            <div *ngIf="propiedadActividad.entrega_fuera_fecha==1;else disponibleNoCheck">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" (change)="selectedCheckFueraFecha($event)" checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Permitir entregas Fuera de Tiempo
+              </label>
+            </div>
+            <ng-template #disponibleNoCheck>
+              <input  class="form-check-input" type="checkbox" value="" (change)="noselectedCheckFueraFecha($event)" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                No Permitir entregas Fuera de Tiempo
+              </label>
+            </ng-template>
+          </div>
+
+        </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Regresar</button>
+        <button type="submit" class="btn btn-primary">Crear Actividad</button>
+      </div>
+    </form>
+    </div>
+  </div>
 </div>

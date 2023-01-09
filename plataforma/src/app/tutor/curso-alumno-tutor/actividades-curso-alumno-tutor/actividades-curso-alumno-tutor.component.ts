@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import decode from 'jwt-decode';
+import { ActividadesCursoAlumnoTutorService } from './services/actividades-curso-alumno-tutor.service';
 
 @Component({
   selector: 'app-actividades-curso-alumno-tutor',
@@ -6,10 +9,70 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./actividades-curso-alumno-tutor.component.css']
 })
 export class ActividadesCursoAlumnoTutorComponent implements OnInit {
+  sppinerOn:boolean=true;
+  idEstudiante:string='';
+  calificacionesGet:any=[];
+  calificacionIndividual:any={
+    idDetalleActividad:'',
+    nombre_actividad:'',
+    detalle:'',
+    idTipoActividad:'',
+    valor:'',
+    idUnidad:'',
+    nota:''
+  }
 
-  constructor() { }
+  idCursoCurso:string='';
+  foros:any=[];
+  tareas:any=[];
+  cantidad_foros:any=[];
+  cantidad_tareas:any=[];
+
+
+
+  suma:any=0;
+
+  constructor( private actividadesCursoAlumnoTutorService:ActividadesCursoAlumnoTutorService, private activedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    const params=this.activedRoute.snapshot.params;
+    this.idEstudiante=params['idAlumno'];
+    this.idCursoCurso=params['idCurso'];
+    this.calificacionIndividual=this.calificacionesGet;
+    this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
+  }
+
+  getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
+    var datoParaNota:any={};
+    datoParaNota.idCurso=idCursoAc;
+    datoParaNota.idAlumno=idAlumnito;
+      this.actividadesCursoAlumnoTutorService.getCalificacionesAlumno(idAlumnito,datoParaNota).subscribe(
+      res=>{
+        this.sppinerOn=false;
+        var cantidad=res.length;
+        this.calificacionesGet=res;
+        var AuxForos=0;
+        var AuxTareas=0;
+        for(let i = 0; i<cantidad; i++){
+          if(this.calificacionesGet[i].idTipoActividad=='1'){
+            this.tareas[AuxTareas]=this.calificacionesGet[i]
+            AuxTareas++;
+            this.cantidad_tareas=this.tareas
+          }else{
+            this.foros[AuxForos]=this.calificacionesGet[i]
+            AuxForos++;
+            this.cantidad_foros=this.foros
+          }
+        }
+        for(let i=0; i<res.length; i++){
+          this.suma=res[i].nota+this.suma
+        }
+      },
+      error=>{
+        console.log('Error: '+error);
+        this.sppinerOn=false;
+      }
+    )
   }
 
 }

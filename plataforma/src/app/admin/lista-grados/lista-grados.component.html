@@ -31,6 +31,12 @@
               <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)" #input>
             </mat-form-field>
 
+            <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+              <app-loaderpeque></app-loaderpeque>
+           </div>
+
+           <ng-template #MostrarDataPerfilOverview>
+            <div style="overflow-x: auto;">
             <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
               <ng-container matColumnDef="no">
@@ -80,6 +86,10 @@
               <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
             </tr>
           </table>
+          </div>
+          </ng-template>
+
+
           <mat-paginator [pageSize]="gradosPorPagina" aria-label="Select page of users"></mat-paginator>
           <!--Alerta-->
           <div [class]="alertaValor.classAlerta" role="alert" aria-live="assertive" aria-atomic="true">

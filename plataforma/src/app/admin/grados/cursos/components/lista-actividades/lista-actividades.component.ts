@@ -72,6 +72,7 @@ export class ListaActividadesComponent implements OnInit {
     idDetalleActividad:''
   }
   datosCalificar:any={}
+  sppinerOn:boolean=true;
   @Input() idCurso:any=''
   //Grupo de aca, sirve para luego cerrar los modales si se obtiene un true desde la api
   @ViewChild('crearTareaModalCerrar') modalCloseCrear: any;
@@ -143,9 +144,12 @@ export class ListaActividadesComponent implements OnInit {
     this.alumnosService.getAlmunosGrado(this.idGrado).subscribe(
       res=>{
         this.listaAlumnos=res
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
+
       }
     )
   }

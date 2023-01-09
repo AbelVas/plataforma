@@ -1,5 +1,5 @@
 import { Router} from "express";
-import {getCurso, getCursos, updateCurso,deleteCurso, insertCurso, getCursoporGrado, getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno} from "../controllers/cursos"
+import {getCurso, getCursos, updateCurso,deleteCurso, insertCurso, getCursoporGrado, getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno,getProfeCurso} from "../controllers/cursos"
 import { logMiddleware } from "../middleware/log";
 import { checkRol } from "../middleware/rolCheck";
 import { checkJwt } from "../middleware/session";
@@ -16,5 +16,6 @@ router.get("/curso-profesor/:id",checkJwt, getCursoporProfesor);
 router.get("/curso-profesor-grado/:id",checkJwt,getCursoporGradoProfesor);
 router.post("/curso-grado-seccion/:id",checkJwt,obtenerCursosPorProfesorGradoSeccion);
 router.get("/curso-alumno/:id",checkJwt,getCursosPorAlumno);
+router.get("/profe-curso/:id", checkJwt,getProfeCurso);
 
 export {router}

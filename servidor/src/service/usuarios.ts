@@ -22,7 +22,7 @@ const obtenerAlumnosGradoService=async(id:string)=>{
     return responseGet;
 }
 const obtenerAlumnoService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT * FROM tbAlumno WHERE idRol=4 and idAlumno=?',[id]);
+    const responseGet=await conexion.query('SELECT a.idAlumno, a.nombres_alumno, a.apellidos_alumno, a.sexo, a.usuario, g.idGrado, g.nombre_grado, s.idSeccion, s.seccion FROM tbAlumno a INNER JOIN tbGrado g ON a.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion WHERE idAlumno=?',[id]);
     return responseGet;
 }
 const updateAlumnosService=async(data:Request,id:string)=>{

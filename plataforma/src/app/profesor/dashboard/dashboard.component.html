@@ -1,22 +1,22 @@
 <main id="main" class="main">
-  <div class="pagetitle" *ngFor="let p of profesorGet">
-     <h1>Profesor {{p.nombre_profesor}} {{p.apellido_profesor}}</h1>
+  <div class="pagetitle">
+     <h1>Profesor {{Nombre_profesor+' '+Apellido_profesor}}</h1>
      <nav>
         <ol class="breadcrumb">
-           <li class="breadcrumb-item"><a routerLink="/">Dashboard</a></li>
+           <li class="breadcrumb-item"><a routerLink="/teacher/dashboard">Dashboard</a></li>
         </ol>
      </nav>
   </div>
   <section class="section dashboard">
      <div class="row">
         <div class="col-lg-8">
-          <app-card-resumen></app-card-resumen>
+          <app-columna-derecha-profesor></app-columna-derecha-profesor>
           <app-card-clases-jornadas></app-card-clases-jornadas>
           <!--- <app-horario-profesor></app-horario-profesor> -->
         </div>
         <div class="col-lg-4">
           <!--- Aquí va lo de la segunda columna -->
-          <app-columna-derecha-profesor></app-columna-derecha-profesor>
+          <app-card-resumen></app-card-resumen>
         </div>
      </div>
   </section>

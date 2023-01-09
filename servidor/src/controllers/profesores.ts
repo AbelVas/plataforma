@@ -1,5 +1,5 @@
-import { Request,Response } from "express";
-import { obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService,verifyPassword } from "../service/profesores";
+import { request, Request,Response } from "express";
+import { obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService,verifyPassword,getGradoGuiaProfesorService } from "../service/profesores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -72,4 +72,14 @@ const compararPass=async(req:Request,res:Response)=>{
      }
 }
 
-export {getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass}
+const getGradoGuiaProfesor=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const resultadoProfesor=await getGradoGuiaProfesorService(id);
+        res.send(resultadoProfesor);
+     }catch(e){
+         handleHttp(res,'Error al Grado Guia')
+     }
+}
+
+export {getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass,getGradoGuiaProfesor}

@@ -1,45 +1,44 @@
 <div class="row">
-  <div class="col-xxl-4 col-md-12">
-    <div class="card info-card sales-card">
-       <div class="card-body">
-          <h5 class="card-title">Alumno:</h5>
-          <div class="d-flex align-items-center">
-            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-award"></i></div>
-             <div class="ps-3">
-                <h6>Karins Apellido "Falta consulta Tutor->Alumno"</h6>
-             </div>
-          </div>
+  <div class="col-xxl-12 col-md-12">
+    <section class="section profile">
+      <div class="card info-card sales-card">
+        <div class="card-body">
+         <div class="d-flex">
+           <h5 class="card-title">Elegir al Estudiante</h5>
+         </div>
+         <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+          <app-loaderpeque></app-loaderpeque>
        </div>
-    </div>
-  </div>
 
-  <div class="col-xxl-4 col-md-6">
-    <div class="card info-card revenue-card">
-       <div class="card-body">
-          <h5 class="card-title">Actividades</h5>
-          <div class="d-flex align-items-center">
-             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-file-pen"></i></div>
-             <div class="ps-3">
-              <h6> 15 </h6>
+       <ng-template #MostrarDataPerfilOverview>
+           <div class="row" *ngIf="alumnosGet!='';else tablaVacia">
+             <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let a of alumnosGet;let i = index">
+               <div class="card h-100">
+                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                   <img src="assets/img/blank_profile.png" alt="Profile" class="rounded-circle">
+                   <h5 class="card-title text-center">
+                    <a routerLink="/tutor/estudiante/{{a.idAlumno}}">
+                     {{i+1}}. {{a.apellidos_alumno}}, {{a.nombres_alumno}}
+                    </a>
+                    <hr>
+                    <div><span>Grado: {{a.nombre_grado}}, "{{a.seccion}}"</span></div>
+                     <div><span>Usuario: {{a.usuario}}</span></div>
+                   </h5>
+                </div>
+               </div>
              </div>
-          </div>
-       </div>
-    </div>
-  </div>
-
-
-  <div class="col-xxl-4 col-md-6">
-    <div class="card info-card customers-card">
-       <div class="card-body">
-          <h5 class="card-title">Cursos asignados</h5>
-          <div class="d-flex align-items-center">
-             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-book-open-reader"></i></div>
-             <div class="ps-3">
-              <h6> 9 </h6>
+           </div>
+           </ng-template>
+           <ng-template #tablaVacia>
+             <div class="alert alert-warning" role="alert">
+               Sin registros, no tiene ningún alumno asignado
              </div>
-          </div>
-       </div>
-    </div>
+           </ng-template>
+        </div>
+     </div>
+    </section>
   </div>
 </div>
+
+
 

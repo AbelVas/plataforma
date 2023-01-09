@@ -1,3 +1,8 @@
+<div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+  <app-loaderpeque></app-loaderpeque>
+</div>
+
+<ng-template #MostrarDataPerfilOverview>
 <div *ngFor="let p of profesorGet">
   <div class="row">
      <div class="col-lg-3 col-md-4 label ">Nombre</div>
@@ -41,3 +46,4 @@
     <div class="col-lg-9 col-md-8 text-muted"><span [class]="classBadgeActive">{{estado}}</span></div>
   </div>
 </div>
+</ng-template>

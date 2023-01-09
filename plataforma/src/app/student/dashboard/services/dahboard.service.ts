@@ -8,7 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class DahboardService {
 
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt/';
 
   constructor(private http:HttpClient) { }
 
@@ -16,6 +16,34 @@ export class DahboardService {
   getCursoparaAlumno(idUsuario:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/cursos/curso-alumno/${idUsuario}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+  // /:id para el curso especifico
+  getCursoEspecifico(idUsuario:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/${idUsuario}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+  //traer las actividades de un curso
+  getActividadesCurso(idUsuario:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/actividades/${idUsuario}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+//traer actividades de todos los cursos por alumno
+getActividadesparaEventos(idUsuario:string):Observable<any>{
+  const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+  return this.http.get(`${this.URL}/calendario/alumno/${idUsuario}`,httpOptions).pipe(
+    catchError(this.handleError)
+  )
+}
+  //para traer la info del maestro
+  getProfeCurso(idUsuario:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/profe-curso/${idUsuario}`,httpOptions).pipe(
       catchError(this.handleError)
     )
   }

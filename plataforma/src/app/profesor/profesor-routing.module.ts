@@ -13,6 +13,7 @@ import { CalendarioProfesorComponent } from "./calendario-profesor/calendario-pr
 import { ForoCursoProfesorComponent } from "./foro-curso-profesor/foro-curso-profesor.component";
 import { ExamenCursoProfesorComponent } from "./examen-curso-profesor/examen-curso-profesor.component";
 import { ActividadCursoProfesorComponent } from "./actividad-curso-profesor/actividad-curso-profesor.component";
+import { GradoGuiaIndividualComponent } from "./grado-guia-profesor/grado-guia-individual/grado-guia-individual.component";
 
 
 const routes:Routes=[
@@ -24,9 +25,10 @@ const routes:Routes=[
     {path:'grado-guia',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:GradoGuiaProfesorComponent},
     {path:'calendario',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:CalendarioProfesorComponent},
     {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PerfilProfesorComponent},
-    {path:'curso/:id',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:CursosProfesorComponent},
+    {path:'curso/:idProfesor/:idCurso/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:CursosProfesorComponent},
+    {path:'grado-guia/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:GradoGuiaIndividualComponent},
     {path:'curso/foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoCursoProfesorComponent},
-    {path:'curso/actividad',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ActividadCursoProfesorComponent},
+    {path:'curso/actividad/:idProfesor/:idCurso/:idGrado/:idActividad',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ActividadCursoProfesorComponent},
     {path:'curso/examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ExamenCursoProfesorComponent}
 
   ]

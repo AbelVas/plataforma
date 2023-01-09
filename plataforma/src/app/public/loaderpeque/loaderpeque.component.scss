@@ -1,23 +1,22 @@
 $black: #36404d;
 $green: #00ff8f;
 $white: #ffffff;
-$bg:    #eee;
+$bg:    #ffffff;
 
 body {
   margin: 0;
   font-size: 12px;
-  background-color: $white;
+  background-color: transparent;
 }
 
 .column {
-  width: 50%;
+  width: 30em;
   margin: 0 auto;
-  background: $bg;
   text-align: center;
 }
 
-$start: -50%;
-$end:   50%;
+$start: -22%;
+$end:   10%;
 
 @keyframes fly {
   0%   { left: $start; }

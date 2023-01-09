@@ -5,6 +5,11 @@
         <div class="d-flex">
           <h5 class="card-title">Docentes <span>| Listado Rápido </span></h5>
         </div>
+        <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
+          <app-loaderpeque></app-loaderpeque>
+       </div>
+      <ng-template #MostrarDataPerfilOverview>
+
         <div class="text-end">
           <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#modalCrear"><i class="fa-solid fa-plus"></i></button>
         </div>
@@ -12,6 +17,7 @@
         <mat-form-field>
           <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
         </mat-form-field>
+        <div style="overflow-x: auto;">
         <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
           <ng-container matColumnDef="no">
@@ -54,6 +60,7 @@
             <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
           </tr>
         </table>
+        </div>
         <mat-paginator [pageSize]="docentesPorPagina" aria-label="Select page of users"></mat-paginator>
          <!--Alerta-->
          <div [class]="alertaValor.classAlerta" role="alert" aria-live="assertive" aria-atomic="true">
@@ -64,6 +71,7 @@
             <button type="button" #CerrarAlerta class="btn btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">x</button>
           </div>
         </div>
+        </ng-template><!--poner acá el ng template-->
         <!--Alerta-->
        </div>
     </div>

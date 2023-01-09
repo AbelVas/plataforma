@@ -1,18 +1,19 @@
 <main id="main" class="main">
-  <div class="pagetitle">
-    <h1>Matemática</h1>
+  <div class="pagetitle" *ngFor="let c of cursosGet">
+    <h1>{{c.nombre_curso}}: {{c.nombre_grado}}, "{{c.seccion}}"</h1>
     <nav>
      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Profesor: Pececito Ahogado</li>
+        <li class="breadcrumb-item active">Profesor: {{c.nombre_profesor}} {{c.apellido_profesor}}</li>
      </ol>
   </nav>
  </div>
   <section class="section dashboard">
      <div class="row">
-        <div class="col-lg-12">
-          <app-card-info-resumen></app-card-info-resumen>
+        <div class="col-lg-8">
+          <app-actividades-curso-alumno-tutor></app-actividades-curso-alumno-tutor>
+        </div>
+        <div class="col-lg-4">
           <app-calendario-resumen-curso></app-calendario-resumen-curso>
-          <app-progress-resumen-curso></app-progress-resumen-curso>
         </div>
      </div>
   </section>

@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword} from "../service/tutores";
+import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService} from "../service/tutores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -83,4 +83,14 @@ const getTutorconAlumno=async(req:Request,res:Response)=>{
     }
 }
 
-export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass}
+const getAlumnoporTutor=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const resultAlumnosporTutor=await getAlumnoporTutorService(id);
+        res.send(resultAlumnosporTutor);
+    }catch(e){
+        handleHttp(res,'Error al Obtener a los alumnos')
+    }
+}
+
+export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass,getAlumnoporTutor}
