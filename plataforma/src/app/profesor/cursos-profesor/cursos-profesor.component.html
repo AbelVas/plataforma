@@ -1,10 +1,10 @@
-<main id="main" class="main">
+<main id="main" class="main" *ngFor="let c of cursosGet">
   <div class="pagetitle">
-     <h1 [(ngModel)]="cursosGet.nombre_curso"></h1>
+     <h1 >{{c.nombre_curso}}</h1>
      <nav>
       <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
-         <li class="breadcrumb-item active">Matemática, Primero Básico "A"</li>
+         <li class="breadcrumb-item"><a routerLink="/teacher/dashboard">Dashboard</a></li>
+         <li class="breadcrumb-item active">{{c.nombre_grado}} "{{c.seccion}}"</li>
       </ol>
       </nav>
   </div>

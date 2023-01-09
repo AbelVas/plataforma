@@ -11,82 +11,60 @@
         </ul>
         <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="tab-pane fade show active" id="matutina-justified" role="tabpanel" aria-labelledby="matutina-tab">
-              <div class="row">
-                <div class="col-xxl-4 col-md-6" *ngFor="let c of cursosGet">
-                  <div class="card">
+              <div class="row" *ngIf="matutina!='';else tablaVaciaM">
+                <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let cm of matutina">
+                  <div class="card h-100">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                       <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                       <img src="assets/img/profile-img.jpg" alt="Profile" class="card-img-top">
                        <h5 class="card-title text-center">
-                        {{c.nombre_curso}}
+                        <a routerLink="/teacher/curso/{{cm.idProfesor}}/{{cm.idCurso}}/{{cm.idGrado}}">
+                          {{cm.nombre_curso}}
+                        </a>
                         <hr>
-                        <div><span>{{c.nombre_grado}}</span></div>
-                        <div><span>Sección {{c.seccion}}</span></div>
-                        <div><span>Jornada {{c.jornada}}</span></div>
-                        <div><span>{{c.nivel}}</span></div>
+                        <div><span>{{cm.nombre_grado}}</span></div>
+                        <div><span>Sección {{cm.seccion}}</span></div>
+                        <div><span>Jornada {{cm.jornada}}</span></div>
+                        <div><span>{{cm.nivel}}</span></div>
                         <br>
-                        <button type="button" class="btn btn-primary"><i class="fa-solid fa-chart-simple"></i></button>
-                        <hr>
-                        <button type="button" class="btn btn-warning mt-4"><a routerLink="/teacher/curso/{{c.idCurso}}">Ir al Curso</a></button>
+                        <button type="button" class="btn btn-primary" disabled><i class="fa-solid fa-chart-simple"></i></button>
                        </h5>
                     </div>
                  </div>
                 </div>
               </div>
+              <ng-template #tablaVaciaM>
+                <div class="alert alert-warning" role="alert">
+                  Sin registros, no tiene ningún curso asignado en la Jornada Matutina
+                </div>
+              </ng-template>
             </div>
             <div class="tab-pane fade" id="vespertina-justified" role="tabpanel" aria-labelledby="vespertina-tab">
-              <div class="row">
-                <div class="col-xxl-4 col-md-6">
-                  <div class="card">
+              <div class="row" *ngIf="vespertina!='';else tablaVaciaV">
+                <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let cv of vespertina">
+                  <div class="card h-100">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                       <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                       <img src="assets/img/profile-img.jpg" alt="Profile" class="card-img-top">
                        <h5 class="card-title text-center">
-                        Matemática
+                        <a routerLink="/teacher/curso/{{cv.idProfesor}}/{{cv.idCurso}}/{{cv.idGrado}}">
+                          {{cv.nombre_curso}}
+                        </a>
                         <hr>
-                        <div><span>Primero Básico</span></div>
-                        <div><span>Sección A</span></div>
-                        <div><span>Jornada Vespertina</span></div>
-                        <div><span>Plan Diario</span></div>
+                        <div><span>{{cv.nombre_grado}}</span></div>
+                        <div><span>Sección {{cv.seccion}}</span></div>
+                        <div><span>Jornada {{cv.jornada}}</span></div>
+                        <div><span>{{cv.nivel}}</span></div>
                         <br>
-                        <button type="button" class="btn btn-primary"><i class="fa-solid fa-chart-simple"></i></button>
-                       </h5>
-                    </div>
-                 </div>
-                </div>
-                <div class="col-xxl-4 col-md-6">
-                  <div class="card">
-                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                       <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                       <h5 class="card-title text-center">
-                        Matemática
-                        <hr>
-                        <div><span>Primero Básico</span></div>
-                        <div><span>Sección A</span></div>
-                        <div><span>Jornada Vespertina</span></div>
-                        <div><span>Plan Diario</span></div>
-                        <br>
-                        <button type="button" class="btn btn-primary"><i class="fa-solid fa-chart-simple"></i></button>
-                       </h5>
-                    </div>
-                 </div>
-                </div>
-                <div class="col-xxl-4 col-md-6">
-                  <div class="card">
-                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                       <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                       <h5 class="card-title text-center">
-                        Matemática
-                        <hr>
-                        <div><span>Primero Básico</span></div>
-                        <div><span>Sección A</span></div>
-                        <div><span>Jornada Vespertina</span></div>
-                        <div><span>Plan Diario</span></div>
-                        <br>
-                        <button type="button" class="btn btn-primary"><i class="fa-solid fa-chart-simple"></i></button>
+                        <button type="button" class="btn btn-primary" disabled><i class="fa-solid fa-chart-simple"></i></button>
                        </h5>
                     </div>
                  </div>
                 </div>
               </div>
+              <ng-template #tablaVaciaV>
+                <div class="alert alert-warning" role="alert">
+                  Sin registros, no tiene ningún curso asignado en la Jornada Vespertina
+                </div>
+              </ng-template>
             </div>
         </div>
        </div>

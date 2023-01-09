@@ -14,19 +14,14 @@ import { OpcionesPerfilComponent } from './margenes/header/components/opciones-p
 import { SidebarComponent } from './margenes/sidebar/sidebar.component';
 import { OpcionesMenuComponent } from './margenes/sidebar/opciones-menu/opciones-menu.component';
 import { CardResumenComponent } from './dashboard/components/card-resumen/card-resumen.component';
-import { CardClasesComponent } from './dashboard/components/card-clases/card-clases.component';
 import { CursoAlumnoTutorComponent } from './curso-alumno-tutor/curso-alumno-tutor.component';
 import { CalificacionesAlumnoTutorComponent } from './calificaciones-alumno-tutor/calificaciones-alumno-tutor.component';
 import { PerfilTutorComponent } from './perfil-tutor/perfil-tutor.component';
 import { ActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/actividades-curso-alumno-tutor.component';
 import { ResumenCursoAlumnoTutorComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/resumen-curso-alumno-tutor.component';
-import { CalificacionesCursoAlumnoTutorComponent } from './curso-alumno-tutor/calificaciones-curso-alumno-tutor/calificaciones-curso-alumno-tutor.component';
-import { TareasActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/components/tareas-actividades-curso-alumno-tutor/tareas-actividades-curso-alumno-tutor.component';
 import { ExamenesActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/components/examenes-actividades-curso-alumno-tutor/examenes-actividades-curso-alumno-tutor.component';
-import { ForosActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/components/foros-actividades-curso-alumno-tutor/foros-actividades-curso-alumno-tutor.component';
 import { CardInfoResumenComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/card-info-resumen/card-info-resumen.component';
 import { CalendarioResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/calendario-resumen-curso/calendario-resumen-curso.component';
-import { ProgressResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/progress-resumen-curso/progress-resumen-curso.component';
 import { DashboardService } from "./dashboard/services/dashboard.service";
 import { CursoAlumnoTutorService } from "./curso-alumno-tutor/services/curso-alumno-tutor.service";
 import { EditPerfilTutorComponent } from './perfil-tutor/components/edit-perfil-tutor/edit-perfil-tutor.component';
@@ -35,8 +30,12 @@ import { OverviewPerfilTutorComponent } from './perfil-tutor/components/overview
 import { PasswordPerfilTutorComponent } from './perfil-tutor/components/password-perfil-tutor/password-perfil-tutor.component';
 import { CalificacionesAlumnoTutorService } from "./calificaciones-alumno-tutor/services/calificaciones-alumno-tutor.service";
 import { ActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/actividades-curso-alumno-tutor.service";
-import { CardClasesTutorService } from "./dashboard/services/card-clases-tutor.service";
 import { PublicModule } from "../public/public.module";
+import { VistaEstudianteComponent } from './vista-estudiante/vista-estudiante.component';
+import { VistaEstudianteService } from "./vista-estudiante/services/vista-estudiante.service";
+import { ContenidoVistaEstudianteComponent } from './vista-estudiante/components/contenido-vista-estudiante/contenido-vista-estudiante.component';
+import { CalificacionesVistaEstudianteComponent } from './calificaciones-vista-estudiante/calificaciones-vista-estudiante.component';
+import { CalificacionesVistaEstudianteService } from "./calificaciones-vista-estudiante/services/calificaciones-vista-estudiante.service";
 
 @NgModule({
   imports:[
@@ -54,22 +53,20 @@ import { PublicModule } from "../public/public.module";
     SidebarComponent,
     OpcionesMenuComponent,
     CardResumenComponent,
-    CardClasesComponent,
     CursoAlumnoTutorComponent,
     CalificacionesAlumnoTutorComponent,
     PerfilTutorComponent,
     ActividadesCursoAlumnoTutorComponent,
     ResumenCursoAlumnoTutorComponent,
-    CalificacionesCursoAlumnoTutorComponent,
-    TareasActividadesCursoAlumnoTutorComponent,
     ExamenesActividadesCursoAlumnoTutorComponent,
-    ForosActividadesCursoAlumnoTutorComponent,
     CardInfoResumenComponent,
     CalendarioResumenCursoComponent,
-    ProgressResumenCursoComponent,
     EditPerfilTutorComponent,
     OverviewPerfilTutorComponent,
-    PasswordPerfilTutorComponent
+    PasswordPerfilTutorComponent,
+    VistaEstudianteComponent,
+    ContenidoVistaEstudianteComponent,
+    CalificacionesVistaEstudianteComponent
   ],
   exports:[
   ],
@@ -81,7 +78,8 @@ import { PublicModule } from "../public/public.module";
     CalificacionesAlumnoTutorService,
     PerfilTutorService,
     ActividadesCursoAlumnoTutorService,
-    CardClasesTutorService
+    VistaEstudianteService,
+    CalificacionesVistaEstudianteService
   ]
 })
 

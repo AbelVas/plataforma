@@ -21,7 +21,6 @@ import { PasswordPerfilProfesoresComponent } from './perfil-profesor/components/
 import { PerfilProfesorService } from "./perfil-profesor/services/perfil-profesor.service";
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
-import { MargenesProfesorService } from "./margenes/services/margenes-profesor.service";
 import { CardClasesJornadasService } from "./dashboard/services/card-clases-jornadas.service";
 import { CardResumenService } from "./dashboard/services/card-resumen.service";
 import { HorarioProfesorComponent } from './dashboard/components/horario-profesor/horario-profesor.component';
@@ -58,13 +57,15 @@ import { CalificacionesExamenComponent } from './examen-curso-profesor/component
 import { AlumnosExamenComponent } from './examen-curso-profesor/components/alumnos-examen/alumnos-examen.component';
 import { GraficoExamenComponent } from './examen-curso-profesor/components/grafico-examen/grafico-examen.component';
 import { CursosComponent } from "./cursos/cursos.component";
+import { ReactiveFormsModule } from "@angular/forms";
 //
 
 
 @NgModule({
   imports:[
     ProfesorRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   declarations:[
   ProfesorComponent,
@@ -113,7 +114,6 @@ import { CursosComponent } from "./cursos/cursos.component";
     DashboardService,
     AuthGuard,
     RolesGuard,
-    MargenesProfesorService,
     CardClasesJornadasService,
     CardResumenService,
     HorarioProfesorService,

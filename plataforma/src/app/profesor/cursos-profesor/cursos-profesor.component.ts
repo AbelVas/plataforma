@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import decode from 'jwt-decode';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CardResumenService } from '../dashboard/services/card-resumen.service';
 
 @Component({
@@ -9,39 +9,52 @@ import { CardResumenService } from '../dashboard/services/card-resumen.service';
 })
 export class CursosProfesorComponent implements OnInit {
 
-  token:any=localStorage.getItem('Acces-Token');
+  idClase:string='';
   cursosGet:any=[];
   cursosIndividual:any={
-    idCurso: '',
+    idCurso:'',
+    idGrado:'',
     nombre_grado:'',
-    nivel:'',
-    idJornada:'',
-    seccion:'',
-    jornada:'',
-    nombre_curso:''
+    nombre_curso:'',
+    abreviatura:''
   };
-
-  constructor( public cardResumenService:CardResumenService ) { }
-
-  ngOnInit(): void {
-    this.obtenerDatosCursos();
-    this.cursosIndividual=this.cursosGet
-    this.cardResumenService.disparadorCopiarData.emit(this.cursosIndividual);
+  idGradoCurso:string='';
+  alumnosGet:any=[];
+  alumnosIndividual:any={
+    idAlumno:'',
+    alumno:'',
+    usuario:'',
+    activo:''
   }
 
-  obtenerDatosCursos(){
-    const {idUsuario}:any=decode(this.token);
-    this.cardResumenService.getCursoporProfesor(idUsuario).subscribe(
+  constructor( public cardResumenService:CardResumenService, private activedRoute:ActivatedRoute ) { }
+
+  ngOnInit(): void {
+    const params=this.activedRoute.snapshot.params;
+    this.idClase=params['idCurso'];
+    this.idGradoCurso=params['idGrado'];
+    this.obtenerDatosCursos();
+    this.obtenerAlumnosCursos();
+  }
+
+  obtenerDatosCursos(idCurso=this.idClase){
+    this.cardResumenService.getCurso(idCurso).subscribe(
       response=>{
         this.cursosGet=response;
-        this.cardResumenService.disparadorCopiarData.emit({
-          data:this.cursosGet[0]
-        });
       },
       error=>{
         console.log('Error: '+error);
       }
     )
+  }
+
+  obtenerAlumnosCursos(idGradoAl=this.idGradoCurso){
+    this.cardResumenService.getAlumnosGrado(idGradoAl).subscribe(
+      response=>{
+        this.alumnosGet=response;
+      }
+    )
+
   }
 
 }

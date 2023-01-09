@@ -24,9 +24,9 @@ const routes:Routes=[
     {path:'grado-guia',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:GradoGuiaProfesorComponent},
     {path:'calendario',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:CalendarioProfesorComponent},
     {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PerfilProfesorComponent},
-    {path:'curso/:id',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:CursosProfesorComponent},
+    {path:'curso/:idProfesor/:idCurso/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:CursosProfesorComponent},
     {path:'curso/foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoCursoProfesorComponent},
-    {path:'curso/actividad',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ActividadCursoProfesorComponent},
+    {path:'curso/actividad/:idProfesor/:idCurso/:idGrado/:idActividad',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ActividadCursoProfesorComponent},
     {path:'curso/examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ExamenCursoProfesorComponent}
 
   ]

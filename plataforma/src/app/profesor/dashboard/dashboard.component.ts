@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import decode from 'jwt-decode';
-import { DashboardService } from './services/dashboard.service';
+import { Component, OnInit } from '@angular/core';
+import decode from "jwt-decode"
 
 @Component({
   selector: 'app-dashboard',
@@ -9,35 +8,20 @@ import { DashboardService } from './services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  token:any=localStorage.getItem('Acces-Token');
-  profesorGet:any=[];
-  profesorIndividual:any={
-    idProfesor: '',
-    nombre_profesor:'',
-    apellido_profesor:''
-  };
+  Usuario:string='';
+  Nombre_profesor:string='';
+  Rol:string='';
+  Apellido_profesor:string='';
 
-  constructor(private dashboardService:DashboardService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.obtenerDatosProfesor();
-    this.profesorIndividual=this.profesorGet
-    this.dashboardService.disparadorCopiarData.emit(this.profesorIndividual);
-  }
-
-  obtenerDatosProfesor(){
-    const {idUsuario}:any=decode(this.token);
-    this.dashboardService.getProfesor(idUsuario).subscribe(
-      response=>{
-        this.profesorGet=response;
-        this.dashboardService.disparadorCopiarData.emit({
-          data:this.profesorGet[0]
-        });
-      },
-      error=>{
-        console.log('Error: '+error);
-      }
-    )
+    const token:any = localStorage.getItem('Acces-Token');
+    const {usuario,nombre_profesor,rol,apellido_profesor}:any=decode(token);
+    this.Usuario=usuario;
+    this.Nombre_profesor=nombre_profesor;
+    this.Rol=rol
+    this.Apellido_profesor=apellido_profesor
   }
 
 }

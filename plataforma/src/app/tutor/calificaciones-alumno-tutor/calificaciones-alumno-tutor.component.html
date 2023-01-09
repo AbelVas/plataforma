@@ -1,91 +1,37 @@
 <main id="main" class="main">
   <div class="pagetitle">
-     <h1>{{NombreUsuario}}</h1>
+     <h1>Tutor {{NombreUsuario}}</h1>
   </div>
   <section class="section dashboard">
     <div class="row">
-      <div class="col-12">
-        <div class="card">
+      <div class="col-xxl-12 col-md-12">
+        <div class="card info-card sales-card">
            <div class="card-body">
             <div class="d-flex">
-              <h5 class="card-title">Karins Apellido "Falta consulta tutor->alumno"</h5>
+              <h5 class="card-title">Elegir al Estudiante</h5>
             </div>
-            <div class="tab-content pt-2" id="myTabjustifiedContent">
-              <div class="activity">
-                <div style="overflow-x: auto;">
-                  <table class="table table-striped">
-                    <thead>
-                       <tr>
-                          <th scope="col" class="text-center">Curso</th>
-                          <th scope="col" class="text-center">Primer Bimestre</th>
-                          <th scope="col" class="text-center">Segundo Bimestre</th>
-                          <th scope="col" class="text-center">Tercer Bimestre</th>
-                          <th scope="col" class="text-center">Cuatro Bimestre</th>
-                          <th scope="col" class="text-center">Promedio Curso</th>
-
-                       </tr>
-                    </thead>
-                    <tbody>
-                       <tr>
-                          <td align="center">Nombre del curso</td>
-                          <td align="center">65</td>
-                          <td align="center">70</td>
-                          <td align="center">60</td>
-                          <td align="center">85</td>
-                          <td align="center">70</td>
-                       </tr>
-                       <tr>
-                          <td align="center">Nombre del curso</td>
-                          <td align="center">65</td>
-                          <td align="center">70</td>
-                          <td align="center">60</td>
-                          <td align="center">85</td>
-                          <td align="center">70</td>
-                       </tr>
-                    </tbody>
-                 </table>
-
-                  <table class="table table-striped">
-                    <thead>
-                       <tr>
-                          <th scope="col" class="text-center">Promedios Bimestres</th>
-                          <th scope="col" class="text-center">Primer Bimestre</th>
-                          <th scope="col" class="text-center">Segundo Bimestre</th>
-                          <th scope="col" class="text-center">Tercer Bimestre</th>
-                          <th scope="col" class="text-center">Cuarto Bimestre</th>
-                          <th scope="col" class="text-center">Promedio Final</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                       <tr>
-                          <td align="center">0</td>
-                          <td align="center">70</td>
-                          <td align="center">70</td>
-                          <td align="center">70</td>
-                          <td align="center">70</td>
-                          <td align="center">70</td>
-                       </tr>
-                    </tbody>
-                 </table>
-
+              <div class="row" *ngIf="alumnosGet!='';else tablaVacia">
+                <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let a of alumnosGet;let i = index">
+                  <div class="card h-100">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                      <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                      <h5 class="card-title text-center">
+                       <a routerLink="/tutor/calificaciones/{{a.idAlumno}}">
+                        {{i+1}}. {{a.apellidos_alumno}}, {{a.nombres_alumno}}
+                       </a>
+                       <hr>
+                       <div><span>Grado: {{a.nombre_grado}}, "{{a.seccion}}"</span></div>
+                        <div><span>Usuario: {{a.usuario}}</span></div>
+                      </h5>
+                   </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <nav class="d-flex justify-content-end">
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalestadisticasgradoguia"> Ver Estadísticas </button>
-                   <div class="modal fade" id="modalestadisticasgradoguia" tabindex="-1">
-                      <div class="modal-dialog modal-dialog-centered">
-                         <div class="modal-content">
-                            <div class="modal-header">
-                               <h5 class="card-title">Nombre del alumno</h5>
-                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos cursos aprobó o reprobó el alumno</div>
-                            <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
-                         </div>
-                      </div>
-                   </div>
-            </nav>
+              <ng-template #tablaVacia>
+                <div class="alert alert-warning" role="alert">
+                  Sin registros, no tiene ningún alumno asignado
+                </div>
+              </ng-template>
            </div>
         </div>
       </div>
