@@ -8,7 +8,7 @@ import { catchError} from 'rxjs/operators'
 })
 export class DashboardService {
 
-  URL='http://localhost:3002';
+  URL='https://app.labrincoteca.edu.gt/';
 
   constructor(private http:HttpClient) { }
 
