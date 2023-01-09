@@ -31,10 +31,6 @@
               <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)" #input>
             </mat-form-field>
 
-            <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
-              <app-loaderpeque></app-loaderpeque>
-           </div>
-
            <ng-template #MostrarDataPerfilOverview>
             <div style="overflow-x: auto;">
             <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
