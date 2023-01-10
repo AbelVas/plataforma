@@ -7,7 +7,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class ActividadesOpcionesCursoService {
 
-  URL='https://app.labrincoteca.edu.gt';
+  URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();

@@ -6,7 +6,7 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ActividadService {
-  URL='https://app.labrincoteca.edu.gt';
+  URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
   calificarActividad(idActividad:string,data:any){

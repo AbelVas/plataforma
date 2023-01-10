@@ -8,7 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class PerfilAlumnoService {
 
-  URL='https://app.labrincoteca.edu.gt';
+  URL='http://localhost:3002';
   constructor(private http:HttpClient) {}
 
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();

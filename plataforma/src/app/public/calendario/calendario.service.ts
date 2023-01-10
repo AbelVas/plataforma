@@ -8,8 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class CalendarioService {
 
-  URL='https://app.labrincoteca.edu.gt';
-
+  URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
   getActividadesparaEventos(idUsuario:string):Observable<any>{

@@ -8,7 +8,7 @@ import {catchError} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CodigosService {
-  URL='https://app.labrincoteca.edu.gt';
+  URL='http://localhost:3002';
   constructor(private http:HttpClient) { }
 
   getCodigos():Observable<any>{

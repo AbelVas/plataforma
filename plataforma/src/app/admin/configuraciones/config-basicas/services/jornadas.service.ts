@@ -7,7 +7,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 export class JornadasService {
 
   constructor(private http:HttpClient) { }
-  URL='https://app.labrincoteca.edu.gt';
+  URL='http://localhost:3002';
 
   getJornadas():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}

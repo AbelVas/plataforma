@@ -7,7 +7,7 @@ import {map,tap,catchError} from 'rxjs/operators'
 export class BimestreService {
 
   constructor(private http:HttpClient) { }
-  URL='https://app.labrincoteca.edu.gt';
+  URL='http://localhost:3002';
 
   getUnidades():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
