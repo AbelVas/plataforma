@@ -12,20 +12,20 @@ const getActividadesAlumno=async(req:Request,res:Response)=>{
     }
 }
 
-const getActividadesTutor=async(req:Request,res:Response)=>{
+const getActividadesProfesor=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params
-        const resultado=await getActividadesPorTutor(id)
+        const resultado=await getActividadesPorProfesor(id)
         res.send(resultado)
     } catch (e) {
         handleHttp(res,'Error al Obtener las actividades del Curso',e)
     }
 }
 
-const getActividadesProfesor=async(req:Request,res:Response)=>{
+const getActividadesTutor=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params
-        const resultado=await getActividadesPorProfesor(id)
+        const resultado=await getActividadesPorTutor(id)
         res.send(resultado)
     } catch (e) {
         handleHttp(res,'Error al Obtener las actividades del Curso',e)

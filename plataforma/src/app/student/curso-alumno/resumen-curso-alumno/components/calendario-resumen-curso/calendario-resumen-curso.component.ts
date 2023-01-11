@@ -48,9 +48,9 @@ export class CalendarioResumenCursoComponent implements OnInit {
   constructor(public ruta:ActivatedRoute, public DahSer:DahboardService) { }
 
   ngOnInit(): void {
-    this.getActividadesCurso()
+    this.obtenerActividadesCurso()
   }
-  getActividadesCurso(){
+  obtenerActividadesCurso(){
     this.idCurso = this.ruta.snapshot.paramMap.get('id');
     const idUsuario = this.idCurso
     this.DahSer.getActividadesCurso( idUsuario).subscribe(
@@ -61,7 +61,8 @@ export class CalendarioResumenCursoComponent implements OnInit {
           this.EventsDatos[i]={
             title:this.ActividadesInfo[i].nombre_actividad,
             date:this.ActividadesInfo[i].fecha_entrega,
-            description:this.ActividadesInfo[i].detalle
+            description:this.ActividadesInfo[i].detalle,
+            color: this.ActividadesInfo[i].color_curso
           }
             this.Events=this.EventsDatos
         }

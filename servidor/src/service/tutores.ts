@@ -12,7 +12,7 @@ const obtenerTutoresService=async()=>{
     return responseGet;
 }
 const obtenerTutorService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idTutor=?',[id]);
+    const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `telefono_casa`, `direccion`, `usuario`, `fecha_nacimiento`, `estado`, `correo1`, `correo2` FROM tbTutor WHERE idTutor=?',[id]);
     return responseGet;
 }
 const updateTutorService=async(data:Request,id:string)=>{
@@ -45,7 +45,7 @@ const getTutorconAlumnoService=async(idAlum:string)=>{
 }
 
 const getAlumnoporTutorService=async(idTutor:string)=>{
-    const responseGetAlumnoporTutor= await conexion.query('SELECT a.idAlumno, a.nombres_alumno, a.apellidos_alumno, a.sexo, a.usuario, g.idGrado, g.nombre_grado, s.idSeccion, s.seccion FROM tbAlumno a INNER JOIN tbGrado g ON a.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion WHERE idTutor=?',[idTutor])
+    const responseGetAlumnoporTutor= await conexion.query('SELECT a.idAlumno, a.nombres_alumno, a.apellidos_alumno, a.sexo, a.usuario, g.idGrado, g.nombre_grado, s.idSeccion, s.seccion, c.codigo FROM tbAlumno a INNER JOIN tbGrado g ON a.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbCodigo c ON a.idCodigo=c.idCodigo WHERE idTutor=?',[idTutor])
     return responseGetAlumnoporTutor
 }
 

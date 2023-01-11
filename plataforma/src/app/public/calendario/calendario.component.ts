@@ -13,7 +13,7 @@ import esLocale from '@fullcalendar/core/locales/es';
   styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit {
-
+ Cursos:any=[];
   Plugins:any = [dayGridPlugin, listPlugin];
   EventsDatos: any= []
   Events:any = [
@@ -43,7 +43,7 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerDatosActividades();
-console.log(this.calendarOptions)
+    this.getActividadesCurso();
 
   }
   ListaActividadesEventos:any=[];
@@ -58,7 +58,9 @@ console.log(this.calendarOptions)
           this.EventsDatos[i]={
             title:this.ListaActividadesEventos[i].nombre_actividad,
             date:this.ListaActividadesEventos[i].fecha_entrega,
-            description:this.ListaActividadesEventos[i].detalle
+            description:this.ListaActividadesEventos[i].detalle,
+            color: this.ListaActividadesEventos[i].color_curso,
+            url: '#/student/curso/resumen/' +this.ListaActividadesEventos[i].idCurso+'/' + this.ListaActividadesEventos[i].nombre_curso
           }
             this.Events=this.EventsDatos
         }
@@ -67,6 +69,19 @@ console.log(this.calendarOptions)
       },
       error=>{
         console.log('Error: '+error);
+      }
+    )
+  }
+
+  getActividadesCurso(){
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario}:any=decode(token);
+    this.calendarioservice.getCursoporAlumno( idUsuario).subscribe(
+      res=>{
+        this.Cursos=res;
+        },
+      err=>{
+        console.log('Error:'+err)
       }
     )
   }

@@ -5,8 +5,8 @@ import { checkJwt } from "../middleware/session";
 const router=Router();
 
 router.get("/alumno/:id",checkJwt,getActividadesAlumno);
-router.get("/profesor/:id",checkJwt,getActividadesTutor);
-router.get("/tutor/:id",checkJwt,getActividadesProfesor);
+router.get("/profesor/:id",checkJwt,getActividadesProfesor);
+router.get("/tutor/:id",checkJwt,getActividadesTutor);
 router.get("/alumno-examen/:id/:al",checkJwt,getActividadesPorExamen);
 router.get("/alumno-tarea/:id/:al",checkJwt,getActividadesPorTarea);
 router.get("/alumno-foro/:id/:al",checkJwt,getActividadesPorForo);

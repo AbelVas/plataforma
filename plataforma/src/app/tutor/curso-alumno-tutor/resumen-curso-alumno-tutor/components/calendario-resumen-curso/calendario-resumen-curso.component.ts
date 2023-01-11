@@ -42,7 +42,6 @@ export class CalendarioResumenCursoComponent implements OnInit {
           right: 'dayGridMonth,dayGridWeek,listWeek',
         },
         eventTextColor:'black',
-        eventColor:'skyblue',
     };
 
   constructor(public ruta:ActivatedRoute, public calendario:CursoAlumnoTutorService) { }
@@ -62,10 +61,10 @@ export class CalendarioResumenCursoComponent implements OnInit {
           this.EventsDatos[i]={
             title:this.ActividadesInfo[i].nombre_actividad,
             date:this.ActividadesInfo[i].fecha_entrega,
-            description:this.ActividadesInfo[i].detalle
+            description:this.ActividadesInfo[i].detalle,
+            color: this.ActividadesInfo[i].color_curso
           }
             this.Events=this.EventsDatos
-            console.log(this.Events)
         }
       },
       err=>{

@@ -16,7 +16,8 @@ export class PasswordPerfilAlumnoComponent implements OnInit {
   alertaError='0';
   alertaErrorCambioContra='0'
   alertaErrorDos='0';
-  alertaSuccess='0'
+  alertaSuccess='0';
+  alertaVacio='0';
   contraNueva:string='';
   contraNuevaRe:string='';
   passNew:any={
@@ -51,27 +52,31 @@ export class PasswordPerfilAlumnoComponent implements OnInit {
       this.alertaError='0'
       this.alertaErrorDos='1'
     }else{
-      if(this.contraNueva===this.contraNuevaRe){
-        this.passNew.pass=this.contraNuevaRe;
-        this.perfilAlumnosService.updateAlumno(this.passNew,this.idAlumno).subscribe(
-          res=>{
-            this.alertaError='0';
-            this.alertaErrorCambioContra='0'
-            this.alertaErrorDos='0';
-            this.alertaSuccess='1'
-            this.constraCorrecta=false;
-            this.passOriginal.pass='';
-          },
-          err=>{
-            this.alertaErrorCambioContra='1'
-          }
-        );
-        this.errorLogininputs='form-control';
-        this.alertaError='0'
+      if(this.contraNueva==''||this.contraNuevaRe==''){
+        this.alertaVacio='1'
       }else{
-        this.errorLogininputs='form-control border-danger';
-        this.alertaErrorDos='0'
-        this.alertaError='1'
+        if(this.contraNueva===this.contraNuevaRe){
+          this.passNew.pass=this.contraNuevaRe;
+          this.perfilAlumnosService.updateAlumno(this.passNew,this.idAlumno).subscribe(
+            res=>{
+              this.alertaError='0';
+              this.alertaErrorCambioContra='0'
+              this.alertaErrorDos='0';
+              this.alertaSuccess='1'
+              this.constraCorrecta=false;
+              this.passOriginal.pass='';
+            },
+            err=>{
+              this.alertaErrorCambioContra='1'
+            }
+          );
+          this.errorLogininputs='form-control';
+          this.alertaError='0'
+        }else{
+          this.errorLogininputs='form-control border-danger';
+          this.alertaErrorDos='0'
+          this.alertaError='1'
+        }
       }
     }
   }

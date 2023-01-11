@@ -9,7 +9,7 @@ import { GradoGuiaProfesorService } from './services/grado-guia-profesor.service
   styleUrls: ['./grado-guia-profesor.component.css']
 })
 export class GradoGuiaProfesorComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   idProfesor:string='';
   Nombre_profesor:string='';
   Apellido_profesor:string='';
@@ -41,6 +41,7 @@ export class GradoGuiaProfesorComponent implements OnInit {
     this.gradoGuiaProfesorService.getGradoGuiaProfesor(iddelProfesor).subscribe(
       response=>{
         this.gradoguiaGet=response;
+        this.sppinerOn=false;
       }
     )
   }

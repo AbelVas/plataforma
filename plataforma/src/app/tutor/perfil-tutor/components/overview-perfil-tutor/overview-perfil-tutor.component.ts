@@ -22,10 +22,13 @@ export class OverviewPerfilTutorComponent implements OnInit {
     apellido_tutor:'',
     telefono1:'',
     telefono2:'',
+    telefono_casa:'',
     direccion:'',
     usuario:'',
     fecha_nacimiento:'',
-    estado:''
+    estado:'',
+    correo1:'',
+    correo2:''
   }
 
   constructor( private perfilTutoresService:PerfilTutorService ) { }
