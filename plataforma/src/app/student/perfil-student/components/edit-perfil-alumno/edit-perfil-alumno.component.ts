@@ -32,6 +32,11 @@ export class EditPerfilAlumnoComponent implements OnInit {
   }
 
   insertAlumno(idAlumno:string){
+    delete this.alumnoIndividual[0].idGrado
+    delete this.alumnoIndividual[0].nombre_grado
+    delete this.alumnoIndividual[0].idSeccion
+    delete this.alumnoIndividual[0].seccion
+    delete this.alumnoIndividual[0].codigo
     this.perfilAlumnosService.updateAlumno(this.alumnoIndividual[0],idAlumno).subscribe(
       response=>{
         this.router.navigate(['/student/perfil']);

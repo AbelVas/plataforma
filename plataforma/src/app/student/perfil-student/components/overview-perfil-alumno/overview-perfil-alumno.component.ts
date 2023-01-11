@@ -21,7 +21,8 @@ export class OverviewPerfilAlumnoComponent implements OnInit {
     nombres_alumno:'',
     apellidos_alumno:'',
     usuario:'',
-    activo:''
+    activo:'',
+    codigo:''
   }
 
   constructor( private perfilAlumnosService:PerfilAlumnoService) { }

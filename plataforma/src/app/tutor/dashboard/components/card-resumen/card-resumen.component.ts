@@ -20,7 +20,8 @@ export class CardResumenComponent implements OnInit {
     sexo: '',
     usuario: '',
     nombre_grado:'',
-    seccion:''
+    seccion:'',
+    codigo:''
   };
 
   constructor( private dashboardService:DashboardService ) { }

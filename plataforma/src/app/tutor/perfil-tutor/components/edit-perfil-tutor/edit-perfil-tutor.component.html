@@ -27,17 +27,29 @@
        <div class="col-md-8 col-lg-9"> <input name="telefono_2" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono2"></div>
     </div>
     <div class="row mb-3">
-       <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
-       <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].usuario"></div>
-    </div>
+      <label class="col-md-4 col-lg-3 col-form-label">Teléfono de Casa</label>
+      <div class="col-md-8 col-lg-9"> <input name="telefono_casa" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono_casa"></div>
+   </div>
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Dirección</label>
       <div class="col-md-8 col-lg-9"> <input name="direccion" type="text" class="form-control" id="Country" [(ngModel)]="tutorIndividual[0].direccion"></div>
    </div>
+   <div class="row mb-3">
+    <label class="col-md-4 col-lg-3 col-form-label">Correo 1</label>
+    <div class="col-md-8 col-lg-9"> <input name="correo_1" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].correo1"></div>
+ </div>
+ <div class="row mb-3">
+  <label class="col-md-4 col-lg-3 col-form-label">Correo 2</label>
+  <div class="col-md-8 col-lg-9"> <input name="correo_2" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].correo2"></div>
+</div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Fecha de Nacimiento</label>
        <div class="col-md-8 col-lg-9"> <input name="fecha_nacimiento" type="date" class="form-control" [(ngModel)]="tutorIndividual[0].fecha_nacimiento"></div>
     </div>
+    <div class="row mb-3">
+      <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
+      <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].usuario"></div>
+   </div>
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Estado</label>
       <div class="col-md-8 col-lg-9"><span [class]="classBadgeActive">{{estado}}</span></div>

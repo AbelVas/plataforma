@@ -26,7 +26,9 @@ export class OverviewPerfilProfesorComponent implements OnInit {
     usuario:'',
     fecha_nacimiento:'',
     estatus:'',
-    permitir_ver_correo:''
+    permitir_ver_correo:'',
+    correo1:'',
+    correo2:''
   };
 
   constructor(private perfilProfesoresService:PerfilProfesorService) { }

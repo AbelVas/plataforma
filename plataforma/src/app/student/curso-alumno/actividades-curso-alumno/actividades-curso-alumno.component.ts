@@ -28,6 +28,7 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
   tareas:any=[];
   notaActividad:any=[];
 
+  colorprogress:any=[];
   suma:any=0;
   errorServicio:any={};
   errorService:any={
@@ -67,6 +68,25 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
         }
         for(let i=0; i<res.length; i++){
           this.suma=res[i].nota+this.suma
+          if(this.suma>100){
+            this.suma=100
+          }
+        }
+
+        if(this.suma==69 || this.suma<69){
+          this.colorprogress='red';
+        }else{
+          if(this.suma==70 || (this.suma>70 && this.suma<81)){
+            this.colorprogress='orange';
+          }else{
+            if(this.suma==81 || (this.suma>81 && this.suma<91)){
+              this.colorprogress='gold';
+            }else{
+              if(this.suma>90){
+                this.colorprogress='green';
+              }
+            }
+          }
         }
       },
       error=>{

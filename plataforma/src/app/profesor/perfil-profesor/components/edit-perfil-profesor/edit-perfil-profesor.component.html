@@ -3,7 +3,7 @@
      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
      <div class="col-md-8 col-lg-9">
         <img src="assets/img/blank_profile.png" alt="Profile">
-        <div class="pt-2"> <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="fa-solid fa-pen-to-square"></i></a> <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="fa-solid fa-trash-can"></i></a></div>
+        <!-- <div class="pt-2"> <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="fa-solid fa-pen-to-square"></i></a> <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="fa-solid fa-trash-can"></i></a></div> -->
      </div>
   </div>
   <div class="row mb-3">
@@ -19,21 +19,29 @@
      <div class="col-md-8 col-lg-9"> <input disabled type="text" class="form-control" value="Profesor"></div>
   </div>
   <div class="row mb-3">
+    <label class="col-md-4 col-lg-3 col-form-label">CUI</label>
+    <div class="col-md-8 col-lg-9"> <input name="CUI" type="text" class="form-control" id="Country" [(ngModel)]="profesorIndividual[0].CUI"></div>
+ </div>
+  <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Teléfono</label>
      <div class="col-md-8 col-lg-9"> <input name="telefono" type="text" class="form-control" [(ngModel)]="profesorIndividual[0].telefono"></div>
-  </div>
-  <div class="row mb-3">
-     <label class="col-md-4 col-lg-3 col-form-label">CUI</label>
-     <div class="col-md-8 col-lg-9"> <input name="CUI" type="text" class="form-control" id="Country" [(ngModel)]="profesorIndividual[0].CUI"></div>
-  </div>
-  <div class="row mb-3">
-     <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
-     <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="profesorIndividual[0].usuario"></div>
   </div>
   <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Fecha de Nacimiento</label>
      <div class="col-md-8 col-lg-9"> <input name="fecha_nacimiento" type="date" class="form-control" [(ngModel)]="profesorIndividual[0].fecha_nacimiento"></div>
   </div>
+  <div class="row mb-3">
+    <label class="col-md-4 col-lg-3 col-form-label">Correo 1</label>
+    <div class="col-md-8 col-lg-9"> <input name="correo1" type="email" class="form-control" [(ngModel)]="profesorIndividual[0].correo1"></div>
+ </div>
+ <div class="row mb-3">
+  <label class="col-md-4 col-lg-3 col-form-label">Correo 2</label>
+  <div class="col-md-8 col-lg-9"> <input name="correo2" type="email" class="form-control" [(ngModel)]="profesorIndividual[0].correo2"></div>
+</div>
+  <div class="row mb-3">
+    <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
+    <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="profesorIndividual[0].usuario"></div>
+ </div>
   <div class="row mb-3">
     <label class="col-md-4 col-lg-3 col-form-label">Estado</label>
     <div class="col-md-8 col-lg-9"><span [class]="classBadgeActive">{{estado}}</span></div>

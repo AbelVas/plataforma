@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { S } from '@fullcalendar/core/internal-common';
 import decode from 'jwt-decode';
 import { ActividadesCursoAlumnoTutorService } from './services/actividades-curso-alumno-tutor.service';
 
@@ -28,8 +29,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
   cantidad_foros:any=[];
   cantidad_tareas:any=[];
 
-
-
+  colorprogress:any=[];
   suma:any=0;
 
   constructor( private actividadesCursoAlumnoTutorService:ActividadesCursoAlumnoTutorService, private activedRoute:ActivatedRoute) { }
@@ -66,6 +66,25 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
         }
         for(let i=0; i<res.length; i++){
           this.suma=res[i].nota+this.suma
+          if(this.suma>100){
+            this.suma=100
+          }
+        }
+
+        if(this.suma==69 || this.suma<69){
+          this.colorprogress='red';
+        }else{
+          if(this.suma==70 || (this.suma>70 && this.suma<81)){
+            this.colorprogress='orange';
+          }else{
+            if(this.suma==81 || (this.suma>81 && this.suma<91)){
+              this.colorprogress='gold';
+            }else{
+              if(this.suma>90){
+                this.colorprogress='green';
+              }
+            }
+          }
         }
       },
       error=>{

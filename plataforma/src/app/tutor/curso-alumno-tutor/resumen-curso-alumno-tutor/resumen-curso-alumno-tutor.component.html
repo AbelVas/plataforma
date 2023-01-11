@@ -1,9 +1,9 @@
-<main id="main" class="main">
+<main id="main" class="main" style="background-color:darkslateblue;">
   <div class="pagetitle" *ngFor="let c of cursosGet">
-    <h1>{{c.nombre_curso}}: {{c.nombre_grado}}, "{{c.seccion}}"</h1>
+    <h1 style="color: white;">{{c.nombre_curso}}: {{c.nombre_grado}}, "{{c.seccion}}"</h1>
     <nav>
      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Profesor: {{c.nombre_profesor}} {{c.apellido_profesor}}</li>
+        <li class="breadcrumb-item active" style="color: white;" >Profesor: {{c.nombre_profesor}} {{c.apellido_profesor}}</li>
      </ol>
   </nav>
  </div>

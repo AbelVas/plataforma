@@ -25,7 +25,8 @@ export class VistaEstudianteComponent implements OnInit {
     sexo: '',
     usuario: '',
     nombre_grado:'',
-    seccion:''
+    seccion:'',
+    codigo:''
   };
 
   NombreUsuario:any=[];
