@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import { CalendarioProfesorService } from '../calendario-profesor/services/calendario-profesor.service';
 import esLocale from '@fullcalendar/core/locales/es';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-calendariogeneral',
@@ -12,6 +13,7 @@ import esLocale from '@fullcalendar/core/locales/es';
   styleUrls: ['./calendariogeneral.component.css']
 })
 export class CalendariogeneralComponent implements OnInit {
+ Cursos:any=[];
   Plugins:any = [dayGridPlugin, listPlugin];
   EventsDatos: any= []
   Events:any = [
@@ -33,13 +35,12 @@ export class CalendariogeneralComponent implements OnInit {
           right: 'dayGridMonth,dayGridWeek,listWeek',
         },
         eventTextColor:'black',
-        eventColor:'skyblue',
     };
-  constructor(public calendario:CalendarioProfesorService) { }
+  constructor(public ruta:ActivatedRoute, public calendario:CalendarioProfesorService) { }
 
   ngOnInit(): void {
     this.obtenerDatosActividades();
-
+    this.getActividadesCurso();
   }
 
   ListaActividadesEventos:any=[];
@@ -54,7 +55,9 @@ export class CalendariogeneralComponent implements OnInit {
           this.EventsDatos[i]={
             title:this.ListaActividadesEventos[i].nombre_actividad,
             date:this.ListaActividadesEventos[i].fecha_entrega,
-            description:this.ListaActividadesEventos[i].detalle
+            description:this.ListaActividadesEventos[i].detalle,
+            color: this.ListaActividadesEventos[i].color_curso,
+            url: '#/teacher/curso/'+this.ListaActividadesEventos[i].idProfesor+'/' +this.ListaActividadesEventos[i].idCurso+'/' + this.ListaActividadesEventos[i].idGrado
           }
             this.Events=this.EventsDatos
         }
@@ -63,6 +66,20 @@ export class CalendariogeneralComponent implements OnInit {
       },
       error=>{
         console.log('Error: '+error);
+      }
+    )
+  }
+
+  getActividadesCurso(){
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario}:any=decode(token);
+    this.calendario.getCursoporProfesor( idUsuario).subscribe(
+      res=>{
+        this.Cursos=res;
+        console.log(this.Cursos)
+        },
+      err=>{
+        console.log('Error:'+err)
       }
     )
   }

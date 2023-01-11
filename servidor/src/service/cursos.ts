@@ -32,7 +32,7 @@ const obtenerCursosPorGradoService = async(idGrado:string)=>{
 }
 
 const obtenerCursosPorProfesorService = async (idProfesor:string)=>{
-    const responseGet=await conexion.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.idProfesor, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbJornada j ON n.idJornada=j.idJornada WHERE idProfesor=?',idProfesor);
+    const responseGet=await conexion.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.idProfesor, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, c.color_curso FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbJornada j ON n.idJornada=j.idJornada WHERE idProfesor=?',idProfesor);
     return responseGet;
 }
 const obtenerCursosPorGradoProfesorService = async(idGrado:string)=>{
@@ -45,7 +45,7 @@ const obtenerCursosPorProfesorGradoSeccionService=async(idProfesor:string,idCurs
 }
 
 const obtenerCursosPorAlumnoService=async(idAlumno:string)=>{
-    const response=await conexion.query('SELECT c.idCurso,g.idGrado,p.idProfesor,c.nombre_curso,al.idAlumno,CONCAT(g.nombre_grado,", ",s.seccion) AS grado, CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor FROM (((tbGrado g INNER JOIN tbCurso c ON c.idGrado=g.idGrado)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor WHERE al.idAlumno=?',[idAlumno]);
+    const response=await conexion.query('SELECT c.idCurso,g.idGrado,p.idProfesor,c.nombre_curso,al.idAlumno,CONCAT(g.nombre_grado,", ",s.seccion) AS grado, CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor, c.color_curso FROM (((tbGrado g INNER JOIN tbCurso c ON c.idGrado=g.idGrado)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor WHERE al.idAlumno=?',[idAlumno]);
     return response
 }
 
