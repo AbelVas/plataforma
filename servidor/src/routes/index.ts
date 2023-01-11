@@ -6,7 +6,7 @@ const router=Router();
 
 
 const cleanFileName=(fileName:string)=>{
-    const file=fileName.split('.ts').shift();
+    const file=fileName.split('.').shift();
     return file;
 };
 
