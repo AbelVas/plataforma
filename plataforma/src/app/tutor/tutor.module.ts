@@ -35,6 +35,7 @@ import { ContenidoVistaEstudianteComponent } from './vista-estudiante/components
 import { CalificacionesVistaEstudianteComponent } from './calificaciones-vista-estudiante/calificaciones-vista-estudiante.component';
 import { CalificacionesVistaEstudianteService } from "./calificaciones-vista-estudiante/services/calificaciones-vista-estudiante.service";
 import { FullCalendarModule } from "@fullcalendar/angular";
+import { TematutoresService } from "./dashboard/services/tematutores.service";
 @NgModule({
   imports:[
     TutorRoutingModule,
@@ -76,7 +77,8 @@ import { FullCalendarModule } from "@fullcalendar/angular";
     PerfilTutorService,
     ActividadesCursoAlumnoTutorService,
     VistaEstudianteService,
-    CalificacionesVistaEstudianteService
+    CalificacionesVistaEstudianteService,
+    TematutoresService
   ]
 })
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VistaEstudianteService } from '../../services/vista-estudiante.service';
 
@@ -24,6 +24,9 @@ export class ContenidoVistaEstudianteComponent implements OnInit {
     profesor:'',
     idAlumno:''
   };
+
+  @Input() cfondo2:string='';
+  @Input() ctexto1:string='';
 
   constructor(private vistaEstudianteService:VistaEstudianteService, private activedRoute:ActivatedRoute) { }
 
