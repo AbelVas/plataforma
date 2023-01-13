@@ -7,11 +7,11 @@ const insertarAdminService=async(req:Request)=>{
         return insert;
 }
 const getAdminService=async(id:string)=>{
-    const data=await conexion.query("SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idProfesor=? and p.idRol=1",[id])
+    const data=await conexion.query("SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol,p.imagen FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idProfesor=? and p.idRol=1",[id])
     return data;
 }
 const getAdminsService=async()=>{
-    const data=await conexion.query("SELECT `idProfesor`, `idCodigo`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo`, `idRol` FROM `tbProfesor` WHERE idProfesor!=1 and idRol=1")
+    const data=await conexion.query("SELECT idProfesor, idCodigo, nombre_profesor, apellido_profesor, telefono, CUI, usuario, fecha_nacimiento, estatus, creado, permitir_ver_correo, idRol,imagen FROM `tbProfesor` WHERE idProfesor!=1 and idRol=1")
     return data;
 }
 const updateAdminService=async(admin:Request,id:string)=>{

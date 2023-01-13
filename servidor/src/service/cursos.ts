@@ -54,4 +54,9 @@ const obtenerProfePorCurso=async(idCurso:string)=>{
     return response
 }
 
-export {obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService,obtenerProfePorCurso}
+const obtenerCursosPorGradoProfesorAdminService = async(idGrado:string)=>{
+    const responseGet=await conexion.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?',[idGrado]);
+    return responseGet;
+}
+
+export {obtenerCursosPorGradoProfesorAdminService,obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService,obtenerProfePorCurso}

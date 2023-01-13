@@ -5,7 +5,8 @@
           <div class="activity">
             <!--Aqui debo meter el for-->
           <div>
-            <div class="activity-item d-flex" *ngFor="let u of unidades">
+            <div class="row">
+              <div class="activity-item d-flex col-md-6" *ngFor="let u of unidades">
                 <div class="activite-label">
                   <div class="form-check form-switch">
                     <div *ngIf="u.estado==1; else switchOff" >
@@ -13,11 +14,13 @@
                       <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label>
                     </div>
                     <ng-template #switchOff>
+                     <div>
                       <input class="form-check-input" type="checkbox"(change)="noselectedCheck($event,u.idUnidad)" role="switch" value="{{u.idUnidad}}">
-                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label>
+                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label></div>
                     </ng-template>
                   </div>
                 </div>
+            </div>
             </div>
             <!--aqui finaliza el for-->
           </div>
@@ -30,10 +33,39 @@
 
     <div class="card">
       <div class="card-body pb-0">
-          <h5 class="card-title">Estadistica <span>| Resumen General</span></h5>
-          ** Aquí pondré un resumen de niños y niñas, Docentes Hombres, Mujeres
+          <h5 class="card-title">Estadisticas <span>| Resumen General</span></h5>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-hombre.png"><div><b class="texto-esta-alumnos">Niños: </b>{{totalNinos}}</div></div>
+            </div>
+            <br>
+            <div class="col-md-6">
+              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-mujer.png"><div> <b class="texto-esta-alumnos">Niñas: </b>{{totalNinas}}</div></div>
+            </div>
+          </div>
+          <hr>
           <br>
-          ** Códigos de Cuenta sin app-admin-ajustes-unidad-dashboard
+          <div class="row">
+            <h5 class="text-center">Estado de Códigos:</h5>
+            <div class="col-md-6">
+              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/activ-inactivo/codigo-inactivo.png"><div><b class="texto-esta-alumnos">En Uso:</b> {{codigoInactivo}}</div></div>
+             </div>
+             <br>
+            <div class="col-md-6" >
+              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/activ-inactivo/codigo-activo.png"><div><b class="texto-esta-alumnos">Sin usar:</b> {{codigoActivo}}</div></div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <h5 class="text-center">Contraseñas Docentes:</h5>
+            <div class="col-md-6">
+              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/pass-change/pass-change.png"><div><b class="texto-esta-alumnos">Cambiadas:</b> {{passDocenteCambiada}}</div></div>
+             </div>
+             <br>
+            <div class="col-md-6" >
+              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/pass-change/pass-not-change.png"><div><b class="texto-esta-alumnos">Sin Cambiar:</b> {{passDocenteNoCambiada}}</div></div>
+            </div>
+          </div>
           <br>
       </div>
     </div>

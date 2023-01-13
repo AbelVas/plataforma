@@ -19,9 +19,16 @@
             <td mat-cell *matCellDef="let p=index" class="text-center">{{p+1}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="docente">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Docente </th>
-            <td mat-cell *matCellDef="let p" class="text-center">{{p.apellido_profesor+' '+p.nombre_profesor}}</td>
+          <ng-container matColumnDef="Tutor">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Tutor </th>
+            <td mat-cell *matCellDef="let p" class="text-center">{{p.apellido_tutor+' '+p.nombre_tutor}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Hijo">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Hijo(s) </th>
+            <td mat-cell *matCellDef="let p" class="text-center">
+              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdropVERALUMNO"><i class="fa-solid fa-eye"></i></button>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="usuario">
@@ -32,7 +39,7 @@
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <span class="badge bg-success" *ngIf="p.estatus=='1';else activoInactivo">Activo</span>
+              <span class="badge bg-success" *ngIf="p.estado=='1';else activoInactivo">Activo</span>
               <ng-template #activoInactivo>
                 <span class="badge bg-danger">Inactivo</span>
               </ng-template>
@@ -69,189 +76,24 @@
     </div>
   </div>
   </div>
-<!--modal Editar-->
-<div class="modal fade" id="EditProfesorModal" tabindex="-1">
+
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdropVERALUMNO" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Editar Nivel</h5>
-        <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form class="row g-3" [formGroup]="docenteForm" (ngSubmit)="editarProfesor(docenteIndividual.idProfesor)" autocomplete="off">
-        <div class="modal-body">
-          <div class="col-md-12">
-
-            <div class="mb-3">
-              <label class="form-label">Nombre del Docente</label>
-              <input formControlName="nombre_profesor" type="text" value="{{docenteIndividual.nombre_profesor}}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Apellido del Docente</label>
-              <input formControlName="apellido_profesor" type="text" value="{{docenteIndividual.apellido_profesor}}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Fecha de Nacimiento</label>
-              <input formControlName="fecha_nacimiento" type="date" value="{{docenteIndividual.fecha_nacimiento | date:'yyyy-MM-dd'}}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Teléfono:</label>
-              <input formControlName="telefono" type="text" value="{{docenteIndividual.telefono}}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">CUI:</label>
-              <input formControlName="CUI" type="text" value="{{docenteIndividual.CUI}}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Usuario:</label>
-              <input formControlName="usuario" type="text" value="{{docenteIndividual.usuario}}" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <div *ngIf="isEditPassword=='1'; else switchOff">
-                <input class="form-check-input" type="checkbox" role="switch" (change)="selectedCheck($event)" checked>
-                <label class="form-check-label" for="flexSwitchCheckChecked"> <b>Cambiar Contraseña</b></label>
-              </div>
-              <ng-template #switchOff>
-                <input class="form-check-input" type="checkbox" role="switch" (change)="noselectedCheck($event)">
-                <label class="form-check-label" for="flexSwitchCheckChecked"> <b>Cambiar Contraseña</b></label>
-              </ng-template>
-            </div>
-            <!--confirm-->
-            <div *ngIf="isEditPassword!='0'">
-              <div class="mb-3">
-                <label class="form-label">Contraseña:</label>
-                <input formControlName="pass" type="text" class="form-control" [class]="passNoCoincide">
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Confirmar Contraseña:</label>
-                <input formControlName="confirmPass" type="text" class="form-control" [class]="passNoCoincide">
-              </div>
-            </div>
-
-          </div>
-          <div class="alert alert-dark" role="alert">
-            <i class="fa-solid fa-circle-exclamation"></i> Los Docentes siempre se Crearán Activos
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <div class="text-center">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!--modal Eliminar-->
-<div class="modal fade" id="EliminarProfesorModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Eliminar Docente</h5>
-        <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Hijo(s)</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-warning" role="alert">Si el Docente tiene asignados cursos y/o actividades, no se podrá eliminar, para ello asigna las actividades y los cursos a otro docente y así se podrá eliminar <b>Esa acción de concretarse no se puede deshacer</b></div>
+
+        <h4>Sin datos para mostrar</h4>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarDocente(docenteIndividual.idProfesor)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
       </div>
     </div>
   </div>
-</div>
-<!--Modal Crear-->
-<div class="modal fade" id="modalCrear" tabindex="-1">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Agregar Docente</h5>
-        <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div *ngIf="isCorrectCodigo==false;else codigoCorrect">
-        <div class="modal-body" >
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Código</label>
-            <input type="text" class="form-control" [class]="codigoError" #datoCodigo>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-success" (click)="verificaraCodigo(datoCodigo.value)"><i class="fa-solid fa-magnifying-glass"></i> Validar</button>
-        </div>
-      </div>
-
-      <ng-template #codigoCorrect>
-        <div>
-          <form class="row g-3" [formGroup]="docenteForm" (ngSubmit)="crearDocente()" autocomplete="off">
-            <div class="modal-body">
-              <div class="col-md-12">
-
-                <div class="mb-3">
-                  <label class="form-label">Nombre del Docente</label>
-                  <input formControlName="nombre_profesor" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_profesor.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Apellido del Docente</label>
-                  <input formControlName="apellido_profesor" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.apellido_profesor.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Fecha de Nacimiento</label>
-                  <input formControlName="fecha_nacimiento" type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fecha_nacimiento.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Teléfono:</label>
-                  <input formControlName="telefono" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">CUI:</label>
-                  <input formControlName="CUI" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.CUI.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Usuario:</label>
-                  <input formControlName="usuario" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }">
-                </div>
-
-                <!--confirm-->
-
-                <div class="mb-3">
-                  <label class="form-label">Contraseña:</label>
-                  <input formControlName="pass" type="text" class="form-control" [class]="passNoCoincide" [ngClass]="{ 'is-invalid': submitted && f.pass.errors }">
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Confirmar Contraseña:</label>
-                  <input formControlName="confirmPass" type="text" class="form-control" [class]="passNoCoincide" [ngClass]="{ 'is-invalid': submitted && f.confirmPass.errors }">
-                </div>
-
-              </div>
-              <div class="alert alert-dark" role="alert">
-                <i class="fa-solid fa-circle-exclamation"></i> Los Docentes siempre se Crearán Activos
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <div class="text-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </ng-template>
-    </div>
-</div>
 </div>

@@ -14,19 +14,19 @@ const GetAlumnosTotalPorGrado=async()=>{
 
 const GetAlumnosHombres=async()=>{
 
-    const responseGet=await conexion.query('SELECT COUNT(*) AS nino FROM tbAlumno WHERE sexo=1');
+    const responseGet=await conexion.query('SELECT COUNT(idAlumno) AS nino FROM tbAlumno WHERE sexo=1');
     return responseGet;
 }
 
 const GetAlumnosMujeres=async()=>{
 
-    const responseGet=await conexion.query('SELECT COUNT(*) AS nina FROM tbAlumno WHERE sexo=0');
+    const responseGet=await conexion.query('SELECT COUNT(idAlumno) AS nina FROM tbAlumno WHERE sexo=0');
     return responseGet;
 }
 
 const GetCodigosEnUso=async()=>{
 
-    const responseGet=await conexion.query('SELECT COUNT(activo) as noActivo FROM tbCodigo WHERE activo=1');
+    const responseGet=await conexion.query('SELECT COUNT(activo) as activo FROM tbCodigo WHERE activo=1');
     return responseGet;
 }
 
@@ -48,4 +48,15 @@ const GetContrasenaProfesorNoCambiada=async()=>{
     return responseGet;
 }
 
-export{GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetContrasenaProfesorNoCambiada}
+const GetCantidadGradosService=async()=>{
+    
+    const responseGet=await conexion.query('SELECT COUNT(idGrado) AS CantidadGrados FROM tbGrado');
+    return responseGet;
+}
+
+const GetCantidadDocentesService=async()=>{
+
+    const responseGet=await conexion.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor');
+    return responseGet;
+}
+export{GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetContrasenaProfesorNoCambiada,GetCantidadGradosService,GetCantidadDocentesService}

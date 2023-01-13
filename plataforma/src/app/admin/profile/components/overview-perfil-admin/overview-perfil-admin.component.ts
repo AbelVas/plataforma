@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import decode from "jwt-decode"
 import { PerfilService } from '../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
@@ -28,18 +28,24 @@ export class OverviewPerfilAdminComponent implements OnInit {
     estatus:'',
     permitir_ver_correo:''
   };
+  @Output() datosEvento=new EventEmitter<any>();
   constructor(private perfilAdminService:PerfilService) { }
   ngOnInit(): void {
     this.obtenerDatosAdmin();
     this.adminIndividual=this.adminGet
     this.perfilAdminService.disparadorCopiarData.emit(this.adminIndividual);
   }
+  ejecutarEvento(data:any){
+    this.datosEvento.emit(data);
+  }
   obtenerDatosAdmin(){
     this.sppinerOn=true;
     const {idUsuario}:any=decode(this.token);
     this.perfilAdminService.getAdmin(idUsuario).subscribe(
       response=>{
+        //console.log(response)
         this.adminGet=response;
+        this.ejecutarEvento(this.adminGet);
         this.adminGet[0].fecha_nacimiento=this.pipe.transform((this.adminGet[0].fecha_nacimiento),'dd/MM/yyyy')
         this.perfilAdminService.disparadorCopiarData.emit({
           data:this.adminGet[0]

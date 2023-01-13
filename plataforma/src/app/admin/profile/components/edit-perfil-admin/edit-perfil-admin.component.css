@@ -1,0 +1,8 @@
+.hover-imagen{
+  margin-top: 3px;
+  margin-bottom: 3px;
+  max-width: 60px;
+}
+.hover-imagen:hover{
+  background-color: rgb(179, 179, 179);
+}

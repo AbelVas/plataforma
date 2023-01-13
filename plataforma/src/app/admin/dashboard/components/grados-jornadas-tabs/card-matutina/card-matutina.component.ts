@@ -73,7 +73,6 @@ export class CardMatutinaComponent implements OnInit {
           this.cuadroGuiaService.getCursosNotasGradoGuia(idGrado,this.bimestreSeleccionadoConsolidado).subscribe(
             res=>{
               this.notasCursoConsolidado=res
-              console.log(this.notasCursoConsolidado)
             },
             err=>{
               console.log(err)
@@ -89,6 +88,7 @@ export class CardMatutinaComponent implements OnInit {
     const idJornada='1';
     this.gradoService.getGradoJornada(idJornada).subscribe(
       res=>{
+
         this.gradosLista=res;
         this.dataSource = new MatTableDataSource(this.gradosLista);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';

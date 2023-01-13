@@ -3,8 +3,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { ProfesoresService } from '../../dashboard/components/services/profesores.service';
 import { CodigosService } from '../../dashboard/components/services/codigos.service';
+import { TutoresService } from './tutores.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { CodigosService } from '../../dashboard/components/services/codigos.serv
   styleUrls: ['./tutores.component.css']
 })
 export class TutoresComponent implements OnInit {
-  listaDocentes:any=[];
+  listaTutores:any=[];
   docenteIndividual:any={}
   isEditPassword:string='0'
   variable:string='1'
@@ -49,7 +49,7 @@ export class TutoresComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  displayedColumns: string[] = ['no','docente','usuario','estado','acciones'];
+  displayedColumns: string[] = ['no','Tutor','Hijo','usuario','estado','acciones'];
   docenteForm=this.formBuilder.group({
     nombre_profesor:new FormControl('',[Validators.required]),
     apellido_profesor:new FormControl('',[Validators.required]),
@@ -71,25 +71,28 @@ export class TutoresComponent implements OnInit {
   icon=''
   intervalo:any
   submitted=false;
-  constructor(private profesorService:ProfesoresService,private formBuilder:FormBuilder,private codigoService:CodigosService) { }
+  constructor(private tutorService:TutoresService,private formBuilder:FormBuilder,private codigoService:CodigosService) { }
 
   ngOnInit(): void {
-    this.getProfesores();
+    this.getTutores();
   }
-  getProfesores(){
-    this.profesorService.getProfesoresListaSelectCursos().subscribe(
+  getTutores(){
+    this.tutorService.getTutor().subscribe(
       res=>{
-        this.listaDocentes=res
-        this.dataSource = new MatTableDataSource(this.listaDocentes);
-        this.paginator._intl.itemsPerPageLabel = 'Docentes por Página: ';
+        console.log(res)
+        this.listaTutores=res
+        this.dataSource = new MatTableDataSource(this.listaTutores);
+        this.paginator._intl.itemsPerPageLabel = 'Tutores por Página: ';
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
       },
       err=>{
         console.log(err)
       }
     )
   }
+  /*
   editarProfesor(idProfesor:string){
     this.submitted = true;
     if ((this.f.pass.value!=this.f.confirmPass.value)) {
@@ -143,6 +146,8 @@ export class TutoresComponent implements OnInit {
       )
     }
   }
+  */
+  /*
   eliminarDocente(idDocente:string){
     this.profesorService.deleteProfesor(idDocente).subscribe(
       res=>{
@@ -193,6 +198,7 @@ export class TutoresComponent implements OnInit {
       }
     )
   }
+  */
   verificaraCodigo(codigo:string){
     var dataCodigoProfesor:any={
       idTipoCodigo:'2',
@@ -213,7 +219,7 @@ export class TutoresComponent implements OnInit {
     )
   }
   buscarDocentesArray(idProfesor:string){
-    this.docenteIndividual=this.listaDocentes.find((x:any)=>x.idProfesor===idProfesor)
+    this.docenteIndividual=this.listaTutores.find((x:any)=>x.idProfesor===idProfesor)
   }
   selectedCheck(e:any){
     if(e.target.checked){
