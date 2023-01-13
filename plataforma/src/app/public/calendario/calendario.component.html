@@ -1,7 +1,7 @@
 <full-calendar [options]="calendarOptions"  [events]="Events"></full-calendar>
 <div>
-  <h4 class="card-title"  *ngIf="Cursos!='';else tablaVaciaC">Colores de actividad por curso</h4>
-
+  <h4 class="card-title" >Colores de actividad por curso</h4>
+  <div *ngIf="Cursos!='';else tablaVaciaC">
   <div class="row" >
     <div class="col-xxl-4 col-md-6 mb-3" *ngFor="let c of Cursos" >
       <div>
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-
+</div>
   <ng-template #tablaVaciaC>
     <div class="alert alert-warning" role="alert">
       Sin registros, no tiene ningún curso asignado aún...

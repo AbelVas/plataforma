@@ -44,7 +44,7 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     this.idCursoCurso = params['id'];
     this.calificacionIndividual=this.calificacionesGet;
     this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
-    console.log(this.idEstudiante)
+    console.log(this.tareas)
   }
 
   getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
@@ -94,7 +94,9 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
       }
     )
   }
-
+  buscarActividadArray(idActividad:string){
+    this.calificacionIndividual=this.calificacionesGet.find((x:any)=>x.idDetalleActividad===idActividad)
+  }
 
 
 

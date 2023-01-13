@@ -16,17 +16,23 @@
                      <tr>
                         <th scope="col" class="text-center">Tarea</th>
                         <th scope="col" class="text-center">Descripción</th>
-                        <!--- <th scope="col" class="text-center">Comentario del profesor</th> -->
-                        <th scope="col" class="text-center">Entrega</th>
+                        <th scope="col" class="text-center">Comentario del profesor</th>
+                        <!--<th scope="col" class="text-center">Entrega</th>-->
                         <th scope="col" class="text-center">Puntuación</th>
                      </tr>
                   </thead>
                   <tbody>
-                     <tr *ngFor="let t of tareas">
+                     <tr *ngFor="let t of tareas;let i = index">
                         <td align="center">{{t.nombre_actividad}}</td>
-                        <td align="center">{{t.detalle}}</td>
-                        <!---<td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario"> Ver Comentario</button> </td>-->
-                        <td align="center">A tiempo</td>
+                        <!--Detalle de la actividad-->
+                        <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(t.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
+                         </td>
+                         <!--Comentario del profesor-->
+                        <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
+                          <i class="fa-regular fa-comment-dots"></i>
+                           </button>
+                         </td>
+                        <!--<td align="center">A tiempo</td>-->
                         <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
                           <ng-template #notaNulaTar>
                             <td class="text-center">{{t.nota}} /{{t.valor}}</td>
@@ -39,11 +45,104 @@
                                    <h5 class="modal-title">Comentario de Profesor</h5>
                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">Comentario típico de profesor</div>
+                                <div class="modal-body">Comentario de Profesor</div>
                                 <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                              </div>
                           </div>
                        </div>
+
+                        <!--Modal Ver Actividad Completa-->
+                        <div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Nombre de la Actividad: </b>{{calificacionIndividual.nombre_actividad}}</label>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Fecha de Entrega: </b>{{calificacionIndividual.fecha_entrega | date:'dd/MM/yyyy'}}</label>
+                                </div>
+
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Valor: </b>{{calificacionIndividual.valor+' pts.'}}</label>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Unidad: </b>{{calificacionIndividual.unidad}}</label>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Tipo de Actividad: </b>{{calificacionIndividual.tipoActividad}}</label>
+                                </div>
+
+                                <!--<div class="mb-3" *ngIf="calificacionIndividual.ruta_acceso!=''">
+                                  <label class="form-label"><b>Visible para Alumnos:</b></label>
+                                  <br>
+                                  <label *ngIf="calificacionIndividual.disponible=='1';else noDisponible" class="form-label">Coso para Descargar Recurso</label>
+                                  <ng-template #noDisponible>
+                                    <label class="form-label">- Sin Recurso Disponible -</label>
+                                  </ng-template>
+                                </div> -->
+
+                                <!--<div class="mb-3" *ngIf="(calificacionIndividual.tipoActividad=='Tarea'||calificacionIndividual.tipoActividad=='Exámen')">
+                                  <label class="form-label"><b>Visible para Alumnos:</b></label>
+                                  <br>
+                                  <label *ngIf="calificacionIndividual.disponible=='1';else noDisponible" class="form-label"><span class="badge bg-success">Visible</span></label>
+                                  <ng-template #noDisponible>
+                                    <label class="form-label"><span class="badge bg-danger">Sin Visibilidad</span></label>
+                                  </ng-template>
+                                </div> -->
+
+                                <div class="mb-3" *ngIf="(calificacionIndividual.tipoActividad=='Tarea'||calificacionIndividual.tipoActividad=='Exámen')">
+                                  <label class="form-label"><b>Permitir entregas Tarde:</b></label>
+                                  <br>
+                                  <label *ngIf="calificacionIndividual.entrega_fuera_fecha=='1';else noPermitido" class="form-label"><span class="badge bg-success">Permitido</span></label>
+                                  <ng-template #noPermitido>
+                                    <label class="form-label"><span class="badge bg-danger">No Permitido</span></label>
+                                  </ng-template>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Detalle:</b></label>
+                                  <br>
+                                  <label *ngIf="calificacionIndividual.detalle!='';else noDetalle" class="form-label">{{calificacionIndividual.detalle}}</label>
+                                  <ng-template #noDetalle>
+                                    <label class="form-label">*** No ingresado ***</label>
+                                  </ng-template>
+                                </div>
+
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Cotejo:</b></label>
+                                  <br>
+                                  <label *ngIf="calificacionIndividual.cotejo!='';else noCotejo" class="form-label">{{calificacionIndividual.cotejo}}</label>
+                                  <ng-template #noCotejo>
+                                    <label class="form-label">*** No ingresado ***</label>
+                                  </ng-template>
+                                </div>
+
+                                <!--<div class="mb-3">
+                                  <label class="form-label"><b>Última Modificación:</b></label>
+                                  <br>
+                                  <label class="form-label" *ngIf="calificacionIndividual.ultima_modificacion!=undefined;else modificadaTarea">{{calificacionIndividual.ultima_modificacion | date:'dd/MM/yyyy'}}</label>
+                                  <ng-template #modificadaTarea>
+                                    <label class="form-label">*** Sin modificar ***</label>
+                                  </ng-template>
+                                </div>-->
+
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                      </tr>
                   </tbody>

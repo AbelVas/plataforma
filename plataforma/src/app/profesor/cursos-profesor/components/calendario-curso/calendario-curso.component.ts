@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calendario-curso',
@@ -12,17 +13,16 @@ import listPlugin from '@fullcalendar/list';
   styleUrls: ['./calendario-curso.component.css']
 })
 export class CalendarioCursoComponent implements OnInit {
-  ActividadesInfo:any=[];
-  Tareas:any=[];
-  idCurso:any;
+  ActividadesInfoCalendario:any=[];
+  idCursoCalendario:any;
   errorServicio:any={};
   errorService:any={
     codigoError:''
   };
 
   Plugins:any = [dayGridPlugin, listPlugin];
-  EventsDatos: any= []
-  Events:any = [
+  EventsDatosCalendario: any= []
+  EventosCalendario:any = [
   ]
   calendarOptions: CalendarOptions= {
       initialView: 'dayGridWeek',
@@ -45,24 +45,25 @@ export class CalendarioCursoComponent implements OnInit {
   constructor(public ruta:ActivatedRoute, public calendario:CalendarioCursoService) { }
 
   ngOnInit(): void {
-    this.getActividadesCurso()
+    this.getActividadesCursoCalendario()
+
   }
 
-  getActividadesCurso(){
-    this.idCurso = this.ruta.snapshot.paramMap.get('idCurso');
-    const idUsuario = this.idCurso
+  getActividadesCursoCalendario(){
+    this.idCursoCalendario = this.ruta.snapshot.paramMap.get('idCurso');
+    const idUsuario = this.idCursoCalendario
     this.calendario.getActividadesCurso( idUsuario).subscribe(
       res=>{
-        this.ActividadesInfo=res;
+        this.ActividadesInfoCalendario=res;
         console.log(res)
-        for(let i =0; i<this.ActividadesInfo.length; i++){
-          this.EventsDatos[i]={
-            title:this.ActividadesInfo[i].nombre_actividad,
-            date:this.ActividadesInfo[i].fecha_entrega,
-            description:this.ActividadesInfo[i].detalle,
-            color: this.ActividadesInfo[i].color_curso
+        for(let i =0; i<this.ActividadesInfoCalendario.length; i++){
+          this.EventsDatosCalendario[i]={
+            title:this.ActividadesInfoCalendario[i].nombre_actividad,
+            date:this.ActividadesInfoCalendario[i].fecha_entrega,
+            description:this.ActividadesInfoCalendario[i].detalle,
+            color: this.ActividadesInfoCalendario[i].color_curso
           }
-            this.Events=this.EventsDatos
+            this.EventosCalendario=this.EventsDatosCalendario
         }
       },
       err=>{
