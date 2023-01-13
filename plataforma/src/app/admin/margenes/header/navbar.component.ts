@@ -9,7 +9,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document) { }
-
+  dataAdmin:any={
+    imagen:''
+  }
   ngOnInit(): void {
   }
   sidebarToggle()
@@ -17,5 +19,4 @@ export class HeaderComponent implements OnInit {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
   }
-
 }

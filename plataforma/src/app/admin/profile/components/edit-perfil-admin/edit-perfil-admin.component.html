@@ -2,12 +2,60 @@
   <div class="row mb-3">
      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
      <div class="col-md-8 col-lg-9">
-        <img src="assets/img/blank_profile.png" alt="Profile">
+        <img [src]="adminIndividual[0].imagen" alt="Profile">
         <div class="pt-2">
-          <!--aqui botones para editar perfil-->
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="btn btn-danger" (click)="eliminarFotoPerfil()"><i class="fa-solid fa-trash-can"></i></button>
         </div>
      </div>
   </div>
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Foro de Perfil</h1>
+        <button type="button" #cerrarEditarModalPerfil class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <div *ngIf="imagenPerfilActual!='';else imagenDefecto">
+            <img src="{{imagenPerfilActual}}">
+          </div>
+          <ng-template #imagenDefecto>
+            <div>
+              <img src="{{adminIndividual[0].imagen}}">
+            </div>
+          </ng-template>
+        </div>
+        <hr>
+        <select class="form-select" (change)="selectValue($event)">
+          <option selected>Categoría...</option>
+          <option value="1">Espacial</option>
+          <!--<option *ngFor="let n of nivelesGet" value="{{n.idNivel}}">{{n.nivel+', '+n.jornada}}</option>-->
+        </select>
+        <br>
+        <div *ngIf="idCategoriaImagen=='1';else noSelectedImagen">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let i of listaImagenes">
+                <img [src]="i.ruta" class="hover-imagen" (click)="valueGetImagen(i.ruta)">
+              </div>
+            </div>
+        </div>
+        <ng-template #noSelectedImagen>
+          <div class="alert alert-warning" role="alert">
+            Sin Categoría seleccionada...
+          </div>
+        </ng-template>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="actualizarImagenPerfil(adminIndividual[0].idProfesor)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
   <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Nombre</label>
      <div class="col-md-8 col-lg-9"> <input name="nombre_profesor" type="text" class="form-control" [(ngModel)]="adminIndividual[0].nombre_profesor"></div>

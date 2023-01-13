@@ -99,7 +99,6 @@ export class CardCursosComponent implements OnInit {
       this.alertaValor.icon='fa-solid fa-xmark'
       this.cerrarAlerta()
     })
-  console.log(idCurso)
   }
   crearCurso(){
     var cursoIngresado:any={}
@@ -135,7 +134,6 @@ export class CardCursosComponent implements OnInit {
         this.cerrarAlerta()
       }
     )
-    console.log(cursoIngresado)
   }
   editarCurso(idCurso:string){
     var DataModificada:any={}

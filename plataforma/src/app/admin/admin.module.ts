@@ -66,6 +66,8 @@ import { TutoresComponent } from './usuarios/tutores/tutores.component';
 import { CuadroGuiaService } from "./grados/components/services/cuadro-guia.service";
 import { TutoresService } from "./usuarios/tutores/tutores.service";
 import { AlumnosService } from "./usuarios/alumnos/alumnos.service";
+import { EstadisticasDashboardService } from "./dashboard/components/services/estadisticas-dashboard.service";
+import { ImagenesPerfilDefectoService } from "./profile/services/imagenes-perfil-defecto.service";
 
 
 @NgModule({
@@ -126,6 +128,8 @@ import { AlumnosService } from "./usuarios/alumnos/alumnos.service";
         CuadroGuiaService,
         TutoresService,
         AlumnosService,
+        EstadisticasDashboardService,
+        ImagenesPerfilDefectoService
     ],
     imports: [
         AdminRoutingModule,

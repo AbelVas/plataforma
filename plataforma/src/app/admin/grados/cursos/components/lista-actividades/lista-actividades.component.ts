@@ -71,8 +71,19 @@ export class ListaActividadesComponent implements OnInit {
     idUnidad:'',
     idDetalleActividad:''
   }
+  alertaValor:any={
+    classAlerta:'',
+    mensajeAlerta:'',
+    icon:''
+  }
+  alertaValorCalificar:any={
+    classAlerta:'',
+    mensajeAlerta:'',
+    icon:''
+  }
   datosCalificar:any={}
   sppinerOn:boolean=true;
+  intervalo:any
   @Input() idCurso:any=''
   //Grupo de aca, sirve para luego cerrar los modales si se obtiene un true desde la api
   @ViewChild('crearTareaModalCerrar') modalCloseCrear: any;
@@ -80,6 +91,8 @@ export class ListaActividadesComponent implements OnInit {
   @ViewChild('crearForoModalCerrar') modalCloseForo: any;
   @ViewChild('editarActividadCerrar') modalCloseEditar: any;
   @ViewChild('duplicarActividadCerrar') modalCloseDuplicar: any;
+  @ViewChild('CerrarAlerta') closeAlert: any;
+  @ViewChild('CalificarModal') modalCloseClificar: any;
   //Formulario
     crearTareaForm=this.formBuilder.group({
     idUnidad:new FormControl('',[Validators.required]),
@@ -120,10 +133,12 @@ export class ListaActividadesComponent implements OnInit {
       }
       this.actividadService.calificarActividad(idActividad,nota).subscribe(
         res=>{
+          //this.modalCloseClificar.nativeElement.click();
 
         },
         err=>{
-          console.log(err)
+          //this.modalCloseClificar.nativeElement.click();
+
         }
       )
     }
@@ -178,10 +193,17 @@ export class ListaActividadesComponent implements OnInit {
         this.getCursosDocente()
         this.getTareas()
         this.cursosCopiar=[]
-        console.log(this.cursosCopiar)
+        this.alertaValor.mensajeAlerta='Actividad Duplicada Correctamente'
+        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.cerrarAlerta()
       },
       err=>{
-        console.log(err)
+        this.modalCloseDuplicar.nativeElement.click();
+        this.alertaValor.mensajeAlerta='Error al Duplicar Actividad'
+        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+        this.alertaValor.icon='fa-solid fa-xmark'
+        this.cerrarAlerta()
       }
     )
   }
@@ -206,16 +228,21 @@ export class ListaActividadesComponent implements OnInit {
     delete this.ActividadIndividualEdit.tipoActividad
     delete this.ActividadIndividualEdit.creada
     this.ActividadIndividualEdit.ultima_modificacion=this.fecha
-
-    //delete this.ActividadIndividualEdit.disponible
-    //delete this.ActividadIndividualEdit.entrega_fuera_fecha
     this.actividadService.updateActividad(idActividad,this.ActividadIndividualEdit).subscribe(
       res=>{
         this.modalCloseEditar.nativeElement.click();
         this.getTareas()
+        this.alertaValor.mensajeAlerta='Actividad Editada Correctamente'
+        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.cerrarAlerta()
       },
       err=>{
-        console.log(err)
+        this.modalCloseEditar.nativeElement.click();
+        this.alertaValor.mensajeAlerta='Error al EDITAR Actividad'
+        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+        this.alertaValor.icon='fa-solid fa-xmark'
+        this.cerrarAlerta()
       }
     )
     //this.modalCloseEditar.nativeElement.click();
@@ -223,13 +250,21 @@ export class ListaActividadesComponent implements OnInit {
   eliminarActividad(idActividad:string){
     this.actividadService.deleteTarea(idActividad).subscribe(
       res=>{
-        this.modalCloseEliminar.nativeElement.click();
+          this.modalCloseEliminar.nativeElement.click();
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas();
+          this.alertaValor.mensajeAlerta='Actividad Eliminada Correctamente'
+          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.cerrarAlerta()
       },
       err=>{
-        console.log(err)
+          this.modalCloseEliminar.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Error al Eliminar Actividad'
+          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-xmark'
+          this.cerrarAlerta()
       }
     )
   }
@@ -245,13 +280,21 @@ export class ListaActividadesComponent implements OnInit {
     this.tareaCreadaObj.disponible='1'
     this.actividadService.crearTarea(this.tareaCreadaObj).subscribe(
       res=>{
-        this.modalCloseForo.nativeElement.click();
+          this.modalCloseForo.nativeElement.click();
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas()
+          this.alertaValor.mensajeAlerta='Foro Creada Correctamente'
+          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.cerrarAlerta()
       },
       err=>{
-        console.log(err)
+          this.modalCloseForo.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Error al Crear Foro'
+          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-xmark'
+          this.cerrarAlerta()
       }
     )
   }
@@ -274,9 +317,18 @@ export class ListaActividadesComponent implements OnInit {
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas()
+          this.modalCloseCrear.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Tarea Creada Correctamente'
+          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.cerrarAlerta()
         },
         err=>{
-          console.log(err)
+          this.modalCloseCrear.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Error al Crear Tarea'
+          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-xmark'
+          this.cerrarAlerta()
         }
       )
   }
@@ -367,6 +419,12 @@ export class ListaActividadesComponent implements OnInit {
     }else{
       return this.ActividadIndividualEdit.entrega_fuera_fecha='1';
     }
+  }
+  cerrarAlerta(){
+    this.intervalo=setInterval(() => {//
+      this.closeAlert.nativeElement.click();
+      this.alertaValor.classAlerta='toast hide'
+    }, 5000);
   }
   //para los forms siempre debemos traer los validadores
   get f() { return this.crearTareaForm.controls; }

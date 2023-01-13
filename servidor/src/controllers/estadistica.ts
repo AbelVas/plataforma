@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import { handleHttp } from "../utils/error.handle"
-import {GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetContrasenaProfesorNoCambiada} from  "../service/estadistica"
+import {GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetContrasenaProfesorNoCambiada,GetCantidadGradosService,GetCantidadDocentesService} from  "../service/estadistica"
 
 const obtenerAlumnosTotal=async(req:Request,res:Response)=>{
     try {
@@ -66,5 +66,21 @@ const obtenerContrasenaProfesorNoCambiada=async(req:Request,res:Response)=>{
         handleHttp(res,'Error al Obtener los Grados')
     }
 }
+const GetCantidadGrados=async(req:Request,res:Response)=>{
+    try {
+        const resultado=await GetCantidadGradosService()
+        res.send(resultado)
+    } catch (e) {
+        handleHttp(res,"Error al obtener los datos",e)
+    }
+}
+const GetCantidadDocentes=async(req:Request,res:Response)=>{
+    try {
+        const resultado=await GetCantidadDocentesService()
+        res.send(resultado)
+    } catch (e) {
+        handleHttp(res,"Error al obtener los datos",e)
+    }
+}
 
-export{obtenerAlumnosTotal, obtenerAlumnosTotalPorGrado,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada,obtenerContrasenaProfesorNoCambiada}
+export{GetCantidadGrados,GetCantidadDocentes,obtenerAlumnosTotal, obtenerAlumnosTotalPorGrado,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada,obtenerContrasenaProfesorNoCambiada}

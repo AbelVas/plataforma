@@ -81,7 +81,6 @@ export class AlumnosComponent implements OnInit {
   getGrados(){
     this.gradoService.getGrados().subscribe(
       res=>{
-        console.log(res)
         this.listaGradosSelect=res
       },
       err=>{

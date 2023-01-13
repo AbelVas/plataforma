@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BimestreService } from '../../containers/admin/dashboard/bimestres.service';
+import { EstadisticasDashboardService } from '../services/estadisticas-dashboard.service';
 
 @Component({
   selector: 'app-admin-ajustes-unidad-dashboard',
@@ -13,11 +14,75 @@ export class AjustesUnidadComponent implements OnInit {
   estadoUnidad:any={
     estado:''
   }
-  constructor(private servicioBimestre:BimestreService) { }
+  totalNinos:any=''
+  totalNinas:any=''
+  codigoActivo:any=''
+  codigoInactivo:any=''
+  passDocenteCambiada:any=''
+  passDocenteNoCambiada:any=''
+  constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService) { }
 
   ngOnInit(): void {
     this.getUnidades();
+    this.getNinosNinas();
+    this.getCodigoActivoInactivo();
+    this.getPassChangeDocentes();
   }
+  getNinosNinas(){
+    this.estadisticaService.getTotalAlumnosHombres().subscribe(
+      res=>{
+        this.totalNinos=res[0].nino
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+    this.estadisticaService.getTotalAlumnosMujeres().subscribe(
+      res=>{
+        this.totalNinas=res[0].nina
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  getPassChangeDocentes(){
+    this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
+      res=>{
+        this.passDocenteCambiada=res[0].siCambioContra
+      },
+      err=>{
+       console.log(err)
+      }
+    )
+    this.estadisticaService.getDocenteContrasenaNoCambiada().subscribe(
+      res=>{
+        this.passDocenteNoCambiada=res[0].noCambioContra
+      },
+      err=>{
+       console.log(err)
+      }
+    )
+  }
+  getCodigoActivoInactivo(){
+    this.estadisticaService.getTotalCodigosUso().subscribe(
+      res=>{
+        this.codigoActivo=res[0].activo
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+    this.estadisticaService.getTotalCodigosNoUso().subscribe(
+      res=>{
+        this.codigoInactivo=res[0].noActivo
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
   getUnidades(){
     this.servicioBimestre.getUnidades().subscribe(
       response=>{
