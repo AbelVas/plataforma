@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VistaEstudianteService } from '../../vista-estudiante/services/vista-estudiante.service';
+import { TematutoresService } from '../../dashboard/services/tematutores.service';
 
 @Component({
   selector: 'app-resumen-curso-alumno-tutor',
@@ -19,19 +20,57 @@ export class ResumenCursoAlumnoTutorComponent implements OnInit {
     seccion:''
   };
 
-  constructor(private vistaEstudianteService:VistaEstudianteService, private activedRoute:ActivatedRoute) { }
+  temaactivo:string='1';
+
+  temaGet:any=[];
+  temaIndividual:any={
+    idTema: '',
+    idIconoAdmin: '',
+    idIconoTutor: '',
+    idIconoProfesor: '',
+    idIconoEstudiante: '',
+    nombre_tema: '',
+    fondo1: '',
+    texto1: '',
+    estado: ''
+  }
+
+  //variables de colores
+  cfondo1:string='';
+  ctexto1:string='';
+
+  constructor(private vistaEstudianteService:VistaEstudianteService, private activedRoute:ActivatedRoute, private tematutoresService:TematutoresService) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
     this.iddelCurso=params['idCurso'];
     this.obtenerDatosCursos();
     this.cursosIndividual=this.cursosGet
+
+    this.obtenerDatosTema();
+    this.temaIndividual=this.temaGet
   }
 
   obtenerDatosCursos(idCurso=this.iddelCurso){
     this.vistaEstudianteService.getCurso(idCurso).subscribe(
       response=>{
         this.cursosGet=response;
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
+  }
+
+  obtenerDatosTema(){
+    this.tematutoresService.getTemaActivo(this.temaactivo).subscribe(
+      response=>{
+        var cantidad=response.length;
+        this.temaGet=response;
+        for(let i=0; i<cantidad; i++){
+          this.cfondo1=this.temaGet[i].fondo1;
+          this.ctexto1=this.temaGet[i].texto1;
+        }
       },
       error=>{
         console.log('Error: '+error);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -24,6 +24,9 @@ export class CardResumenComponent implements OnInit {
     codigo:''
   };
 
+  @Input() cfondo2:string='';
+  @Input() ctexto1:string='';
+
   constructor( private dashboardService:DashboardService ) { }
 
   ngOnInit(): void {
@@ -42,7 +45,6 @@ export class CardResumenComponent implements OnInit {
       response=>{
         this.alumnosGet=response;
         this.sppinerOn=false;
-        console.log('Alumnos: '+response)
       },
       error=>{
         console.log('Error: '+error);

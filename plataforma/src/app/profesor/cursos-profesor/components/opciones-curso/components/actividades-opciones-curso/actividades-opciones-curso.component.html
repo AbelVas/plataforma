@@ -203,11 +203,11 @@
             <textarea class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7"></textarea>
           </div>
 
-          <hr>
+          <!--<hr>
           <div class="mb-3">
             <label for="formFile" class="form-label"><b>Recurso:</b></label>
             <input class="form-control" type="file" id="formFile">
-          </div>
+          </div>-->
 
 
           <div class="form-check" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
@@ -292,14 +292,14 @@
           <label class="form-label"><b>Tipo de Actividad: </b>{{ActividadIndividual.tipoActividad}}</label>
         </div>
 
-        <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
+        <!--<div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
           <label class="form-label"><b>Visible para Alumnos:</b></label>
           <br>
           <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label">Coso para Descargar Recurso</label>
           <ng-template #noDisponible>
             <label class="form-label">- Sin Recurso Disponible -</label>
           </ng-template>
-        </div>
+        </div>-->
 
         <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
           <label class="form-label"><b>Visible para Alumnos:</b></label>
@@ -417,11 +417,11 @@
             <textarea formControlName="cotejo" class="form-control" rows="7"></textarea>
           </div>
 
-          <hr>
+         <!-- <hr>
           <div class="mb-3">
             <label for="formFile" class="form-label">Recurso:</label>
             <input class="form-control" type="file" id="formFile">
-          </div>
+          </div>-->
 
         </div>
       <div class="modal-footer">
@@ -478,11 +478,11 @@
             <textarea formControlName="cotejo" class="form-control" rows="7"></textarea>
           </div>
 
-          <hr>
+         <!-- <hr>
           <div class="mb-3">
             <label for="formFile" class="form-label">Recurso:</label>
             <input class="form-control" type="file" id="formFile">
-          </div>
+          </div>-->
 
           <hr>
           <div class="form-check">

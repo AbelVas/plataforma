@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
 import { CalificacionesVistaEstudianteService } from './services/calificaciones-vista-estudiante.service';
+import { TematutoresService } from '../dashboard/services/tematutores.service';
 
 @Component({
   selector: 'app-calificaciones-vista-estudiante',
@@ -30,7 +31,27 @@ export class CalificacionesVistaEstudianteComponent implements OnInit {
   };
 
   NombreUsuario:any=[];
-  constructor(private calificacionesVistaEstudianteService:CalificacionesVistaEstudianteService, private activedRoute:ActivatedRoute) { }
+
+  temaactivo:string='1';
+
+  temaGet:any=[];
+  temaIndividual:any={
+    idTema: '',
+    idIconoAdmin: '',
+    idIconoTutor: '',
+    idIconoProfesor: '',
+    idIconoEstudiante: '',
+    nombre_tema: '',
+    fondo1: '',
+    texto1: '',
+    estado: ''
+  }
+
+  //variables de colores
+  cfondo1:string='';
+  ctexto1:string='';
+
+  constructor(private calificacionesVistaEstudianteService:CalificacionesVistaEstudianteService, private activedRoute:ActivatedRoute, private tematutoresService:TematutoresService) { }
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');
@@ -44,6 +65,9 @@ export class CalificacionesVistaEstudianteComponent implements OnInit {
     this.cursosIndividual=this.cursosGet
 
     this.obtenerAlumno();
+
+    this.obtenerDatosTema();
+    this.temaIndividual=this.temaGet
   }
 
   obtenerDatosCursos(idAlumno=this.idStudent){
@@ -69,6 +93,22 @@ export class CalificacionesVistaEstudianteComponent implements OnInit {
       error=>{
         console.log('Error: '+error);
         this.sppinerOn=false;
+      }
+    )
+  }
+
+  obtenerDatosTema(){
+    this.tematutoresService.getTemaActivo(this.temaactivo).subscribe(
+      response=>{
+        var cantidad=response.length;
+        this.temaGet=response;
+        for(let i=0; i<cantidad; i++){
+          this.cfondo1=this.temaGet[i].fondo1;
+          this.ctexto1=this.temaGet[i].texto1;
+        }
+      },
+      error=>{
+        console.log('Error: '+error);
       }
     )
   }

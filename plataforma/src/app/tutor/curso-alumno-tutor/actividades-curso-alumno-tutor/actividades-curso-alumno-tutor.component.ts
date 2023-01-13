@@ -93,5 +93,8 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
       }
     )
   }
+  buscarActividadArray(idActividad:string){
+    this.calificacionIndividual=this.calificacionesGet.find((x:any)=>x.idDetalleActividad===idActividad)
+  }
 
 }
