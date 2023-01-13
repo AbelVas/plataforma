@@ -16,8 +16,8 @@
                      <tr>
                         <th scope="col" class="text-center">Tarea</th>
                         <th scope="col" class="text-center">Descripción</th>
-                        <th scope="col" class="text-center">Comentario del profesor</th>
-                        <!--<th scope="col" class="text-center">Entrega</th>-->
+                       <!-- <th scope="col" class="text-center">Comentario del profesor</th>
+                        <th scope="col" class="text-center">Entrega</th>-->
                         <th scope="col" class="text-center">Puntuación</th>
                      </tr>
                   </thead>
@@ -27,11 +27,11 @@
                         <!--Detalle de la actividad-->
                         <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(t.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
                          </td>
-                         <!--Comentario del profesor-->
+                         <!--Comentario del profesor
                         <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
                           <i class="fa-regular fa-comment-dots"></i>
                            </button>
-                         </td>
+                         </td>-->
                         <!--<td align="center">A tiempo</td>-->
                         <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
                           <ng-template #notaNulaTar>
