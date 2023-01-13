@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import decode from 'jwt-decode';
 import { PerfilProfesorService } from './services/perfil-profesor.service';
+import { TemaProfesorService } from '../dashboard/services/tema-profesor.service';
 
 @Component({
   selector: 'app-perfil-profesor',
@@ -20,12 +21,36 @@ export class PerfilProfesorComponent implements OnInit {
     apellido_profesor:''
   };
 
-  constructor(private perfilProfesoresService:PerfilProfesorService) {}
+  temaactivo:string='1';
+
+  temaGet:any=[];
+  temaIndividual:any={
+    idTema: '',
+    idIconoAdmin: '',
+    idIconoTutor: '',
+    idIconoProfesor: '',
+    idIconoEstudiante: '',
+    nombre_tema: '',
+    fondo1: '',
+    fondo2: '',
+    texto1: '',
+    estado: ''
+  }
+
+  //variables de colores
+  cfondo1:string='';
+  cfondo2:string='';
+  ctexto1:string='';
+
+  constructor(private perfilProfesoresService:PerfilProfesorService, private temaProfesorService:TemaProfesorService ) {}
 
   ngOnInit(): void {
     this.obtenerDatosProfesor();
     this.profesorIndividual=this.profesorGet
     this.perfilProfesoresService.disparadorCopiarData.emit(this.profesorIndividual);
+
+    this.obtenerDatosTema();
+    this.temaIndividual=this.temaGet
   }
 
   obtenerDatosProfesor(){
@@ -36,6 +61,23 @@ export class PerfilProfesorComponent implements OnInit {
         this.perfilProfesoresService.disparadorCopiarData.emit({
           data:this.profesorGet[0]
         });
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
+  }
+
+  obtenerDatosTema(){
+    this.temaProfesorService.getTemaActivo(this.temaactivo).subscribe(
+      response=>{
+        var cantidad=response.length;
+        this.temaGet=response;
+        for(let i=0; i<cantidad; i++){
+          this.cfondo1=this.temaGet[i].fondo1;
+          this.cfondo2=this.temaGet[i].fondo2;
+          this.ctexto1=this.temaGet[i].texto1;
+        }
       },
       error=>{
         console.log('Error: '+error);

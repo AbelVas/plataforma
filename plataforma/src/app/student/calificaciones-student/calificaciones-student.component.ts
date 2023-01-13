@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import { CalificacionesStudentService } from './services/calificaciones-student.service';
+import { TemaEstudianteService } from '../dashboard/services/tema-estudiante.service';
 
 @Component({
   selector: 'app-calificaciones-student',
@@ -14,7 +15,27 @@ export class CalificacionesStudentComponent implements OnInit {
   errorService:any={
     codigoError:''
   };
-  constructor(public calificaser:CalificacionesStudentService) { }
+
+  temaactivo:string='1';
+
+  temaGet:any=[];
+  temaIndividual:any={
+    idTema: '',
+    idIconoAdmin: '',
+    idIconoTutor: '',
+    idIconoProfesor: '',
+    idIconoEstudiante: '',
+    nombre_tema: '',
+    fondo1: '',
+    texto1: '',
+    estado: ''
+  }
+
+  //variables de colores
+  cfondo1:string='';
+  ctexto1:string='';
+
+  constructor(public calificaser:CalificacionesStudentService, private temaEstudianteService:TemaEstudianteService) { }
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');
@@ -22,6 +43,9 @@ export class CalificacionesStudentComponent implements OnInit {
     const {apellido_profesor}: any=decode(token);
     this.NombreUsuario=nombre_profesor+" "+apellido_profesor;
     this.obtenerGrado();
+
+    this.obtenerDatosTema();
+    this.temaIndividual=this.temaGet
 
   }
 
@@ -32,6 +56,22 @@ export class CalificacionesStudentComponent implements OnInit {
       response=>{
         this.InfoGrado=response
         },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
+  }
+
+  obtenerDatosTema(){
+    this.temaEstudianteService.getTemaActivo(this.temaactivo).subscribe(
+      response=>{
+        var cantidad=response.length;
+        this.temaGet=response;
+        for(let i=0; i<cantidad; i++){
+          this.cfondo1=this.temaGet[i].fondo1;
+          this.ctexto1=this.temaGet[i].texto1;
+        }
+      },
       error=>{
         console.log('Error: '+error);
       }

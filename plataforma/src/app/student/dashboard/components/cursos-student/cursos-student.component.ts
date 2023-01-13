@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
 import {DahboardService } from '../../services/dahboard.service';
 
@@ -15,6 +15,9 @@ export class CursosStudentComponent implements OnInit {
     codigoError:''
   };
 
+  @Input() cfondo2:string='';
+  @Input() ctexto1:string='';
+
   constructor(public cardClasesAlumnos:DahboardService) { }
 
   ngOnInit(): void {
@@ -26,7 +29,6 @@ export class CursosStudentComponent implements OnInit {
     const {idUsuario}:any=decode(token);
     this.cardClasesAlumnos. getCursoparaAlumno( idUsuario).subscribe(
       res=>{
-        console.log(res)
         this.CursosLista=res;
         this.sppinerOn=false;
       },

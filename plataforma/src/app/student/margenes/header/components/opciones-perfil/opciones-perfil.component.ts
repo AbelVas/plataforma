@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
 
 @Component({
@@ -10,6 +10,8 @@ export class OpcionesPerfilComponent implements OnInit {
   NombreUsuario:any=[];
   RoleUsuario:any=[];
   NombreSingular=[];
+
+  @Input() ctexto2:string='';
   constructor() { }
 
   ngOnInit(): void {

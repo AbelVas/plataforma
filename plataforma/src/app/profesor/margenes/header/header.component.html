@@ -1,10 +1,10 @@
-<header id="header" class="header fixed-top d-flex align-items-center" style="background-color:#061361;">
+<header id="header" class="header fixed-top d-flex align-items-center" [style]="{'background-color': cnavbar1}">
   <div class="d-flex align-items-center justify-content-between"> <a routerLink="dashboard" class="logo d-flex align-items-center">
-    <span class="d-none d-lg-block" style="color: white;">Profesor</span> </a> <i (click)="sidebarToggle()" class="fa-solid fa-bars toggle-sidebar-btn" style="color: white;"></i></div>
+    <span class="d-none d-lg-block" [style]="{'color': ctexto2}">Profesor</span> </a> <i (click)="sidebarToggle()" class="fa-solid fa-bars toggle-sidebar-btn" [style]="{'color': ctexto2}"></i></div>
   <nav class="header-nav ms-auto">
      <ul class="d-flex align-items-center">
       <!---<app-teacher-notificaciones-menu></app-teacher-notificaciones-menu>-->
-      <app-teacher-opciones-nav-perfil></app-teacher-opciones-nav-perfil>
+      <app-teacher-opciones-nav-perfil [ctexto2]="ctexto2"></app-teacher-opciones-nav-perfil>
      </ul>
   </nav>
 </header>

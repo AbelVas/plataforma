@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-opciones-curso',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./opciones-curso.component.css']
 })
 export class OpcionesCursoComponent implements OnInit {
+
+  @Input() cfondo2:string='';
+  @Input() ctexto1:string='';
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,6 +10,9 @@ export class OpcionesMenuComponent implements OnInit {
 MenuOcultable:any;
 Hola="";
 Ruta:String='';
+
+  @Input() cnavbar2:string='';
+  @Input() ctexto2:string='';
 
   constructor(public ruta:ActivatedRoute, private activedRoute:ActivatedRoute) { }
 

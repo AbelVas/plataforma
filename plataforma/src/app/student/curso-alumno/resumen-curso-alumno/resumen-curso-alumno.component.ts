@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DahboardService } from '../../dashboard/services/dahboard.service';
+import { TemaEstudianteService } from '../../dashboard/services/tema-estudiante.service';
 
 @Component({
   selector: 'app-resumen-curso-alumno',
@@ -15,7 +16,29 @@ errorServicio:any={};
 errorService:any={
   codigoError:''
 };
-  constructor(public ruta:ActivatedRoute, public DahSer:DahboardService) { }
+
+temaactivo:string='1';
+
+  temaGet:any=[];
+  temaIndividual:any={
+    idTema: '',
+    idIconoAdmin: '',
+    idIconoTutor: '',
+    idIconoProfesor: '',
+    idIconoEstudiante: '',
+    nombre_tema: '',
+    fondo1: '',
+    fondo2: '',
+    texto1: '',
+    estado: ''
+  }
+
+  //variables de colores
+  cfondo1:string='';
+  cfondo2:string='';
+  ctexto1:string='';
+
+  constructor(public ruta:ActivatedRoute, public DahSer:DahboardService, private temaEstudianteService:TemaEstudianteService) { }
 
   ngOnInit(): void {
     this.getCursoSingular()
@@ -34,7 +57,11 @@ errorService:any={
         this.errorServicio=err;
       }
     )
+
+    this.obtenerDatosTema();
+    this.temaIndividual=this.temaGet
   }
+
   getNombreProfe(){
     this.idCurso = this.ruta.snapshot.paramMap.get('id');
     const idUsuario = this.idCurso
@@ -45,6 +72,23 @@ errorService:any={
       },
       err=>{
         this.errorServicio=err;
+      }
+    )
+  }
+
+  obtenerDatosTema(){
+    this.temaEstudianteService.getTemaActivo(this.temaactivo).subscribe(
+      response=>{
+        var cantidad=response.length;
+        this.temaGet=response;
+        for(let i=0; i<cantidad; i++){
+          this.cfondo1=this.temaGet[i].fondo1;
+          this.cfondo2=this.temaGet[i].fondo2;
+          this.ctexto1=this.temaGet[i].texto1;
+        }
+      },
+      error=>{
+        console.log('Error: '+error);
       }
     )
   }

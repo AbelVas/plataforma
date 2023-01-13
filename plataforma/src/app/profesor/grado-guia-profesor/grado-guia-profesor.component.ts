@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import decode from 'jwt-decode';
 import { GradoGuiaProfesorService } from './services/grado-guia-profesor.service';
+import { TemaProfesorService } from '../dashboard/services/tema-profesor.service';
 
 
 @Component({
@@ -25,7 +26,28 @@ export class GradoGuiaProfesorComponent implements OnInit {
     nivel:''
   }
 
-  constructor( private gradoGuiaProfesorService:GradoGuiaProfesorService ) { }
+  temaactivo:string='1';
+
+  temaGet:any=[];
+  temaIndividual:any={
+    idTema: '',
+    idIconoAdmin: '',
+    idIconoTutor: '',
+    idIconoProfesor: '',
+    idIconoEstudiante: '',
+    nombre_tema: '',
+    fondo1: '',
+    fondo2: '',
+    texto1: '',
+    estado: ''
+  }
+
+  //variables de colores
+  cfondo1:string='';
+  cfondo2:string='';
+  ctexto1:string='';
+
+  constructor( private gradoGuiaProfesorService:GradoGuiaProfesorService, private temaProfesorService:TemaProfesorService ) { }
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');
@@ -35,6 +57,9 @@ export class GradoGuiaProfesorComponent implements OnInit {
     this.Apellido_profesor=apellido_profesor
 
     this.obtenerGradoGuia();
+
+    this.obtenerDatosTema();
+    this.temaIndividual=this.temaGet
   }
 
   obtenerGradoGuia(iddelProfesor=this.idProfesor){
@@ -42,6 +67,23 @@ export class GradoGuiaProfesorComponent implements OnInit {
       response=>{
         this.gradoguiaGet=response;
         this.sppinerOn=false;
+      }
+    )
+  }
+
+  obtenerDatosTema(){
+    this.temaProfesorService.getTemaActivo(this.temaactivo).subscribe(
+      response=>{
+        var cantidad=response.length;
+        this.temaGet=response;
+        for(let i=0; i<cantidad; i++){
+          this.cfondo1=this.temaGet[i].fondo1;
+          this.cfondo2=this.temaGet[i].fondo2;
+          this.ctexto1=this.temaGet[i].texto1;
+        }
+      },
+      error=>{
+        console.log('Error: '+error);
       }
     )
   }

@@ -42,12 +42,6 @@ import { ForoCursoProfesorComponent } from './foro-curso-profesor/foro-curso-pro
 import { ForoCursoProfesorService } from "./foro-curso-profesor/services/foro-curso-profesor.service";
 import { ExamenCursoProfesorComponent } from './examen-curso-profesor/examen-curso-profesor.component';
 import { ExamenCursoProfesorService } from "./examen-curso-profesor/services/examen-curso-profesor.service";
-import { ActividadCursoProfesorComponent } from './actividad-curso-profesor/actividad-curso-profesor.component';
-import { ActividadCursoComponent } from './actividad-curso-profesor/components/actividad-curso/actividad-curso.component';
-import { CalificacionesActividadComponent } from './actividad-curso-profesor/components/calificaciones-actividad/calificaciones-actividad.component';
-import { AlumnosActividadComponent } from './actividad-curso-profesor/components/alumnos-actividad/alumnos-actividad.component';
-import { GraficoActividadComponent } from './actividad-curso-profesor/components/grafico-actividad/grafico-actividad.component';
-import { ActividadCursoProfesorService } from "./actividad-curso-profesor/services/actividad-curso-profesor.service";
 import { ColumnaDerechaProfesorComponent } from './dashboard/components/columna-derecha-profesor/columna-derecha-profesor.component';
 import { ExamenCursoComponent } from './examen-curso-profesor/components/examen-curso/examen-curso.component';
 import { CalificacionesExamenComponent } from './examen-curso-profesor/components/calificaciones-examen/calificaciones-examen.component';
@@ -57,6 +51,7 @@ import { CursosComponent } from "./cursos/cursos.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-individual/grado-guia-individual.component';
 import { CalendarioCursoService } from "./cursos-profesor/services/calendario-curso.service";
+import { TemaProfesorService } from "./dashboard/services/tema-profesor.service";
 //
 
 
@@ -96,11 +91,6 @@ import { CalendarioCursoService } from "./cursos-profesor/services/calendario-cu
   CalendarioProfesorComponent,
   ForoCursoProfesorComponent,
   ExamenCursoProfesorComponent,
-  ActividadCursoProfesorComponent,
-  ActividadCursoComponent,
-  CalificacionesActividadComponent,
-  AlumnosActividadComponent,
-  GraficoActividadComponent,
   ColumnaDerechaProfesorComponent,
   ExamenCursoComponent,
   CalificacionesExamenComponent,
@@ -122,8 +112,8 @@ import { CalendarioCursoService } from "./cursos-profesor/services/calendario-cu
     CalendarioProfesorService,
     ForoCursoProfesorService,
     ExamenCursoProfesorService,
-    ActividadCursoProfesorService,
-    CalendarioCursoService
+    CalendarioCursoService,
+    TemaProfesorService
   ]
 })
 

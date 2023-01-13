@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
 import { ResumenCursoAlumnoService } from '../resumen-curso-alumno/services/resumen-curso-alumno.service';
@@ -35,6 +35,9 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     codigoError:''
   };
   sppinerOn:boolean=true;
+
+  @Input() cfondo2:string='';
+  @Input() ctexto1:string='';
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');

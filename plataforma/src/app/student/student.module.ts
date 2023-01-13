@@ -46,6 +46,7 @@ import { ExamenCursoStudentService } from "./examen-curso-student/examen-curso-s
 import { CalificacionesStudentService } from "./calificaciones-student/services/calificaciones-student.service";
 import { PublicModule } from "../public/public.module";
 import { FullCalendarModule } from "@fullcalendar/angular";
+import { TemaEstudianteService } from "./dashboard/services/tema-estudiante.service";
 //
 
 
@@ -102,7 +103,8 @@ import { FullCalendarModule } from "@fullcalendar/angular";
     ForoCursoStudentService,
     ActividadCursoStudentService,
     ExamenCursoStudentService,
-    CalificacionesStudentService
+    CalificacionesStudentService,
+    TemaEstudianteService
 
   ]
 })

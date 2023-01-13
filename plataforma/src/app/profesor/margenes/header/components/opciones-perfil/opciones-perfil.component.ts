@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import decode from "jwt-decode"
 
 @Component({
@@ -12,6 +12,8 @@ export class OpcionesPerfilComponent implements OnInit {
   Nombre_profesor:string='';
   Rol:string='';
   Apellido_profesor:string='';
+
+  @Input() ctexto2:string='';
 
   constructor() { }
 

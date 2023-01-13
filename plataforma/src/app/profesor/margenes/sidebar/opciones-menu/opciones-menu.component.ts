@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-teacher-opciones-menu',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./opciones-menu.component.css']
 })
 export class OpcionesMenuComponent implements OnInit {
+
+  @Input() cnavbar2:string='';
+  @Input() ctexto2:string='';
 
   constructor() { }
 

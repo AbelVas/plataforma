@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
 import { CardResumenService } from '../../services/card-resumen.service';
 
@@ -25,6 +25,8 @@ export class CardClasesJornadasComponent implements OnInit {
   matutina:any=[];
   vespertina:any=[];
 
+  @Input() cfondo2:string='';
+  @Input() ctexto1:string='';
 
   constructor( public cardResumenService:CardResumenService ) { }
 
