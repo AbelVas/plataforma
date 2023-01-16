@@ -20,7 +20,7 @@ const obtenerCursosService = () => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.obtenerCursosService = obtenerCursosService;
 const obtenerCursoService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, c.nombre_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, s.seccion, p.nombre_profesor, p.apellido_profesor, p.idProfesor FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbProfesor p ON c.idProfesor=p.idProfesor WHERE idCurso=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, g.idGrado, c.nombre_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, s.seccion, p.nombre_profesor, p.apellido_profesor, p.idProfesor, n.idNivel FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbProfesor p ON c.idProfesor=p.idProfesor INNER JOIN tbNivel n ON g.idNivel=n.idNivel WHERE idCurso=?', [id]);
     return responseGet;
 });
 exports.obtenerCursoService = obtenerCursoService;
@@ -40,7 +40,7 @@ const insertCursosService = (data) => __awaiter(void 0, void 0, void 0, function
 });
 exports.insertCursosService = insertCursosService;
 const obtenerCursosPorGradoService = (idGrado) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso WHERE idGrado=?', idGrado);
+    const responseGet = yield database_1.default.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas`,color_curso FROM tbCurso WHERE idGrado=?', idGrado);
     return responseGet;
 });
 exports.obtenerCursosPorGradoService = obtenerCursosPorGradoService;
@@ -50,12 +50,12 @@ const obtenerCursosPorProfesorService = (idProfesor) => __awaiter(void 0, void 0
 });
 exports.obtenerCursosPorProfesorService = obtenerCursosPorProfesorService;
 const obtenerCursosPorGradoProfesorService = (idGrado) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?', [idGrado]);
+    const responseGet = yield database_1.default.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura,color_curso FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?', [idGrado]);
     return responseGet;
 });
 exports.obtenerCursosPorGradoProfesorService = obtenerCursosPorGradoProfesorService;
 const obtenerCursosPorProfesorGradoSeccionService = (idProfesor, idCurso) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT c.idCurso,c.nombre_curso,c.abreviatura,c.creado,c.consolidado_bimestre,c.consolidado_anual,c.boletas,CONCAT(g.nombre_grado,", Sección: ",s.seccion) AS grado FROM (tbCurso c INNER JOIN tbGrado g ON g.idGrado=c.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE idProfesor=? and c.idCurso!=?', [idProfesor, idCurso.idCurso]);
+    const response = yield database_1.default.query('SELECT c.idCurso,c.nombre_curso,c.abreviatura,c.creado,c.consolidado_bimestre,c.consolidado_anual,c.boletas,CONCAT(g.nombre_grado,", Sección: ",s.seccion) AS grado,color_curso FROM (tbCurso c INNER JOIN tbGrado g ON g.idGrado=c.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE idProfesor=? and c.idCurso!=?', [idProfesor, idCurso.idCurso]);
     return response;
 });
 exports.obtenerCursosPorProfesorGradoSeccionService = obtenerCursosPorProfesorGradoSeccionService;
@@ -65,12 +65,12 @@ const obtenerCursosPorAlumnoService = (idAlumno) => __awaiter(void 0, void 0, vo
 });
 exports.obtenerCursosPorAlumnoService = obtenerCursosPorAlumnoService;
 const obtenerProfePorCurso = (idCurso) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor where tc.idCurso=? ', [idCurso]);
+    const response = yield database_1.default.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor, tc.idGrado, g.idNivel,tc.color_curso FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor INNER JOIN tbGrado g ON tc.idGrado=g.idGrado WHERE tc.idCurso=? ', [idCurso]);
     return response;
 });
 exports.obtenerProfePorCurso = obtenerProfePorCurso;
 const obtenerCursosPorGradoProfesorAdminService = (idGrado) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?', [idGrado]);
+    const responseGet = yield database_1.default.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura,c.color_curso FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?', [idGrado]);
     return responseGet;
 });
 exports.obtenerCursosPorGradoProfesorAdminService = obtenerCursosPorGradoProfesorAdminService;

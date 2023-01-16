@@ -60,7 +60,7 @@ const GetCantidadGradosService = () => __awaiter(void 0, void 0, void 0, functio
 });
 exports.GetCantidadGradosService = GetCantidadGradosService;
 const GetCantidadDocentesService = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor');
+    const responseGet = yield database_1.default.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor WHERE idRol>1');
     return responseGet;
 });
 exports.GetCantidadDocentesService = GetCantidadDocentesService;
