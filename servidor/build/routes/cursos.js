@@ -17,3 +17,4 @@ router.get("/curso-profesor-grado/:id", session_1.checkJwt, cursos_1.getCursopor
 router.post("/curso-grado-seccion/:id", session_1.checkJwt, cursos_1.obtenerCursosPorProfesorGradoSeccion);
 router.get("/curso-alumno/:id", session_1.checkJwt, cursos_1.getCursosPorAlumno);
 router.get("/profe-curso/:id", session_1.checkJwt, cursos_1.getProfeCurso);
+router.get("/curso-profesor-grado-admin/:id", session_1.checkJwt, cursos_1.getCursoporGradoProfesorAdmin);

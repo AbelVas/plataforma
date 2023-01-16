@@ -23,17 +23,6 @@ const getActividadesAlumno = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getActividadesAlumno = getActividadesAlumno;
-const getActividadesTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { id } = req.params;
-        const resultado = yield (0, calendario_1.getActividadesPorTutor)(id);
-        res.send(resultado);
-    }
-    catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
-    }
-});
-exports.getActividadesTutor = getActividadesTutor;
 const getActividadesProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
@@ -45,6 +34,17 @@ const getActividadesProfesor = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.getActividadesProfesor = getActividadesProfesor;
+const getActividadesTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultado = yield (0, calendario_1.getActividadesPorTutor)(id);
+        res.send(resultado);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+    }
+});
+exports.getActividadesTutor = getActividadesTutor;
 const getActividadesPorExamen = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;

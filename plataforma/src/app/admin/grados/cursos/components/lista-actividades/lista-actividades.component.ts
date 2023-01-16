@@ -227,6 +227,7 @@ export class ListaActividadesComponent implements OnInit {
     delete this.ActividadIndividualEdit.idDetalleActividad
     delete this.ActividadIndividualEdit.tipoActividad
     delete this.ActividadIndividualEdit.creada
+    delete this.ActividadIndividual.color_curso
     this.ActividadIndividualEdit.ultima_modificacion=this.fecha
     this.actividadService.updateActividad(idActividad,this.ActividadIndividualEdit).subscribe(
       res=>{

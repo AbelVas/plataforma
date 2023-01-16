@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerContrasenaProfesorNoCambiada = exports.obtenerContrasenaProfesorCambiada = exports.obtenerCodigosEnDesuso = exports.obtenerCodigosEnUso = exports.obtenerAlumnosMujeres = exports.obtenerAlumnosHombres = exports.obtenerAlumnosTotalPorGrado = exports.obtenerAlumnosTotal = void 0;
+exports.obtenerContrasenaProfesorNoCambiada = exports.obtenerContrasenaProfesorCambiada = exports.obtenerCodigosEnDesuso = exports.obtenerCodigosEnUso = exports.obtenerAlumnosMujeres = exports.obtenerAlumnosHombres = exports.obtenerAlumnosTotalPorGrado = exports.obtenerAlumnosTotal = exports.GetCantidadDocentes = exports.GetCantidadGrados = void 0;
 const error_handle_1 = require("../utils/error.handle");
 const estadistica_1 = require("../service/estadistica");
 const obtenerAlumnosTotal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -92,3 +92,23 @@ const obtenerContrasenaProfesorNoCambiada = (req, res) => __awaiter(void 0, void
     }
 });
 exports.obtenerContrasenaProfesorNoCambiada = obtenerContrasenaProfesorNoCambiada;
+const GetCantidadGrados = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const resultado = yield (0, estadistica_1.GetCantidadGradosService)();
+        res.send(resultado);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, "Error al obtener los datos", e);
+    }
+});
+exports.GetCantidadGrados = GetCantidadGrados;
+const GetCantidadDocentes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const resultado = yield (0, estadistica_1.GetCantidadDocentesService)();
+        res.send(resultado);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, "Error al obtener los datos", e);
+    }
+});
+exports.GetCantidadDocentes = GetCantidadDocentes;

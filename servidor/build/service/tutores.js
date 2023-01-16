@@ -27,7 +27,7 @@ const obtenerTutoresService = () => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.obtenerTutoresService = obtenerTutoresService;
 const obtenerTutorService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idTutor=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `telefono_casa`, `direccion`, `usuario`, `fecha_nacimiento`, `estado`, `correo1`, `correo2` FROM tbTutor WHERE idTutor=?', [id]);
     return responseGet;
 });
 exports.obtenerTutorService = obtenerTutorService;
@@ -64,7 +64,7 @@ const getTutorconAlumnoService = (idAlum) => __awaiter(void 0, void 0, void 0, f
 });
 exports.getTutorconAlumnoService = getTutorconAlumnoService;
 const getAlumnoporTutorService = (idTutor) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGetAlumnoporTutor = yield database_1.default.query('SELECT a.idAlumno, a.nombres_alumno, a.apellidos_alumno, a.sexo, a.usuario, g.idGrado, g.nombre_grado, s.idSeccion, s.seccion FROM tbAlumno a INNER JOIN tbGrado g ON a.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion WHERE idTutor=?', [idTutor]);
+    const responseGetAlumnoporTutor = yield database_1.default.query('SELECT a.idAlumno, a.nombres_alumno, a.apellidos_alumno, a.sexo, a.usuario, g.idGrado, g.nombre_grado, s.idSeccion, s.seccion, c.codigo FROM tbAlumno a INNER JOIN tbGrado g ON a.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbCodigo c ON a.idCodigo=c.idCodigo WHERE idTutor=?', [idTutor]);
     return responseGetAlumnoporTutor;
 });
 exports.getAlumnoporTutorService = getAlumnoporTutorService;

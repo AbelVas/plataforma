@@ -30,7 +30,7 @@ const PATH_ROUTER = `${__dirname}`;
 const router = (0, express_1.Router)();
 exports.router = router;
 const cleanFileName = (fileName) => {
-    const file = fileName.split('.ts').shift();
+    const file = fileName.split('.').shift();
     return file;
 };
 (0, fs_1.readdirSync)(PATH_ROUTER).filter((fileName) => {

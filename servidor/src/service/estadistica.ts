@@ -56,7 +56,7 @@ const GetCantidadGradosService=async()=>{
 
 const GetCantidadDocentesService=async()=>{
 
-    const responseGet=await conexion.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor');
+    const responseGet=await conexion.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor WHERE idRol>1');
     return responseGet;
 }
 export{GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetContrasenaProfesorNoCambiada,GetCantidadGradosService,GetCantidadDocentesService}

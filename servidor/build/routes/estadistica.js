@@ -14,3 +14,5 @@ router.get("/Codigos-uso/", session_1.checkJwt, estadistica_1.obtenerCodigosEnUs
 router.get("/Codigos-desuso", session_1.checkJwt, estadistica_1.obtenerCodigosEnDesuso);
 router.get("/Profesor-Contrasena/Cambiada/", session_1.checkJwt, estadistica_1.obtenerContrasenaProfesorCambiada);
 router.get("/Profesor-Contrasena/No-Cambiada/", session_1.checkJwt, estadistica_1.obtenerContrasenaProfesorNoCambiada);
+router.get("/CantidadGrados", session_1.checkJwt, estadistica_1.GetCantidadGrados);
+router.get("/Cantidad-docentes", session_1.checkJwt, estadistica_1.GetCantidadDocentes);
