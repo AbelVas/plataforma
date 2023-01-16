@@ -54,6 +54,13 @@ export class ResumenCursoAlumnoService {
     );
   }
 
+  getCurso(idCurso:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

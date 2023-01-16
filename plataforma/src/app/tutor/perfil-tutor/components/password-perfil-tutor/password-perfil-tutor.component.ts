@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfilTutorService } from '../../services/perfil-tutor.service';
 import decode from "jwt-decode";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-password-perfil-tutor',
@@ -24,7 +25,7 @@ export class PasswordPerfilTutorComponent implements OnInit {
     pass:''
   }
 
-  constructor( private perfilTutoresService:PerfilTutorService ) { }
+  constructor( private perfilTutoresService:PerfilTutorService, private toastrService:ToastrService ) { }
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');
@@ -63,9 +64,11 @@ export class PasswordPerfilTutorComponent implements OnInit {
               this.alertaSuccess='1'
               this.constraCorrecta=false;
               this.passOriginal.pass='';
+              this.toastrService.success(`Contraseña Actualizada`,'Realizado')
             },
             err=>{
               this.alertaErrorCambioContra='1'
+              this.toastrService.error(`Contraseña no Actualizada`,'Error')
             }
           );
           this.errorLogininputs='form-control';

@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-12">
     <div class="card" [style]="{'background-color': cfondo2}">
+      <div *ngFor="let c of cursosGet">
+        <p>{{c.idNivel}}</p>
+      </div>
        <div class="card-body">
         <br>
         <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
@@ -35,7 +38,7 @@
                         <!--<td align="center">A tiempo</td>-->
                         <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
                           <ng-template #notaNulaTar>
-                            <td class="text-center">{{t.nota}} /{{t.valor}}</td>
+                            <td class="text-center">{{t.letranota}}</td>
                           </ng-template>
 
                         <div class="modal fade" id="ModalComentario" tabindex="-1">
@@ -211,7 +214,7 @@
             <div class="tab-content pt-2" id="myTabjustifiedContent">
               <div class="activity">
                 <div class="progress" style="height: 30px;">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: suma+'%', 'background-color': colorprogress}">{{suma+ '%'}}</div>
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: suma+'%', 'background-color': colorprogress}">{{letraFinal}}</div>
                 </div>
               </div>
             </div>
@@ -246,7 +249,7 @@
                           <td align="center">{{a.nombre_actividad}}</td>
                           <td align="center" *ngIf="a.nota==null;else notaNulaCal">No ingresada</td>
                           <ng-template #notaNulaCal>
-                            <td class="text-center">{{a.nota}} /{{a.valor}}</td>
+                            <td class="text-center">{{a.letranota}}</td>
                           </ng-template>
                       </tr>
                     </tbody>
