@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PerfilTutorService } from '../../services/perfil-tutor.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-perfil-tutor',
@@ -10,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class EditPerfilTutorComponent implements OnInit {
 
-  constructor( private perfilTutoresService:PerfilTutorService, private router:Router ) { }
+  constructor( private perfilTutoresService:PerfilTutorService, private router:Router, private toastrService:ToastrService ) { }
 
   pipe = new DatePipe('en-US');
   classBadgeActive:any;
@@ -48,9 +49,11 @@ export class EditPerfilTutorComponent implements OnInit {
           this.classBadgeActive='badge bg-danger';
           this.estado="Inactivo"
         }
+        this.toastrService.success(`Pefil Actualizado`,'Realizado')
       },
       error=>{
         console.log(error)
+        this.toastrService.error(`Perfil no Actualizado`,'Error')
       }
     )
   }

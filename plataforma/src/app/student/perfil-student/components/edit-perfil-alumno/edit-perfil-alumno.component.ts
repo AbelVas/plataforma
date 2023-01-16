@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PerfilAlumnoService } from '../../services/perfil-alumno.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-perfil-alumno',
@@ -10,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class EditPerfilAlumnoComponent implements OnInit {
 
-  constructor(private perfilAlumnosService:PerfilAlumnoService, private router:Router) { }
+  constructor(private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService) { }
 
   classBadgeActive:any;
   estado:any;
@@ -47,9 +48,11 @@ export class EditPerfilAlumnoComponent implements OnInit {
           this.classBadgeActive='badge bg-danger';
           this.estado="Inactivo"
         }
+        this.toastrService.success(`Pefil Actualizado`,'Realizado')
       },
       error=>{
         console.log(error)
+        this.toastrService.error(`Perfil no Actualizado`,'Error')
       }
     )
   }
