@@ -50,7 +50,7 @@ const obtenerCursosPorAlumnoService=async(idAlumno:string)=>{
 }
 
 const obtenerProfePorCurso=async(idCurso:string)=>{
-    const response=await conexion.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor where tc.idCurso=? ',[idCurso]);
+    const response=await conexion.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor, tc.idGrado, g.idNivel FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor INNER JOIN tbGrado g ON tc.idGrado=g.idGrado WHERE tc.idCurso=? ',[idCurso]);
     return response
 }
 

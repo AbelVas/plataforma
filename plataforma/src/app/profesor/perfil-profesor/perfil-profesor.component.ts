@@ -18,7 +18,8 @@ export class PerfilProfesorComponent implements OnInit {
   profesorIndividual:any={
     idProfesor: '',
     nombre_profesor:'',
-    apellido_profesor:''
+    apellido_profesor:'',
+    imagen:''
   };
 
   temaactivo:string='1';
@@ -83,6 +84,18 @@ export class PerfilProfesorComponent implements OnInit {
         console.log('Error: '+error);
       }
     )
+  }
+
+  getEvent(e:any){
+    this.profesorIndividual.nombre_profesor=e[0].nombre_profesor
+    this.profesorIndividual.apellido_profesor=e[0].apellido_profesor
+    this.profesorIndividual.imagen=e[0].imagen
+  }
+  getEvent2(e:any){
+    this.profesorIndividual.imagen=e.imagen
+  }
+  getEvent3(e:any){
+    console.log('asdasd')
   }
 
 }

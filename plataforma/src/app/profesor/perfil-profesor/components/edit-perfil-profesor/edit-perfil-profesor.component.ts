@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { PerfilProfesorService } from '../../services/perfil-profesor.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
@@ -9,7 +9,6 @@ import { Router } from "@angular/router";
   styleUrls: ['./edit-perfil-profesor.component.css']
 })
 export class EditPerfilProfesorComponent implements OnInit {
-
   constructor(private perfilProfesorService:PerfilProfesorService, private router:Router) { }
 
   pipe = new DatePipe('en-US');
@@ -18,6 +17,16 @@ export class EditPerfilProfesorComponent implements OnInit {
   permitirVer:any;
   profesorIndividual:any=[{
   }];
+
+  //imagen de este coso de cambiar imagen de perfil
+  imagenPerfilDefecto:any='assets/img/blank_profile.png'
+  listaImagenes:any=[]
+  imagenPerfilActual:any=''
+  imagenPerfilNueva:any=''
+  idCategoriaImagen:any
+  @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
+  @Output() datosEventoImagen=new EventEmitter<any>();
+  //----------------------------------------
 
   ngOnInit(): void {
     this.perfilProfesorService.disparadorCopiarData.subscribe(data=>{
@@ -67,5 +76,60 @@ export class EditPerfilProfesorComponent implements OnInit {
       }
     )
   }
+
+  //imagen de este coso de cambiar imagen de perfil
+  ejecutarEventoActualizar(data:any){
+    this.datosEventoImagen.emit(data);
+  }
+  actualizarImagenPerfil(idProfesor:string){
+    if(this.imagenPerfilActual!=''){
+      var imagenPerfil:any={
+        imagen:this.imagenPerfilActual
+      }
+      this.perfilProfesorService.updateProfesor(imagenPerfil,idProfesor).subscribe(
+        res=>{
+          this.ejecutarEventoActualizar(imagenPerfil)
+          this.modalCloseEditar.nativeElement.click()
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
+  }
+  eliminarFotoPerfil(){
+    var imagenPerfil:any={
+      imagen:this.imagenPerfilDefecto
+    }
+    console.log(this.profesorIndividual[0].idProfesor)
+    this.perfilProfesorService.updateProfesor(imagenPerfil,this.profesorIndividual[0].idProfesor).subscribe(
+      res=>{
+        console.log(res)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  valueGetImagen(e:any){
+    this.imagenPerfilActual=e
+    this.profesorIndividual[0].imagen=e
+  }
+
+  getImagenesPerfil(idCategoria:string){
+    this.perfilProfesorService.getImagenCategoria(idCategoria).subscribe(
+      res=>{
+        this.listaImagenes=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  selectValue(e:any){
+    this.idCategoriaImagen=e.target.value
+    this.getImagenesPerfil(e.target.value);
+  }
+//------------------------------------------
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import decode from 'jwt-decode';
 import { PerfilProfesorService } from '../../services/perfil-profesor.service';
 import  {DatePipe} from "@angular/common";
@@ -28,9 +28,10 @@ export class OverviewPerfilProfesorComponent implements OnInit {
     estatus:'',
     permitir_ver_correo:'',
     correo1:'',
-    correo2:''
+    correo2:'',
+    imagen:''
   };
-
+  @Output() datoEvento=new EventEmitter<any>();
   constructor(private perfilProfesoresService:PerfilProfesorService) { }
 
   ngOnInit(): void {
@@ -38,12 +39,15 @@ export class OverviewPerfilProfesorComponent implements OnInit {
     this.profesorIndividual=this.profesorGet
     this.perfilProfesoresService.disparadorCopiarData.emit(this.profesorIndividual);
   }
-
+  ejecutarEvento(data:any){
+    this.datoEvento.emit(data);
+  }
   obtenerDatosProfesor(){
     const {idUsuario}:any=decode(this.token);
     this.perfilProfesoresService.getProfesor(idUsuario).subscribe(
       response=>{
         this.sppinerOn=false;
+        this.ejecutarEvento(this.profesorGet);
         this.profesorGet=response;
         this.profesorGet[0].fecha_nacimiento=this.pipe.transform((this.profesorGet[0].fecha_nacimiento),'dd/MM/yyyy')
         this.perfilProfesoresService.disparadorCopiarData.emit({

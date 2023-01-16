@@ -31,6 +31,18 @@ export class PerfilProfesorService {
       catchError(this.handleError)
     )
   }
+  getImagenCategoria(idCategoria:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/fotoPerfilPorDefecto/${idCategoria}`,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+  actualizarImagenPerfil(idUsuario:string,data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/fotoPerfilPorDefecto/${idUsuario}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){
