@@ -216,6 +216,7 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
     delete this.ActividadIndividualEdit.idDetalleActividad
     delete this.ActividadIndividualEdit.tipoActividad
     delete this.ActividadIndividualEdit.creada
+    delete this.ActividadIndividualEdit.color_curso
     this.ActividadIndividualEdit.ultima_modificacion=this.fecha
 
     //delete this.ActividadIndividualEdit.disponible

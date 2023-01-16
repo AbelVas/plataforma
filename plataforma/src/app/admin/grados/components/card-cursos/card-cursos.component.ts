@@ -61,6 +61,7 @@ export class CardCursosComponent implements OnInit {
       boletas:new FormControl(''),
       consolidado_anual:new FormControl(''),
       consolidado_bimestre:new FormControl(''),
+      color_curso:new FormControl('',[Validators.required]),
     })
   }
   printer() {
@@ -101,6 +102,7 @@ export class CardCursosComponent implements OnInit {
     })
   }
   crearCurso(){
+
     var cursoIngresado:any={}
     cursoIngresado.idConfiguracionCurso=this.cusroPropiedadesCrear.idConfiguracionCurso
     cursoIngresado.idProfesor=this.f.idProfesor.value
@@ -111,6 +113,7 @@ export class CardCursosComponent implements OnInit {
     cursoIngresado.boletas=this.consolidadoBoletasINSERT;
     cursoIngresado.idGrado=this.idGrado
     cursoIngresado.creado=this.fecha
+    cursoIngresado.color_curso=this.f.color_curso.value
     this.submitted = true;
     // stop here if form is invalid
     if (this.cursoForm.invalid) {
@@ -134,6 +137,7 @@ export class CardCursosComponent implements OnInit {
         this.cerrarAlerta()
       }
     )
+
   }
   editarCurso(idCurso:string){
     var DataModificada:any={}
@@ -145,6 +149,9 @@ export class CardCursosComponent implements OnInit {
     }
     if(this.f.abreviatura.value!=''){
       DataModificada.abreviatura=this.f.abreviatura.value
+    }
+    if(this.f.color_curso.value!=''){
+      DataModificada.color_curso=this.f.color_curso.value
     }
     if(this.ch.boletas.value!=this.cursoIndividual.boletas){
       DataModificada.boletas=this.cursoIndividual.boletas

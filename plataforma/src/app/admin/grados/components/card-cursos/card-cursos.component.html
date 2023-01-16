@@ -142,6 +142,11 @@
           </ng-template>
         </div>
 
+        <div class="mb-3">
+          <label for="exampleColorInput" class="form-label">Color de curso</label>
+          <input formControlName="color_curso" type="color" class="form-control form-control-color" value="{{cursoIndividual.color_curso}}" title="Seleccione el Color">
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -186,7 +191,6 @@
         </div>
         <form class="row g-3" [formGroup]="cursoForm" (ngSubmit)="crearCurso()" autocomplete="off">
         <div class="modal-body">
-
 
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nombre del Curso</label>
@@ -252,6 +256,10 @@
             </ng-template>
           </div>
 
+        <div class="mb-3">
+          <label for="exampleColorInput" class="form-label">Color de curso</label>
+          <input formControlName="color_curso" type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Seleccione el Color">
+        </div>
 
         </div>
         <div class="modal-footer">

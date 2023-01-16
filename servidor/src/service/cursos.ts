@@ -27,7 +27,7 @@ const insertCursosService=async(data:Request)=>{
 }
 
 const obtenerCursosPorGradoService = async(idGrado:string)=>{
-    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas` FROM tbCurso WHERE idGrado=?',idGrado);
+    const responseGet=await conexion.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas`,color_curso FROM tbCurso WHERE idGrado=?',idGrado);
     return responseGet;
 }
 
@@ -36,11 +36,11 @@ const obtenerCursosPorProfesorService = async (idProfesor:string)=>{
     return responseGet;
 }
 const obtenerCursosPorGradoProfesorService = async(idGrado:string)=>{
-    const responseGet=await conexion.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?',[idGrado]);
+    const responseGet=await conexion.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura,color_curso FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?',[idGrado]);
     return responseGet;
 }
 const obtenerCursosPorProfesorGradoSeccionService=async(idProfesor:string,idCurso:any)=>{
-    const response=await conexion.query('SELECT c.idCurso,c.nombre_curso,c.abreviatura,c.creado,c.consolidado_bimestre,c.consolidado_anual,c.boletas,CONCAT(g.nombre_grado,", Sección: ",s.seccion) AS grado FROM (tbCurso c INNER JOIN tbGrado g ON g.idGrado=c.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE idProfesor=? and c.idCurso!=?',[idProfesor,idCurso.idCurso]);
+    const response=await conexion.query('SELECT c.idCurso,c.nombre_curso,c.abreviatura,c.creado,c.consolidado_bimestre,c.consolidado_anual,c.boletas,CONCAT(g.nombre_grado,", Sección: ",s.seccion) AS grado,color_curso FROM (tbCurso c INNER JOIN tbGrado g ON g.idGrado=c.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion WHERE idProfesor=? and c.idCurso!=?',[idProfesor,idCurso.idCurso]);
     return response
 }
 
@@ -50,12 +50,12 @@ const obtenerCursosPorAlumnoService=async(idAlumno:string)=>{
 }
 
 const obtenerProfePorCurso=async(idCurso:string)=>{
-    const response=await conexion.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor, tc.idGrado, g.idNivel FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor INNER JOIN tbGrado g ON tc.idGrado=g.idGrado WHERE tc.idCurso=? ',[idCurso]);
+    const response=await conexion.query('SELECT CONCAT(tp.nombre_profesor," ",tp.apellido_profesor) as NombreProfesor, tc.idGrado, g.idNivel,tc.color_curso FROM tbCurso tc INNER JOIN tbProfesor tp ON tc.idProfesor=tp.idProfesor INNER JOIN tbGrado g ON tc.idGrado=g.idGrado WHERE tc.idCurso=? ',[idCurso]);
     return response
 }
 
 const obtenerCursosPorGradoProfesorAdminService = async(idGrado:string)=>{
-    const responseGet=await conexion.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?',[idGrado]);
+    const responseGet=await conexion.query('SELECT c.idCurso,c.nombre_curso,CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor,p.idProfesor,c.consolidado_bimestre,c.consolidado_anual,c.boletas,c.abreviatura,c.color_curso FROM (tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor where g.idGrado=?',[idGrado]);
     return responseGet;
 }
 

@@ -16,6 +16,7 @@ export class RolesGuard implements CanActivate {
     const {idRol}:any=decode(token);
     if(this.authService.isAuth()==false || idRol != expectedRole){
       localStorage.removeItem('Acces-Token');
+      sessionStorage.removeItem('Acces-Token');
       this.router.navigate(['login']);
       return false;
     }
