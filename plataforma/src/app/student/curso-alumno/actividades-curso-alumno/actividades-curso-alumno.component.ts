@@ -20,13 +20,24 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     idTipoActividad:'',
     valor:'',
     idUnidad:'',
-    nota:''
+    nota:'',
+    letranota:''
   }
+
+  idNivel:string='';
 
   idCursoCurso:string='';
   foros:any=[];
   tareas:any=[];
   notaActividad:any=[];
+
+  cursosGet:any=[];
+  cursosIndividual:any={
+    idNivel:'',
+    nombre_curso:''
+  };
+
+  letraFinal:any=[];
 
   colorprogress:any=[];
   suma:any=0;
@@ -47,7 +58,20 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     this.idCursoCurso = params['id'];
     this.calificacionIndividual=this.calificacionesGet;
     this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
-    console.log(this.tareas)
+    this.getNivel()
+  }
+
+  getNivel(idCurso=this.idCursoCurso){
+    this.resumenCurso.getCurso(idCurso).subscribe(
+      res=>{
+        this.cursosGet=res
+        res.idNivel=this.idNivel
+        console.log('idNivel: '+this.idNivel)
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
   }
 
   getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
@@ -56,6 +80,28 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     datoParaNota.idAlumno=idAlumnito;
       this.resumenCurso.getCalificacionesAlumno(idAlumnito,datoParaNota).subscribe(
       res=>{
+        var porcentaje:any
+        for(let i=0; i<res.length; i++){
+
+          porcentaje=(res[i].nota*100)/res[i].valor
+
+          if(porcentaje==69 || porcentaje<69){
+            res[i].letranota='DM - Debe Mejorar'
+          }else{
+            if(porcentaje==70 || porcentaje>70 && porcentaje<81){
+              res[i].letranota='B - Bueno'
+            }else{
+              if(porcentaje==81 || porcentaje>81 && porcentaje<91){
+                res[i].letranota='MB - Muy bueno'
+              }else{
+                if(porcentaje>90){
+                  res[i].letranota='E - Excelente'
+                }
+              }
+            }
+          }
+        }
+
         var cantidad=res.length;
         this.calificacionesGet=res;
         var AuxForos=0;
@@ -78,15 +124,19 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
 
         if(this.suma==69 || this.suma<69){
           this.colorprogress='red';
+          this.letraFinal='DM - Debe Mejorar'
         }else{
           if(this.suma==70 || (this.suma>70 && this.suma<81)){
             this.colorprogress='orange';
+            this.letraFinal='B - Bueno'
           }else{
             if(this.suma==81 || (this.suma>81 && this.suma<91)){
               this.colorprogress='gold';
+              this.letraFinal='MB - Muy bueno'
             }else{
               if(this.suma>90){
                 this.colorprogress='green';
+                this.letraFinal='E - Excelente'
               }
             }
           }
@@ -100,7 +150,5 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
   buscarActividadArray(idActividad:string){
     this.calificacionIndividual=this.calificacionesGet.find((x:any)=>x.idDetalleActividad===idActividad)
   }
-
-
 
 }

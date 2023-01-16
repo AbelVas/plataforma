@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActividadesOpcionesCursoService } from '../../services/actividades-opciones-curso.service';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-actividades-opciones-curso',
@@ -96,7 +97,7 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   mesActual=this.hoy.getMonth()+1;
   fecha=this.hoy.getFullYear()+'-'+this.mesActual+'-'+this.hoy.getDate()
 
-  constructor( private actividadesOpcionesCursoService:ActividadesOpcionesCursoService, private activedRoute:ActivatedRoute, private formBuilder:FormBuilder ) { }
+  constructor( private actividadesOpcionesCursoService:ActividadesOpcionesCursoService, private activedRoute:ActivatedRoute, private formBuilder:FormBuilder, private toastrService:ToastrService  ) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -124,10 +125,12 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
       }
       this.actividadesOpcionesCursoService.calificarActividad(idActividad,nota).subscribe(
         res=>{
+          this.toastrService.success(`Calificaciones Guardadas`,'Realizado')
 
         },
         err=>{
           console.log(err)
+          this.toastrService.error(`Calificaciones no Guardadas`,'Error')
         }
       )
     }
@@ -181,10 +184,11 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
         this.getCursosDocente()
         this.getTareas()
         this.cursosCopiar=[]
-        console.log(this.cursosCopiar)
+        this.toastrService.success(`Actividad Duplicada`,'Realizado')
       },
       err=>{
         console.log(err)
+        this.toastrService.error(`Actividad no Duplicada`,'Error')
       }
     )
   }
@@ -222,9 +226,11 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
       res=>{
         this.modalCloseEditar.nativeElement.click();
         this.getTareas()
+        this.toastrService.success(`Actividad Editada`,'Realizado')
       },
       err=>{
         console.log(err)
+        this.toastrService.error(`Actividad no Editada`,'Error')
       }
     )
     //this.modalCloseEditar.nativeElement.click();
@@ -237,9 +243,11 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas();
+          this.toastrService.success(`Actividad Eliminada`,'Realizado')
       },
       err=>{
         console.log(err)
+        this.toastrService.error(`Actividad no Eliminada`,'Error')
       }
     )
   }
@@ -259,9 +267,11 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas()
+          this.toastrService.success(`Foro Creado`,'Realizado')
       },
       err=>{
         console.log(err)
+        this.toastrService.error(`Foro no Creado`,'Error')
       }
     )
   }
@@ -284,9 +294,11 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas()
+          this.toastrService.success(`Tarea Creada`,'Realizado')
         },
         err=>{
           console.log(err)
+          this.toastrService.error(`Tarea no Creada`,'Error')
         }
       )
   }

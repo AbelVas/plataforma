@@ -6,6 +6,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CoreModule } from './core/shared/core.module';
 import {JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     AppRoutingModule,
     CoreModule,
     BrowserAnimationsModule,//**1 */
+    ToastrModule.forRoot(), // ToastrModule added
 
   ],
   providers: [
