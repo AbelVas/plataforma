@@ -8,7 +8,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 })
 export class PerfilProfesorService {
 
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
   constructor(private http:HttpClient) {}
 
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();

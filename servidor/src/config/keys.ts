@@ -4,5 +4,6 @@ export default{
         user:'flrsjejd_plataforma',
         password:'macromish40322454',
         database:'flrsjejd_plataformaplanbasico_test'
+        
     }
 }

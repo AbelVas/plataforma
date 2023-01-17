@@ -6,7 +6,7 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ActividadService {
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
   constructor(private http:HttpClient) { }
 
   calificarActividad(idActividad:string,data:any){

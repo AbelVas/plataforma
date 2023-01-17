@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators'
 export class SeccionesService {
 
   constructor(private http:HttpClient) { }
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
 
   getSecciones():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}

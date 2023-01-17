@@ -7,7 +7,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class ActividadesOpcionesCursoService {
 
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
   constructor(private http:HttpClient) { }
 
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();

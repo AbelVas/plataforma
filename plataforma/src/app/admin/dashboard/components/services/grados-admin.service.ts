@@ -7,7 +7,7 @@ import {catchError} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class GradosService {
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
   constructor(private http:HttpClient) { }
 
   getGradoNivel(idNivel:string):Observable<any>{

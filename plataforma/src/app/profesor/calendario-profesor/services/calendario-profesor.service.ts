@@ -7,7 +7,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CalendarioProfesorService {
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
 
   constructor(private http:HttpClient) { }
 

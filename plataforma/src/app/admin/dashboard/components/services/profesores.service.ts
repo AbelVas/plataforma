@@ -7,7 +7,7 @@ import {catchError} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class ProfesoresService {
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
   constructor(private http:HttpClient) { }
 
   getProfesoresListaSelectCursos():Observable<any>{

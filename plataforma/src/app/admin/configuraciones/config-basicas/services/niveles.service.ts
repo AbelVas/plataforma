@@ -7,7 +7,7 @@ import {map,tap,catchError, mergeScan} from 'rxjs/operators'
 @Injectable()
 export class NivelesService {
   constructor(private http:HttpClient) { }
-  URL='http://localhost:3002';
+  URL='https://test-server.orquiholic.com';
   @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
 
   getNiveles():Observable<any>{
