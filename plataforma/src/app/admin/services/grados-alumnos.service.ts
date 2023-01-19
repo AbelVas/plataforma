@@ -1,28 +1,18 @@
-import { Injectable} from '@angular/core';
-import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError} from 'rxjs/operators'
+import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
-
+export class GradosAlumnosService {
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  getTutor(idUsuario:string):Observable<any>{
+  getAlmunosGrado(idGrado:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  getAlumnoporTutor(idTutor:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/alumnos/${idTutor}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/usuarios/alumno-grado/${idGrado}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -42,6 +32,13 @@ export class DashboardService {
           codigoError:error.statusText,
           Mensaje:"Error de conexión con el servidor",
           icono:'<i class="fa-solid fa-shield-xmark"></i>'
+        }
+      }else{
+        if(error.status==500){
+          msg={
+            codigoError:error.statusText,
+            Mensaje:"Error en la Petición",
+          }
         }
       }
     }

@@ -1,53 +1,40 @@
+import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import {map,tap,catchError, mergeScan} from 'rxjs/operators'
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DahboardService {
-
+export class CursosAlumnosGradosService {
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  // Este get es para los cards de alumnos
-  getCursoparaAlumno(idUsuario:string):Observable<any>{
+  getCursosGrado(idGrado:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/curso-alumno/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/cursos/curso-profesor-grado-admin/${idGrado}`,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-  // /:id para el curso especifico
-  getCursoEspecifico(idUsuario:string):Observable<any>{
+  insertCursosGrado(data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/${idUsuario}`,httpOptions).pipe(
+    return this.http.post(`${this.URL}/cursos/`,data,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-  //traer las actividades de un curso
-  getActividadesCurso(idUsuario:string):Observable<any>{
+  deleteCurso(idCurso:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/actividades/${idUsuario}`,httpOptions).pipe(
+    return this.http.delete(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-//traer actividades de todos los cursos por alumno
-getActividadesparaEventos(idUsuario:string):Observable<any>{
-  const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-  return this.http.get(`${this.URL}/calendario/alumno/${idUsuario}`,httpOptions).pipe(
-    catchError(this.handleError)
-  )
-}
-  //para traer la info del maestro
-  getProfeCurso(idUsuario:string):Observable<any>{
+  updateCurso(idCurso:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/profe-curso/${idUsuario}`,httpOptions).pipe(
+    return this.http.put(`${this.URL}/cursos/${idCurso}`,data,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
+
 
   private handleError(error:HttpErrorResponse){
     var msg={};
@@ -76,5 +63,4 @@ getActividadesparaEventos(idUsuario:string):Observable<any>{
     }
     return throwError(msg)
   }
-
 }

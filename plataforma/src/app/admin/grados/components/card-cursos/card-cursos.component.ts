@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProfesoresService } from 'src/app/admin/dashboard/components/services/profesores.service';
+import { ProfesoresService } from 'src/app/admin/services/profesores.service';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { CursosAlumnosGradosService } from '../services/cursos-alumnos-grados.service';
+import { CursosAlumnosGradosService } from '../../../services/cursos-alumnos-grados.service';
 
 @Component({
   selector: 'app-card-cursos-grado-admin',

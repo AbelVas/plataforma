@@ -1,54 +1,52 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import {map,tap,catchError, mergeScan} from 'rxjs/operators'
+import {catchError} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DahboardService {
-
+export class GradosService {
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  // Este get es para los cards de alumnos
-  getCursoparaAlumno(idUsuario:string):Observable<any>{
+  getGradoNivel(idNivel:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/curso-alumno/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/grados/grado-nivel/${idNivel}`,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-  // /:id para el curso especifico
-  getCursoEspecifico(idUsuario:string):Observable<any>{
+  getGradoJornada(idJornada:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/grados/grado-jornada/${idJornada}`,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-  //traer las actividades de un curso
-  getActividadesCurso(idUsuario:string):Observable<any>{
+  insertarGrado(Grado:any):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/actividades/${idUsuario}`,httpOptions).pipe(
+    return this.http.post(`${this.URL}/grados/`,Grado,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-//traer actividades de todos los cursos por alumno
-getActividadesparaEventos(idUsuario:string):Observable<any>{
-  const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-  return this.http.get(`${this.URL}/calendario/alumno/${idUsuario}`,httpOptions).pipe(
-    catchError(this.handleError)
-  )
-}
-  //para traer la info del maestro
-  getProfeCurso(idUsuario:string):Observable<any>{
+  deleteGrado(idGrado:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/profe-curso/${idUsuario}`,httpOptions).pipe(
+    return this.http.delete(`${this.URL}/grados/${idGrado}`,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
   }
-
+  updateGrado(idGrado:string,grado:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/grados/${idGrado}`,grado,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getGrados():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/grados/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){
@@ -76,5 +74,4 @@ getActividadesparaEventos(idUsuario:string):Observable<any>{
     }
     return throwError(msg)
   }
-
 }

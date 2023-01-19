@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EstadisticasDashboardService } from '../services/estadisticas-dashboard.service';
+import { EstadisticasDashboardService } from '../../../services/estadisticas-dashboard.service';
 
 @Component({
   selector: 'app-admin-cards-bimestre-dashboard',

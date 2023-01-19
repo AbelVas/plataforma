@@ -2,13 +2,14 @@ import { Injectable} from '@angular/core';
 import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VistaEstudianteService {
 
-  URL='https://test-server.orquiholic.com';
+  URL=environment.url
 
   constructor(private http:HttpClient) { }
 

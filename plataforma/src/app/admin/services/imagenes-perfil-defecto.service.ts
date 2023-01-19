@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators'
@@ -7,24 +7,22 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class ImagenesPerfilDefectoService {
 
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  getTutor(idUsuario:string):Observable<any>{
+  getImagenCategoria(idCategoria:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/fotoPerfilPorDefecto/${idCategoria}`,httpOptions).pipe(
       catchError(this.handleError)
-    );
+    )
   }
-
-  getAlumnoporTutor(idTutor:string):Observable<any>{
+  actualizarImagenPerfil(idAdmin:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/alumnos/${idTutor}`,httpOptions).pipe(
+    return this.http.put(`${this.URL}/fotoPerfilPorDefecto/${idAdmin}`,data,httpOptions).pipe(
       catchError(this.handleError)
-    );
+    )
   }
 
   private handleError(error:HttpErrorResponse){

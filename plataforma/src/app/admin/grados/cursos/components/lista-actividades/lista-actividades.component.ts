@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ActividadService } from '../services/actividad.service';
-import { UnidadesService } from 'src/app/admin/configuraciones/config-basicas/services/unidades.service';
+import { ActividadService } from '../../../../services/actividad.service';
+import { UnidadesService } from 'src/app/admin/services/unidades.service';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { GradosAlumnosService } from '../../../components/services/grados-alumnos.service';
+import { GradosAlumnosService } from '../../../../services/grados-alumnos.service';
 
 @Component({
   selector: 'app-lista-actividades-admin',

@@ -1,30 +1,24 @@
-import { Injectable} from '@angular/core';
-import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError} from 'rxjs/operators'
+import {map,tap,catchError} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class DashboardService {
-
-  URL=environment.url
+@Injectable()
+export class BimestreService {
 
   constructor(private http:HttpClient) { }
+  URL=environment.url
 
-  getTutor(idUsuario:string):Observable<any>{
+  getUnidades():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/unidades/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-
-  getAlumnoporTutor(idTutor:string):Observable<any>{
+  updateUnidadesEstado(idUnidad:any,estado:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/alumnos/${idTutor}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.put(`${this.URL}/unidades/${idUnidad}`,estado,httpOptions);
   }
 
   private handleError(error:HttpErrorResponse){

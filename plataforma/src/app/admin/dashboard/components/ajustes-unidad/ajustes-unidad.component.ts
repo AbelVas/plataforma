@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BimestreService } from '../../containers/admin/dashboard/bimestres.service';
-import { EstadisticasDashboardService } from '../services/estadisticas-dashboard.service';
+import { BimestreService } from '../../../services/bimestres.service';
+import { EstadisticasDashboardService } from '../../../services/estadisticas-dashboard.service';
 
 @Component({
   selector: 'app-admin-ajustes-unidad-dashboard',

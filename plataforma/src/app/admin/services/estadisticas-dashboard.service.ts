@@ -1,65 +1,78 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import {map,tap,catchError, mergeScan} from 'rxjs/operators'
+import {catchError} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class ResumenCursoAlumnoService {
-
+export class EstadisticasDashboardService {
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  getActividadPorTipoExamen(idCurso:string, idUsuario:string):Observable<any>{
+  getTotalAlumnos():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/calendario/alumno-examen/${idCurso}/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    )
-  }
-
-  getActividadPorTipoTarea(idCurso:string, idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/calendario/alumno-tarea/${idCurso}/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    )
-  }
-
-  getActividadPorTipoForo(idCurso:string, idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/calendario/alumno-foro/${idCurso}/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    )
-  }
-
-  getActividadCalificaciones(idCurso:string, idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/calendario/alumno-calificaciones/${idCurso}/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    )
-  }
-
-  getActividadCalificacionTotal(idCurso:string, idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/calendario/alumno-calificaciontotal/${idCurso}/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    )
-  }
-
-  getCalificacionesAlumno(idAlumno:string,data:any):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/calificacion/actividad/${idAlumno}`,data,httpOptions).pipe(
+    return this.http.get(`${this.URL}/estadistica/Alumnos-Total/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  getCurso(idCurso:string):Observable<any>{
+  getTotalAlumnosHombres():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/estadistica/Alumnos-Hombres/`,httpOptions).pipe(
       catchError(this.handleError)
-    )
+    );
+  }
+
+  getTotalAlumnosMujeres():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Alumnos-Mujeres/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getTotalCodigosUso():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Codigos-uso/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getTotalCodigosNoUso():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Codigos-desuso/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getDocenteContrasenaCambiada():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Profesor-Contrasena/Cambiada/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getDocenteContrasenaNoCambiada():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Profesor-Contrasena/No-Cambiada/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getCantidadGrados():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/CantidadGrados`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getCantidadDocentes():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Cantidad-docentes`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error:HttpErrorResponse){

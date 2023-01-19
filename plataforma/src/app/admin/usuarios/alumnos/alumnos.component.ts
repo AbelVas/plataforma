@@ -3,9 +3,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { CodigosService } from '../../dashboard/components/services/codigos.service';
+import { CodigosService } from '../../services/codigos.service';
 import { AlumnosService } from './alumnos.service';
-import { GradosService } from '../../dashboard/components/services/grados-admin.service';
+import { GradosService } from '../../services/grados-admin.service';
 
 @Component({
   selector: 'app-alumnos-admin-list',

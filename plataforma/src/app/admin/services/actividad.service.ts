@@ -1,17 +1,14 @@
 import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActividadesOpcionesCursoService {
-
+export class ActividadService {
   URL=environment.url
   constructor(private http:HttpClient) { }
-
-  @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
 
   calificarActividad(idActividad:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
@@ -31,7 +28,6 @@ export class ActividadesOpcionesCursoService {
       catchError(this.handleError)
     );
   }
-
   crearTarea(data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.post(`${this.URL}/actividades/`,data,httpOptions).pipe(
@@ -50,14 +46,6 @@ export class ActividadesOpcionesCursoService {
       catchError(this.handleError)
     );
   }
-
-  getCurso(idCurso:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cursos/${idCurso}`,httpOptions).pipe(
-      catchError(this.handleError)
-    )
-  }
-
   getCursosProfesor(idProfesor:string,idCurso:any):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.post(`${this.URL}/cursos/curso-grado-seccion/${idProfesor}`,idCurso,httpOptions).pipe(
@@ -76,53 +64,6 @@ export class ActividadesOpcionesCursoService {
       catchError(this.handleError)
     );
   }
-
-  updateUnidad(idUnidad:string,data:any){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/unidades/${idUnidad}`,data,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-  createUnidad(data:any){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/unidades/`,data,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-  deleteUnidad(idUnidad:string){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.delete(`${this.URL}/unidades/${idUnidad}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-  getUnidades(){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/unidades/`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-  getUnidadesActivas(){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/unidades/listar/activas/`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  getAlmunosGrado(idGrado:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/usuarios/alumno-grado/${idGrado}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  getActividadesCurso(idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/actividades/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError),
-
-    )
-  }
-
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

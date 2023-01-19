@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GradosService } from 'src/app/admin/dashboard/components/services/grados-admin.service';
-import { NivelesService } from '../configuraciones/config-basicas/services/niveles.service';
+import { GradosService } from 'src/app/admin/services/grados-admin.service';
+import { NivelesService } from '../services/niveles.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { SeccionesService } from '../configuraciones/config-basicas/services/secciones.service';
+import { SeccionesService } from '../services/secciones.service';
 import { ActivatedRoute } from '@angular/router';
 
 

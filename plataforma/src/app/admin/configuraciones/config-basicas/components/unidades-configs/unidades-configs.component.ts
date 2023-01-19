@@ -3,7 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { UnidadesService } from '../../services/unidades.service';
+import { UnidadesService } from '../../../../services/unidades.service';
 
 @Component({
   selector: 'app-unidades-configs',

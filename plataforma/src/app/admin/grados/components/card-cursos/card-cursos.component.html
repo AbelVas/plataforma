@@ -13,7 +13,17 @@
         <th class="text-center">Acciones</th>
     </thead>
     <tbody>
-        <tr *ngFor="let c of listaCursos;let i = index">
+      <tr *ngIf="listaCursos=='';else nocursos">
+        <td colspan="5">
+          <div class="alert alert-warning" role="alert">
+            No se detectaron Cursos
+          </div>
+        </td>
+      </tr>
+
+        <ng-template #nocursos>
+
+          <tr *ngFor="let c of listaCursos;let i = index">
             <td class="text-center">{{i+1}}</td>
             <td class="text-center" *ngIf="idNivelSeleccionado!='';else otroCursoLink"><a routerLink="/admin/grado/curso/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}/{{idNivelSeleccionado}}">{{c.nombre_curso}}</a></td>
             <ng-template #otroCursoLink><td class="text-center"><a routerLink="/admin/grado/curso/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}">{{c.nombre_curso}}</a></td></ng-template>
@@ -25,6 +35,8 @@
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarCurso"  (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-trash-can"></i></button>
             </td>
         </tr>
+
+        </ng-template>
     </tbody>
 </table>
      <!--Alerta-->

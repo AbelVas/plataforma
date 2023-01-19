@@ -3,8 +3,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { ProfesoresService } from '../services/profesores.service';
-import { CodigosService } from '../services/codigos.service';
+import { ProfesoresService } from '../../../services/profesores.service';
+import { CodigosService } from '../../../services/codigos.service';
 
 @Component({
   selector: 'app-docentes-resumen-admin-dashboard',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit,ViewChild } from '@angular/core';
-import { GradosService } from 'src/app/admin/dashboard/components/services/grados-admin.service';
+import { GradosService } from 'src/app/admin/services/grados-admin.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

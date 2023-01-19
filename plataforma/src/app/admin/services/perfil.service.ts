@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators'
@@ -7,26 +7,30 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
-
+export class PerfilService {
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  getTutor(idUsuario:string):Observable<any>{
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/${idUsuario}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
+  @Output() disparadorCopiarData:EventEmitter<any>=new EventEmitter();
 
-  getAlumnoporTutor(idTutor:string):Observable<any>{
+  getAdmin(idUsuario:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/alumnos/${idTutor}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/administradores/admin/${idUsuario}`,httpOptions).pipe(
       catchError(this.handleError)
-    );
+    )
   }
-
+  updateAdmin(data:any,idAdmin:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/administradores/admin/${idAdmin}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
+  passwordCompare(idAdmin:string,password:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/administradores/admin/pass/${idAdmin}`,password,httpOptions).pipe(
+      catchError(this.handleError)
+    )
+  }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

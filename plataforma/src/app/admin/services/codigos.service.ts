@@ -1,28 +1,27 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError} from 'rxjs/operators'
+import {catchError} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
-
+export class CodigosService {
   URL=environment.url
-
   constructor(private http:HttpClient) { }
 
-  getTutor(idUsuario:string):Observable<any>{
+  getCodigos():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/${idUsuario}`,httpOptions).pipe(
+    return this.http.get(`${this.URL}/codigos/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  getAlumnoporTutor(idTutor:string):Observable<any>{
+  isCodigoCorrect(data:any):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/tutores/alumnos/${idTutor}`,httpOptions).pipe(
+    return this.http.post(`${this.URL}/codigos/verify/`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -42,6 +41,13 @@ export class DashboardService {
           codigoError:error.statusText,
           Mensaje:"Error de conexión con el servidor",
           icono:'<i class="fa-solid fa-shield-xmark"></i>'
+        }
+      }else{
+        if(error.status==500){
+          msg={
+            codigoError:error.statusText,
+            Mensaje:"Error en la Petición",
+          }
         }
       }
     }

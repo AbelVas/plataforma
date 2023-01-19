@@ -1,5 +1,5 @@
 import { Component, OnInit,ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { JornadasService } from '../../services/jornadas.service';
+import { JornadasService } from '../../../../services/jornadas.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

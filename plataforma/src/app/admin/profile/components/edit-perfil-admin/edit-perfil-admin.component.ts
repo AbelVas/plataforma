@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { PerfilService } from '../../services/perfil.service';
+import { PerfilService } from '../../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
-import { ImagenesPerfilDefectoService } from '../../services/imagenes-perfil-defecto.service';
+import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-defecto.service';
 
 @Component({
   selector: 'app-admin-edit-perfil-admin',

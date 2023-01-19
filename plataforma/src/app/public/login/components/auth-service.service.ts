@@ -3,12 +3,13 @@ import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {map,tap,catchError} from 'rxjs/operators'
 import{JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LoginService {
 
   constructor(private http:HttpClient, private jwtHelper:JwtHelperService) { }
-  URL='https://test-server.orquiholic.com';
+  URL=environment.url
 
 
   login(user:any){

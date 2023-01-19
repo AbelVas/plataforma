@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { GradosService } from 'src/app/admin/dashboard/components/services/grados-admin.service';
+import { GradosService } from 'src/app/admin/services/grados-admin.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { CuadroGuiaService } from 'src/app/admin/grados/components/services/cuadro-guia.service';
-import { CursosAlumnosGradosService } from 'src/app/admin/grados/components/services/cursos-alumnos-grados.service';
-import { GradosAlumnosService } from 'src/app/admin/grados/components/services/grados-alumnos.service';
+import { CuadroGuiaService } from 'src/app/admin/services/cuadro-guia.service';
+import { CursosAlumnosGradosService } from 'src/app/admin/services/cursos-alumnos-grados.service';
+import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.service';
 
 
 

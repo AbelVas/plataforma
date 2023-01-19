@@ -1,6 +1,6 @@
 import { Component, OnInit,ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
-import { NivelesService } from '../../services/niveles.service';
-import { JornadasService } from '../../services/jornadas.service';
+import { NivelesService } from '../../../../services/niveles.service';
+import { JornadasService } from '../../../../services/jornadas.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

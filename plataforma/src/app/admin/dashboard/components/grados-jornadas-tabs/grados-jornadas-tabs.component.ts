@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SeccionesService } from 'src/app/admin/configuraciones/config-basicas/services/secciones.service';
-import  {NivelesService} from 'src/app/admin/configuraciones/config-basicas/services/niveles.service'
+import { SeccionesService } from 'src/app/admin/services/secciones.service';
+import  {NivelesService} from 'src/app/admin/services/niveles.service'
 
 @Component({
   selector: 'app-admin-grados-jornadas-tabs-dashboard',
