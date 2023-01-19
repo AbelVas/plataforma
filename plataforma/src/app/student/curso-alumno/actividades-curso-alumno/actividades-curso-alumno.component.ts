@@ -24,7 +24,7 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     letranota:''
   }
 
-  idNivel:string='';
+  idNivelNivel:any=[];
 
   idCursoCurso:string='';
   foros:any=[];
@@ -64,9 +64,12 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
   getNivel(idCurso=this.idCursoCurso){
     this.resumenCurso.getCurso(idCurso).subscribe(
       res=>{
+        var cantidad=res.length;
         this.cursosGet=res
-        res.idNivel=this.idNivel
-        console.log('idNivel: '+this.idNivel)
+        for(let i = 0; i<cantidad; i++){
+          this.idNivelNivel=this.cursosGet[i].idNivel;
+          console.log('idNivel: '+this.idNivelNivel)
+        }
       },
       error=>{
         console.log('Error: '+error);
