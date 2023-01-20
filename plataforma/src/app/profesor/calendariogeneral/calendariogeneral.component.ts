@@ -3,7 +3,7 @@ import decode from 'jwt-decode';
 import { CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
-import { CalendarioProfesorService } from '../calendario-profesor/services/calendario-profesor.service';
+import { CalendarioProfesorService } from '../services/calendario-profesor.service';
 import esLocale from '@fullcalendar/core/locales/es';
 import { ActivatedRoute } from '@angular/router';
 

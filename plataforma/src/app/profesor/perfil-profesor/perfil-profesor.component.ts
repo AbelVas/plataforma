@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import decode from 'jwt-decode';
-import { PerfilProfesorService } from './services/perfil-profesor.service';
-import { TemaProfesorService } from '../dashboard/services/tema-profesor.service';
+import { PerfilProfesorService } from '../services/perfil-profesor.service';
+import { TemaProfesorService } from '../services/tema-profesor.service';
 
 @Component({
   selector: 'app-perfil-profesor',

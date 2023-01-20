@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarioCursoService } from '../../services/calendario-curso.service';
+import { CalendarioCursoService } from '../../../services/calendario-curso.service';
 import esLocale from '@fullcalendar/core/locales/es';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarOptions} from '@fullcalendar/core';

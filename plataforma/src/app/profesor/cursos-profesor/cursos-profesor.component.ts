@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CardResumenService } from '../dashboard/services/card-resumen.service';
-import { TemaProfesorService } from '../dashboard/services/tema-profesor.service';
+import { CardResumenService } from '../services/card-resumen.service';
+import { TemaProfesorService } from '../services/tema-profesor.service';
 
 @Component({
   selector: 'app-cursos-profesor',

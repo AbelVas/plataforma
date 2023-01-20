@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ActividadesOpcionesCursoService } from '../../services/actividades-opciones-curso.service';
+import { ActividadesOpcionesCursoService } from '../../../../../services/actividades-opciones-curso.service';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

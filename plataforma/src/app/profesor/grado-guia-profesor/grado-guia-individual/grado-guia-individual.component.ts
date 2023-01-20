@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import decode from 'jwt-decode';
 import { ActivatedRoute } from '@angular/router';
-import { GradoGuiaProfesorService } from '../services/grado-guia-profesor.service';
-import { TemaProfesorService } from '../../dashboard/services/tema-profesor.service';
+import { GradoGuiaProfesorService } from '../../services/grado-guia-profesor.service';
+import { TemaProfesorService } from '../../services/tema-profesor.service';
 
 @Component({
   selector: 'app-grado-guia-individual',
