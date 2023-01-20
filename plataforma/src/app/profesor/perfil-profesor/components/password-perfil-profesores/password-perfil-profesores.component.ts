@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PerfilProfesorService } from '../../services/perfil-profesor.service';
+import { PerfilProfesorService } from '../../../services/perfil-profesor.service';
 import decode from "jwt-decode"
 
 @Component({

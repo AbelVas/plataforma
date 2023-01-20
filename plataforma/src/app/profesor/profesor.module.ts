@@ -22,12 +22,12 @@ import { PerfilProfesorComponent } from './perfil-profesor/perfil-profesor.compo
 import { OverviewPerfilProfesorComponent } from './perfil-profesor/components/overview-perfil-profesor/overview-perfil-profesor.component';
 import { EditPerfilProfesorComponent } from './perfil-profesor/components/edit-perfil-profesor/edit-perfil-profesor.component';
 import { PasswordPerfilProfesoresComponent } from './perfil-profesor/components/password-perfil-profesores/password-perfil-profesores.component';
-import { PerfilProfesorService } from "./perfil-profesor/services/perfil-profesor.service";
+import { PerfilProfesorService } from "./services/perfil-profesor.service";
 import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
-import { CardResumenService } from "./dashboard/services/card-resumen.service";
+import { CardResumenService } from "./services/card-resumen.service";
 import { HorarioProfesorComponent } from './dashboard/components/horario-profesor/horario-profesor.component';
-import { GradoGuiaProfesorService } from "./grado-guia-profesor/services/grado-guia-profesor.service";
+import { GradoGuiaProfesorService } from "./services/grado-guia-profesor.service";
 import { CursosCardResumenComponent } from './cursos-profesor/components/cursos-card-resumen/cursos-card-resumen.component';
 import { OpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/opciones-curso.component';
 import { CalendarioCursoComponent } from './cursos-profesor/components/calendario-curso/calendario-curso.component';
@@ -35,13 +35,13 @@ import { AlumnosCursoComponent } from './cursos-profesor/components/alumnos-curs
 import { AnunciosOpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/components/anuncios-opciones-curso/anuncios-opciones-curso.component';
 import { ActividadesOpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/components/actividades-opciones-curso/actividades-opciones-curso.component';
 import { RecursosOpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/components/recursos-opciones-curso/recursos-opciones-curso.component';
-import { ActividadesOpcionesCursoService } from "./cursos-profesor/components/opciones-curso/services/actividades-opciones-curso.service";
+import { ActividadesOpcionesCursoService } from "./services/actividades-opciones-curso.service";
 import { CalendarioProfesorComponent } from './calendario-profesor/calendario-profesor.component';
-import { CalendarioProfesorService } from "./calendario-profesor/services/calendario-profesor.service";
+import { CalendarioProfesorService } from "./services/calendario-profesor.service";
 import { ForoCursoProfesorComponent } from './foro-curso-profesor/foro-curso-profesor.component';
-import { ForoCursoProfesorService } from "./foro-curso-profesor/services/foro-curso-profesor.service";
+import { ForoCursoProfesorService } from "./services/foro-curso-profesor.service";
 import { ExamenCursoProfesorComponent } from './examen-curso-profesor/examen-curso-profesor.component';
-import { ExamenCursoProfesorService } from "./examen-curso-profesor/services/examen-curso-profesor.service";
+import { ExamenCursoProfesorService } from "./services/examen-curso-profesor.service";
 import { ColumnaDerechaProfesorComponent } from './dashboard/components/columna-derecha-profesor/columna-derecha-profesor.component';
 import { ExamenCursoComponent } from './examen-curso-profesor/components/examen-curso/examen-curso.component';
 import { CalificacionesExamenComponent } from './examen-curso-profesor/components/calificaciones-examen/calificaciones-examen.component';
@@ -50,8 +50,8 @@ import { GraficoExamenComponent } from './examen-curso-profesor/components/grafi
 import { CursosComponent } from "./cursos/cursos.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-individual/grado-guia-individual.component';
-import { CalendarioCursoService } from "./cursos-profesor/services/calendario-curso.service";
-import { TemaProfesorService } from "./dashboard/services/tema-profesor.service";
+import { CalendarioCursoService } from "./services/calendario-curso.service";
+import { TemaProfesorService } from "./services/tema-profesor.service";
 //
 
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import decode from 'jwt-decode';
-import { PerfilProfesorService } from '../../services/perfil-profesor.service';
+import { PerfilProfesorService } from '../../../services/perfil-profesor.service';
 import  {DatePipe} from "@angular/common";
 
 @Component({

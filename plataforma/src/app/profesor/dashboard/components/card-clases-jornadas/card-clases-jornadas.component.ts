@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
-import { CardResumenService } from '../../services/card-resumen.service';
+import { CardResumenService } from '../../../services/card-resumen.service';
 
 @Component({
   selector: 'app-card-clases-jornadas',
