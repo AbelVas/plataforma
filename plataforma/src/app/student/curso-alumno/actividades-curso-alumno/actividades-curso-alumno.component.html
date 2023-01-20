@@ -15,11 +15,11 @@
                 <table class="table table-hover" *ngIf="tareas!='';else tablaVaciaT">
                   <thead>
                      <tr>
-                        <th scope="col" class="text-center">Tarea</th>
-                        <th scope="col" class="text-center">Descripción</th>
-                       <!-- <th scope="col" class="text-center">Comentario del profesor</th>
-                        <th scope="col" class="text-center">Entrega</th>-->
-                        <th scope="col" class="text-center">Puntuación</th>
+                      <th scope="col" class="text-center">Tarea</th>
+                      <th scope="col" class="text-center">Descripción</th>
+                      <th scope="col" class="text-center">Comentario del profesor</th>
+                      <th scope="col" class="text-center">Entregable</th>
+                      <th scope="col" class="text-center">Puntuación</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -28,12 +28,16 @@
                         <!--Detalle de la actividad-->
                         <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(t.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
                          </td>
-                         <!--Comentario del profesor
-                        <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
-                          <i class="fa-regular fa-comment-dots"></i>
-                           </button>
-                         </td>-->
-                        <!--<td align="center">A tiempo</td>-->
+                          <!--Comentario del profesor -->
+                          <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
+                            <i class="fa-regular fa-comment-dots"></i>
+                             </button>
+                           </td>
+                           <!--Añadir Entregable -->
+                           <td align="center"><button type="button" class="btn btn-warning rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalEntregable">
+                            <i class="fa-solid fa-paperclip"></i>
+                             </button>
+                           </td>
                         <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
                           <ng-template #notaNulaTar>
                             <td class="text-center">{{t.letranota}}</td>
@@ -51,6 +55,32 @@
                              </div>
                           </div>
                        </div>
+
+                       <div class="modal fade" id="ModalEntregable" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title">Entregable</h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Añadir Archivo:</b></label>
+                                  <br>
+                                  <button class="btn btn-warning m-1"><i class="fa-solid fa-file"></i></button>
+                                </div>
+                                <div class="mb-3">
+                                  <label class="form-label"><b>Añadir Comentario:</b></label>
+                                  <input type="text" class="form-control">
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i>  Guardar</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
 
                         <!--Modal Ver Actividad Completa-->
                         <div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -303,8 +333,8 @@
                        <tr>
                           <th scope="col" class="text-center">Tarea</th>
                           <th scope="col" class="text-center">Descripción</th>
-                         <!-- <th scope="col" class="text-center">Comentario del profesor</th>
-                          <th scope="col" class="text-center">Entrega</th>-->
+                          <th scope="col" class="text-center">Comentario del profesor</th>
+                          <th scope="col" class="text-center">Entregable</th>
                           <th scope="col" class="text-center">Puntuación</th>
                        </tr>
                     </thead>
@@ -314,12 +344,17 @@
                           <!--Detalle de la actividad-->
                           <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(t.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
                            </td>
-                           <!--Comentario del profesor
+                           <!--Comentario del profesor -->
                           <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
                             <i class="fa-regular fa-comment-dots"></i>
                              </button>
-                           </td>-->
-                          <!--<td align="center">A tiempo</td>-->
+                           </td>
+                           <!--Añadir Entregable -->
+                           <td align="center"><button type="button" class="btn btn-warning rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalEntregable">
+                            <i class="fa-solid fa-paperclip"></i>
+                             </button>
+                           </td>
+
                           <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
                             <ng-template #notaNulaTar>
                               <td class="text-center">{{t.nota / t.valor}}</td>
@@ -337,6 +372,32 @@
                                </div>
                             </div>
                          </div>
+
+                         <div class="modal fade" id="ModalEntregable" tabindex="-1">
+                          <div class="modal-dialog modal-dialog-centered">
+                             <div class="modal-content">
+                                <div class="modal-header">
+                                   <h5 class="modal-title">Entregable</h5>
+                                   <br>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="mb-3">
+                                    <label class="form-label"><b>Añadir Archivo:</b></label>
+                                    <button class="btn btn-warning m-1"><i class="fa-solid fa-file"></i></button>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label class="form-label"><b>Añadir Comentario:</b></label>
+                                    <input type="text" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                  <button type="button" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i>  Guardar</button>
+                                </div>
+                             </div>
+                          </div>
+                       </div>
 
                           <!--Modal Ver Actividad Completa-->
                           <div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

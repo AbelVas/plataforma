@@ -52,6 +52,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-individual/grado-guia-individual.component';
 import { CalendarioCursoService } from "./services/calendario-curso.service";
 import { TemaProfesorService } from "./services/tema-profesor.service";
+import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/archivos-perfil-profesor/archivos-perfil-profesor.component';
 //
 
 
@@ -98,7 +99,8 @@ import { TemaProfesorService } from "./services/tema-profesor.service";
   GraficoExamenComponent,
   CursosComponent,
   GradoGuiaIndividualComponent,
-  CalendariogeneralComponent
+  CalendariogeneralComponent,
+  ArchivosPerfilProfesorComponent
   ],
   exports:[
   ],
