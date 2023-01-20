@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { S } from '@fullcalendar/core/internal-common';
 import decode from 'jwt-decode';
-import { ActividadesCursoAlumnoTutorService } from './services/actividades-curso-alumno-tutor.service';
+import { ActividadesCursoAlumnoTutorService } from '../../service/actividades-curso-alumno-tutor.service';
 
 @Component({
   selector: 'app-actividades-curso-alumno-tutor',

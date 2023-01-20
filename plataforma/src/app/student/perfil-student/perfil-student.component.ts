@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
-import { PerfilAlumnoService } from './services/perfil-alumno.service';
-import { TemaEstudianteService } from '../dashboard/services/tema-estudiante.service';
+import { PerfilAlumnoService } from '../services/perfil-alumno.service';
+import { TemaEstudianteService } from '../services/tema-estudiante.service';
 
 @Component({
   selector: 'app-perfil-student',

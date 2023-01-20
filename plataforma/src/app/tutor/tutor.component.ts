@@ -1,5 +1,5 @@
 import { Component,OnInit } from "@angular/core";
-import { TematutoresService } from "./dashboard/services/tematutores.service";
+import { TematutoresService } from "./service/tematutores.service";
 
 @Component({
   selector:'app-tutor',

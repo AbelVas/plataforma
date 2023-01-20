@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TematutoresService } from './services/tematutores.service';
+import { TematutoresService } from '../service/tematutores.service';
 import decode from 'jwt-decode';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
-import { ResumenCursoAlumnoService } from '../../services/resumen-curso-alumno.service';
+import { ResumenCursoAlumnoService } from '../../../../services/resumen-curso-alumno.service';
 
 @Component({
   selector: 'app-card-info-resumen',

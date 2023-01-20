@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VistaEstudianteService } from '../../services/vista-estudiante.service';
+import { VistaEstudianteService } from '../../../service/vista-estudiante.service';
 
 @Component({
   selector: 'app-contenido-vista-estudiante',

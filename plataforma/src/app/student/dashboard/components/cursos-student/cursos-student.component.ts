@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
-import {DahboardService } from '../../services/dahboard.service';
+import {DahboardService } from '../../../services/dahboard.service';
 
 @Component({
   selector: 'app-cursos-student',

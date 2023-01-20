@@ -1,5 +1,5 @@
 import { Component,OnInit } from "@angular/core";
-import { TemaEstudianteService } from "./dashboard/services/tema-estudiante.service";
+import { TemaEstudianteService } from "./services/tema-estudiante.service";
 
 @Component({
   selector:'app-alumno',

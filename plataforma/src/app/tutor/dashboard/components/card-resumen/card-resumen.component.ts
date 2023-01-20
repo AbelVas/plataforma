@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import decode from 'jwt-decode';
-import { DashboardService } from '../../services/dashboard.service';
+import { DashboardService } from '../../../service/dashboard.service';
 
 @Component({
   selector: 'app-card-resumen',

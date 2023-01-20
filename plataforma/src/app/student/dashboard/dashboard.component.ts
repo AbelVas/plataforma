@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
-import { DahboardService } from './services/dahboard.service';
-import { TemaEstudianteService } from './services/tema-estudiante.service';
+import { DahboardService } from '../services/dahboard.service';
+import { TemaEstudianteService } from '../services/tema-estudiante.service';
 
 @Component({
   selector: 'app-dashboard',

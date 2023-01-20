@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PerfilAlumnoService } from '../../services/perfil-alumno.service';
+import { PerfilAlumnoService } from '../../../services/perfil-alumno.service';
 import decode from "jwt-decode";
 import { ToastrService } from 'ngx-toastr';
 

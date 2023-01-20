@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
-import { DahboardService } from '../../services/dahboard.service';
+import { DahboardService } from '../../../services/dahboard.service';
 
 @Component({
   selector: 'app-card-resumen-student',

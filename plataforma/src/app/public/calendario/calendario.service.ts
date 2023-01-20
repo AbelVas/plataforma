@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {map,tap,catchError, mergeScan} from 'rxjs/operators'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalendarioService {
 
-  URL='https://test-server.orquiholic.com';
+  URL=environment.url
+
   constructor(private http:HttpClient) { }
 
   getActividadesparaEventos(idUsuario:string):Observable<any>{

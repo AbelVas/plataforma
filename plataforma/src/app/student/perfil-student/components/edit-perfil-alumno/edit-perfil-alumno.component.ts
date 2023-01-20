@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PerfilAlumnoService } from '../../services/perfil-alumno.service';
+import { PerfilAlumnoService } from '../../../services/perfil-alumno.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';

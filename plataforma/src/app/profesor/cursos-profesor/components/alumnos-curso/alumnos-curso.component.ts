@@ -30,6 +30,7 @@ export class AlumnosCursoComponent implements OnInit {
     this.cardResumenService.getAlumnosGrado(idGradoAl).subscribe(
       response=>{
         this.alumnosGet=response;
+        console.log(this.alumnosGet)
       }
     )
   }

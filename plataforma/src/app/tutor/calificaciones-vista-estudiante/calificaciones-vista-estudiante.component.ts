@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
-import { CalificacionesVistaEstudianteService } from './services/calificaciones-vista-estudiante.service';
-import { TematutoresService } from '../dashboard/services/tematutores.service';
+import { CalificacionesVistaEstudianteService } from '../service/calificaciones-vista-estudiante.service';
+import { TematutoresService } from '../service/tematutores.service';
 
 @Component({
   selector: 'app-calificaciones-vista-estudiante',

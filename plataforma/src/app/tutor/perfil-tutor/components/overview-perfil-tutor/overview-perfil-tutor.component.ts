@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
-import { PerfilTutorService } from '../../services/perfil-tutor.service';
+import { PerfilTutorService } from '../../../service/perfil-tutor.service';
 import  {DatePipe} from "@angular/common";
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DahboardService } from '../../dashboard/services/dahboard.service';
-import { TemaEstudianteService } from '../../dashboard/services/tema-estudiante.service';
+import { DahboardService } from '../../services/dahboard.service';
+import { TemaEstudianteService } from '../../services/tema-estudiante.service';
 
 @Component({
   selector: 'app-resumen-curso-alumno',

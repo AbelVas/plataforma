@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
-import { DahboardService } from '../../../../dashboard/services/dahboard.service';
+import { DahboardService } from '../../../../services/dahboard.service';
 import esLocale from '@fullcalendar/core/locales/es';
 import { ActivatedRoute } from '@angular/router';
 

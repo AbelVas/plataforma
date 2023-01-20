@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VistaEstudianteService } from '../../vista-estudiante/services/vista-estudiante.service';
-import { TematutoresService } from '../../dashboard/services/tematutores.service';
+import { VistaEstudianteService } from '../../service/vista-estudiante.service';
+import { TematutoresService } from '../../service/tematutores.service';
 
 @Component({
   selector: 'app-resumen-curso-alumno-tutor',

@@ -20,22 +20,22 @@ import { PerfilTutorComponent } from './perfil-tutor/perfil-tutor.component';
 import { ActividadesCursoAlumnoTutorComponent } from './curso-alumno-tutor/actividades-curso-alumno-tutor/actividades-curso-alumno-tutor.component';
 import { ResumenCursoAlumnoTutorComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/resumen-curso-alumno-tutor.component';
 import { CalendarioResumenCursoComponent } from './curso-alumno-tutor/resumen-curso-alumno-tutor/components/calendario-resumen-curso/calendario-resumen-curso.component';
-import { DashboardService } from "./dashboard/services/dashboard.service";
-import { CursoAlumnoTutorService } from "./curso-alumno-tutor/services/curso-alumno-tutor.service";
+import { DashboardService } from "./service/dashboard.service";
+import { CursoAlumnoTutorService } from "./service/curso-alumno-tutor.service";
 import { EditPerfilTutorComponent } from './perfil-tutor/components/edit-perfil-tutor/edit-perfil-tutor.component';
-import { PerfilTutorService } from "./perfil-tutor/services/perfil-tutor.service";
+import { PerfilTutorService } from "./service/perfil-tutor.service";
 import { OverviewPerfilTutorComponent } from './perfil-tutor/components/overview-perfil-tutor/overview-perfil-tutor.component';
 import { PasswordPerfilTutorComponent } from './perfil-tutor/components/password-perfil-tutor/password-perfil-tutor.component';
-import { CalificacionesAlumnoTutorService } from "./calificaciones-alumno-tutor/services/calificaciones-alumno-tutor.service";
-import { ActividadesCursoAlumnoTutorService } from "./curso-alumno-tutor/actividades-curso-alumno-tutor/services/actividades-curso-alumno-tutor.service";
+import { CalificacionesAlumnoTutorService } from "./service/calificaciones-alumno-tutor.service";
+import { ActividadesCursoAlumnoTutorService } from "./service/actividades-curso-alumno-tutor.service";
 import { PublicModule } from "../public/public.module";
 import { VistaEstudianteComponent } from './vista-estudiante/vista-estudiante.component';
-import { VistaEstudianteService } from "./vista-estudiante/services/vista-estudiante.service";
+import { VistaEstudianteService } from "./service/vista-estudiante.service";
 import { ContenidoVistaEstudianteComponent } from './vista-estudiante/components/contenido-vista-estudiante/contenido-vista-estudiante.component';
 import { CalificacionesVistaEstudianteComponent } from './calificaciones-vista-estudiante/calificaciones-vista-estudiante.component';
-import { CalificacionesVistaEstudianteService } from "./calificaciones-vista-estudiante/services/calificaciones-vista-estudiante.service";
+import { CalificacionesVistaEstudianteService } from "./service/calificaciones-vista-estudiante.service";
 import { FullCalendarModule } from "@fullcalendar/angular";
-import { TematutoresService } from "./dashboard/services/tematutores.service";
+import { TematutoresService } from "./service/tematutores.service";
 @NgModule({
   imports:[
     TutorRoutingModule,

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
-import { CalificacionesStudentService } from './services/calificaciones-student.service';
-import { TemaEstudianteService } from '../dashboard/services/tema-estudiante.service';
-
+import { CalificacionesStudentService } from '../services/calificaciones-student.service';
+import { TemaEstudianteService } from '../services/tema-estudiante.service';
 @Component({
   selector: 'app-calificaciones-student',
   templateUrl: './calificaciones-student.component.html',
