@@ -6,10 +6,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./archivos-perfil-profesor.component.css']
 })
 export class ArchivosPerfilProfesorComponent implements OnInit {
+  antecedentesPenales:any
+  antecedentesPoliciacos:any
+  RENAS:any
 
-  constructor() { }
+  //subir archivos dependencias plugin
+  constructor() {
+
+
+  }
 
   ngOnInit(): void {
   }
 
+  renasUpload(){
+
+
+  }
+
+  penalesUpload(){
+
+  }
+
+  policialesUpload(){
+
+  }
 }

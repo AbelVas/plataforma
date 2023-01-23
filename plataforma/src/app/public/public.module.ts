@@ -24,6 +24,7 @@ import { CalendarioService } from "./calendario/calendario.service";
     LoaderComponent,
     LoaderpequeComponent,
     CalendarioComponent,
+
   ],
   exports:[
     LoaderComponent,

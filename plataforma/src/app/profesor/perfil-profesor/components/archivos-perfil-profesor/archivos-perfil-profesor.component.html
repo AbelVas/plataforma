@@ -1,30 +1,121 @@
 <div>
-  <div style="overflow-x: auto;">
-    <table class="table">
-      <thead style="border-color: white;">
-         <tr>
-            <td scope="col" class="text-center ">RENAS:</td>
-            <td scope="col" class="text-center ">Antecedentes Penales:</td>
-            <td scope="col" class="text-center ">Antecedentes Policíacos:</td>
-         </tr>
-      </thead>
-      <tbody style="border-color: white;">
-         <tr>
-            <td align="center">
-              <button class="btn btn-info rounded-pill"><i class="fa-solid fa-file" style="color: white;"></i></button>
-            </td>
-            <td align="center">
-              <button class="btn btn-info rounded-pill"><i class="fa-solid fa-file" style="color: white;"></i></button>
-            </td>
-            <td align="center">
-              <button class="btn btn-info rounded-pill"><i class="fa-solid fa-file" style="color: white;"></i></button>
-            </td>
-         </tr>
-      </tbody>
-   </table>
+  <div>
+   <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center">
+            <h5 class="card-title">RENAS</h5>
+          </div>
+          <div class="text-center">
+            <div *ngIf="RENAS==null;else siRenas">
+              <img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
+              <h4 class="text-danger">No se encuentran archivos!</h4>
+            </div>
+            <ng-template #siRenas>
+              <img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
+              <h4 class="text-success">Descargar</h4>
+            </ng-template>
+          </div>
+          <br>
+          <div class="text-center">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RENAS"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center">
+            <h5 class="card-title">Antecedentes Penales</h5>
+          </div>
+          <div class="text-center">
+            <div *ngIf="antecedentesPenales==null;else siRenas">
+              <img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
+              <h4 class="text-danger">No se encuentran archivos!</h4>
+            </div>
+            <ng-template #siRenas>
+              <img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
+              <h4 class="text-success">Descargar</h4>
+            </ng-template>
+          </div>
+          <br>
+          <div class="text-center">
+            <button class="btn btn-primary"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center">
+            <h5 class="card-title">Antecedentes Policiacos</h5>
+          </div>
+          <div class="text-center">
+            <div *ngIf="antecedentesPoliciacos==null;else siRenas">
+              <img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
+              <h4 class="text-danger">No se encuentran archivos!</h4>
+            </div>
+            <ng-template #siRenas>
+              <img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
+              <h4 class="text-success">Descargar</h4>
+            </ng-template>
+          </div>
+          <br>
+          <div class="text-center">
+            <button class="btn btn-primary"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
   </div>
   <hr>
-  <div class="text-center">
-    <button type="submit" class="btn btn-primary">Subir Archivos</button>
+</div>
+
+
+
+
+<!-- Modal RENAS -->
+<div class="modal fade" id="RENAS" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Archivo RENAS</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Seleccionar archivo:</label>
+          <input class="form-control" type="file" id="formFile">
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
   </div>
 </div>

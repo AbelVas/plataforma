@@ -62,7 +62,7 @@ import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/ar
     SharedModule,
     ReactiveFormsModule,
     FullCalendarModule,
-    PublicModule
+    PublicModule,
   ],
   declarations:[
   ProfesorComponent,
