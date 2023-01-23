@@ -12,6 +12,7 @@
         <mat-form-field>
           <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
         </mat-form-field>
+        <div style="overflow-x: auto;">
         <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
           <ng-container matColumnDef="no">
@@ -72,6 +73,7 @@
           </div>
         </div>
         <!--Alerta-->
+       </div>
        </div>
     </div>
   </div>

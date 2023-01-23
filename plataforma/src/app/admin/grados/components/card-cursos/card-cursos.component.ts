@@ -10,6 +10,7 @@ import { CursosAlumnosGradosService } from '../../../services/cursos-alumnos-gra
   styleUrls: ['./card-cursos.component.css']
 })
 export class CardCursosComponent implements OnInit {
+  sppinerOn:boolean=true;
   idNivelSeleccionado:string=''
   cursoIndividual:any={}
   idGrado:string=''
@@ -77,9 +78,11 @@ export class CardCursosComponent implements OnInit {
     this.cursosAlumnosService.getCursosGrado(this.idGrado).subscribe(
       res=>{
         this.listaCursos=res
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
@@ -192,9 +195,11 @@ export class CardCursosComponent implements OnInit {
     this.profesoresService.getProfesoresListaSelectCursos().subscribe(
       res=>{
         this.listaDocentes=res;
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }

@@ -15,6 +15,7 @@ import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.serv
   styleUrls: ['./card-matutina.component.css']
 })
 export class CardMatutinaComponent implements OnInit {
+  sppinerOn:boolean=true;
   gradosLista:any=[];
   gradoIndividual:any={}
   dataTable: any;
@@ -69,6 +70,7 @@ export class CardMatutinaComponent implements OnInit {
     this.cursoGradoService.getCursosGrado(idGrado).subscribe(
       res=>{
         this.cursosConsolidado=res
+        this.sppinerOn=false;
           this.bimestreSeleccionadoConsolidado={idUnidad:'1'}
           this.cuadroGuiaService.getCursosNotasGradoGuia(idGrado,this.bimestreSeleccionadoConsolidado).subscribe(
             res=>{
@@ -76,6 +78,7 @@ export class CardMatutinaComponent implements OnInit {
             },
             err=>{
               console.log(err)
+              this.sppinerOn=false;
             }
           )
       },
@@ -90,6 +93,7 @@ export class CardMatutinaComponent implements OnInit {
       res=>{
 
         this.gradosLista=res;
+        this.sppinerOn=false;
         this.dataSource = new MatTableDataSource(this.gradosLista);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';
         this.dataSource.paginator = this.paginator;
@@ -98,6 +102,7 @@ export class CardMatutinaComponent implements OnInit {
       },
       err=>{
         this.errorServicio=err;
+        this.sppinerOn=false;
       }
     )
   }

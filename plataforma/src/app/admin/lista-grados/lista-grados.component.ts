@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./lista-grados.component.css']
 })
 export class ListaGradosComponent implements OnInit {
+  sppinerOn:boolean=true;
   rutaParaVerElRetorno:string='';
   idNivelSelecciondo:string='';
   nivelSeleccionado:any=[];
@@ -142,6 +143,7 @@ export class ListaGradosComponent implements OnInit {
     this.gradoService.getGradoNivel(idNivel).subscribe(
       res=>{
         this.listaGrados=res;
+        this.sppinerOn=false;
         this.dataSource = new MatTableDataSource(this.listaGrados);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';
         this.dataSource.paginator = this.paginator;
@@ -149,6 +151,7 @@ export class ListaGradosComponent implements OnInit {
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }

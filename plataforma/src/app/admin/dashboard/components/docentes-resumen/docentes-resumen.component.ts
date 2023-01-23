@@ -12,6 +12,7 @@ import { CodigosService } from '../../../services/codigos.service';
   styleUrls: ['./docentes-resumen.component.css']
 })
 export class DocentesResumenComponent implements OnInit {
+  sppinerOn:boolean=true;
   listaDocentes:any=[];
   docenteIndividual:any={}
   isEditPassword:string='0'
@@ -79,6 +80,7 @@ export class DocentesResumenComponent implements OnInit {
     this.profesorService.getProfesoresListaSelectCursos().subscribe(
       res=>{
         this.listaDocentes=res
+        this.sppinerOn=false;
         this.dataSource = new MatTableDataSource(this.listaDocentes);
         this.paginator._intl.itemsPerPageLabel = 'Docentes por Página: ';
         this.dataSource.paginator = this.paginator;
@@ -87,6 +89,7 @@ export class DocentesResumenComponent implements OnInit {
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }

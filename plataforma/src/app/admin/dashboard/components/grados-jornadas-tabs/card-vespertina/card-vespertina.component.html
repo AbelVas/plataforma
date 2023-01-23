@@ -6,7 +6,7 @@
   <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
 </mat-form-field>
 <div>
-  <div style="overflow-x: auto;">
+    <div style="overflow-x: auto;">
   <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
     <ng-container matColumnDef="nombre_grado">
