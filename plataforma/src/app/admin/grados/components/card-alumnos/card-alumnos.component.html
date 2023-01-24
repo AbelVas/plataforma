@@ -1,5 +1,8 @@
 <br>
 <div style="overflow-x: auto;">
+  <div class="text-end">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearAlumno"><i class="fa-solid fa-user-plus"></i></button>
+  </div>
 <table class="table table-striped table-hover">
     <thead>
         <th class="text-center">ID</th>
@@ -9,17 +12,58 @@
         <th class="text-center">Acciones</th>
     </thead>
     <tbody>
+      <tr *ngIf="listaAlumnos=='';else noalumnos">
+        <td colspan="5">
+          <div class="alert alert-warning text-center" role="alert">
+            No se detectan Alumnos
+          </div>
+        </td>
+      </tr>
+      <ng-template #noalumnos>
         <tr *ngFor="let c of listaAlumnos;let i = index">
-            <td class="text-center">{{i+1}}</td>
-            <td class="text-center">{{c.alumno}}</td>
-            <td class="text-center">{{c.usuario}}</td>
-            <td class="text-center">{{c.activo}}</td>
-            <td class="text-center">
-                <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="btn btn-success"><i class="fa-solid fa-table"></i></button>
-                <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-            </td>
-        </tr>
+          <td class="text-center">{{i+1}}</td>
+          <td class="text-center">{{c.alumno}}</td>
+          <td class="text-center">{{c.usuario}}</td>
+          <td class="text-center">{{c.activo}}</td>
+          <td class="text-center">
+              <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-success"><i class="fa-solid fa-table"></i></button>
+              <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+          </td>
+      </tr>
+      </ng-template>
     </tbody>
 </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="crearAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear Alumno</h1>
+        <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="isCorrectCodigo==false;else codigoCorrect">
+          <div class="modal-body" >
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Código</label>
+              <input type="text" class="form-control" [class]="codigoError" #datoCodigo>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-success" (click)="verificaraCodigo(datoCodigo.value)"><i class="fa-solid fa-magnifying-glass"></i> Validar</button>
+          </div>
+        </div>
+        <ng-template #codigoCorrect>
+
+          correcto
+
+        </ng-template>
+      </div>
+    </div>
+  </div>
 </div>
