@@ -10,6 +10,7 @@ import { LoaderpequeComponent } from './loaderpeque/loaderpeque.component';
 import { CalendarioComponent } from './calendario/calendario.component';
 import { FullCalendarModule } from "@fullcalendar/angular";
 import { CalendarioService } from "./calendario/calendario.service";
+import { LoaderchiquiComponent } from './loaderchiqui/loaderchiqui.component';
 
 @NgModule({
   imports:[
@@ -24,11 +25,13 @@ import { CalendarioService } from "./calendario/calendario.service";
     LoaderComponent,
     LoaderpequeComponent,
     CalendarioComponent,
+    LoaderchiquiComponent,
 
   ],
   exports:[
     LoaderComponent,
     LoaderpequeComponent,
+    LoaderchiquiComponent,
     CalendarioComponent,
   ],
   providers:[

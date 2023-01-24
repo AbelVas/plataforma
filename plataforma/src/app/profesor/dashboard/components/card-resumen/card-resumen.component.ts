@@ -8,7 +8,7 @@ import { CardResumenService } from '../../../services/card-resumen.service';
   styleUrls: ['./card-resumen.component.css']
 })
 export class CardResumenComponent implements OnInit {
-
+  sppinerOn:boolean=true;
   token:any=localStorage.getItem('Acces-Token');
   cursosGet:any=[];
   cursosIndividual:any={
@@ -36,10 +36,12 @@ export class CardResumenComponent implements OnInit {
     this.cardResumenService.getCursoporProfesor(idUsuario).subscribe(
       response=>{
         this.cursosGet=response;
+        this.sppinerOn=false;
         this.cantidad_cursos=response
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }
@@ -49,10 +51,12 @@ export class CardResumenComponent implements OnInit {
     this.cardResumenService.getGradoPorProfesor(idUsuario).subscribe(
       response=>{
         this.gradosGet=response;
+        this.sppinerOn=false;
         this.cantidad_grados=response;
       },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }

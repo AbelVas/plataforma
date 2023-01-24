@@ -8,6 +8,7 @@ import { EstadisticasDashboardService } from '../../../services/estadisticas-das
   styleUrls: ['./ajustes-unidad.component.css']
 })
 export class AjustesUnidadComponent implements OnInit {
+  sppinerOn:boolean=true;
   unidades:any =[];
   ActivoInactivo='cheked';
   errorServicio:any={};
@@ -32,17 +33,21 @@ export class AjustesUnidadComponent implements OnInit {
     this.estadisticaService.getTotalAlumnosHombres().subscribe(
       res=>{
         this.totalNinos=res[0].nino
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
     this.estadisticaService.getTotalAlumnosMujeres().subscribe(
       res=>{
         this.totalNinas=res[0].nina
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
@@ -50,17 +55,21 @@ export class AjustesUnidadComponent implements OnInit {
     this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
       res=>{
         this.passDocenteCambiada=res[0].siCambioContra
+        this.sppinerOn=false;
       },
       err=>{
        console.log(err)
+       this.sppinerOn=false;
       }
     )
     this.estadisticaService.getDocenteContrasenaNoCambiada().subscribe(
       res=>{
         this.passDocenteNoCambiada=res[0].noCambioContra
+        this.sppinerOn=false;
       },
       err=>{
        console.log(err)
+       this.sppinerOn=false;
       }
     )
   }
@@ -68,17 +77,21 @@ export class AjustesUnidadComponent implements OnInit {
     this.estadisticaService.getTotalCodigosUso().subscribe(
       res=>{
         this.codigoActivo=res[0].activo
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
     this.estadisticaService.getTotalCodigosNoUso().subscribe(
       res=>{
         this.codigoInactivo=res[0].noActivo
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
@@ -88,10 +101,12 @@ export class AjustesUnidadComponent implements OnInit {
       response=>{
         this.unidades=response;
         this.errorServicio=''
+        this.sppinerOn=false;
       },
       error=>{
         this.errorServicio=error
         console.log(this.errorServicio);
+        this.sppinerOn=false;
       }
     )
   }

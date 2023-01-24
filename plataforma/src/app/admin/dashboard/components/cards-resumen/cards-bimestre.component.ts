@@ -7,12 +7,14 @@ import { EstadisticasDashboardService } from '../../../services/estadisticas-das
   styleUrls: ['./cards-bimestre.component.css']
 })
 export class CardsBimestreComponent implements OnInit {
+  sppinerOn:boolean=true;
   totalAlumnos:any='';
   totalDocentes:any='';
   totalGrados:any=''
   constructor(private estadisticaService:EstadisticasDashboardService) { }
 
   ngOnInit(): void {
+    this.sppinerOn=true
     this.getTotalAlumnos()
     this.getTotalDocentes()
     this.getTotalGrados()
@@ -21,9 +23,11 @@ export class CardsBimestreComponent implements OnInit {
     this.estadisticaService.getTotalAlumnos().subscribe(
       res=>{
         this.totalAlumnos=res[0].CantidadAlumnos
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
@@ -33,9 +37,11 @@ export class CardsBimestreComponent implements OnInit {
     this.estadisticaService.getCantidadDocentes().subscribe(
       res=>{
         this.totalDocentes=res[0].CantidadProfesores
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
@@ -45,9 +51,11 @@ export class CardsBimestreComponent implements OnInit {
     this.estadisticaService.getCantidadGrados().subscribe(
       res=>{
         this.totalGrados=res[0].CantidadGrados
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }

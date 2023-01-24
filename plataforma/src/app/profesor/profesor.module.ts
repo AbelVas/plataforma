@@ -53,6 +53,7 @@ import { GradoGuiaIndividualComponent } from './grado-guia-profesor/grado-guia-i
 import { CalendarioCursoService } from "./services/calendario-curso.service";
 import { TemaProfesorService } from "./services/tema-profesor.service";
 import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/archivos-perfil-profesor/archivos-perfil-profesor.component';
+import { NgChartsModule } from "ng2-charts";
 //
 
 
@@ -63,6 +64,7 @@ import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/ar
     ReactiveFormsModule,
     FullCalendarModule,
     PublicModule,
+    NgChartsModule
   ],
   declarations:[
   ProfesorComponent,

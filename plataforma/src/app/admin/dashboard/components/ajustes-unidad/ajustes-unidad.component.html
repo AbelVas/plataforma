@@ -4,6 +4,11 @@
           <h5 class="card-title">Bimestres <span>| Activos/Inactivos</span></h5>
           <div class="activity">
             <!--Aqui debo meter el for-->
+            <div *ngIf="sppinerOn==true;else Mostrar1">
+              <app-loaderpeque></app-loaderpeque>
+            </div>
+            <!--Dentro del loader-->
+            <ng-template #Mostrar1>
           <div>
             <div class="row">
               <div class="activity-item d-flex col-md-6" *ngFor="let u of unidades">
@@ -24,6 +29,7 @@
             </div>
             <!--aqui finaliza el for-->
           </div>
+          </ng-template>
           <div *ngIf="errorServicio!=''">
             <div class="alert alert-danger text-center" role="alert">{{errorServicio.codigoError}} <b>, Detalles:</b> {{errorServicio.Mensaje}}</div>
           </div>
@@ -34,6 +40,11 @@
     <div class="card">
       <div class="card-body pb-0">
           <h5 class="card-title">Estadisticas <span>| Resumen General</span></h5>
+          <div *ngIf="sppinerOn==true;else Mostrar2">
+            <app-loaderpeque></app-loaderpeque>
+          </div>
+          <!--Dentro del loader-->
+          <ng-template #Mostrar2>
           <div class="row">
             <div class="col-md-6">
               <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-hombre.png"><div><b class="texto-esta-alumnos">Niños: </b>{{totalNinos}}</div></div>
@@ -67,6 +78,7 @@
             </div>
           </div>
           <br>
+          </ng-template>
       </div>
     </div>
 </div>

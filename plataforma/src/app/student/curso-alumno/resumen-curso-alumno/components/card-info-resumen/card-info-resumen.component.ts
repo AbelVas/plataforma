@@ -9,6 +9,7 @@ import { ResumenCursoAlumnoService } from '../../../../services/resumen-curso-al
   styleUrls: ['./card-info-resumen.component.css']
 })
 export class CardInfoResumenComponent implements OnInit {
+  sppinerOn:boolean=true;
   ActividadesInfo:any=[];
   Tareas:any=[];
   Foro:any=[];
@@ -33,9 +34,11 @@ export class CardInfoResumenComponent implements OnInit {
     this.resumenCurso.getActividadPorTipoExamen(this.idCurso, idUsuario).subscribe(
       response=>{
         this.Examen=response
+        this.sppinerOn=false;
         },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }
@@ -47,9 +50,11 @@ export class CardInfoResumenComponent implements OnInit {
     this.resumenCurso.getActividadPorTipoTarea(this.idCurso, idUsuario).subscribe(
       response=>{
         this.Tareas=response
+        this.sppinerOn=false;
         },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }
@@ -61,9 +66,11 @@ export class CardInfoResumenComponent implements OnInit {
     this.resumenCurso.getActividadPorTipoForo(this.idCurso, idUsuario).subscribe(
       response=>{
         this.Foro=response
+        this.sppinerOn=false;
         },
       error=>{
         console.log('Error: '+error);
+        this.sppinerOn=false;
       }
     )
   }
