@@ -59,9 +59,11 @@
           </div>
         </div>
         <ng-template #codigoCorrect>
+          <div>
+            <form class="row g-3" [formGroup]="alumnoForm" (ngSubmit)="crearAlumno()" autocomplete="off">
 
-          correcto
-
+            </form>
+          </div>
         </ng-template>
       </div>
     </div>

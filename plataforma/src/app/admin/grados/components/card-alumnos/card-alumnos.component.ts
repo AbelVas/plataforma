@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CodigosService } from 'src/app/admin/services/codigos.service';
 import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.service';
@@ -20,7 +21,10 @@ export class CardAlumnosComponent implements OnInit {
     ver_notas:'1',
     imagen:'assets/img/blank_profile.png',
   }
-  constructor(private alumnosGradoService:GradosAlumnosService,private activedRoute:ActivatedRoute, private codigoService:CodigosService) { }
+  alumnoForm=this.formBuilder.group({
+
+  })
+  constructor(private alumnosGradoService:GradosAlumnosService,private activedRoute:ActivatedRoute, private codigoService:CodigosService,private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -60,4 +64,5 @@ export class CardAlumnosComponent implements OnInit {
       }
     )
   }
+  crearAlumno(){}
 }
