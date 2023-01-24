@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="activity">
       <nav class="d-flex justify-content-center">
-        <button type="button" class="btn btn-warning mt-4" data-bs-toggle="modal" data-bs-target="#modalestadisticascurso" disabled> Ver Estadísticas </button>
+        <button type="button" class="btn btn-warning mt-4" data-bs-toggle="modal" data-bs-target="#modalestadisticascurso">Estadísticas del Curso</button>
              <div class="modal fade" id="modalestadisticascurso" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                    <div class="modal-content">
@@ -25,7 +25,13 @@
     <h5 class="card-title">Alumnos del Curso</h5>
       <div class="activity"  *ngFor="let a of alumnosGet">
         <ul>
+          <div *ngIf="sppinerOn==true;else Mostrar1">
+            <app-loaderchiqui></app-loaderchiqui>
+          </div>
+          <!--Dentro del loader-->
+          <ng-template #Mostrar1>
           <li>{{a.alumno}}</li>
+          </ng-template>
         </ul>
       </div>
   </div>

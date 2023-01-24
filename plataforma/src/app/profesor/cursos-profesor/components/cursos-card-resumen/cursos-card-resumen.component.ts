@@ -10,7 +10,7 @@ import { CardResumenService } from 'src/app/profesor/services/card-resumen.servi
 export class CursosCardResumenComponent implements OnInit {
 
   constructor( public cardResumenService:CardResumenService, private activedRoute:ActivatedRoute ) { }
-
+  sppinerOn:boolean=true;
   idGradoCurso:string='';
   idCursoCurso:string='';
   alumnosGet:any=[];
@@ -33,7 +33,12 @@ export class CursosCardResumenComponent implements OnInit {
     this.cardResumenService.getAlumnosGrado(idGradoAl).subscribe(
       response=>{
         this.alumnosGet=response;
+        this.sppinerOn=false;
         this.cantidad_alumnos=response;
+      },
+      err=>{
+        console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
@@ -41,10 +46,12 @@ export class CursosCardResumenComponent implements OnInit {
     this.cardResumenService.getTareasCurso(idCursoAl).subscribe(
       res=>{
         this.listaActividades=res
+        this.sppinerOn=false;
         this.cantidad_tareas=res
       },
       err=>{
         console.log(err)
+        this.sppinerOn=false;
       }
     )
   }
