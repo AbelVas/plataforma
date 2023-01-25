@@ -143,11 +143,12 @@ export class ListaGradosComponent implements OnInit {
     this.gradoService.getGradoNivel(idNivel).subscribe(
       res=>{
         this.listaGrados=res;
-        this.sppinerOn=false;
+        console.log(this.listaGrados)
         this.dataSource = new MatTableDataSource(this.listaGrados);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
