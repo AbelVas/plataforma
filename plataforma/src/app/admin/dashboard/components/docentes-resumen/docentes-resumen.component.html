@@ -11,7 +11,7 @@
           <app-loaderpeque></app-loaderpeque>
         </div>
         <!--dentro del loader-->
-       <ng-template #MostrarDataPerfilOverview>
+
         <!--Mostrar Docentes-->
         <div class="text-end">
           <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#modalCrear"><i class="fa-solid fa-plus"></i></button>
@@ -21,6 +21,7 @@
           <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
         </mat-form-field>
         <div style="overflow-x: auto;">
+          <ng-template #MostrarDataPerfilOverview>
         <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
           <ng-container matColumnDef="no">
@@ -63,6 +64,7 @@
             <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
           </tr>
         </table>
+      </ng-template>
         </div>
         <mat-paginator [pageSize]="docentesPorPagina" aria-label="Select page of users"></mat-paginator>
          <!--Alerta-->
@@ -75,7 +77,7 @@
           </div>
         </div>
         <!--Alerta-->
-        </ng-template>
+
         <!--Fuera del loader-->
        </div>
     </div>
