@@ -65,7 +65,7 @@ import { AlumnosComponent } from './usuarios/alumnos/alumnos.component';
 import { TutoresComponent } from './usuarios/tutores/tutores.component';
 import { CuadroGuiaService } from "./services/cuadro-guia.service";
 import { TutoresService } from "./usuarios/tutores/tutores.service";
-import { AlumnosService } from "./usuarios/alumnos/alumnos.service";
+import { AlumnosService } from "./services/alumnos.service";
 import { EstadisticasDashboardService } from "./services/estadisticas-dashboard.service";
 import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto.service";
 

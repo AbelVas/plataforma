@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import {catchError} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,12 +11,31 @@ export class AlumnosService {
   URL=environment.url
   constructor(private http:HttpClient) { }
 
+  getAlumno():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   insertAlumno(data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.post(`${this.URL}/usuarios/`,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
+  deleteAlumno(idAlumno:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/usuarios/${idAlumno}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  editAlumno(idAlumno:string,data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/usuarios/${idAlumno}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
   private handleError(error:HttpErrorResponse){
     var msg={};

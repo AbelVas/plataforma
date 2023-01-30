@@ -4,7 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { CodigosService } from '../../services/codigos.service';
-import { AlumnosService } from './alumnos.service';
+import { AlumnosService } from '../../services/alumnos.service';
 import { GradosService } from '../../services/grados-admin.service';
 
 @Component({
