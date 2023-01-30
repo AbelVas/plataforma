@@ -3,8 +3,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NotFoundComponent } from "./not-found/not-cound.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { LoginService } from "src/app/public/login/components/auth-service.service";
+
 
 @NgModule({
   imports:[
@@ -21,6 +22,7 @@ import { LoginService } from "src/app/public/login/components/auth-service.servi
     RouterModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NotFoundComponent
   ],
   providers:[

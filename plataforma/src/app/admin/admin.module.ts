@@ -8,7 +8,7 @@ import {MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-import { ReactiveFormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule } from "@angular/forms";
 //Cosito notificaciones
 //Fin cosos tabla
 
@@ -129,7 +129,8 @@ import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto
         TutoresService,
         AlumnosService,
         EstadisticasDashboardService,
-        ImagenesPerfilDefectoService
+        ImagenesPerfilDefectoService,
+        AlumnosService
     ],
     imports: [
         AdminRoutingModule,
@@ -140,6 +141,7 @@ import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto
         MatInputModule,
         MatPaginatorModule,
         MatSortModule,
+        FormsModule,
         ReactiveFormsModule
     ]
 })

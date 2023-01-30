@@ -7,7 +7,7 @@ const session_1 = require("../middleware/session");
 // Mi primer Appi Queza
 const router = (0, express_1.Router)();
 exports.router = router;
-router.get("/", session_1.checkJwt, grados_1.getGrados);
+router.get("/", grados_1.getGrados);
 router.get("/:id", session_1.checkJwt, grados_1.getGrado);
 router.put("/:id", session_1.checkJwt, grados_1.updateGrado);
 router.delete("/:id", session_1.checkJwt, grados_1.deleteGrado);
