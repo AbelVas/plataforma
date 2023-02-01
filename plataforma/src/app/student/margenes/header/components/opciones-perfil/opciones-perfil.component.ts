@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import decode from 'jwt-decode';
 
 @Component({
@@ -12,7 +13,7 @@ export class OpcionesPerfilComponent implements OnInit {
   NombreSingular=[];
 
   @Input() ctexto2:string='';
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');
@@ -23,5 +24,8 @@ export class OpcionesPerfilComponent implements OnInit {
     this.RoleUsuario=rol;
     this.NombreSingular=nombre_profesor;
   }
-
+  salir(){
+    localStorage.removeItem('Acces-Token');
+    this.router.navigate(['login']);
+  }
 }
