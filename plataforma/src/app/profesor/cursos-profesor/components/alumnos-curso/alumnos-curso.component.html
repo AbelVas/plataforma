@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="activity">
       <nav class="d-flex justify-content-center">
-        <button type="button" class="btn btn-warning mt-4" data-bs-toggle="modal" data-bs-target="#modalestadisticascurso">Estadísticas del Curso</button>
+        <button type="button" class="btn btn-warning mt-4" data-bs-toggle="modal" data-bs-target="#modalestadisticascurso" disabled>Estadísticas del Curso</button>
              <div class="modal fade" id="modalestadisticascurso" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                    <div class="modal-content">
@@ -10,7 +10,12 @@
                          <h5 class="card-title">Nombre de curso</h5>
                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">Aquí va un gráfico en forma de pie que muestra cuántos alumnos aprobaron o reprobaron el curso</div>
+                      <div class="modal-body">
+                        <!--Pinche Chart-->
+                        <h2>Grafica</h2>
+                        <canvas id="piechart"></canvas>
+                        <!--Pinche Chart-->
+                      </div>
                       <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                    </div>
                 </div>

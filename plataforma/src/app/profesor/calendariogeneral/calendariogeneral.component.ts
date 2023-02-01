@@ -22,7 +22,7 @@ export class CalendariogeneralComponent implements OnInit {
       initialView: 'dayGridWeek',
       dayMaxEvents: true,
       plugins: [dayGridPlugin, listPlugin],
-      weekends: false,
+      weekends: true,
       locale: esLocale,
       headerToolbar: {
         left: '',

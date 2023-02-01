@@ -49,6 +49,13 @@ export class CardResumenService {
     );
   }
 
+  Prueba():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/estadistica/Alumnos-Total/grados/`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

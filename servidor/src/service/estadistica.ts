@@ -8,7 +8,7 @@ const GetAlumnosTotal=async()=>{
 
 const GetAlumnosTotalPorGrado=async()=>{
 
-    const responseGet=await conexion.query('SELECT idGrado, COUNT(idAlumno) CantidadAlumno FROM tbAlumno group by idGrado');
+    const responseGet=await conexion.query('SELECT al.idGrado,tg.nombre_grado, COUNT(al.idAlumno) CantidadAlumno FROM tbAlumno al INNER JOIN tbGrado tg ON al.idGrado=tg.idGrado group by al.idGrado');
     return responseGet;
 }
 
