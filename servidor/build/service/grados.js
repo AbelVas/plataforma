@@ -41,7 +41,7 @@ const insertGradoService = (data) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.insertGradoService = insertGradoService;
 const getGradoNivelService = (idNivel) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGetNivel = yield database_1.default.query('SELECT g.idGrado,g.idNivel,g.idSeccion,n.idJornada,g.nombre_grado,s.seccion,n.nivel,g.estatus,count(al.idAlumno) as Alumnos,j.jornada FROM (((tbGrado g INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)LEFT JOIN tbAlumno al ON al.idGrado=g.idGrado WHERE n.idNivel=?  group by g.nombre_grado ORDER BY n.idNivel,g.idGrado', [idNivel]);
+    const responseGetNivel = yield database_1.default.query('SELECT g.idGrado,g.idNivel,g.idSeccion,n.idJornada,g.nombre_grado,s.seccion,n.nivel,g.estatus,count(al.idAlumno) as Alumnos,j.jornada FROM (((tbGrado g INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)LEFT JOIN tbAlumno al ON al.idGrado=g.idGrado WHERE n.idNivel=?  group by g.idGrado ORDER BY n.idNivel,g.idGrado', [idNivel]);
     return responseGetNivel;
 });
 exports.getGradoNivelService = getGradoNivelService;

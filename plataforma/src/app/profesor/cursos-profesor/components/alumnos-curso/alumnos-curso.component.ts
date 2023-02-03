@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CardResumenService } from 'src/app/profesor/services/card-resumen.service';
+import { Chart, registerables } from 'node_modules/chart.js'
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-alumnos-curso',
@@ -17,6 +19,7 @@ export class AlumnosCursoComponent implements OnInit {
   idGradoCurso:string='';
   alumnosGet:any=[
   ];
+  EventosChart:any=[];
   Sex:any=[]
   alumnosIndividual:any={
     idAlumno:'',
@@ -24,11 +27,47 @@ export class AlumnosCursoComponent implements OnInit {
     usuario:'',
     activo:''
   }
+  chartdata: any;
+
+  labeldata: any[] = [];
+  realdata: any[] = [];
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
     this.idGradoCurso=params['idGrado'];
     this.obtenerAlumnosCursos();
+    this.cardResumenService.Prueba().subscribe((result: any) => {
+      this.chartdata = result;
+      if(this.chartdata!=null){
+        for(let i=0; i<this.chartdata.length ;i++){
+          //console.log(this.chartdata[i]);
+          this.labeldata.push(this.chartdata[i].nombre_grado);
+          this.realdata.push(this.chartdata[i].CantidadAlumno);
+        }
+       }
+      }
+    )
+    this.RenderChart(this.labeldata,this.realdata);
+  }
+
+  RenderChart(labeldata: any[], realdata: any[]) {
+        const myChart = new Chart('piechart', {
+      type: 'pie',
+      data: {
+        labels: labeldata,
+        datasets: [{
+          label: 'Estudiantes por grado',
+          data: realdata,
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
 
   obtenerAlumnosCursos(idGradoAl=this.idGradoCurso){
@@ -36,52 +75,11 @@ export class AlumnosCursoComponent implements OnInit {
       response=>{
         this.alumnosGet=response;
         this.sppinerOn=false;
-        for(let i=0; i<this.alumnosGet.length; i++){
-
-          this.Sex={
-            sexoEstudiante: this.alumnosGet[i].sexo
-          }
+        console.log(this.EventosChart)
 
         }
-        console.log(this.alumnosGet)
-      }
+
     )
   }
-
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-
-  // Pie
-  public pieChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-      datalabels: {
-        formatter: (value, ctx) => {
-          if (ctx.chart.data.labels) {
-            return ctx.chart.data.labels[ctx.dataIndex];
-          }
-        },
-      },
-    }
-  };
-  public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [ [ 'Download', 'Sales' ], [ 'In', 'Store', 'Sales' ], 'Mail Sales' ],
-    datasets: [ {
-      data: [ 300, 500, 100 ]
-    } ]
-  };
-  public pieChartType: ChartType = 'pie';
-  public pieChartPlugins = [ DatalabelsPlugin ];
-
-  // events
-  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
 }
+

@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from "../core/shared/components/shared.module";
 import { PublicRoutingModule } from "./public-routing.module";
 
+
+
 import { HomeComponent } from "./home/containers/home.component";
 import { PublicComponent } from "./public.component";
 import { LoginComponent } from "./login/containers/login.component";
@@ -11,6 +13,9 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { FullCalendarModule } from "@fullcalendar/angular";
 import { CalendarioService } from "./calendario/calendario.service";
 import { LoaderchiquiComponent } from './loaderchiqui/loaderchiqui.component';
+import { CodigosService } from "../admin/services/codigos.service";
+import { GradosService } from "../admin/services/grados-admin.service";
+import { AlumnosService } from "../admin/services/alumnos.service";
 
 @NgModule({
   imports:[
@@ -35,7 +40,10 @@ import { LoaderchiquiComponent } from './loaderchiqui/loaderchiqui.component';
     CalendarioComponent,
   ],
   providers:[
-    CalendarioService
+    CalendarioService,
+    CodigosService,
+    GradosService,
+    AlumnosService
   ]
 })
 

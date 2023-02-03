@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnosService {
-  URL='https://test-server.orquiholic.com';
+  URL=environment.url
   constructor(private http:HttpClient) { }
 
   getAlumno():Observable<any>{

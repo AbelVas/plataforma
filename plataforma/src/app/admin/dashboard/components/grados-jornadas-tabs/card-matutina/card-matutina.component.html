@@ -1,8 +1,7 @@
 <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
   <app-loaderpeque></app-loaderpeque>
 </div>
-<!--Dentro del loader-->
-<ng-template #MostrarDataPerfilOverview>
+
 <div class="text-end">
   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-plus"></i></button>
 </div>
@@ -12,6 +11,8 @@
 </mat-form-field>
 <div>
   <div style="overflow-x: auto;">
+    <!--Dentro del loader-->
+<ng-template #MostrarDataPerfilOverview>
   <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
     <ng-container matColumnDef="nombre_grado">
@@ -58,6 +59,7 @@
       <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
     </tr>
   </table>
+</ng-template>
   </div>
 <mat-paginator [pageSize]="gradosPorPagina" aria-label="Select page of users"></mat-paginator>
 
@@ -69,7 +71,7 @@
 </div>
 
 </div>
-</ng-template>
+
 <!--Fuera del loader-->
 <!--Modal Consolidado de Grado-->
 <!-- Modal -->
