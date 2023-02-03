@@ -196,7 +196,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="duplicarTareas(ActividadIndividual.idDetalleActividad,$event)">Duplicar</button>
       </div>
     </div>
   </div>
@@ -206,44 +207,10 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Calificar Nombre del Alumno</h1>
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar {{ActividadIndividualEdit.tipoActividad}}</h1>
         <button type="button" class="btn-close" #editarActividadCerrar data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label"><b>Entregable:</b></label>
-            <p class="text-primary">Aquí aparece el archivo, si no hay pues un mensaje que diga que no hay</p>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label"><b>Comentario del Alumno:</b></label>
-            <p class="text-primary">Tuve problemas con el internet, perdón por la hora de entrega</p>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label"><b>Añadir Comentario:</b></label>
-            <input type="text" class="form-control">
-            <p class="text-primary">Actual: Sin comentario añadido</p>
-          </div>
-          <hr>
-
-        </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--Modal Ver Actividad Completa-->
-<div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Detalles</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label"><b>Bimestre:</b></label>
@@ -330,8 +297,115 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="duplicarTareas(ActividadIndividual.idDetalleActividad,$event)">Duplicar</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" (click)="editarActividad(ActividadIndividual.idDetalleActividad)">Editar Actividad</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Ver Actividad Completa-->
+<div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Ver Actividad</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label"><b>Nombre Tarea:</b></label>
+          <br>
+          <label class="form-label">{{ActividadIndividual.nombre_actividad}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Fecha de Entrega:</b></label>
+          <br>
+          <label class="form-label">{{ActividadIndividual.fecha_entrega | date:'dd/MM/yyyy'}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Fecha de Creación:</b></label>
+          <br>
+          <label class="form-label">{{ActividadIndividual.creada | date:'dd/MM/yyyy'}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Valor:</b></label>
+          <br>
+          <label class="form-label">{{ActividadIndividual.valor+' pts.'}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Unidad:</b></label>
+          <br>
+          <label class="form-label">{{ActividadIndividual.unidad}}</label>
+        </div>
+
+        <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
+          <label class="form-label"><b>Visible para Alumnos:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label">Coso para Descargar Recurso</label>
+          <ng-template #noDisponible>
+            <label class="form-label">- Sin Recurso Disponible -</label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
+          <label class="form-label"><b>Visible para Alumnos:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label"><span class="badge bg-success">Visible</span></label>
+          <ng-template #noDisponible>
+            <label class="form-label"><span class="badge bg-danger">Sin Visibilidad</span></label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
+          <label class="form-label"><b>Permitir entregas Tarde:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.entrega_fuera_fecha=='1';else noPermitido" class="form-label"><span class="badge bg-success">Permitido</span></label>
+          <ng-template #noPermitido>
+            <label class="form-label"><span class="badge bg-danger">No Permitido</span></label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Detalle:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.detalle!='';else noDetalle" class="form-label">{{ActividadIndividual.detalle}}</label>
+          <ng-template #noDetalle>
+            <label class="form-label">*** No ingresado ***</label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Cotejo:</b></label>
+          <br>
+          <label *ngIf="ActividadIndividual.cotejo!='';else noCotejo" class="form-label">{{ActividadIndividual.cotejo}}</label>
+          <ng-template #noCotejo>
+            <label class="form-label">*** No ingresado ***</label>
+          </ng-template>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Tipo de Actividad:</b></label>
+          <br>
+          <label class="form-label">{{ActividadIndividual.tipoActividad}}</label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"><b>Última Modificacion:</b></label>
+          <br>
+          <label class="form-label" *ngIf="ActividadIndividual.ultima_modificacion!=undefined;else modificadaTarea">{{ActividadIndividual.ultima_modificacion | date:'dd/MM/yyyy'}}</label>
+          <ng-template #modificadaTarea>
+            <label class="form-label">*** Nunca modificada ***</label>
+          </ng-template>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
       </div>
     </div>
   </div>
