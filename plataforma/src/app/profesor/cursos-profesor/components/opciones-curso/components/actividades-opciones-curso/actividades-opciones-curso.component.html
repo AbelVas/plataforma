@@ -9,7 +9,7 @@
       <div class="modal-body">
         <div  *ngIf="tiposActividad.idTipoActividad!='';else nodata">
           <div class="row">
-            <div *ngFor="let ta of tiposActividad" class="col-md-4 text-center">
+            <div *ngFor="let ta of tiposActividad" class="col-md-4 text-center mb-2">
               <div *ngIf="ta.estado==1;else conEnlace"  >
                 <a   role="button" [attr.data-bs-target]="'#'+ta.modal" data-bs-toggle="modal">
                   <h5>{{ta.tipoActividad}}</h5>
@@ -578,6 +578,82 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Regresar</button>
         <button type="submit" class="btn btn-primary">Crear Actividad</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!--Modal Crear Recurso Web-->
+<div class="modal fade" id="CrearRecurso" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Recurso</h1>
+        <button type="button" class="btn-close" #crearTareaModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="crearTareaForm" (ngSubmit)="crearTarea()" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Bimestre:</label>
+            <select formControlName="idUnidad" formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors }" aria-label="Default select example">
+              <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+            </select>
+            <span class="text-danger" *ngIf="submitted&&f.idUnidad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Titulo Recurso:</label>
+            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+
+          <div class="mb-3">
+            <label class="form-label">Descripción:</label>
+            <textarea formControlName="detalle" class="form-control" rows="7"></textarea>
+          </div>
+
+          <hr>
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Elija el tipo de recurso a crear</h1>
+          <hr>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="DecirdirRecurso" id="RecursoLinkWeb">
+            <label class="form-check-label" for="RecursoLinkWeb">
+              Link web o Link video
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="DecirdirRecurso" id="RecursoArchivo">
+            <label class="form-check-label" for="RecursoArchivo">
+              Archivo
+            </label>
+          </div>
+
+          <hr>
+
+          <section class="mb-3">
+            <label class="form-label">Link web/video:</label>
+            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+
+          </section>
+
+          <section class="mb-3">
+            <label class="form-label">Nombre Archivo:</label>
+            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+            <label for="formFile" class="form-label">Archivo:</label>
+            <input class="form-control" type="file" id="formFile">
+
+          </section>
+
+
+
+        </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Regresar</button>
+        <button type="submit" class="btn btn-primary">Crear Recurso</button>
       </div>
     </form>
     </div>
