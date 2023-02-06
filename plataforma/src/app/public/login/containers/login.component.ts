@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
     nombres_alumno:new FormControl('',[Validators.required]),
     apellidos_alumno:new FormControl('',[Validators.required]),
     usuario:new FormControl('',[Validators.required]),
-    carnet:new FormControl('',[Validators.required]),
+    carnet:new FormControl(''),
     pass:new FormControl('',[Validators.required]),
     confirmPass:new FormControl('',[Validators.required])
   })
