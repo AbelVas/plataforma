@@ -617,35 +617,22 @@
           <hr>
           <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Elija el tipo de recurso a crear</h1>
           <hr>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="DecirdirRecurso" id="RecursoLinkWeb">
-            <label class="form-check-label" for="RecursoLinkWeb">
-              Link web o Link video
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="DecirdirRecurso" id="RecursoArchivo">
-            <label class="form-check-label" for="RecursoArchivo">
-              Archivo
-            </label>
-          </div>
-
-          <hr>
-
           <section class="mb-3">
-            <label class="form-label">Link web/video:</label>
-            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
-            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
-
-          </section>
-
-          <section class="mb-3">
-            <label class="form-label">Nombre Archivo:</label>
-            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
-            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
-            <label for="formFile" class="form-label">Archivo:</label>
-            <input class="form-control" type="file" id="formFile">
-
+            <div>
+              <input type="radio" name="rad1" value="data" (change)="true" #checkBoxLinkWeb> Link web o Link video
+              <br>
+              <div *ngIf="checkBoxLinkWeb.checked">
+                <label class="form-label">Ingrese el Link:</label>
+                <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+                <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+              </div>
+              <input type="radio" name="rad1" value="none" (change)="true" #checkBoxArchivo> Archivo
+              <br>
+              <div *ngIf="checkBoxArchivo.checked">
+                <label for="formFile" class="form-label">Seleccione su Archivo:</label>
+                <input class="form-control" type="file" id="formFile">
+              </div>
+            </div>
           </section>
 
 

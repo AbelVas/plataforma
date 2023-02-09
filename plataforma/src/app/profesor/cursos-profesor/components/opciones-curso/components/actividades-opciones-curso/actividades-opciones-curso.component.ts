@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./actividades-opciones-curso.component.css']
 })
 export class ActividadesOpcionesCursoComponent implements OnInit {
+  value: string='';
   sppinerOn:boolean=true;
   idGrado:string=''
   listaActividades:any=[]
