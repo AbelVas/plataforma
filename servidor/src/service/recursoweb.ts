@@ -39,4 +39,11 @@ const insertRecursoWebService=async(data:Request)=>{
 
 }
 
-export{GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService}
+const GetRecursoWebServiceGrado=async(id:string)=>{
+
+    const responseGet=await conexion.query('SELECT * FROM tbRecursoWeb WHERE idCurso=?',[id]);
+    return responseGet;
+
+}
+
+export{GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService,GetRecursoWebServiceGrado}

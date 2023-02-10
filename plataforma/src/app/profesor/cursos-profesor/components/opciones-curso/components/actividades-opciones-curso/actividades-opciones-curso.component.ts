@@ -23,6 +23,7 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   idCursoDocente:any={};
   listaAlumnos:any=[]
   listaCalificacionAlumno:any=[]
+  listaRecursoCurso:any=[]
   //Crear Actividad
   propiedadActividad:any={
     idTipoActividad:'',
@@ -110,6 +111,7 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
     this.getTareas()
     this.getCursosDocente()
     this.getAlumnos();
+    this.getRecursosPorGrado()
   }
 
   validarCalificacionRefresh(idActividad:string,idUnidad:string){
@@ -394,4 +396,17 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   }
   //para los forms siempre debemos traer los validadores
   get f() { return this.crearTareaForm.controls; }
+
+//Aquí empieza lo de los recursos web
+  getRecursosPorGrado(){
+    this.actividadesOpcionesCursoService.getRecursosCurso(this.idCurso).subscribe(
+      res=>{
+        this.listaRecursoCurso=res;
+        console.log(this.listaRecursoCurso)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
 }
