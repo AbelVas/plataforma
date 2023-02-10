@@ -343,14 +343,14 @@
           <label class="form-label">{{ActividadIndividual.unidad}}</label>
         </div>
 
-        <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
+        <!-- <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
           <label class="form-label"><b>Visible para Alumnos:</b></label>
           <br>
           <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label">Coso para Descargar Recurso</label>
           <ng-template #noDisponible>
             <label class="form-label">- Sin Recurso Disponible -</label>
           </ng-template>
-        </div>
+        </div>-->
 
         <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
           <label class="form-label"><b>Visible para Alumnos:</b></label>
