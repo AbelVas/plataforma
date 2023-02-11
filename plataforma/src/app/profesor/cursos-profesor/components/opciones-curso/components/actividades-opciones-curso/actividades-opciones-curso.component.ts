@@ -81,8 +81,9 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   @ViewChild('crearForoModalCerrar') modalCloseForo: any;
   @ViewChild('editarActividadCerrar') modalCloseEditar: any;
   @ViewChild('duplicarActividadCerrar') modalCloseDuplicar: any;
+  @ViewChild('crearRecursoModalCerrar') modalRecursoCloseCrear: any;
 
-  //Formulario
+  //Formulario tareas
     crearTareaForm=this.formBuilder.group({
     idUnidad:new FormControl('',[Validators.required]),
     nombre_actividad:new FormControl('',[Validators.required]),
@@ -90,6 +91,13 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
     valor:new FormControl('',[Validators.required]),
     detalle:new FormControl(''),
     cotejo:new FormControl(''),
+  })
+  //Formulario recurosweb
+  crearRecursoForm=this.formBuilder.group({
+    idUnidad:new FormControl('',[Validators.required]),
+    titulo:new FormControl('',[Validators.required]),
+    enlace:new FormControl('',[Validators.required]),
+    descripcion:new FormControl(''),
   })
 
   tareaCreadaObj:any=[];
@@ -408,5 +416,30 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
         console.log(err)
       }
     )
+  }
+
+  crearRecurso(){
+    this.submitted = true;
+        // stop here if form is invalid
+        if (this.crearRecursoForm.invalid) {
+            return;
+        }
+        // display form values on success
+        this.tareaCreadaObj=this.crearRecursoForm.value
+        this.tareaCreadaObj.idCurso=this.idCurso
+        this.tareaCreadaObj.fecha_creacion=this.fecha
+      this.actividadesOpcionesCursoService.crearRecurso(this.tareaCreadaObj).subscribe(
+        res=>{
+          this.modalCloseCrear.nativeElement.click();
+          this.submitted = false;
+          this.crearRecursoForm.reset();
+          this.getRecursosPorGrado()
+          this.toastrService.success(`Recurso Creado`,'Realizado')
+        },
+        err=>{
+          console.log(err)
+          this.toastrService.error(`Recurso no Creado`,'Error')
+        }
+      )
   }
 }
