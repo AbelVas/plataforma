@@ -9,6 +9,7 @@ export class FooterComponent implements OnInit {
 
   @Input() cnavbar2:string='';
   @Input() ctexto2:string='';
+  @Input() cfondo1:string='';
 
   constructor() { }
 

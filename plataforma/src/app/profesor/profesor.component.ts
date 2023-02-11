@@ -21,6 +21,7 @@ export class ProfesorComponent implements OnInit{
     navbar1: '',
     navbar2: '',
     texto2: '',
+    fondo1: '',
     estado: ''
   }
 
@@ -28,6 +29,7 @@ export class ProfesorComponent implements OnInit{
   cnavbar1:string='';
   cnavbar2:string='';
   ctexto2:string='';
+  cfondo1:string='';
 
   constructor( private temaProfesorService:TemaProfesorService ){}
 
@@ -45,6 +47,7 @@ export class ProfesorComponent implements OnInit{
           this.cnavbar1=this.temaGet[i].navbar1;
           this.cnavbar2=this.temaGet[i].navbar2;
           this.ctexto2=this.temaGet[i].texto2;
+          this.cfondo1=this.temaGet[i].fondo1;
         }
       },
       error=>{

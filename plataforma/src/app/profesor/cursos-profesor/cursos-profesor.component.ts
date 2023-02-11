@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CardResumenService } from '../services/card-resumen.service';
 import { TemaProfesorService } from '../services/tema-profesor.service';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl,Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cursos-profesor',
@@ -17,7 +20,8 @@ export class CursosProfesorComponent implements OnInit {
     idGrado:'',
     nombre_grado:'',
     nombre_curso:'',
-    abreviatura:''
+    abreviatura:'',
+    color_curso:''
   };
   idGradoCurso:string='';
   alumnosGet:any=[];
@@ -44,12 +48,15 @@ export class CursosProfesorComponent implements OnInit {
     estado: ''
   }
 
+  intervalo:any
+  cursoForm:any
+  @ViewChild('cerrarEditarModal') modalCloseEditar: any;
   //variables de colores
   cfondo1:string='';
   cfondo2:string='';
   ctexto1:string='';
 
-  constructor( public cardResumenService:CardResumenService, private activedRoute:ActivatedRoute, private temaProfesorService:TemaProfesorService  ) { }
+  constructor( public cardResumenService:CardResumenService, private activedRoute:ActivatedRoute, private temaProfesorService:TemaProfesorService, private router:Router, private formBuilder:FormBuilder, private toastrService:ToastrService ) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -57,6 +64,10 @@ export class CursosProfesorComponent implements OnInit {
     this.idGradoCurso=params['idGrado'];
     this.obtenerDatosCursos();
     this.obtenerAlumnosCursos();
+
+    this.cursoForm=this.formBuilder.group({
+      color_curso:new FormControl('',[Validators.required]),
+    })
 
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
@@ -98,5 +109,31 @@ export class CursosProfesorComponent implements OnInit {
       }
     )
   }
+
+  updateCurso(idCurso=this.idClase){
+    var DataModificada:any={}
+    if(this.f.color_curso.value!=''){
+      DataModificada.color_curso=this.f.color_curso.value
+    }
+    if(Object.entries(DataModificada).length!=0){
+      this.cardResumenService.updateCurso(idCurso,DataModificada).subscribe(
+        res=>{
+          this.obtenerDatosCursos()
+          this.modalCloseEditar.nativeElement.click();
+          this.toastrService.success(`Curso Actualizado`,'Realizado')
+        },
+        err=>{
+          this.modalCloseEditar.nativeElement.click();
+          this.toastrService.error(`Error al Actulizar`,'Error')
+          console.log(err)
+        }
+      )
+    }else{
+      this.modalCloseEditar.nativeElement.click();
+      //Aquí va el mensajito flotante de no se realizaron cambios
+    }
+  }
+
+  get f() { return this.cursoForm.controls; }
 
 }

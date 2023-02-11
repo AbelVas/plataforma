@@ -26,8 +26,6 @@ import { CardInfoResumenComponent } from './curso-alumno/resumen-curso-alumno/co
 import { CalendarioResumenCursoComponent } from './curso-alumno/resumen-curso-alumno/components/calendario-resumen-curso/calendario-resumen-curso.component';
 import { ProgressResumenCursoComponent } from './curso-alumno/resumen-curso-alumno/components/progress-resumen-curso/progress-resumen-curso.component';
 import { AnunciosRecursosResumenCursoComponent } from './curso-alumno/resumen-curso-alumno/components/anuncios-recursos-resumen-curso/anuncios-recursos-resumen-curso.component';
-import { AnunciosResumenCursoComponent } from './curso-alumno/resumen-curso-alumno/components/anuncios-recursos-resumen-curso/components/anuncios-resumen-curso/anuncios-resumen-curso.component';
-import { RecursosResumenCursoComponent } from './curso-alumno/resumen-curso-alumno/components/anuncios-recursos-resumen-curso/components/recursos-resumen-curso/recursos-resumen-curso.component';
 import { ResumenCursoAlumnoService } from "./services/resumen-curso-alumno.service";
 import { DahboardService } from "./services/dahboard.service";
 import { PerfilAlumnoService } from "./services/perfil-alumno.service";
@@ -73,8 +71,6 @@ import { TemaEstudianteService } from "./services/tema-estudiante.service";
     CalendarioResumenCursoComponent,
     ProgressResumenCursoComponent,
     AnunciosRecursosResumenCursoComponent,
-    AnunciosResumenCursoComponent,
-    RecursosResumenCursoComponent,
     EditPerfilAlumnoComponent,
     OverviewPerfilAlumnoComponent,
     PasswordPerfilAlumnoComponent,
