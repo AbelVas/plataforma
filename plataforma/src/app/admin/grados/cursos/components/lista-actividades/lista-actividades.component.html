@@ -562,3 +562,66 @@
     </div>
   </div>
 </div>
+
+<!--Modal Crear Recurso Web-->
+<div class="modal fade" id="CrearRecurso" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Recurso</h1>
+        <button type="button" class="btn-close" #crearTareaModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="crearRecursoForm" (ngSubmit)="crearRecurso()" action="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Bimestre:</label>
+            <select formControlName="idUnidad" formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors }" aria-label="Default select example">
+              <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+            </select>
+            <span class="text-danger" *ngIf="submitted&&f.idUnidad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Titulo Recurso:</label>
+            <input formControlName="titulo" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+          </div>
+
+
+          <div class="mb-3">
+            <label class="form-label">Descripción:</label>
+            <textarea formControlName="descripcion" class="form-control" rows="7"></textarea>
+          </div>
+
+          <hr>
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Elija el tipo de recurso a crear</h1>
+          <hr>
+          <section class="mb-3">
+            <div>
+              <input type="radio" name="rad1" value="data" (change)="true" #checkBoxLinkWeb> Link web o Link video
+              <br>
+              <div *ngIf="checkBoxLinkWeb.checked">
+                <label class="form-label">Ingrese el Link:</label>
+                <input formControlName="enlace" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+                <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
+              </div>
+              <input type="radio" name="rad1" value="none" (change)="true" #checkBoxArchivo disabled> Archivo (en desarrollo...)
+              <br>
+              <div *ngIf="checkBoxArchivo.checked">
+                <label for="formFile" class="form-label">Seleccione su Archivo:</label>
+                <input class="form-control" type="file" id="formFile">
+              </div>
+            </div>
+          </section>
+
+
+
+        </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Regresar</button>
+        <button type="submit" class="btn btn-primary">Crear Recurso</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

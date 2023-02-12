@@ -81,7 +81,6 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   @ViewChild('crearForoModalCerrar') modalCloseForo: any;
   @ViewChild('editarActividadCerrar') modalCloseEditar: any;
   @ViewChild('duplicarActividadCerrar') modalCloseDuplicar: any;
-  @ViewChild('crearRecursoModalCerrar') modalRecursoCloseCrear: any;
 
   //Formulario tareas
     crearTareaForm=this.formBuilder.group({
