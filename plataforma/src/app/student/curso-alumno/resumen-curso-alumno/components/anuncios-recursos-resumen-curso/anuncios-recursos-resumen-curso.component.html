@@ -12,7 +12,7 @@
         <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div class="tab-pane fade show active" id="anuncios-curso-justified" role="tabpanel" aria-labelledby="anuncios-curso-tab">
               <div style="overflow-x: auto;">
-                <table class="table table-hover"> <!-- *ngIf="tareas!='';else tablaVaciaT"-->
+                <table class="table table-hover" *ngIf="listaRecursoCurso!='';else tablaVaciaT">
                   <thead>
                      <tr>
                       <th scope="col" class="text-center">Recurso</th>
@@ -21,13 +21,13 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr > <!--*ngFor="let t of tareas;let i = index"-->
-                        <td align="center">Nombre del Recurso</td>
+                     <tr *ngFor="let r of  listaRecursoCurso;let i = index">
+                        <td align="center">{{r.titulo}}</td>
                         <!--Ver descripcion-->
-                        <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerDescripcionRecurso"><i class="fa-solid fa-eye"></i></button></td>
+                        <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerDescripcionRecurso" (click)="buscarActividadArray(r.idtbRecursoVideo)"><i class="fa-solid fa-eye"></i></button></td>
                         <!--Ir al enlace-->
                         <td align="center"><button class="btn btn-primary rounded-pill" >
-                          <a href="https://www.instagram.com/denteuler/?hl=es" target="_blank" class="text-decoration-none">
+                          <a href="{{r.enlace}}" target="_blank" class="text-decoration-none">
                             <i class="fa-solid fa-arrow-up-right-from-square" style="color: white;"></i>
                           </a>
                         </button></td>
@@ -40,7 +40,7 @@
                                    <h5 class="modal-title">Descripción</h5>
                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">Aquí va la descripción</div>
+                                <div class="modal-body">{{RecursoIndividual.descripcion}}</div>
                                 <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                              </div>
                           </div>
