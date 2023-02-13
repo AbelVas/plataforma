@@ -116,7 +116,7 @@
                 {{al.alumno}}
               </td>
               <td class="text-center">
-                <button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#Entregable"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#Entregable" disabled><i class="fa-solid fa-plus"></i></button>
               </td>
               <td class="text-center">
                   <input class="input-group-sm" [attr.id]="al.idAlumno" [value]="" (blur)="calificarActividad($event,ActividadIndividual.idDetalleActividad,al.idAlumno)"></td>
