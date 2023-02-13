@@ -34,7 +34,7 @@ const obtenerAlumnosService = () => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.obtenerAlumnosService = obtenerAlumnosService;
 const obtenerAlumnosGradoService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT idCodigo,sexo,CONCAT(apellidos_alumno,", ",nombres_alumno) AS alumno,usuario,activo FROM tbAlumno WHERE idRol=4 and idGrado=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT idAlumno,idCodigo,sexo,CONCAT(apellidos_alumno,", ",nombres_alumno) AS alumno,usuario,activo FROM tbAlumno WHERE idRol=4 and idGrado=?', [id]);
     return responseGet;
 });
 exports.obtenerAlumnosGradoService = obtenerAlumnosGradoService;

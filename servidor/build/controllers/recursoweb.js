@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertRecursoWeb = exports.deleteRecursoWeb = exports.updateRecursoWeb = exports.getRecursoWeb = exports.getRecursosWeb = void 0;
+exports.getRecursoWebGrado = exports.insertRecursoWeb = exports.deleteRecursoWeb = exports.updateRecursoWeb = exports.getRecursoWeb = exports.getRecursosWeb = void 0;
 const recursoweb_1 = require("../service/recursoweb");
 const error_handle_1 = require("../utils/error.handle");
 const getRecursosWeb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -65,3 +65,14 @@ const insertRecursoWeb = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.insertRecursoWeb = insertRecursoWeb;
+const getRecursoWebGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultadoRecursoWeb = yield (0, recursoweb_1.GetRecursoWebServiceGrado)(id);
+        res.send(resultadoRecursoWeb);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Recurso Web', e);
+    }
+});
+exports.getRecursoWebGrado = getRecursoWebGrado;
