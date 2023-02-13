@@ -6,8 +6,8 @@
           <h5 class="card-title" [style]="{'color': ctexto1}">Cursos</h5>
         </div>
         <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
-          <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100 active" id="matutina-tab" data-bs-toggle="tab" data-bs-target="#matutina-justified" type="button" role="tab" aria-controls="matutina" aria-selected="true">Jornada Matutina</button></li>
-          <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="vespertina-tab" data-bs-toggle="tab" data-bs-target="#vespertina-justified" type="button" role="tab" aria-controls="vespertina" aria-selected="false">Jornada Vespertina</button></li>
+          <li class="nav-item flex-fill" role="presentation" style="background-color: #D9DCDD;"> <button class="nav-link w-100 active" id="matutina-tab" data-bs-toggle="tab" data-bs-target="#matutina-justified" type="button" role="tab" aria-controls="matutina" aria-selected="true">Jornada Matutina</button></li>
+          <li class="nav-item flex-fill" role="presentation" style="background-color: #D9DCDD;"> <button class="nav-link w-100" id="vespertina-tab" data-bs-toggle="tab" data-bs-target="#vespertina-justified" type="button" role="tab" aria-controls="vespertina" aria-selected="false">Jornada Vespertina</button></li>
         </ul>
         <div *ngIf="sppinerOn==true;else MostrarDataPerfilOverview">
           <app-loaderpeque></app-loaderpeque>

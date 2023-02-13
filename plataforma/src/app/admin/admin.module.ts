@@ -68,6 +68,9 @@ import { TutoresService } from "./usuarios/tutores/tutores.service";
 import { AlumnosService } from "./services/alumnos.service";
 import { EstadisticasDashboardService } from "./services/estadisticas-dashboard.service";
 import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto.service";
+import { EstadisticaComponent } from './estadistica/estadistica.component';
+import { NgChartsModule } from "ng2-charts";
+import { ListaRecursosComponent } from './grados/cursos/components/lista-recursos/lista-recursos.component';
 
 
 @NgModule({
@@ -108,6 +111,8 @@ import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto
         UsuariosComponent,
         AlumnosComponent,
         TutoresComponent,
+        EstadisticaComponent,
+        ListaRecursosComponent,
     ],
     exports: [],
     providers: [
@@ -142,7 +147,8 @@ import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto
         MatPaginatorModule,
         MatSortModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgChartsModule
     ]
 })
 

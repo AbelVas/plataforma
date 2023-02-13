@@ -35,6 +35,13 @@ export class CardResumenService {
     )
   }
 
+  updateCurso(idCurso:string,data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/cursos/${idCurso}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getAlumnosGrado(idGradoAl:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/usuarios/alumno-grado/${idGradoAl}`,httpOptions).pipe(

@@ -4,6 +4,7 @@ import { UnidadesService } from 'src/app/admin/services/unidades.service';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GradosAlumnosService } from '../../../../services/grados-alumnos.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-lista-actividades-admin',
@@ -22,6 +23,7 @@ export class ListaActividadesComponent implements OnInit {
   idCursoDocente:any={};
   listaAlumnos:any=[]
   listaCalificacionAlumno:any=[]
+  listaRecursoCurso:any=[]
   //Crear Actividad
   propiedadActividad:any={
     idTipoActividad:'',
@@ -102,6 +104,15 @@ export class ListaActividadesComponent implements OnInit {
     detalle:new FormControl(''),
     cotejo:new FormControl(''),
   })
+
+    //Formulario recurosweb
+    crearRecursoForm=this.formBuilder.group({
+      idUnidad:new FormControl('',[Validators.required]),
+      titulo:new FormControl('',[Validators.required]),
+      enlace:new FormControl('',[Validators.required]),
+      descripcion:new FormControl(''),
+    })
+
   tareaCreadaObj:any=[];
   submitted=false;
   //fecha para hoy
@@ -109,7 +120,7 @@ export class ListaActividadesComponent implements OnInit {
   mesActual=this.hoy.getMonth()+1;
   fecha=this.hoy.getFullYear()+'-'+this.mesActual+'-'+this.hoy.getDate()
 
-  constructor(private actividadService:ActividadService,private unidadService:UnidadesService,private formBuilder:FormBuilder,private activedRoute:ActivatedRoute,private alumnosService:GradosAlumnosService) { }
+  constructor(private actividadService:ActividadService,private unidadService:UnidadesService,private formBuilder:FormBuilder,private activedRoute:ActivatedRoute,private alumnosService:GradosAlumnosService,private toastrService:ToastrService) { }
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
     this.idProfesor=params['idProfesor'];
@@ -119,6 +130,7 @@ export class ListaActividadesComponent implements OnInit {
     this.getTareas()
     this.getCursosDocente()
     this.getAlumnos();
+    this.getRecursosPorGrado()
   }
   validarCalificacionRefresh(idActividad:string,idUnidad:string){
     this.getAlumnoCalificacionActividad(idActividad,idUnidad);
@@ -429,4 +441,42 @@ export class ListaActividadesComponent implements OnInit {
   }
   //para los forms siempre debemos traer los validadores
   get f() { return this.crearTareaForm.controls; }
+
+  //Aquí empieza lo de los recursos web
+  getRecursosPorGrado(){
+    this.actividadService.getRecursosCurso(this.idCurso).subscribe(
+      res=>{
+        this.listaRecursoCurso=res;
+        console.log(this.listaRecursoCurso)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  crearRecurso(){
+    this.submitted = true;
+        // stop here if form is invalid
+        if (this.crearRecursoForm.invalid) {
+            return;
+        }
+        // display form values on success
+        this.tareaCreadaObj=this.crearRecursoForm.value
+        this.tareaCreadaObj.idCurso=this.idCurso
+        this.tareaCreadaObj.fecha_creacion=this.fecha
+      this.actividadService.crearRecurso(this.tareaCreadaObj).subscribe(
+        res=>{
+          this.modalCloseCrear.nativeElement.click();
+          this.submitted = false;
+          this.crearRecursoForm.reset();
+          this.getRecursosPorGrado()
+          this.toastrService.success(`Recurso Creado`,'Realizado')
+        },
+        err=>{
+          console.log(err)
+          this.toastrService.error(`Recurso no Creado`,'Error')
+        }
+      )
+  }
 }

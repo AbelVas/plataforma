@@ -64,6 +64,35 @@ export class ActividadService {
       catchError(this.handleError)
     );
   }
+
+  // opciones de recursos del curso
+  getRecursosCurso(idCurso:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/recursoweb/recurso-grado/${idCurso}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  crearRecurso(data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/recursoweb/`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteRecurso(idtbRecursoVideo:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/recursoweb/${idtbRecursoVideo}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateRecurso(idtbRecursoVideo:string,data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/recursoweb/${idtbRecursoVideo}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

@@ -34,6 +34,13 @@ export class ActividadesCursoAlumnoTutorService {
     );
   }
 
+  getRecursosCurso(idCurso:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/recursoweb/recurso-grado/${idCurso}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
   private handleError(error:HttpErrorResponse){
     var msg={};

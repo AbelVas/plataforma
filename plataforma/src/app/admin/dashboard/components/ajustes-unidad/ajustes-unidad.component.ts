@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef} from '@angular/core';
 import { BimestreService } from '../../../services/bimestres.service';
 import { EstadisticasDashboardService } from '../../../services/estadisticas-dashboard.service';
+import { Chart, registerables } from 'node_modules/chart.js'
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-admin-ajustes-unidad-dashboard',
@@ -21,7 +23,8 @@ export class AjustesUnidadComponent implements OnInit {
   codigoInactivo:any=''
   passDocenteCambiada:any=''
   passDocenteNoCambiada:any=''
-  constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService) { }
+
+  constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.getUnidades();
@@ -29,6 +32,8 @@ export class AjustesUnidadComponent implements OnInit {
     this.getCodigoActivoInactivo();
     this.getPassChangeDocentes();
   }
+
+
   getNinosNinas(){
     this.estadisticaService.getTotalAlumnosHombres().subscribe(
       res=>{
@@ -156,4 +161,6 @@ export class AjustesUnidadComponent implements OnInit {
       )
     }
   }
+
+
 }

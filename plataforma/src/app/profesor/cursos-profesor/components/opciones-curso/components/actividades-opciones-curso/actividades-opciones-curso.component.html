@@ -343,14 +343,14 @@
           <label class="form-label">{{ActividadIndividual.unidad}}</label>
         </div>
 
-        <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
+        <!-- <div class="mb-3" *ngIf="ActividadIndividual.ruta_acceso!=''">
           <label class="form-label"><b>Visible para Alumnos:</b></label>
           <br>
           <label *ngIf="ActividadIndividual.disponible=='1';else noDisponible" class="form-label">Coso para Descargar Recurso</label>
           <ng-template #noDisponible>
             <label class="form-label">- Sin Recurso Disponible -</label>
           </ng-template>
-        </div>
+        </div>-->
 
         <div class="mb-3" *ngIf="(ActividadIndividual.tipoActividad=='Tarea'||ActividadIndividual.tipoActividad=='Exámen')">
           <label class="form-label"><b>Visible para Alumnos:</b></label>
@@ -592,7 +592,7 @@
         <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Crear Recurso</h1>
         <button type="button" class="btn-close" #crearTareaModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form [formGroup]="crearTareaForm" (ngSubmit)="crearTarea()" action="">
+      <form [formGroup]="crearRecursoForm" (ngSubmit)="crearRecurso()" action="">
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Bimestre:</label>
@@ -604,14 +604,14 @@
 
           <div class="mb-3">
             <label class="form-label">Titulo Recurso:</label>
-            <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+            <input formControlName="titulo" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
             <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
           </div>
 
 
           <div class="mb-3">
             <label class="form-label">Descripción:</label>
-            <textarea formControlName="detalle" class="form-control" rows="7"></textarea>
+            <textarea formControlName="descripcion" class="form-control" rows="7"></textarea>
           </div>
 
           <hr>
@@ -623,10 +623,10 @@
               <br>
               <div *ngIf="checkBoxLinkWeb.checked">
                 <label class="form-label">Ingrese el Link:</label>
-                <input formControlName="nombre_actividad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
+                <input formControlName="enlace" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre_actividad.errors }">
                 <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio ***</span>
               </div>
-              <input type="radio" name="rad1" value="none" (change)="true" #checkBoxArchivo> Archivo
+              <input type="radio" name="rad1" value="none" (change)="true" #checkBoxArchivo disabled> Archivo (en desarrollo...)
               <br>
               <div *ngIf="checkBoxArchivo.checked">
                 <label for="formFile" class="form-label">Seleccione su Archivo:</label>

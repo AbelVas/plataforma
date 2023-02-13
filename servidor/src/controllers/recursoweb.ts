@@ -1,5 +1,5 @@
 import { Request,response,Response } from "express";
-import {GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService} from "../service/recursoweb";
+import {GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService,GetRecursoWebServiceGrado} from "../service/recursoweb";
 import { handleHttp } from "../utils/error.handle";
 
 
@@ -66,4 +66,17 @@ const insertRecursoWeb=async(req:Request,res:Response)=>{
 
 }
 
-export {getRecursosWeb,getRecursoWeb,updateRecursoWeb,deleteRecursoWeb,insertRecursoWeb}
+const getRecursoWebGrado=async(req:Request,res:Response)=>{
+
+    try {
+        const {id}=req.params;
+        const resultadoRecursoWeb=await GetRecursoWebServiceGrado(id);
+        res.send(resultadoRecursoWeb)
+    } catch (e) {
+        handleHttp(res,'Error al Obtener el Recurso Web',e)
+    }
+
+
+}
+
+export {getRecursosWeb,getRecursoWeb,updateRecursoWeb,deleteRecursoWeb,insertRecursoWeb,getRecursoWebGrado}

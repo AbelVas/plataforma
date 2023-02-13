@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { S } from '@fullcalendar/core/internal-common';
 import decode from 'jwt-decode';
 import { ActividadesCursoAlumnoTutorService } from '../../service/actividades-curso-alumno-tutor.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-actividades-curso-alumno-tutor',
@@ -22,8 +23,6 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     idUnidad:'',
     nota:''
   }
-
-  idCursoCurso:string='';
   foros:any=[];
   tareas:any=[];
   cantidad_foros:any=[];
@@ -32,7 +31,20 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
   colorprogress:any=[];
   suma:any=0;
 
-  constructor( private actividadesCursoAlumnoTutorService:ActividadesCursoAlumnoTutorService, private activedRoute:ActivatedRoute) { }
+  constructor( private actividadesCursoAlumnoTutorService:ActividadesCursoAlumnoTutorService, private activedRoute:ActivatedRoute, private toastrService:ToastrService) { }
+
+  listaRecursoCurso:any=[]
+  RecursoIndividual:any={
+    idtbRecursoVideo:'',
+    titulo:'',
+    descripcion:'',
+    fecha_creacion:'',
+    idCurso:'',
+    idUnidad:'',
+    enlace:''
+  }
+
+  @Input() idCursoCurso:any=''
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -40,6 +52,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     this.idCursoCurso=params['idCurso'];
     this.calificacionIndividual=this.calificacionesGet;
     this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
+    this.getRecursosPorGrado()
   }
 
   getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
@@ -95,6 +108,22 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
   }
   buscarActividadArray(idActividad:string){
     this.calificacionIndividual=this.calificacionesGet.find((x:any)=>x.idDetalleActividad===idActividad)
+  }
+
+  getRecursosPorGrado(){
+    this.actividadesCursoAlumnoTutorService.getRecursosCurso(this.idCursoCurso).subscribe(
+      res=>{
+        this.listaRecursoCurso=res;
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  buscarRecursoArray(idtbRecursoVideo:string){
+    this.RecursoIndividual=this.listaRecursoCurso.find((x:any)=>x.idtbRecursoVideo===idtbRecursoVideo)
+
   }
 
 }
