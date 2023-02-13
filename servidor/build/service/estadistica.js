@@ -20,7 +20,7 @@ const GetAlumnosTotal = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.GetAlumnosTotal = GetAlumnosTotal;
 const GetAlumnosTotalPorGrado = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT idGrado, COUNT(idAlumno) CantidadAlumno FROM tbAlumno group by idGrado');
+    const responseGet = yield database_1.default.query('SELECT al.idGrado,tg.nombre_grado, COUNT(al.idAlumno) CantidadAlumno FROM tbAlumno al INNER JOIN tbGrado tg ON al.idGrado=tg.idGrado group by al.idGrado');
     return responseGet;
 });
 exports.GetAlumnosTotalPorGrado = GetAlumnosTotalPorGrado;

@@ -12,5 +12,5 @@ app.use(cors(
     //acá se puede determinar que origenes y que no se puede conectar a nuestra api o consumir sus recursos
 ));
 
-app.use(router);
+app.use('/app/',router);
 app.listen(PORT)

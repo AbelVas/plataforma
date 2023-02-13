@@ -14,5 +14,5 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)(
 //acá se puede determinar que origenes y que no se puede conectar a nuestra api o consumir sus recursos
 ));
-app.use(routes_1.router);
+app.use('/app/', routes_1.router);
 app.listen(PORT);
