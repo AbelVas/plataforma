@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertRecursoWebService = exports.deleteRecursoWebService = exports.updateRecursoWebService = exports.GetRecursoWebService = exports.GetRecursosWebService = void 0;
+exports.GetRecursoWebServiceGrado = exports.insertRecursoWebService = exports.deleteRecursoWebService = exports.updateRecursoWebService = exports.GetRecursoWebService = exports.GetRecursosWebService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 //insertar, editar, obtener al cuadrado y eliminar tbrecurso web
 // id: "idtbRecursoVideo"
@@ -41,3 +41,8 @@ const insertRecursoWebService = (data) => __awaiter(void 0, void 0, void 0, func
     return responseInsert;
 });
 exports.insertRecursoWebService = insertRecursoWebService;
+const GetRecursoWebServiceGrado = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const responseGet = yield database_1.default.query('SELECT * FROM tbRecursoWeb WHERE idCurso=?', [id]);
+    return responseGet;
+});
+exports.GetRecursoWebServiceGrado = GetRecursoWebServiceGrado;

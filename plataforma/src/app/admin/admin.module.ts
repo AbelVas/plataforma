@@ -70,6 +70,7 @@ import { EstadisticasDashboardService } from "./services/estadisticas-dashboard.
 import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto.service";
 import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { NgChartsModule } from "ng2-charts";
+import { ListaRecursosComponent } from './grados/cursos/components/lista-recursos/lista-recursos.component';
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { NgChartsModule } from "ng2-charts";
         AlumnosComponent,
         TutoresComponent,
         EstadisticaComponent,
+        ListaRecursosComponent,
     ],
     exports: [],
     providers: [

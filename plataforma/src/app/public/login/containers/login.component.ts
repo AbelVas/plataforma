@@ -134,6 +134,7 @@ export class LoginComponent implements OnInit{
         }
       },
       error=>{
+        console.log(error)
         this.sppinerOn=false;
         this.errorLogininputs='form-control form-control-lg border-danger';
         this.alertaError='1'
