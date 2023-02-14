@@ -20,9 +20,18 @@ export class DashboardService {
     );
   }
 
+  //Tabla vieja (cuando se hacia directo)
   getAlumnoporTutor(idTutor:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/tutores/alumnos/${idTutor}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //Nueva tabla relacion alumno  tutor
+  getAlumnosdelTutor(idTutor:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/relaciontutoralumno/tutoralumnos/${idTutor}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }

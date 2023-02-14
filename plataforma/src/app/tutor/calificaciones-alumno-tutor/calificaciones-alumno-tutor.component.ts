@@ -65,7 +65,7 @@ export class CalificacionesAlumnoTutorComponent implements OnInit {
   }
 
   obtenerDatosAlumnos(){
-    this.calificacionesAlumnoTutorService.getAlumnoporTutor(this.idTutorPrincipal).subscribe(
+    this.calificacionesAlumnoTutorService.getAlumnosdelTutor(this.idTutorPrincipal).subscribe(
       response=>{
         this.alumnosGet=response;
         this.sppinerOn=false;
