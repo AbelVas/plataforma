@@ -26,7 +26,7 @@
           <td class="text-center">{{c.usuario}}</td>
           <td class="text-center">{{c.activo}}</td>
           <td class="text-center">
-              <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#EditAlumnoModal"  (click)="buscarAlumnoArray(c.idAlumno)"></i></button>
               <button class="btn btn-success"><i class="fa-solid fa-table"></i></button>
               <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
           </td>
@@ -36,7 +36,7 @@
 </table>
 </div>
 
-<!-- Modal -->
+<!-- Modal crear alumno-->
 <div class="modal fade" id="crearAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -66,6 +66,69 @@
           </div>
         </ng-template>
       </div>
+    </div>
+  </div>
+</div>
+<!--modal Editar -->
+<div class="modal fade" id="EditAlumnoModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Alumno</h5>
+        <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="row g-3" [formGroup]="alumnoForm" (ngSubmit)="editarAlumno(alumnoIndividual.idAlumno)" autocomplete="off">
+        <div class="modal-body">
+          <div class="col-md-12">
+
+            <div class="mb-3">
+              <label class="form-label">Nombre del Alumno</label>
+              <input formControlName="nombres_alumno" type="text" value="{{alumnoIndividual.nombres_alumno}}" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Apellido del Alumno</label>
+              <input formControlName="apellidos_alumno" type="text" value="{{alumnoIndividual.apellidos_alumno}}" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Usuario:</label>
+              <input formControlName="usuario" type="text" value="{{alumnoIndividual.usuario}}" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <div *ngIf="isEditPassword=='1'; else switchOff">
+                <input class="form-check-input" type="checkbox" role="switch" (change)="selectedCheck($event)" checked>
+                <label class="form-check-label" for="flexSwitchCheckChecked"> <b>Cambiar Contraseña</b></label>
+              </div>
+              <ng-template #switchOff>
+                <input class="form-check-input" type="checkbox" role="switch" (change)="noselectedCheck($event)">
+                <label class="form-check-label" for="flexSwitchCheckChecked"> <b>Cambiar Contraseña</b></label>
+              </ng-template>
+            </div>
+
+            <div *ngIf="isEditPassword!='0'">
+              <div class="mb-3">
+                <label class="form-label">Contraseña:</label>
+                <input formControlName="pass" type="text" class="form-control" [class]="passNoCoincide">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Confirmar Contraseña:</label>
+                <input formControlName="confirmPass" type="text" class="form-control" [class]="passNoCoincide">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

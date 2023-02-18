@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CodigosService } from 'src/app/admin/services/codigos.service';
 import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.service';
@@ -10,20 +10,48 @@ import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.serv
   styleUrls: ['./card-alumnos.component.css']
 })
 export class CardAlumnosComponent implements OnInit {
-  listaAlumnos:any=[]
-  idGrado:any
+  listaAlumnos:any=[];
+  idGrado:any=[];
+  listaGradosSelect:any=[]
+  alumnoIndividual:any={}
+  isEditPassword:string='0'
+  variable:string='1'
   isCorrectCodigo:boolean=false
   codigoError:string=''
+  passNoCoincide:string=''
   alumnoPropiedadesCrear:any={
-    idTutor:'1',
-    idRol:'4',
-    activo:'1',
-    ver_notas:'1',
     imagen:'assets/img/blank_profile.png',
+    activo:'1',
+    idRol:'4',
+    idCodigo:'',
+    ver_notas:'1'
   }
   alumnoForm=this.formBuilder.group({
-
+    nombres_alumno:new FormControl('',[Validators.required]),
+    apellidos_alumno:new FormControl('',[Validators.required]),
+    idGrado:new FormControl('',[Validators.required]),
+    sexo:new FormControl('',[Validators.required]),
+    usuario:new FormControl('',[Validators.required]),
+    pass:new FormControl('',[Validators.required]),
+    confirmPass:new FormControl('',[Validators.required])
   })
+  alertaValor:any={
+    classAlerta:'',
+    mensajeAlerta:'',
+    icon:''
+  }
+  classAlerta:string=''
+  mensajeAlerta:string=''
+  icon=''
+  intervalo:any
+  submitted=false;
+
+  @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
+  @ViewChild('cerrarCrearModal') modalCloseCrear: any;
+  @ViewChild('cerrarEditarModal') modalCloseEditar: any;
+  @ViewChild('CerrarAlerta') closeAlert: any;
+  @Output() alerta=new EventEmitter<any>();
+
   constructor(private alumnosGradoService:GradosAlumnosService,private activedRoute:ActivatedRoute, private codigoService:CodigosService,private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
@@ -65,4 +93,79 @@ export class CardAlumnosComponent implements OnInit {
     )
   }
   crearAlumno(){}
+  buscarAlumnoArray(idAlumno:string){
+    this.alumnoIndividual=this.listaAlumnos.find((x:any)=>x.idAlumno===idAlumno)
+  }
+  get f() { return this.alumnoForm.controls; }
+
+  editarAlumno(idAlumno:string){
+    this.submitted = true;
+    if ((this.f.pass.value!=this.f.confirmPass.value)) {
+      this.passNoCoincide='border-danger'
+      return;
+    }
+    var DatoAlumnoEditado:any={}
+    if(this.f.nombres_alumno.value!=''){
+      DatoAlumnoEditado.nombres_alumno=this.f.nombres_alumno.value
+    }
+    if(this.f.apellidos_alumno.value!=''){
+      DatoAlumnoEditado.apellidos_alumno=this.f.apellidos_alumno.value
+    }
+    if(this.f.usuario.value!=''){
+      DatoAlumnoEditado.usuario=this.f.usuario.value
+    }
+    if(this.f.pass.value!=''){
+      DatoAlumnoEditado.pass=this.f.pass.value
+    }
+    if(Object.entries(DatoAlumnoEditado).length===0){
+      this.modalCloseEditar.nativeElement.click();
+      this.alertaValor.mensajeAlerta='No se editaron Datos'
+      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
+      this.alertaValor.icon='fa-solid fa-question'
+      this.cerrarAlerta()
+    }else{
+      this.alumnosGradoService.editAlumno(idAlumno,DatoAlumnoEditado).subscribe(
+        res=>{
+          this.getAlumnos()
+          this.modalCloseEditar.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Se Editaron los Datos Correctamente'
+          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.cerrarAlerta()
+        },
+        err=>{
+          this.modalCloseEditar.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Error al Editar al Alumno'
+          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        }
+      )
+    }
+  }
+  selectedCheck(e:any){
+    if(e.target.checked){
+      this.isEditPassword='1'
+      return this.isEditPassword='1';
+    }else{
+      this.isEditPassword='0'
+      return this.isEditPassword='0';
+    }
+  }
+  noselectedCheck(e:any){
+    if(e.target.checked==false){
+      this.isEditPassword='0'
+      return this.isEditPassword='0';
+    }else{
+      this.isEditPassword='1'
+      return this.isEditPassword='1';
+    }
+  }
+  cerrarAlerta(){
+    this.intervalo=setInterval(() => {//
+      this.closeAlert.nativeElement.click();
+      this.alertaValor.classAlerta='toast hide'
+    }, 5000);
+  }
+
+
 }
