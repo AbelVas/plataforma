@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  //url: 'http://localhost:3002'
+  url: 'http://localhost:3002/app'
   //url:'https://serververapaz.nebel-tech.com'
-  url:'https://brincoteca-server.orquiholic.com/app'
+  //url:'https://brincoteca-server.orquiholic.com/app'
 };
 
 /*

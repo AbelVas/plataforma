@@ -111,7 +111,6 @@ export class LoginComponent implements OnInit{
         this.alertaCreadoCorrecto='0'
       }
     )
-    console.log(alumnoInsert)
   }
 
   loginIn(){
