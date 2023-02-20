@@ -26,6 +26,14 @@ export class CalificacionesAlumnoTutorService {
     );
   }
 
+  //Nueva tabla relacion alumno  tutor
+  getAlumnosdelTutor(idTutor:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/relaciontutoralumno/tutoralumnos/${idTutor}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

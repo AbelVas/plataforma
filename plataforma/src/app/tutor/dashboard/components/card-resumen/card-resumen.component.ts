@@ -41,7 +41,7 @@ export class CardResumenComponent implements OnInit {
   }
 
   obtenerDatosAlumnos(){
-    this.dashboardService.getAlumnoporTutor(this.idTutorPrincipal).subscribe(
+    this.dashboardService.getAlumnosdelTutor(this.idTutorPrincipal).subscribe(
       response=>{
         this.alumnosGet=response;
         this.sppinerOn=false;

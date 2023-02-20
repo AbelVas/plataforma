@@ -16,6 +16,12 @@ export class GradosAlumnosService {
       catchError(this.handleError)
     );
   }
+  editAlumno(idAlumno:string,data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/usuarios/${idAlumno}`,data,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(error:HttpErrorResponse){
     var msg={};

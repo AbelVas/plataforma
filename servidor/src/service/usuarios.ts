@@ -18,7 +18,7 @@ const obtenerAlumnosService=async()=>{
     return responseGet;
 }
 const obtenerAlumnosGradoService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT idAlumno,idCodigo,sexo,CONCAT(apellidos_alumno,", ",nombres_alumno) AS alumno,usuario,activo FROM tbAlumno WHERE idRol=4 and idGrado=?',[id]);
+    const responseGet=await conexion.query('SELECT idAlumno,idCodigo,sexo,apellidos_alumno,nombres_alumno,CONCAT(apellidos_alumno,", ",nombres_alumno) AS alumno,usuario,activo FROM tbAlumno WHERE idRol=4 and idGrado=?',[id]);
     return responseGet;
 }
 const obtenerAlumnoService=async(id:string)=>{

@@ -15,7 +15,7 @@ import { GradosService } from '../../services/grados-admin.service';
 export class AlumnosComponent implements OnInit {
   listaAlumnos:any=[];
   listaGradosSelect:any=[]
-  alumnoInfividual:any={}
+  alumnoIndividual:any={}
   isEditPassword:string='0'
   variable:string='1'
   isCorrectCodigo:boolean=false
@@ -76,7 +76,48 @@ export class AlumnosComponent implements OnInit {
     this.getGrados();
   }
   editarAlumno(idAlumno:string){
-
+    this.submitted = true;
+    if ((this.f.pass.value!=this.f.confirmPass.value)) {
+      this.passNoCoincide='border-danger'
+      return;
+    }
+    var DatoAlumnoEditado:any={}
+    if(this.f.nombres_alumno.value!=''){
+      DatoAlumnoEditado.nombres_alumno=this.f.nombres_alumno.value
+    }
+    if(this.f.apellidos_alumno.value!=''){
+      DatoAlumnoEditado.apellidos_alumno=this.f.apellidos_alumno.value
+    }
+    if(this.f.usuario.value!=''){
+      DatoAlumnoEditado.usuario=this.f.usuario.value
+    }
+    if(this.f.pass.value!=''){
+      DatoAlumnoEditado.pass=this.f.pass.value
+    }
+    if(Object.entries(DatoAlumnoEditado).length===0){
+      this.modalCloseEditar.nativeElement.click();
+      this.alertaValor.mensajeAlerta='No se editaron Datos'
+      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
+      this.alertaValor.icon='fa-solid fa-question'
+      this.cerrarAlerta()
+    }else{
+      this.alumnosService.editAlumno(idAlumno,DatoAlumnoEditado).subscribe(
+        res=>{
+          this.getAlumnos()
+          this.modalCloseEditar.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Se Editaron los Datos Correctamente'
+          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.cerrarAlerta()
+        },
+        err=>{
+          this.modalCloseEditar.nativeElement.click();
+          this.alertaValor.mensajeAlerta='Error al Editar el Docente'
+          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        }
+      )
+    }
   }
   getGrados(){
     this.gradoService.getGrados().subscribe(
@@ -172,7 +213,7 @@ export class AlumnosComponent implements OnInit {
     )
   }
   buscarAlumnoArray(idAlumno:string){
-    this.alumnoInfividual=this.listaAlumnos.find((x:any)=>x.idAlumno===idAlumno)
+    this.alumnoIndividual=this.listaAlumnos.find((x:any)=>x.idAlumno===idAlumno)
   }
   selectedCheck(e:any){
     if(e.target.checked){
