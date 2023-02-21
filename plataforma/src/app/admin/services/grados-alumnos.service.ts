@@ -22,6 +22,12 @@ export class GradosAlumnosService {
       catchError(this.handleError)
     );
   }
+  deleteAlumno(idAlumno:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/usuarios/${idAlumno}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(error:HttpErrorResponse){
     var msg={};
