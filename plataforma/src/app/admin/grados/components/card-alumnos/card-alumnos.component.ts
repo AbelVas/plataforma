@@ -185,7 +185,7 @@ export class CardAlumnosComponent implements OnInit {
   }
   cerrarAlerta(){
     this.intervalo=setInterval(() => {//
-      this.closeAlert.nativeElement.click();
+      //this.closeAlert.nativeElement.click();
       this.alertaValor.classAlerta='toast hide'
     }, 5000);
   }

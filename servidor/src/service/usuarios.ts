@@ -30,8 +30,11 @@ const updateAlumnosService=async(data:Request,id:string)=>{
     return responseUpdate;
 }
 const deleteAlumnoService=async(id:string)=>{
+    const deleteNota= await conexion.query('DELETE FROM tbCalificacion WHERE idAlumno=? ',[id]);
+    const abandonoFamiliar= await conexion.query('DELETE FROM tbReacionAlumnoTutor WHERE idAlumno=? ',[id]);
     const responseDelete=await conexion.query('DELETE FROM tbAlumno WHERE idRol=4 and idAlumno=?',[id]);
     return responseDelete;
+
 }
 
 const validarAlumnosExisteSi=async(usuario:string)=>{
