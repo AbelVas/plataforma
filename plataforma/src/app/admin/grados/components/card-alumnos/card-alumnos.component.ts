@@ -142,6 +142,29 @@ export class CardAlumnosComponent implements OnInit {
       )
     }
   }
+
+  eliminarAlumno(idAlumno:string){
+    this.alumnosGradoService.deleteAlumno(idAlumno).subscribe(
+      res=>{
+        this.modalCloseEliminar.nativeElement.click();
+        this.alumnoForm.reset();
+        this.isCorrectCodigo=false
+        this.getAlumnos()
+        this.alertaValor.mensajeAlerta='Alumno Eliminado Correctamente'
+        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
+        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.cerrarAlerta()
+      },
+      err=>{
+        this.alertaValor.mensajeAlerta='Error al Eliminar al Alumno'
+        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
+        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.cerrarAlerta()
+        console.log(err)
+      }
+    )
+  }
+
   selectedCheck(e:any){
     if(e.target.checked){
       this.isEditPassword='1'

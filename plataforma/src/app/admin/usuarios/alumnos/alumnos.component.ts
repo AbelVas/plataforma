@@ -190,6 +190,7 @@ export class AlumnosComponent implements OnInit {
         this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
         this.alertaValor.icon='fa-solid fa-triangle-exclamation'
         this.cerrarAlerta()
+        console.log(err)
       }
     )
   }

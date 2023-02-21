@@ -28,7 +28,7 @@
           <td class="text-center">
               <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#EditAlumnoModal"  (click)="buscarAlumnoArray(c.idAlumno)"></i></button>
               <button class="btn btn-success"><i class="fa-solid fa-table"></i></button>
-              <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+              <button class="btn btn-danger"><i class="fa-solid fa-trash-can"data-bs-toggle="modal" data-bs-target="#EliminarAlumnoModal" (click)="buscarAlumnoArray(c.idAlumno)"></i></button>
           </td>
       </tr>
       </ng-template>
@@ -128,6 +128,28 @@
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
           </div>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--modal Eliminar-->
+<div class="modal fade" id="EliminarAlumnoModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Alumno</h5>
+        <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="" (ngSubmit)="eliminarAlumno(alumnoIndividual.idAlumno)">
+
+        <div class="modal-body">
+          <div class="alert alert-warning" role="alert">Se eliminara el alumno junto con todas las notas, <b>Esta acción de concretarse no se puede deshacer</b></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+        </div>
+
       </form>
     </div>
   </div>
