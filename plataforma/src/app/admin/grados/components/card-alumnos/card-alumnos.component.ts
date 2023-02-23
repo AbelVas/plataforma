@@ -3,6 +3,7 @@ import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CodigosService } from 'src/app/admin/services/codigos.service';
 import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-card-alumnos-grado-admin',
@@ -52,7 +53,7 @@ export class CardAlumnosComponent implements OnInit {
   @ViewChild('CerrarAlerta') closeAlert: any;
   @Output() alerta=new EventEmitter<any>();
 
-  constructor(private alumnosGradoService:GradosAlumnosService,private activedRoute:ActivatedRoute, private codigoService:CodigosService,private formBuilder:FormBuilder) { }
+  constructor(private alumnosGradoService:GradosAlumnosService,private activedRoute:ActivatedRoute, private codigoService:CodigosService,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -119,25 +120,17 @@ export class CardAlumnosComponent implements OnInit {
     }
     if(Object.entries(DatoAlumnoEditado).length===0){
       this.modalCloseEditar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='No se editaron Datos'
-      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-question'
-      this.cerrarAlerta()
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
     }else{
       this.alumnosGradoService.editAlumno(idAlumno,DatoAlumnoEditado).subscribe(
         res=>{
           this.getAlumnos()
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Se Editaron los Datos Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Alumno Editado`,'Realizado')
         },
         err=>{
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al Editar al Alumno'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Alumno no Editado`,'Error')
         }
       )
     }
@@ -150,16 +143,10 @@ export class CardAlumnosComponent implements OnInit {
         this.alumnoForm.reset();
         this.isCorrectCodigo=false
         this.getAlumnos()
-        this.alertaValor.mensajeAlerta='Alumno Eliminado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Alumno Eliminado`,'Realizado')
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Eliminar al Alumno'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
+        this.toastrService.error(`Alumno no Eliminado`,'Error')
         console.log(err)
       }
     )
@@ -182,12 +169,6 @@ export class CardAlumnosComponent implements OnInit {
       this.isEditPassword='1'
       return this.isEditPassword='1';
     }
-  }
-  cerrarAlerta(){
-    this.intervalo=setInterval(() => {//
-      //this.closeAlert.nativeElement.click();
-      this.alertaValor.classAlerta='toast hide'
-    }, 5000);
   }
 
 

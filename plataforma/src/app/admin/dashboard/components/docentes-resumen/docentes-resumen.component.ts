@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { ProfesoresService } from '../../../services/profesores.service';
 import { CodigosService } from '../../../services/codigos.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-docentes-resumen-admin-dashboard',
@@ -71,7 +72,7 @@ export class DocentesResumenComponent implements OnInit {
   icon=''
   intervalo:any
   submitted=false;
-  constructor(private profesorService:ProfesoresService,private formBuilder:FormBuilder,private codigoService:CodigosService) { }
+  constructor(private profesorService:ProfesoresService,private formBuilder:FormBuilder,private codigoService:CodigosService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getProfesores();
@@ -123,25 +124,17 @@ export class DocentesResumenComponent implements OnInit {
     }
     if(Object.entries(DatoDocenteEditado).length===0){
       this.modalCloseEditar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='No se editaron Datos'
-      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-question'
-      this.cerrarAlerta()
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
     }else{
       this.profesorService.updateProfesor(idProfesor,DatoDocenteEditado).subscribe(
         res=>{
           this.getProfesores()
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Se Editaron los Datos Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Docente Editado`,'Realizado')
         },
         err=>{
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al Editar el Docente'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Docente no Editado`,'Error')
         }
       )
     }
@@ -151,16 +144,10 @@ export class DocentesResumenComponent implements OnInit {
       res=>{
         this.modalCloseEliminar.nativeElement.click();
         this.getProfesores()
-        this.alertaValor.mensajeAlerta='Docente Eliminado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Docente Eliminado`,'Realizado')
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error Eliminar al Docente'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
+        this.toastrService.error(`Docente no Eliminado`,'Error')
       }
     )
   }
@@ -182,17 +169,11 @@ export class DocentesResumenComponent implements OnInit {
           this.modalCloseCrear.nativeElement.click();
           this.isCorrectCodigo=false
           this.getProfesores()
-          this.alertaValor.mensajeAlerta='Docente Creado Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Docente Creado`,'Realizado')
         }
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Crear al Docente'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
+        this.toastrService.error(`Docente no Creado`,'Error')
       }
     )
   }
@@ -235,12 +216,6 @@ export class DocentesResumenComponent implements OnInit {
       this.isEditPassword='1'
       return this.isEditPassword='1';
     }
-  }
-  cerrarAlerta(){
-    this.intervalo=setInterval(() => {//
-      this.closeAlert.nativeElement.click();
-      this.alertaValor.classAlerta='toast hide'
-    }, 5000);
   }
   get f() { return this.docenteForm.controls; }
 }

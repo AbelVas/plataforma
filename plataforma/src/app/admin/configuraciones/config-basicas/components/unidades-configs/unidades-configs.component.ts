@@ -4,6 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { UnidadesService } from '../../../../services/unidades.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-unidades-configs',
@@ -52,7 +53,7 @@ export class UnidadesConfigsComponent implements OnInit {
     }
   }
   displayedColumns: string[] = ['no','unidad','fecha_inicio','fecha_final','estado','acciones'];
-  constructor(private formBuilder:FormBuilder,private unidadService:UnidadesService) { }
+  constructor(private formBuilder:FormBuilder,private unidadService:UnidadesService,private toastrService:ToastrService) { }
   ngOnInit(): void {
     this.getUnidades();
   }
@@ -74,29 +75,20 @@ export class UnidadesConfigsComponent implements OnInit {
       delete this.unidadEdit.estado
     }
     if(Object.entries(this.unidadEdit).length==0){
-      this.alertaValor.mensajeAlerta='No se Modificaron Datos'
-      this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-circle-check'
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
       this.modalCloseEditar.nativeElement.click();
       this.unidadForm.reset();
-      this.enviarAlertaResponse();
     }else{
       this.unidadService.updateUnidad(idUnidad,this.unidadEdit).subscribe(
         res=>{
-          this.alertaValor.mensajeAlerta='Se editó la Unidad Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.toastrService.success(`Unidad Editada`,'Realizado')
           this.modalCloseEditar.nativeElement.click();
           this.getUnidades();
-          this.enviarAlertaResponse()
           this.unidadForm.reset();
         },
         err=>{
-          this.alertaValor.mensajeAlerta='Error al Editar la Unidad'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Unidad no Editada`,'Error')
           this.modalCloseCrear.nativeElement.click();
-          this.enviarAlertaResponse()
         }
       )
 
@@ -135,45 +127,30 @@ export class UnidadesConfigsComponent implements OnInit {
     }
     this.unidadService.createUnidad(unidadInsert).subscribe(
       res=>{
-        this.alertaValor.mensajeAlerta='Unidad Creada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Unidad Creada`,'Realizado')
         this.modalCloseCrear.nativeElement.click();
         this.submitted = false;
         this.unidadForm.reset();
         this.getUnidades();
-        this.enviarAlertaResponse()
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Crear Unidad'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Unidad no Creada`,'Error')
         this.modalCloseCrear.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
   }
   eliminarUnidad(idUnidad:string){
     this.unidadService.deleteUnidad(idUnidad).subscribe(
       res=>{
-        this.alertaValor.mensajeAlerta='Unidad Eliminada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Unidad Eliminada`,'Realizado')
         this.modalCloseEliminar.nativeElement.click();
         this.getUnidades()
-        this.enviarAlertaResponse();
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Eliminar la Unidad'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Unidad no Eliminada`,'Error')
         this.modalCloseEliminar.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
-  }
-  enviarAlertaResponse(){
-    this.alerta.emit(this.alertaValor)
   }
   selectedCheck(e:any){
     if(e.target.checked){

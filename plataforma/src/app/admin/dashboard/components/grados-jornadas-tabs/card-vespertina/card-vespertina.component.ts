@@ -3,6 +3,7 @@ import { GradosService } from 'src/app/admin/services/grados-admin.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-card-vespertina-admin-grado-x-jornada',
@@ -44,7 +45,7 @@ export class CardVespertinaComponent implements OnInit {
     }
   }
 
-  constructor(private gradoService:GradosService) { }
+  constructor(private gradoService:GradosService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getGradosMatutina()
@@ -93,11 +94,12 @@ export class CardVespertinaComponent implements OnInit {
             res=>{
               this.NivelSeleccionado=''
               this.SeccionSeleccionada=''
+              this.toastrService.success(`Grado Creado`,'Realizado')
               this.getGradosMatutina()
             },
             err=>{
               this.errorServicio=err;
-              console.log(err);
+              this.toastrService.error(`Grado no Creado`,'Error')
             }
           )
       }
@@ -142,10 +144,12 @@ export class CardVespertinaComponent implements OnInit {
         res=>{
           this.NivelSeleccionado=''
           this.SeccionSeleccionada=''
+          this.toastrService.success(`Grado Editado`,'Realizado')
           this.getGradosMatutina();
         },
         err=>{
           this.errorServicio=err;
+          this.toastrService.error(`Grado no Editado`,'Error')
         }
       )
     }
@@ -154,10 +158,12 @@ export class CardVespertinaComponent implements OnInit {
     this.gradoService.deleteGrado(idGrado).subscribe(
       res=>{
         this.errorService.codigoError=''
+        this.toastrService.success(`Grado Eliminado`,'Realizado')
         this.getGradosMatutina()
       },
       err=>{
         this.errorService=err
+        this.toastrService.error(`Grado no Eliminado`,'Error')
       }
     )
   }

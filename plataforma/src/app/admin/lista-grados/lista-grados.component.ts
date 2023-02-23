@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { SeccionesService } from '../services/secciones.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class ListaGradosComponent implements OnInit {
   @ViewChild('cerrarCrearModal') modalCloseCrear: any;
   @ViewChild('cerrarEditarModal') modalCloseEditar: any;
   @ViewChild('CerrarAlerta') closeAlert: any;
-  constructor(private nivelesService:NivelesService,private activedRoute:ActivatedRoute,private gradoService:GradosService,private formBuilder:FormBuilder,private seccionesService:SeccionesService) { }
+  constructor(private nivelesService:NivelesService,private activedRoute:ActivatedRoute,private gradoService:GradosService,private formBuilder:FormBuilder,private seccionesService:SeccionesService,private toastrService:ToastrService) { }
   alertaValor:any={
     classAlerta:'',
     mensajeAlerta:'',
@@ -79,15 +80,11 @@ export class ListaGradosComponent implements OnInit {
           this.getGradosNivel(this.idNivelSelecciondo);
         }
         this.modalCloseCrear.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Grado Agregado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Grado Creado`,'Realizado')
       },
       err=>{
         this.modalCloseCrear.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al Crear Grado'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-xmark'
+        this.toastrService.error(`Grado no Creado`,'Error')
       }
     )
   }
@@ -107,15 +104,11 @@ export class ListaGradosComponent implements OnInit {
       res=>{
         this.getGradosNivel(this.idNivelSelecciondo);
         this.modalCloseEditar.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Grado Editado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Grado Editado`,'Realizado')
       },
       err=>{
         this.modalCloseEditar.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al Editar Grado'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-xmark'
+        this.toastrService.error(`Grado no Editado`,'Error')
       }
     )
   }
@@ -169,15 +162,11 @@ export class ListaGradosComponent implements OnInit {
       res=>{
         this.obtenerGradoNivel(this.nivelSeleccionado)
         this.modalCloseEliminar.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Grado Eliminado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Grado Eliminado`,'Realizado')
       },
       err=>{
         this.modalCloseEliminar.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al Eliminar Grado'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-xmark'
+        this.toastrService.error(`Grado no Eliminado`,'Error')
       }
     )
   }

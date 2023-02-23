@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tabla-niveles',
@@ -48,7 +49,7 @@ export class TablaNivelesComponent implements OnInit {
     idJornada:new FormControl('',[Validators.required]),
   })
   submitted=false;
-  constructor(private nivelesService:NivelesService,private formBuilder:FormBuilder,private jornadaService:JornadasService) { }
+  constructor(private nivelesService:NivelesService,private formBuilder:FormBuilder,private jornadaService:JornadasService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.obtenerNiveles();
@@ -85,19 +86,13 @@ export class TablaNivelesComponent implements OnInit {
   eliminarNivel(idNivel:string){
     this.nivelesService.deleteNivel(idNivel).subscribe(
       res=>{
-        this.alertaValor.mensajeAlerta='Nivel Eliminado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Nivel Eliminado`,'Realizado')
         this.modalCloseEliminar.nativeElement.click();
         this.obtenerNiveles()
-        this.enviarAlertaResponse();
       },
       error=>{
-        this.alertaValor.mensajeAlerta='Error al Eliminar el nivel, Detalle: '+error.msg+', Código: '+error.codigo
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Nivel no Eliminado`,'Error')
         this.modalCloseEliminar.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
   }
@@ -105,29 +100,20 @@ export class TablaNivelesComponent implements OnInit {
     var nivelEdit:any={}
     this.submitted = true;
     if(this.f.idJornada.value==''&&this.f.nivel.value==''){
-      this.alertaValor.mensajeAlerta='No se cambiaron datos'
-      this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-circle-check'
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
       this.modalCloseEditar.nativeElement.click();
-      this.enviarAlertaResponse()
     }else if(this.f.idJornada.value==''&&this.f.nivel.value!=''){
       nivelEdit.nivel=this.f.nivel.value;
       this.nivelesService.updateNiveles(idNivel,nivelEdit).subscribe(
         res=>{
-          this.alertaValor.mensajeAlerta='Se editó el Nivel de manera correcta'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.toastrService.success(`Nivel Editado`,'Realizado')
           this.modalCloseEditar.nativeElement.click();
           this.obtenerNiveles();
           this.nivelForm.reset();
-          this.enviarAlertaResponse()
         },
         err=>{
-          this.alertaValor.mensajeAlerta='Error al Editar Nivel'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Nivel no Editado`,'Error')
           this.modalCloseEditar.nativeElement.click();
-          this.enviarAlertaResponse()
           this.nivelForm.reset();
         }
       )
@@ -135,20 +121,14 @@ export class TablaNivelesComponent implements OnInit {
       nivelEdit.idJornada=this.f.idJornada.value;
       this.nivelesService.updateNiveles(idNivel,nivelEdit).subscribe(
         res=>{
-          this.alertaValor.mensajeAlerta='Se editó la Jornada del Nivel de manera correcta'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.toastrService.success(`Jornada del Nivel Editada`,'Realizado')
           this.modalCloseEditar.nativeElement.click();
           this.obtenerNiveles();
-          this.enviarAlertaResponse()
           this.nivelForm.reset();
         },
         err=>{
-          this.alertaValor.mensajeAlerta='Error al Editar la Jornada del Nivel'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Jornada del no Nivel Editada`,'Error')
           this.modalCloseEditar.nativeElement.click();
-          this.enviarAlertaResponse()
         })
     }else if(this.f.idJornada.value!=''&&this.f.nivel.value!=''){
       nivelEdit.idJornada=this.f.idJornada.value;
@@ -156,20 +136,14 @@ export class TablaNivelesComponent implements OnInit {
       console.log(nivelEdit)
       this.nivelesService.updateNiveles(idNivel,nivelEdit).subscribe(
         res=>{
-          this.alertaValor.mensajeAlerta='Se editó la el Nivel de manera correcta'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.toastrService.success(`Nivel Editado`,'Realizado')
           this.modalCloseEditar.nativeElement.click();
           this.obtenerNiveles();
-          this.enviarAlertaResponse()
           this.nivelForm.reset();
         },
         err=>{
-          this.alertaValor.mensajeAlerta='Error al Editar el Nivel'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Nivel no Editado`,'Error')
           this.modalCloseEditar.nativeElement.click();
-          this.enviarAlertaResponse()
         })
     }
   }
@@ -182,26 +156,17 @@ export class TablaNivelesComponent implements OnInit {
     this.nivelCreadaObj=this.nivelForm.value
     this.nivelesService.crearNivel(this.nivelCreadaObj).subscribe(
       res=>{
-        this.alertaValor.mensajeAlerta='Nivel Creado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Nivel Creado`,'Realizado')
         this.modalCloseCrear.nativeElement.click();
         this.submitted = false;
         this.nivelForm.reset();
         this.obtenerNiveles();
-        this.enviarAlertaResponse()
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Crear Nivel'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Nivel no Editado`,'Error')
         this.modalCloseCrear.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
-  }
-  enviarAlertaResponse(){
-    this.alerta.emit(this.alertaValor)
   }
   get f() { return this.nivelForm.controls; }
 }

@@ -205,17 +205,11 @@ export class ListaActividadesComponent implements OnInit {
         this.getCursosDocente()
         this.getTareas()
         this.cursosCopiar=[]
-        this.alertaValor.mensajeAlerta='Actividad Duplicada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Actividad Duplicada`,'Realizado')
       },
       err=>{
         this.modalCloseDuplicar.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al Duplicar Actividad'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-xmark'
-        this.cerrarAlerta()
+        this.toastrService.error(`Actividad no Duplicada`,'Error')
       }
     )
   }
@@ -245,17 +239,11 @@ export class ListaActividadesComponent implements OnInit {
       res=>{
         this.modalCloseEditar.nativeElement.click();
         this.getTareas()
-        this.alertaValor.mensajeAlerta='Actividad Editada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Actividad Editada`,'Realizado')
       },
       err=>{
         this.modalCloseEditar.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al EDITAR Actividad'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-xmark'
-        this.cerrarAlerta()
+        this.toastrService.error(`Actividad no Editada`,'Error')
       }
     )
     //this.modalCloseEditar.nativeElement.click();
@@ -267,17 +255,11 @@ export class ListaActividadesComponent implements OnInit {
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas();
-          this.alertaValor.mensajeAlerta='Actividad Eliminada Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Actividad Eliminada`,'Realizado')
       },
       err=>{
           this.modalCloseEliminar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al Eliminar Actividad'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-xmark'
-          this.cerrarAlerta()
+          this.toastrService.error(`Actividad no Eliminada`,'Error')
       }
     )
   }
@@ -297,17 +279,11 @@ export class ListaActividadesComponent implements OnInit {
           this.submitted = false;
           this.crearTareaForm.reset();
           this.getTareas()
-          this.alertaValor.mensajeAlerta='Foro Creada Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Foro Creado`,'Realizado')
       },
       err=>{
           this.modalCloseForo.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al Crear Foro'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-xmark'
-          this.cerrarAlerta()
+          this.toastrService.error(`Foro no Creado`,'Error')
       }
     )
   }
@@ -331,17 +307,11 @@ export class ListaActividadesComponent implements OnInit {
           this.crearTareaForm.reset();
           this.getTareas()
           this.modalCloseCrear.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Tarea Creada Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Tarea Creada`,'Realizado')
         },
         err=>{
           this.modalCloseCrear.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al Crear Tarea'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-xmark'
-          this.cerrarAlerta()
+          this.toastrService.error(`Tarea no Creada`,'Error')
         }
       )
   }
@@ -432,12 +402,6 @@ export class ListaActividadesComponent implements OnInit {
     }else{
       return this.ActividadIndividualEdit.entrega_fuera_fecha='1';
     }
-  }
-  cerrarAlerta(){
-    this.intervalo=setInterval(() => {//
-      this.closeAlert.nativeElement.click();
-      this.alertaValor.classAlerta='toast hide'
-    }, 5000);
   }
   //para los forms siempre debemos traer los validadores
   get f() { return this.crearTareaForm.controls; }

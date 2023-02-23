@@ -6,6 +6,7 @@ import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { CodigosService } from '../../services/codigos.service';
 import { AlumnosService } from '../../services/alumnos.service';
 import { GradosService } from '../../services/grados-admin.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-alumnos-admin-list',
@@ -69,7 +70,7 @@ export class AlumnosComponent implements OnInit {
   icon=''
   intervalo:any
   submitted=false;
-  constructor(private alumnosService:AlumnosService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradoService:GradosService) { }
+  constructor(private alumnosService:AlumnosService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradoService:GradosService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getAlumnos();
@@ -96,19 +97,13 @@ export class AlumnosComponent implements OnInit {
     }
     if(Object.entries(DatoAlumnoEditado).length===0){
       this.modalCloseEditar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='No se editaron Datos'
-      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-question'
-      this.cerrarAlerta()
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
     }else{
       this.alumnosService.editAlumno(idAlumno,DatoAlumnoEditado).subscribe(
         res=>{
           this.getAlumnos()
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Se Editaron los Datos Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Alumno Editado`,'Realizado')
         },
         err=>{
           this.modalCloseEditar.nativeElement.click();
@@ -160,16 +155,10 @@ export class AlumnosComponent implements OnInit {
         this.alumnoForm.reset();
         this.isCorrectCodigo=false
         this.getAlumnos()
-        this.alertaValor.mensajeAlerta='Alumno Creado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Alumno Creado`,'Realizado')
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Crear al Alumno'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
+        this.toastrService.error(`Alumno no Creado`,'Error')
       }
     )
   }
@@ -180,16 +169,10 @@ export class AlumnosComponent implements OnInit {
         this.alumnoForm.reset();
         this.isCorrectCodigo=false
         this.getAlumnos()
-        this.alertaValor.mensajeAlerta='Alumno Eliminado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Alumno Eliminado`,'Realizado')
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Eliminar al Alumno'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
+        this.toastrService.error(`Alumno no Eliminado`,'Error')
         console.log(err)
       }
     )
@@ -233,12 +216,6 @@ export class AlumnosComponent implements OnInit {
       this.isEditPassword='1'
       return this.isEditPassword='1';
     }
-  }
-  cerrarAlerta(){
-    this.intervalo=setInterval(() => {//
-      //this.closeAlert.nativeElement.click();
-      this.alertaValor.classAlerta='toast hide'
-    }, 5000);
   }
   get f() { return this.alumnoForm.controls; }
 }

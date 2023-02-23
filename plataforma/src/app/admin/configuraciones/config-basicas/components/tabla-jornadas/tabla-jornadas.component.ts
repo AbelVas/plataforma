@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-tabla-jornadas-config',
@@ -21,7 +22,7 @@ export class TablaJornadasComponent implements OnInit {
   crearJornadaForm=this.formBuilder.group({
     jornada:new FormControl('',[Validators.required]),
   })
-  constructor(private elementRef:ElementRef, private jornadaService:JornadasService,private formBuilder:FormBuilder) { }
+  constructor(private elementRef:ElementRef, private jornadaService:JornadasService,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
   @Output() alerta=new EventEmitter<any>();
   ngOnInit(): void {
     this.obtenerJornadas()
@@ -61,8 +62,7 @@ export class TablaJornadasComponent implements OnInit {
         this.errorServicio=''
       },
       error=>{
-        this.alertaValor.mensajeAlerta='Error Obtener la Jornada, Detalle: '
-        this.alertaValor.classAlerta='toast  text-white bg-danger show position-absolute bottom-0 end-0'
+        this.toastrService.warning(`No se pueden obtener las jornadas`,'Atención')
       }
     )
   }
@@ -78,39 +78,27 @@ export class TablaJornadasComponent implements OnInit {
     this.jornadaCreadaObj=this.crearJornadaForm.value
     this.jornadaService.insertJornada(this.jornadaCreadaObj).subscribe(
       response=>{
-        this.alertaValor.mensajeAlerta='Jornada Creada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Jornada Creada`,'Realizado')
         this.modalCloseCrear.nativeElement.click();
         this.submitted = false;
         this.crearJornadaForm.reset();
         this.obtenerJornadas()
-        this.enviarAlertaResponse()
       },error=>{
         this.modalCloseCrear.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al Crear la Jornada, Detalle: '+error.msg+', Código: '+error.codigo
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.enviarAlertaResponse()
+        this.toastrService.error(`Jornada no Creada`,'Error')
       }
     )
   }
   eliminarJornada(idJornada:string){
     this.jornadaService.deleteJornada(idJornada).subscribe(
       response=>{
-        this.alertaValor.mensajeAlerta='Jornada Eliminada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Jornada Eliminada`,'Realizado')
         this.modalCloseEliminar.nativeElement.click();
         this.obtenerJornadas();
-        this.enviarAlertaResponse()
       },
       error=>{
-        this.alertaValor.mensajeAlerta='Error al Eliminar la Jornada, Detalle: '+error.msg+', Código: '+error.codigo
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Jornada no Eliminada`,'Error')
         this.modalCloseEliminar.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
   }
@@ -125,24 +113,15 @@ export class TablaJornadasComponent implements OnInit {
       response=>{
         this.modalCloseEditar.nativeElement.click();
         this.crearJornadaForm.reset();
-        this.alertaValor.mensajeAlerta='Jornada Editada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Jornada Editada`,'Realizado')
         this.obtenerJornadas();
-        this.enviarAlertaResponse()
       },
       error=>{
         this.crearJornadaForm.reset();
-        this.alertaValor.mensajeAlerta='Error al Editar la Jornada, Detalle: '+error.msg+', Código: '+error.codigo
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Jornada no Editada`,'Error')
         this.modalCloseEditar.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
-  }
-  enviarAlertaResponse(){
-    this.alerta.emit(this.alertaValor)
   }
   //para los forms siempre debemos traer los validadores
   get f() { return this.crearJornadaForm.controls; }

@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tabla-secciones',
@@ -44,7 +45,7 @@ export class TablaSeccionesComponent implements OnInit {
     seccion:new FormControl('',[Validators.required]),
   })
   submitted=false;
-  constructor(private serviceSecciones:SeccionesService,private formBuilder:FormBuilder) { }
+  constructor(private serviceSecciones:SeccionesService,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
   ngOnInit(): void {
     this.getSecciones()
   }
@@ -52,31 +53,22 @@ export class TablaSeccionesComponent implements OnInit {
     var nivelEdit:any={}
     this.submitted=true
     if(this.f.seccion.value==''){
-      this.alertaValor.mensajeAlerta='No se modificaron datos'
-      this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-circle-check'
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
       this.submitted = false;
       this.modalCloseEditar.nativeElement.click();
       this.seccionForm.reset();
-      this.enviarAlertaResponse()
     }else if(this.f.seccion.value!=''){
       nivelEdit.seccion=this.f.seccion.value
       this.serviceSecciones.updateSeccion(idSeccion,nivelEdit).subscribe(
         res=>{
-          this.alertaValor.mensajeAlerta='Se editó la Sección de manera correcta'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
+          this.toastrService.success(`Sección Editada`,'Realizado')
           this.modalCloseEditar.nativeElement.click();
           this.getSecciones();
           this.seccionForm.reset();
-          this.enviarAlertaResponse()
         },
         err=>{
-          this.alertaValor.mensajeAlerta='Error al Editar la Sección'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+          this.toastrService.error(`Sección no Editada`,'Error')
           this.modalCloseEditar.nativeElement.click();
-          this.enviarAlertaResponse()
         }
       )
     }
@@ -107,44 +99,29 @@ export class TablaSeccionesComponent implements OnInit {
     this.seccionCreadaObj=this.seccionForm.value
     this.serviceSecciones.insertSeccion(this.seccionCreadaObj).subscribe(
       res=>{
-        this.alertaValor.mensajeAlerta='Sección Creada Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Sección Creada`,'Realizado')
         this.submitted = false;
         this.modalCloseCrear.nativeElement.click();
         this.seccionForm.reset();
         this.getSecciones()
-        this.enviarAlertaResponse()
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Crear la Seccion'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Sección no Creada`,'Error')
         this.submitted = false;
         this.modalCloseCrear.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
-  }
-  enviarAlertaResponse(){
-    this.alerta.emit(this.alertaValor)
   }
   eliminarSeccion(idSeccion:string){
     this.serviceSecciones.deleteSeccion(idSeccion).subscribe(
       res=>{
-        this.alertaValor.mensajeAlerta='Sección Eliminada correctamenta'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
+        this.toastrService.success(`Sección Eliminada`,'Realizado')
         this.modalCloseEliminar.nativeElement.click();
         this.getSecciones()
-        this.enviarAlertaResponse();
       },
       err=>{
-        this.alertaValor.mensajeAlerta='Error al Eliminar la Sección'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        this.toastrService.error(`Sección no Eliminada`,'Error')
         this.modalCloseEliminar.nativeElement.click();
-        this.enviarAlertaResponse()
       }
     )
   }
