@@ -28,7 +28,6 @@ export class AlumnosCursoComponent implements OnInit {
 
   labeldata: any[] = [];
   realdata: any[] = [];
-  myChart:any;
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -53,8 +52,7 @@ export class AlumnosCursoComponent implements OnInit {
   }
 
   RenderChart(labeldata: any[], realdata: any[]) {
-    let htmlRef = this.elementRef.nativeElement.querySelector(`#prueba`);
-      this.myChart = new Chart(htmlRef, {
+      const myChart = new Chart('pie1', {
       type: 'pie',
       data: {
         labels: labeldata,
