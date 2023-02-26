@@ -6,9 +6,9 @@ const GetAlumnosTotal=async()=>{
     return responseGet;
 }
 
-const GetAlumnosTotalPorGrado=async()=>{
+const GetAlumnosTotalPorGrado=async()=>{ //Usé esta para contar a los alumnos según el género
 
-    const responseGet=await conexion.query('SELECT al.idGrado,tg.nombre_grado, COUNT(al.idAlumno) CantidadAlumno FROM tbAlumno al INNER JOIN tbGrado tg ON al.idGrado=tg.idGrado group by al.idGrado');
+    const responseGet=await conexion.query('SELECT sexo, COUNT(idAlumno) CantidadAlumno FROM tbAlumno group by sexo');
     return responseGet;
 }
 
@@ -24,9 +24,9 @@ const GetAlumnosMujeres=async()=>{
     return responseGet;
 }
 
-const GetCodigosEnUso=async()=>{
+const GetCodigosEnUso=async()=>{ //Usé esta para contar los códigos activos e inactivos
 
-    const responseGet=await conexion.query('SELECT COUNT(activo) as activo FROM tbCodigo WHERE activo=1');
+    const responseGet=await conexion.query('SELECT activo, COUNT(activo) as activo FROM tbCodigo group by activo');
     return responseGet;
 }
 
@@ -36,9 +36,9 @@ const GetCodigosEnDesuso=async()=>{
     return responseGet;
 }
 
-const GetContrasenaProfesorCambiada=async()=>{
+const GetContrasenaProfesorCambiada=async()=>{  //Usé esta para contar las contraseñas cambiadas y no cambiadas
 
-    const responseGet=await conexion.query('SELECT COUNT(cambio_contrasena) AS siCambioContra FROM tbProfesor WHERE cambio_contrasena=1');
+    const responseGet=await conexion.query('SELECT cambio_contrasena, COUNT(cambio_contrasena) as CambioContra FROM tbProfesor group by cambio_contrasena order by cambio_contrasena DESC');
     return responseGet;
 }
 
