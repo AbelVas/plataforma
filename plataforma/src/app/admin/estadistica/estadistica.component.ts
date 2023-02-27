@@ -1,6 +1,8 @@
 import { Component, OnInit,ElementRef} from '@angular/core';
 import { Chart, registerables } from 'node_modules/chart.js'
 import { EstadisticasDashboardService } from '../services/estadisticas-dashboard.service';
+import { Colors } from 'chart.js';
+Chart.register(Colors);
 Chart.register(...registerables);
 
 @Component({
@@ -41,6 +43,7 @@ export class EstadisticaComponent implements OnInit {
           this.realdata.push(this.chartdata[i].CantidadAlumno);
         }
        }
+       this.realdata.push(0);
       }
     )
     this.RenderChart(this.labeldata,this.realdata);
@@ -82,8 +85,6 @@ export class EstadisticaComponent implements OnInit {
           }]
         },
         options: {
-          scales: {
-          }
         }
     });
   }
@@ -97,6 +98,7 @@ export class EstadisticaComponent implements OnInit {
           datasets: [{
             label: ' ',
             data: realCodigos,
+            backgroundColor:['#DBCF41','#F27C3D'],
           }]
         },
         options: {
@@ -115,6 +117,7 @@ export class EstadisticaComponent implements OnInit {
           datasets: [{
             label: ' ',
             data: realContrase,
+            backgroundColor:['#73C9EB','#72F263'],
           }]
         },
         options: {
