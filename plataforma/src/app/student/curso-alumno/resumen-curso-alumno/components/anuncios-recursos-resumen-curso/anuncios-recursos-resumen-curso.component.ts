@@ -21,12 +21,23 @@ export class AnunciosRecursosResumenCursoComponent implements OnInit {
     idUnidad:'',
     enlace:''
   }
+
+  listaAnuncioCurso:any=[]
+  AnuncioIndividual:any={
+    idAnuncio:'',
+    nombre_anuncio:'',
+    anuncio:'',
+    fecha_anuncio:'',
+    idCurso:'',
+    idUnidad:''
+  }
   @Input() idCurso:any=''
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
     this.idCurso=params['id'];
     this.getRecursosPorGrado()
+    this.getAnunciosPorGrado()
   }
 
   getRecursosPorGrado(){
@@ -42,6 +53,22 @@ export class AnunciosRecursosResumenCursoComponent implements OnInit {
 
   buscarActividadArray(idtbRecursoVideo:string){
     this.RecursoIndividual=this.listaRecursoCurso.find((x:any)=>x.idtbRecursoVideo===idtbRecursoVideo)
+
+  }
+
+  getAnunciosPorGrado(){
+    this.resumenCursoAlumnoService.getAnunciosCurso(this.idCurso).subscribe(
+      res=>{
+        this.listaAnuncioCurso=res;
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  buscarAnuncioArray(idAnuncio:string){
+    this.AnuncioIndividual=this.listaAnuncioCurso.find((x:any)=>x.idAnuncio===idAnuncio)
 
   }
 

@@ -55,7 +55,6 @@ export class RecursosOpcionesCursoComponent implements OnInit {
     this.actividadesOpcionesCursoService.getRecursosCurso(this.idCurso).subscribe(
       res=>{
         this.listaRecursoCurso=res;
-        console.log(this.listaRecursoCurso)
       },
       err=>{
         console.log(err)
@@ -94,7 +93,6 @@ export class RecursosOpcionesCursoComponent implements OnInit {
 
     //delete this.ActividadIndividualEdit.disponible
     //delete this.ActividadIndividualEdit.entrega_fuera_fecha
-    console.log(this.RecursoIndividualEdit);
 
     this.actividadesOpcionesCursoService.updateRecurso(idtbRecursoVideo,this.RecursoIndividualEdit).subscribe(
       res=>{

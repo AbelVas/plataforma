@@ -24,6 +24,7 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
   listaAlumnos:any=[]
   listaCalificacionAlumno:any=[]
   listaRecursoCurso:any=[]
+  listaAnuncioCurso:any=[]
   //Crear Actividad
   propiedadActividad:any={
     idTipoActividad:'',
@@ -98,6 +99,13 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
     enlace:new FormControl('',[Validators.required]),
     descripcion:new FormControl(''),
   })
+
+    //Formulario anuncio
+    crearAnuncioForm=this.formBuilder.group({
+      idUnidad:new FormControl('',[Validators.required]),
+      nombre_anuncio:new FormControl('',[Validators.required]),
+      anuncio:new FormControl('',[Validators.required])
+    })
 
   tareaCreadaObj:any=[];
   submitted=false;
@@ -438,6 +446,43 @@ export class ActividadesOpcionesCursoComponent implements OnInit {
         err=>{
           console.log(err)
           this.toastrService.error(`Recurso no Creado`,'Error')
+        }
+      )
+  }
+
+  //Aquí empieza lo de los anuncios
+  getAnunciosPorGrado(){
+    this.actividadesOpcionesCursoService.getAnunciosCurso(this.idCurso).subscribe(
+      res=>{
+        this.listaAnuncioCurso=res;
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  crearAnuncio(){
+    this.submitted = true;
+        // stop here if form is invalid
+        if (this.crearAnuncioForm.invalid) {
+            return;
+        }
+        // display form values on success
+        this.tareaCreadaObj=this.crearAnuncioForm.value
+        this.tareaCreadaObj.idCurso=this.idCurso
+        this.tareaCreadaObj.fecha_anuncio=this.fecha
+      this.actividadesOpcionesCursoService.crearAnuncio(this.tareaCreadaObj).subscribe(
+        res=>{
+          this.modalCloseCrear.nativeElement.click();
+          this.submitted = false;
+          this.crearAnuncioForm.reset();
+          this.getAnunciosPorGrado()
+          this.toastrService.success(`Anuncio Creado`,'Realizado')
+        },
+        err=>{
+          console.log(err)
+          this.toastrService.error(`Anuncio no Creado`,'Error')
         }
       )
   }

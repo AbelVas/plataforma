@@ -93,6 +93,34 @@ export class ActividadService {
     );
   }
 
+    // opciones de Anuncios del curso
+    getAnunciosCurso(idCurso:string):Observable<any>{
+      const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+      return this.http.get(`${this.URL}/anuncios/anuncio-grado/${idCurso}`,httpOptions).pipe(
+        catchError(this.handleError)
+      );
+    }
+
+    crearAnuncio(data:any){
+      const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+      return this.http.post(`${this.URL}/anuncios/`,data,httpOptions).pipe(
+        catchError(this.handleError)
+      );
+    }
+
+    deleteAnuncio(idtbAnuncio:string){
+      const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+      return this.http.delete(`${this.URL}/anuncios/${idtbAnuncio}`,httpOptions).pipe(
+        catchError(this.handleError)
+      );
+    }
+    updateAnuncio(idtbAnuncio:string,data:any){
+      const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+      return this.http.put(`${this.URL}/anuncios/${idtbAnuncio}`,data,httpOptions).pipe(
+        catchError(this.handleError)
+      );
+    }
+
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){
