@@ -14,7 +14,8 @@ export class LoginService {
 
   login(user:any){
     //const httOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/auth/login`,user);
+    var token=this.http.post(`${this.URL}/auth/login`,user);
+    return token
   }
   isAuth():boolean{
     const Token:any=localStorage.getItem('Acces-Token');

@@ -49,6 +49,8 @@ const updateAlumnosService = (data, id) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.updateAlumnosService = updateAlumnosService;
 const deleteAlumnoService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const deleteNota = yield database_1.default.query('DELETE FROM tbCalificacion WHERE idAlumno=? ', [id]);
+    const abandonoFamiliar = yield database_1.default.query('DELETE FROM tbReacionAlumnoTutor WHERE idAlumno=? ', [id]);
     const responseDelete = yield database_1.default.query('DELETE FROM tbAlumno WHERE idRol=4 and idAlumno=?', [id]);
     return responseDelete;
 });
