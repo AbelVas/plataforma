@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfesoresService } from 'src/app/admin/services/profesores.service';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { CursosAlumnosGradosService } from '../../../services/cursos-alumnos-grados.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-card-cursos-grado-admin',
@@ -45,7 +46,7 @@ export class CardCursosComponent implements OnInit {
   mesActual=this.hoy.getMonth()+1;
   fecha=this.hoy.getFullYear()+'-'+this.mesActual+'-'+this.hoy.getDate()
   submitted=false
-  constructor(private profesoresService:ProfesoresService,private cursosAlumnosService:CursosAlumnosGradosService,private activedRoute:ActivatedRoute,private formBuilder:FormBuilder) { }
+  constructor(private profesoresService:ProfesoresService,private cursosAlumnosService:CursosAlumnosGradosService,private activedRoute:ActivatedRoute,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -91,17 +92,11 @@ export class CardCursosComponent implements OnInit {
     res=>{
       this.getCursos()
       this.modalCloseEliminar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='Curso Eliminado Correctamente'
-      this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-circle-check'
-      this.cerrarAlerta()
+      this.toastrService.success(`Curso Elminado`,'Realizado')
     },
     err=>{
       this.modalCloseEliminar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='Error al Crear el Curso'
-      this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-xmark'
-      this.cerrarAlerta()
+      this.toastrService.error(`Curso no Eliminado`,'Error')
     })
   }
   crearCurso(){
@@ -126,18 +121,12 @@ export class CardCursosComponent implements OnInit {
       res=>{
         this.getCursos()
         this.modalCloseCrear.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Curso Creado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
+        this.toastrService.success(`Curso Creado`,'Realizado')
         this.cursoForm.reset();
       },
       err=>{
         this.modalCloseCrear.nativeElement.click();
-        this.alertaValor.mensajeAlerta='Error al Crear el Curso'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-xmark'
-        this.cerrarAlerta()
+        this.toastrService.error(`Curso no Creado`,'Error')
       }
     )
 
@@ -170,25 +159,16 @@ export class CardCursosComponent implements OnInit {
         res=>{
           this.getCursos()
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Curso Actualizado correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+          this.toastrService.success(`Curso Editado`,'Realizado')
         },
         err=>{
           this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al actualizar'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-exclamation'
-          this.cerrarAlerta()
+          this.toastrService.error(`Curso no Editado`,'Error')
         }
       )
     }else{
       this.modalCloseEditar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='No se Realizaron Cambios'
-      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-circle-exclamation'
-      this.cerrarAlerta()
+      this.toastrService.warning(`Sin datos para modificar`,'Atención')
     }
   }
   getDocentes(){
@@ -276,12 +256,6 @@ export class CardCursosComponent implements OnInit {
       this.cursoIndividual.boletas='1'
       return this.consolidadoBoletasINSERT='1';
     }
-  }
-  cerrarAlerta(){
-    this.intervalo=setInterval(() => {//
-      this.closeAlert.nativeElement.click();
-      this.alertaValor.classAlerta='toast hide'
-    }, 5000);
   }
   get f() { return this.cursoForm.controls; }
   get ch(){ return this.cursoFormChecks.controls;}

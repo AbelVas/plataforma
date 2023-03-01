@@ -44,6 +44,16 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     enlace:''
   }
 
+  listaAnuncioCurso:any=[]
+  AnuncioIndividual:any={
+    idAnuncio:'',
+    nombre_anuncio:'',
+    anuncio:'',
+    fecha_anuncio:'',
+    idCurso:'',
+    idUnidad:''
+  }
+
   @Input() idCursoCurso:any=''
 
   ngOnInit(): void {
@@ -53,6 +63,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     this.calificacionIndividual=this.calificacionesGet;
     this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
     this.getRecursosPorGrado()
+    this.getAnunciosPorGrado()
   }
 
   getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
@@ -123,6 +134,22 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
 
   buscarRecursoArray(idtbRecursoVideo:string){
     this.RecursoIndividual=this.listaRecursoCurso.find((x:any)=>x.idtbRecursoVideo===idtbRecursoVideo)
+
+  }
+
+  getAnunciosPorGrado(){
+    this.actividadesCursoAlumnoTutorService.getAnunciosCurso(this.idCursoCurso).subscribe(
+      res=>{
+        this.listaAnuncioCurso=res;
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  buscarAnuncioArray(idAnuncio:string){
+    this.AnuncioIndividual=this.listaAnuncioCurso.find((x:any)=>x.idAnuncio===idAnuncio)
 
   }
 

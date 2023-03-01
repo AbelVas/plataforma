@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { CuadroGuiaService } from 'src/app/admin/services/cuadro-guia.service';
 import { CursosAlumnosGradosService } from 'src/app/admin/services/cursos-alumnos-grados.service';
 import { GradosAlumnosService } from 'src/app/admin/services/grados-alumnos.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -59,7 +60,7 @@ export class CardMatutinaComponent implements OnInit {
   notasCursoConsolidado:any=[]
   noAlumnosConsolidado:any=[]
   consolidado_resumen:any=[]
-  constructor(private gradoService:GradosService,private cuadroGuiaService:CuadroGuiaService,private cursoGradoService:CursosAlumnosGradosService, private alumnosGrado:GradosAlumnosService) { }
+  constructor(private gradoService:GradosService,private cuadroGuiaService:CuadroGuiaService,private cursoGradoService:CursosAlumnosGradosService, private alumnosGrado:GradosAlumnosService,private toastrService:ToastrService) { }
   ngOnInit(): void {
     this.getGradosMatutina()
     this.nivelesModal=(this.niveles);
@@ -132,10 +133,12 @@ export class CardMatutinaComponent implements OnInit {
             res=>{
               this.NivelSeleccionado=''
               this.SeccionSeleccionada=''
+              this.toastrService.success(`Grado Creado`,'Realizado')
               this.getGradosMatutina()
             },
             err=>{
               this.errorServicio=err;
+              this.toastrService.error(`Grado no Creado`,'Error')
             }
           )
       }
@@ -180,10 +183,12 @@ export class CardMatutinaComponent implements OnInit {
         res=>{
           this.NivelSeleccionado=''
           this.SeccionSeleccionada=''
+          this.toastrService.success(`Grado Editado`,'Realizado')
           this.getGradosMatutina();
         },
         err=>{
           this.errorServicio=err;
+          this.toastrService.error(`Grado no Editado`,'Error')
         }
       )
     }
@@ -192,10 +197,12 @@ export class CardMatutinaComponent implements OnInit {
     this.gradoService.deleteGrado(idGrado).subscribe(
       res=>{
         this.errorService.codigoError=''
+        this.toastrService.success(`Grado Eliminado`,'Realizado')
         this.getGradosMatutina()
       },
       err=>{
         this.errorService=err
+        this.toastrService.error(`Grado no Eliminado`,'Error')
       }
     )
   }
