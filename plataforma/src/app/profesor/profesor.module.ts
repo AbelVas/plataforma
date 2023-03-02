@@ -54,6 +54,7 @@ import { CalendarioCursoService } from "./services/calendario-curso.service";
 import { TemaProfesorService } from "./services/tema-profesor.service";
 import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/archivos-perfil-profesor/archivos-perfil-profesor.component';
 import { NgChartsModule } from "ng2-charts";
+import { TutorialComponent } from './tutorial/tutorial.component';
 //
 
 
@@ -102,7 +103,8 @@ import { NgChartsModule } from "ng2-charts";
   CursosComponent,
   GradoGuiaIndividualComponent,
   CalendariogeneralComponent,
-  ArchivosPerfilProfesorComponent
+  ArchivosPerfilProfesorComponent,
+  TutorialComponent
   ],
   exports:[
   ],

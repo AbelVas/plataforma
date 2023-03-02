@@ -13,6 +13,8 @@ import { ListaGradosComponent } from "./lista-grados/lista-grados.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsuariosComponent } from "./usuarios/usuarios.component";
 import { EstadisticaComponent } from "./estadistica/estadistica.component";
+import { TutorialComponent } from "./tutorial/tutorial.component";
+import { PagosComponent } from "./pagos/pagos.component";
 
 
 const routes:Routes=[
@@ -32,6 +34,8 @@ const routes:Routes=[
     {path:'grados/:id',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ListaGradosComponent},
     {path:'grado/curso/:idGrado/:id/:idProfesor/:idNivelLista',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CursosComponent},
     {path:'estadistica',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:EstadisticaComponent},
+    {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
+    {path:'pagos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:PagosComponent},
   ]
   },
 ]
