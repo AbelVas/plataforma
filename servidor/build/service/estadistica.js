@@ -20,7 +20,7 @@ const GetAlumnosTotal = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.GetAlumnosTotal = GetAlumnosTotal;
 const GetAlumnosTotalPorGrado = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT al.idGrado,tg.nombre_grado, COUNT(al.idAlumno) CantidadAlumno FROM tbAlumno al INNER JOIN tbGrado tg ON al.idGrado=tg.idGrado group by al.idGrado');
+    const responseGet = yield database_1.default.query('SELECT sexo, COUNT(idAlumno) CantidadAlumno FROM tbAlumno group by sexo');
     return responseGet;
 });
 exports.GetAlumnosTotalPorGrado = GetAlumnosTotalPorGrado;
@@ -35,7 +35,7 @@ const GetAlumnosMujeres = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.GetAlumnosMujeres = GetAlumnosMujeres;
 const GetCodigosEnUso = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT COUNT(activo) as activo FROM tbCodigo WHERE activo=1');
+    const responseGet = yield database_1.default.query('SELECT activo, COUNT(activo) as activo FROM tbCodigo group by activo');
     return responseGet;
 });
 exports.GetCodigosEnUso = GetCodigosEnUso;
@@ -45,7 +45,7 @@ const GetCodigosEnDesuso = () => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.GetCodigosEnDesuso = GetCodigosEnDesuso;
 const GetContrasenaProfesorCambiada = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT COUNT(cambio_contrasena) AS siCambioContra FROM tbProfesor WHERE cambio_contrasena=1');
+    const responseGet = yield database_1.default.query('SELECT cambio_contrasena, COUNT(cambio_contrasena) as CambioContra FROM tbProfesor group by cambio_contrasena order by cambio_contrasena DESC');
     return responseGet;
 });
 exports.GetContrasenaProfesorCambiada = GetContrasenaProfesorCambiada;
