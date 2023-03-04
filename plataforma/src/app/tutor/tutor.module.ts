@@ -36,6 +36,8 @@ import { CalificacionesVistaEstudianteComponent } from './calificaciones-vista-e
 import { CalificacionesVistaEstudianteService } from "./service/calificaciones-vista-estudiante.service";
 import { FullCalendarModule } from "@fullcalendar/angular";
 import { TematutoresService } from "./service/tematutores.service";
+import { TutorialComponent } from './tutorial/tutorial.component';
+import { PagosComponent } from './pagos/pagos.component';
 @NgModule({
   imports:[
     TutorRoutingModule,
@@ -64,7 +66,9 @@ import { TematutoresService } from "./service/tematutores.service";
     PasswordPerfilTutorComponent,
     VistaEstudianteComponent,
     ContenidoVistaEstudianteComponent,
-    CalificacionesVistaEstudianteComponent
+    CalificacionesVistaEstudianteComponent,
+    TutorialComponent,
+    PagosComponent
   ],
   exports:[
   ],

@@ -39,6 +39,7 @@ import { CalificacionesStudentService } from "./services/calificaciones-student.
 import { PublicModule } from "../public/public.module";
 import { FullCalendarModule } from "@fullcalendar/angular";
 import { TemaEstudianteService } from "./services/tema-estudiante.service";
+import { TutorialComponent } from './tutorial/tutorial.component';
 //
 
 
@@ -76,7 +77,8 @@ import { TemaEstudianteService } from "./services/tema-estudiante.service";
     PasswordPerfilAlumnoComponent,
     ForoCursoStudentComponent,
     ActividadCursoStudentComponent,
-    ExamenCursoStudentComponent
+    ExamenCursoStudentComponent,
+    TutorialComponent
   ],
   exports:[
   ],
