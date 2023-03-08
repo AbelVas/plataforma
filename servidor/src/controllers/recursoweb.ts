@@ -1,5 +1,6 @@
 import { Request,response,Response } from "express";
-import {GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService,GetRecursoWebServiceGrado} from "../service/recursoweb";
+import {GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService,GetRecursoWebServiceGrado,
+    insertRecursoArchivoService,GetRecursoArchivoServiceGrado,updateRecursoArchivoService,deleteRecursoArchivoService} from "../service/recursoweb";
 import { handleHttp } from "../utils/error.handle";
 
 
@@ -79,4 +80,58 @@ const getRecursoWebGrado=async(req:Request,res:Response)=>{
 
 }
 
-export {getRecursosWeb,getRecursoWeb,updateRecursoWeb,deleteRecursoWeb,insertRecursoWeb,getRecursoWebGrado}
+//Recursos de archivos
+
+const updateRecursoArchivo=async(req:Request,res:Response)=>{
+
+    try {
+        const {id}=req.params;
+        const resultadoRecursoWeb=await updateRecursoArchivoService(req.body,id);
+        res.send(resultadoRecursoWeb);
+    } catch (e) {
+        handleHttp(res,'Error al Actualizar el Recurso Web' ,e)
+    }
+
+
+}
+
+const deleteRecursoArchivo=async(req:Request,res:Response)=>{
+
+    try {
+        const {id}=req.params;
+        const resultadoRecursoWeb=await deleteRecursoArchivoService(id);
+        res.send(resultadoRecursoWeb);
+    } catch (e) {
+        handleHttp(res,'Error al Eliminar el Recurso Web',e)
+    }
+
+
+}
+
+const insertRecursoArchivo=async(req:Request,res:Response)=>{
+
+    try {
+        const resultadoRecursoWeb=await insertRecursoArchivoService(req.body);
+        res.send(resultadoRecursoWeb);
+    } catch (e) {
+        handleHttp(res,'Error al Crear el Recurso Web',e)
+    }
+
+
+}
+
+const getRecursoArchivoGrado=async(req:Request,res:Response)=>{
+
+    try {
+        const {id}=req.params;
+        const resultadoRecursoWeb=await GetRecursoArchivoServiceGrado(id);
+        res.send(resultadoRecursoWeb)
+    } catch (e) {
+        handleHttp(res,'Error al Obtener el Recurso Web',e)
+    }
+
+
+}
+
+export {getRecursosWeb,getRecursoWeb,updateRecursoWeb,deleteRecursoWeb,insertRecursoWeb,getRecursoWebGrado,
+    deleteRecursoArchivo,updateRecursoArchivo,insertRecursoArchivo,getRecursoArchivoGrado}

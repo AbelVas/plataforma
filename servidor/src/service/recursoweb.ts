@@ -46,4 +46,35 @@ const GetRecursoWebServiceGrado=async(id:string)=>{
 
 }
 
-export{GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService,GetRecursoWebServiceGrado}
+//Recursos de archivos
+
+const insertRecursoArchivoService=async(data:Request)=>{
+    
+    const responseInsert=await conexion.query('INSERT INTO tbRecursoArchivo set ?',[data]);
+    return responseInsert;
+
+}
+
+const GetRecursoArchivoServiceGrado=async(id:string)=>{
+
+    const responseGet=await conexion.query('SELECT * FROM tbRecursoArchivo WHERE idCurso=?',[id]);
+    return responseGet;
+
+}
+
+const updateRecursoArchivoService=async(data:Request,id:string)=>{
+   
+    const responseUpdate=await conexion.query('UPDATE tbRecursoArchivo SET ? WHERE idtbRecursoVideo=?',[data,id]);
+    return responseUpdate;
+
+}
+
+const deleteRecursoArchivoService=async(id:string)=>{
+    
+    const responseDelete=await conexion.query('DELETE FROM tbRecursoArchivo WHERE idtbRecursoVideo=?',[id]);
+    return responseDelete;
+
+}
+
+export{GetRecursosWebService,GetRecursoWebService,updateRecursoWebService,deleteRecursoWebService,insertRecursoWebService,GetRecursoWebServiceGrado,
+    insertRecursoArchivoService,GetRecursoArchivoServiceGrado,updateRecursoArchivoService,deleteRecursoArchivoService}
