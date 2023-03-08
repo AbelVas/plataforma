@@ -14,7 +14,7 @@ import { ExamenCursoStudentComponent } from "./examen-curso-student/examen-curso
 import { ForoCursoStudentComponent } from "./foro-curso-student/foro-curso-student.component";
 import { PerfilStudentComponent } from "./perfil-student/perfil-student.component";
 import { StudentComponent } from "./student.component";
-
+import { TutorialComponent } from "./tutorial/tutorial.component";
 
 const routes:Routes=[
   {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component: StudentComponent,children:
@@ -28,7 +28,8 @@ const routes:Routes=[
     {path:'curso/actividades',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ActividadesCursoAlumnoComponent},
     {path:'foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ForoCursoStudentComponent},
     {path:'actividad',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ActividadCursoStudentComponent},
-    {path:'examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ExamenCursoStudentComponent}
+    {path:'examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ExamenCursoStudentComponent},
+    {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
   ]
   },
 ]

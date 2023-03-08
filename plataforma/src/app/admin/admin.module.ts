@@ -71,6 +71,8 @@ import { ImagenesPerfilDefectoService } from "./services/imagenes-perfil-defecto
 import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { NgChartsModule } from "ng2-charts";
 import { ListaRecursosComponent } from './grados/cursos/components/lista-recursos/lista-recursos.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
+import { PagosComponent } from './pagos/pagos.component';
 
 
 @NgModule({
@@ -113,6 +115,8 @@ import { ListaRecursosComponent } from './grados/cursos/components/lista-recurso
         TutoresComponent,
         EstadisticaComponent,
         ListaRecursosComponent,
+        TutorialComponent,
+        PagosComponent,
     ],
     exports: [],
     providers: [

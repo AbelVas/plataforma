@@ -12,6 +12,9 @@ import { AuthGuard } from "../guards/auth.guard";
 import { RolesGuard } from "../guards/roles.guard";
 import { VistaEstudianteComponent } from "./vista-estudiante/vista-estudiante.component";
 import { CalificacionesVistaEstudianteComponent } from "./calificaciones-vista-estudiante/calificaciones-vista-estudiante.component";
+import { TutorialComponent } from "./tutorial/tutorial.component";
+import { PagosComponent } from "./pagos/pagos.component";
+
 
 const routes:Routes=[
   {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component: TutorComponent,children:
@@ -23,7 +26,9 @@ const routes:Routes=[
     {path:'calificaciones/:idEstudiante',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:CalificacionesVistaEstudianteComponent},
     {path:'curso/actividades',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:ActividadesCursoAlumnoTutorComponent},
     {path:'curso/resumen/:idAlumno/:idCurso',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:ResumenCursoAlumnoTutorComponent},
-    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:PerfilTutorComponent}
+    {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:PerfilTutorComponent},
+    {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
+    {path:'pagos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:PagosComponent},
   ]
   },
 ]
