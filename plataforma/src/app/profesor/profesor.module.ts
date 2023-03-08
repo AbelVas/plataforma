@@ -32,9 +32,6 @@ import { CursosCardResumenComponent } from './cursos-profesor/components/cursos-
 import { OpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/opciones-curso.component';
 import { CalendarioCursoComponent } from './cursos-profesor/components/calendario-curso/calendario-curso.component';
 import { AlumnosCursoComponent } from './cursos-profesor/components/alumnos-curso/alumnos-curso.component';
-import { AnunciosOpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/components/anuncios-opciones-curso/anuncios-opciones-curso.component';
-import { ActividadesOpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/components/actividades-opciones-curso/actividades-opciones-curso.component';
-import { RecursosOpcionesCursoComponent } from './cursos-profesor/components/opciones-curso/components/recursos-opciones-curso/recursos-opciones-curso.component';
 import { ActividadesOpcionesCursoService } from "./services/actividades-opciones-curso.service";
 import { CalendarioProfesorComponent } from './calendario-profesor/calendario-profesor.component';
 import { CalendarioProfesorService } from "./services/calendario-profesor.service";
@@ -88,9 +85,6 @@ import { NgChartsModule } from "ng2-charts";
   OpcionesCursoComponent,
   CalendarioCursoComponent,
   AlumnosCursoComponent,
-  AnunciosOpcionesCursoComponent,
-  ActividadesOpcionesCursoComponent,
-  RecursosOpcionesCursoComponent,
   CalendarioProfesorComponent,
   ForoCursoProfesorComponent,
   ExamenCursoProfesorComponent,

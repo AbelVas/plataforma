@@ -64,6 +64,7 @@ export class CursosProfesorComponent implements OnInit {
     this.idGradoCurso=params['idGrado'];
     this.obtenerDatosCursos();
     this.obtenerAlumnosCursos();
+    this.cursosGet=this.cursosIndividual;
 
     this.cursoForm=this.formBuilder.group({
       color_curso:new FormControl('',[Validators.required]),
