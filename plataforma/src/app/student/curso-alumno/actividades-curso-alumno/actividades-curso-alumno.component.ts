@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
 import { ResumenCursoAlumnoService } from '../../services/resumen-curso-alumno.service';
+import { PerfilAlumnoService } from '../../services/perfil-alumno.service';
 
 @Component({
   selector: 'app-actividades-curso-alumno',
@@ -10,8 +11,17 @@ import { ResumenCursoAlumnoService } from '../../services/resumen-curso-alumno.s
 })
 export class ActividadesCursoAlumnoComponent implements OnInit {
 
-  constructor(public activedRoute:ActivatedRoute, public resumenCurso:ResumenCursoAlumnoService) { }
+  constructor(public activedRoute:ActivatedRoute, public resumenCurso:ResumenCursoAlumnoService, private perfilAlumnosService:PerfilAlumnoService) { }
   idEstudiante:string='';
+  alumnoGet:any=[];
+  alumnoIndividual:any={
+    idAlumno: '',
+    nombres_alumno:'',
+    apellidos_alumno:''
+  };
+
+  verNota:any=[];
+
   calificacionesGet:any=[];
   calificacionIndividual:any={
     idDetalleActividad:'',
@@ -59,6 +69,23 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     this.calificacionIndividual=this.calificacionesGet;
     this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
     this.getNivel()
+    this.obtenerDatosAlumno();
+    this.alumnoIndividual=this.alumnoGet;
+  }
+
+  obtenerDatosAlumno(){
+    this.perfilAlumnosService.getAlumno(this.idEstudiante).subscribe(
+      res=>{
+        var cantidad=res.length;
+        this.alumnoGet=res;
+        for(let i = 0; i<cantidad; i++){
+          this.verNota=this.alumnoGet[i].ver_notas;
+        }
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
   }
 
   getNivel(idCurso=this.idCursoCurso){
@@ -68,7 +95,6 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
         this.cursosGet=res
         for(let i = 0; i<cantidad; i++){
           this.idNivelNivel=this.cursosGet[i].idNivel;
-          console.log('idNivel: '+this.idNivelNivel)
         }
       },
       error=>{

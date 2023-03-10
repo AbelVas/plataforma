@@ -101,10 +101,15 @@
                           </button>
                         </td>-->
                        <!--<td align="center">A tiempo</td>-->
+                       <td align="center" *ngIf="verNota==0 else verNota2">
+                        <i class="fa-solid fa-eye-slash" style="color: lightslategrey;"></i>
+                       </td>
+                        <ng-template #verNota2>
                           <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
-                            <ng-template #notaNulaTar>
-                              <td class="text-center">{{t.nota}} /{{t.valor}}</td>
-                            </ng-template>
+                          <ng-template #notaNulaTar>
+                            <td class="text-center">{{t.nota + '/' + t.valor}}</td>
+                          </ng-template>
+                        </ng-template>
 
                           <div class="modal fade" id="ModalComentario" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
@@ -278,9 +283,12 @@
               </div>
               <div class="tab-content pt-2" id="myTabjustifiedContent">
                 <div class="activity">
-                  <div class="progress" style="height: 30px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: suma+'%', 'background-color': colorprogress}">{{suma+ '%'}}</div>
+                  <div class="progress" style="height: 30px;" *ngIf="verNota==0; else progressbar">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
+                  <ng-template #progressbar>
+                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: suma+'%', 'background-color': colorprogress}">{{suma + '%'}}</div>
+                  </ng-template>
                 </div>
               </div>
             </div>
@@ -312,9 +320,14 @@
                         <tr *ngFor="let a of calificacionesGet">
                             <td align="center">{{a.tipoActividad}}</td>
                             <td align="center">{{a.nombre_actividad}}</td>
-                            <td align="center" *ngIf="a.nota==null;else notaNulaCal">No ingresada</td>
-                            <ng-template #notaNulaCal>
-                              <td class="text-center">{{a.nota}} /{{a.valor}}</td>
+                            <td align="center" *ngIf="verNota==0 else verNotatabla">
+                              <i class="fa-solid fa-eye-slash" style="color: lightslategrey;"></i>
+                            </td>
+                            <ng-template #verNotatabla>
+                              <td align="center" *ngIf="a.nota==null;else notaNulaTar">No ingresada</td>
+                              <ng-template #notaNulaTar>
+                              <td class="text-center">{{a.nota + '/' + a.valor}}</td>
+                             </ng-template>
                             </ng-template>
                         </tr>
                       </tbody>
@@ -329,7 +342,12 @@
                       </thead>
                       <tbody>
                         <tr>
-                            <td align="right">{{suma}}/100</td>
+                          <td align="right" *ngIf="verNota==0 else verFinal">
+                            La visualización de notas ha sido bloqueada por el administrador
+                          </td>
+                          <ng-template #verFinal>
+                              <td align="right">{{suma}}/100</td>
+                          </ng-template>
                         </tr>
                       </tbody>
                   </table>

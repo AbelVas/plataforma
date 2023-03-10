@@ -4,6 +4,7 @@ import { S } from '@fullcalendar/core/internal-common';
 import decode from 'jwt-decode';
 import { ActividadesCursoAlumnoTutorService } from '../../service/actividades-curso-alumno-tutor.service';
 import { ToastrService } from 'ngx-toastr';
+import { CalificacionesVistaEstudianteService } from '../../service/calificaciones-vista-estudiante.service';
 
 @Component({
   selector: 'app-actividades-curso-alumno-tutor',
@@ -31,7 +32,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
   colorprogress:any=[];
   suma:any=0;
 
-  constructor( private actividadesCursoAlumnoTutorService:ActividadesCursoAlumnoTutorService, private activedRoute:ActivatedRoute, private toastrService:ToastrService) { }
+  constructor( private actividadesCursoAlumnoTutorService:ActividadesCursoAlumnoTutorService, private activedRoute:ActivatedRoute, private toastrService:ToastrService, private calificacionesVistaEstudianteService:CalificacionesVistaEstudianteService) { }
 
   listaRecursoCurso:any=[]
   RecursoIndividual:any={
@@ -54,6 +55,15 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     idUnidad:''
   }
 
+  alumnoGet:any=[];
+  alumnoIndividual:any={
+    idAlumno: '',
+    nombres_alumno:'',
+    apellidos_alumno:''
+  };
+
+  verNota:any=[];
+
   @Input() idCursoCurso:any=''
 
   ngOnInit(): void {
@@ -64,6 +74,23 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     this.getCalificacionesAlumno(this.idCursoCurso,this.idEstudiante);
     this.getRecursosPorGrado()
     this.getAnunciosPorGrado()
+    this.obtenerDatosAlumno();
+    this.alumnoIndividual=this.alumnoGet;
+  }
+
+  obtenerDatosAlumno(){
+    this.calificacionesVistaEstudianteService.getAlumno(this.idEstudiante).subscribe(
+      res=>{
+        var cantidad=res.length;
+        this.alumnoGet=res;
+        for(let i = 0; i<cantidad; i++){
+          this.verNota=this.alumnoGet[i].ver_notas;
+        }
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
   }
 
   getCalificacionesAlumno(idCursoAc:string,idAlumnito:string){
@@ -77,6 +104,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
         this.calificacionesGet=res;
         var AuxForos=0;
         var AuxTareas=0;
+
         for(let i = 0; i<cantidad; i++){
           if(this.calificacionesGet[i].idTipoActividad=='1'){
             this.tareas[AuxTareas]=this.calificacionesGet[i]
