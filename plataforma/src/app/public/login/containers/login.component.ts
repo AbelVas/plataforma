@@ -15,10 +15,6 @@ import { AlumnosService } from "src/app/admin/services/alumnos.service";
 
 export class LoginComponent implements OnInit{
   sppinerOn:boolean=false;
-  datosLogin:any={
-    usuario:'',
-    pass:''
-  }
   listaGrados:any=[]
   alumnoForm=this.formBuilder.group({
     idGrado:new FormControl('',[Validators.required]),
@@ -29,6 +25,11 @@ export class LoginComponent implements OnInit{
     pass:new FormControl('',[Validators.required]),
     confirmPass:new FormControl('',[Validators.required])
   })
+  loginForm=this.formBuilder.group({
+    usuario:new FormControl('',[Validators.required]),
+    pass:new FormControl('',[Validators.required])
+  })
+
   submitted=false;
   passNoCoincide:string=''
   guardado:boolean=false;
@@ -115,7 +116,15 @@ export class LoginComponent implements OnInit{
 
   loginIn(){
     this.sppinerOn=true;
-    this.loginService.login(this.datosLogin).subscribe((res:any)=>{
+    if (this.loginForm.invalid) {
+      this.sppinerOn=false;
+      this.errorLogininputs='form-control form-control-lg border-danger';
+      this.alertaError='1'
+      return;
+    }
+    var loginData:any={}
+    loginData=Object.assign(this.loginForm.value)
+    this.loginService.login(loginData).subscribe((res:any)=>{
         localStorage.setItem('Acces-Token',res.token);
         const {idRol}:any=decode(res.token);
         if(idRol==1){
@@ -141,4 +150,5 @@ export class LoginComponent implements OnInit{
     )
   }
   get f() { return this.alumnoForm.controls; }
+  get g(){ return this.loginForm.controls;}
 }

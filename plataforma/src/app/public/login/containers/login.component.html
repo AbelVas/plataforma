@@ -10,45 +10,45 @@
             class="img-fluid" alt="Sample image">
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form>
+          <form [formGroup]="loginForm" (ngSubmit)="loginIn()">
             <h3 class="text-center">Plataforma Acad&eacute;mica</h3><br><br>
-          <div *ngIf="registrarse==false;else registro;">
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <input type="email" [(ngModel)]="datosLogin.usuario" name="usuario" [class]="errorLogininputs" placeholder="Usuario" />
-            </div>
-            <!-- Password input -->
-            <div class="form-outline mb-3">
-              <input type="password" [(ngModel)]="datosLogin.pass" name="pass" [class]="errorLogininputs" placeholder="Contraseña" />
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="alertaError=='1'">
-              Usuario y/o Contraseña incorrecta
-            </div>
+            <div *ngIf="registrarse==false;else registro;">
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input type="email" formControlName="usuario" name="usuario" [class]="errorLogininputs" placeholder="Usuario" />
+              </div>
+              <!-- Password input -->
+              <div class="form-outline mb-3">
+                <input type="password" formControlName="pass" [class]="errorLogininputs" placeholder="Contraseña" />
+              </div>
 
-
-
-            <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alertaCreadoCorrecto=='1';else errorCrear">
-              Usuario creado correctamente
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-
-            <ng-template #errorCrear>
+              <div class="alert alert-danger" role="alert" *ngIf="alertaError=='1'">
+                Usuario y/o Contraseña incorrecta
+              </div>
+              <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alertaCreadoCorrecto=='1';else errorCrear">
+                Usuario creado correctamente
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <ng-template #errorCrear>
               <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alertaCreadoCorrecto=='0'">
                 Error al crear usuario
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
-            </ng-template>
+              </ng-template>
 
-
-            <div class="d-flex justify-content-between align-items-center">
-              <br><a class="text-body btn btn-link" (click)="inicioRegistro()">Registrarme</a>
+              <div class="d-flex justify-content-between align-items-center">
+                <br><a class="text-body btn btn-link" (click)="inicioRegistro()">Registrarme</a>
+              </div>
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
+              </div>
             </div>
-            <div class="text-center text-lg-start mt-4 pt-2">
-              <button type="submit" class="btn btn-primary btn-lg"
-                (click)="loginIn()">Iniciar Sesión</button>
-            </div>
-          </div>
           </form>
+
+
+
+
+
           <!--Verificar Código-->
           <ng-template #registro>
             <div class="text-center text-lg-start mt-4 pt-2" *ngIf="isCorrectCodigo!=true;else codigoCorrecto">
