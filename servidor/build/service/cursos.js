@@ -20,7 +20,7 @@ const obtenerCursosService = () => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.obtenerCursosService = obtenerCursosService;
 const obtenerCursoService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, g.idGrado, c.nombre_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, s.seccion, p.nombre_profesor, p.apellido_profesor, p.idProfesor, n.idNivel FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbProfesor p ON c.idProfesor=p.idProfesor INNER JOIN tbNivel n ON g.idNivel=n.idNivel WHERE idCurso=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, g.idGrado, c.nombre_curso, c.color_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, s.seccion, p.nombre_profesor, p.apellido_profesor, p.idProfesor, n.idNivel FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbProfesor p ON c.idProfesor=p.idProfesor INNER JOIN tbNivel n ON g.idNivel=n.idNivel WHERE idCurso=?', [id]);
     return responseGet;
 });
 exports.obtenerCursoService = obtenerCursoService;

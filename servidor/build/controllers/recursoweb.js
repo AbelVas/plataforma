@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRecursoWebGrado = exports.insertRecursoWeb = exports.deleteRecursoWeb = exports.updateRecursoWeb = exports.getRecursoWeb = exports.getRecursosWeb = void 0;
+exports.getRecursoArchivoGrado = exports.insertRecursoArchivo = exports.updateRecursoArchivo = exports.deleteRecursoArchivo = exports.getRecursoWebGrado = exports.insertRecursoWeb = exports.deleteRecursoWeb = exports.updateRecursoWeb = exports.getRecursoWeb = exports.getRecursosWeb = void 0;
 const recursoweb_1 = require("../service/recursoweb");
 const error_handle_1 = require("../utils/error.handle");
 const getRecursosWeb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -76,3 +76,47 @@ const getRecursoWebGrado = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getRecursoWebGrado = getRecursoWebGrado;
+//Recursos de archivos
+const updateRecursoArchivo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultadoRecursoWeb = yield (0, recursoweb_1.updateRecursoArchivoService)(req.body, id);
+        res.send(resultadoRecursoWeb);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Recurso Web', e);
+    }
+});
+exports.updateRecursoArchivo = updateRecursoArchivo;
+const deleteRecursoArchivo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultadoRecursoWeb = yield (0, recursoweb_1.deleteRecursoArchivoService)(id);
+        res.send(resultadoRecursoWeb);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar el Recurso Web', e);
+    }
+});
+exports.deleteRecursoArchivo = deleteRecursoArchivo;
+const insertRecursoArchivo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const resultadoRecursoWeb = yield (0, recursoweb_1.insertRecursoArchivoService)(req.body);
+        res.send(resultadoRecursoWeb);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Crear el Recurso Web', e);
+    }
+});
+exports.insertRecursoArchivo = insertRecursoArchivo;
+const getRecursoArchivoGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultadoRecursoWeb = yield (0, recursoweb_1.GetRecursoArchivoServiceGrado)(id);
+        res.send(resultadoRecursoWeb);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Recurso Web', e);
+    }
+});
+exports.getRecursoArchivoGrado = getRecursoArchivoGrado;

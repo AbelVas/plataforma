@@ -13,3 +13,8 @@ router.put("/:id", session_1.checkJwt, recursoweb_1.updateRecursoWeb);
 router.delete("/:id", session_1.checkJwt, recursoweb_1.deleteRecursoWeb);
 router.post("/", session_1.checkJwt, recursoweb_1.insertRecursoWeb);
 router.get("/recurso-grado/:id", session_1.checkJwt, recursoweb_1.getRecursoWebGrado);
+// Recursos de Archivos
+router.get("/recurso-archivo-grado/:id", session_1.checkJwt, recursoweb_1.getRecursoArchivoGrado);
+router.post("/recurso-archivo/", session_1.checkJwt, recursoweb_1.insertRecursoArchivo);
+router.put("/recurso-archivo/:id", session_1.checkJwt, recursoweb_1.updateRecursoArchivo);
+router.delete("/recurso-archivo/:id", session_1.checkJwt, recursoweb_1.deleteRecursoArchivo);
