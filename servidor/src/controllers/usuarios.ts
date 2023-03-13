@@ -53,7 +53,7 @@ const deleteAlumno= async(req:Request,res:Response)=>{
        const resultadoAlumno=await deleteAlumnoService(id);
        res.send(resultadoAlumno);
     }catch(e){
-        handleHttp(res,'Error al Eliminar al Alumno')
+        handleHttp(res,'Error al Eliminar al Alumno',e)
     }
 }
 const insertarAlumno= async(req:Request,res:Response)=>{
