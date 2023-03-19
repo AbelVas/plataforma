@@ -39,6 +39,21 @@
 
     <div class="card">
       <div class="card-body pb-0">
+        <h5 class="card-title">Visualización  <span>| de Notas</span></h5>
+        <div class="text-center">
+          <button class="btn bnt-primary btn-success" (click)="habilitarVerNotas()"><i class="fa-solid fa-eye"></i> Habilitar</button>
+          <button class="btn bnt-primary btn-danger" (click)="deshabilitarVerNotas()"><i class="fa-solid fa-eye-slash"></i> Deshabilitar</button>
+          <br>
+          <div class="row">
+            <div class="col-md-6">Habilitados: {{estado.ver}}</div>
+            <div class="col-md-6">Deshabilitados: {{estado.noVer}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body pb-0">
           <h5 class="card-title">Estadisticas <span>| Resumen General</span></h5>
           <div *ngIf="sppinerOn==true;else Mostrar2">
             <app-loaderpeque></app-loaderpeque>

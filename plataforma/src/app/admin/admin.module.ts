@@ -73,6 +73,8 @@ import { NgChartsModule } from "ng2-charts";
 import { ListaRecursosComponent } from './grados/cursos/components/lista-recursos/lista-recursos.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { PagosComponent } from './pagos/pagos.component';
+import { ConsolidadoBimestralComponent } from "./consolidado-bimestral/consolidado-bimestral.component";
+import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
 
 
 @NgModule({
@@ -117,6 +119,8 @@ import { PagosComponent } from './pagos/pagos.component';
         ListaRecursosComponent,
         TutorialComponent,
         PagosComponent,
+        ConsolidadoBimestralComponent,
+        CuadroGuiaComponent
     ],
     exports: [],
     providers: [

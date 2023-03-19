@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef} from '@angular/core';
 import { BimestreService } from '../../../services/bimestres.service';
+import { UnidadesService } from '../../../services/unidades.service';
 import { EstadisticasDashboardService } from '../../../services/estadisticas-dashboard.service';
 import { Chart, registerables } from 'node_modules/chart.js'
 Chart.register(...registerables);
@@ -17,6 +18,7 @@ export class AjustesUnidadComponent implements OnInit {
   estadoUnidad:any={
     estado:''
   }
+  estado:any={}
   totalNinos:any=''
   totalNinas:any=''
   codigoActivo:any=''
@@ -24,16 +26,48 @@ export class AjustesUnidadComponent implements OnInit {
   passDocenteCambiada:any=''
   passDocenteNoCambiada:any=''
 
-  constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService, private elementRef: ElementRef) { }
+  constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService, private elementRef: ElementRef,private unidadesService:UnidadesService) { }
 
   ngOnInit(): void {
     this.getUnidades();
     this.getNinosNinas();
     this.getCodigoActivoInactivo();
     this.getPassChangeDocentes();
+    this.getEstadoVerNotas();
   }
 
-
+  getEstadoVerNotas(){
+    this.unidadesService.getNotasVer().subscribe(
+      res=>{
+        this.estado=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  habilitarVerNotas(){
+    var estado=1;
+    this.unidadesService.habilitarVerNotas(estado).subscribe(
+      res=>{
+        this.getEstadoVerNotas()
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  deshabilitarVerNotas(){
+    var estado=0;
+    this.unidadesService.deshabilitarVerNotas(estado).subscribe(
+      res=>{
+        this.getEstadoVerNotas()
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
   getNinosNinas(){
     this.estadisticaService.getTotalAlumnosHombres().subscribe(
       res=>{
@@ -100,7 +134,6 @@ export class AjustesUnidadComponent implements OnInit {
       }
     )
   }
-
   getUnidades(){
     this.servicioBimestre.getUnidades().subscribe(
       response=>{
@@ -161,6 +194,4 @@ export class AjustesUnidadComponent implements OnInit {
       )
     }
   }
-
-
 }

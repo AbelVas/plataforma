@@ -36,7 +36,7 @@
             <td class="text-center">{{c.idProfesor}}</td>
             <td class="text-center">
                 <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#CursoEdit" (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#CuadroCurso"(click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-table"></i></button>
+                <a class="btn btn-success" routerLink="/admin/consolidado/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}" target="_blank"><i class="fa-solid fa-table"></i></a>
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarCurso"  (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-trash-can"></i></button>
             </td>
         </tr>
@@ -56,37 +56,6 @@
       </div>
     </div>
     <!--Alerta-->
-<!-- Modal Curso-->
-<div class="modal fade" id="CuadroCurso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Cuadro de {{cursoIndividual.nombre_curso+', '}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body oculto-impresion" id="print-section">
-
-        <table class="table" id="tablaConsolidado">
-          <thead>
-            <th class="text-center tdConsolidado" style="border: 1px solid;">No</th>
-            <th class="text-center tdConsolidado">Alumno</th>
-            <th class="text-center tdConsolidado">Acti 1</th>
-          </thead>
-          <tbody>
-            <td class="text-center tdConsolidado">1</td>
-            <td class="text-center tdConsolidado">Juan</td>
-            <td class="text-center tdConsolidado">20</td>
-          </tbody>
-        </table>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="printer()"><i class="fa-solid fa-print"></i>Imprimir</button>
-      </div>
-    </div>
-  </div>
-</div>
 <!--Modal Editar Curso-->
 <div class="modal fade" id="CursoEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">

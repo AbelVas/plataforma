@@ -51,5 +51,20 @@ const verifyPassword=async(id:string,pass:string)=>{
     if(!isCorrect) return "Error, las contraseñas no coinciden ";
     return '1';
 }
+const verNotasAlumnosService=async(estado:string)=>{
+    const update=await conexion.query('UPDATE tbAlumno SET ver_notas=?',[estado])
+    return update
+}
+const getNotasVerService=async()=>{
+    const selectVer=await conexion.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE ver_notas=1')
+    const selectNoVer=await conexion.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE ver_notas=0')
+    const ver:any=Object.values(selectVer[0]);
+    const nover:any=Object.values(selectNoVer[0]);
+    var objtVer={
+        noVer:nover[0],
+        ver:ver[0]
+    }
+    return objtVer
+}
 
-export{insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword}
+export{getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword}

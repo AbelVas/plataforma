@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = void 0;
+exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const passwordFunction_1 = require("../utils/passwordFunction");
 //CRUD
@@ -72,3 +72,20 @@ const verifyPassword = (id, pass) => __awaiter(void 0, void 0, void 0, function*
     return '1';
 });
 exports.verifyPassword = verifyPassword;
+const verNotasAlumnosService = (estado) => __awaiter(void 0, void 0, void 0, function* () {
+    const update = yield database_1.default.query('UPDATE tbAlumno SET ver_notas=?', [estado]);
+    return update;
+});
+exports.verNotasAlumnosService = verNotasAlumnosService;
+const getNotasVerService = () => __awaiter(void 0, void 0, void 0, function* () {
+    const selectVer = yield database_1.default.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE ver_notas=1');
+    const selectNoVer = yield database_1.default.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE ver_notas=0');
+    const ver = Object.values(selectVer[0]);
+    const nover = Object.values(selectNoVer[0]);
+    var objtVer = {
+        noVer: nover[0],
+        ver: ver[0]
+    };
+    return objtVer;
+});
+exports.getNotasVerService = getNotasVerService;

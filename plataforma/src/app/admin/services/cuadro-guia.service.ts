@@ -10,13 +10,30 @@ export class CuadroGuiaService {
   URL=environment.url
   constructor(private http:HttpClient) { }
 
-  getCursosNotasGradoGuia(idGrado:string,data:any){
+  getCursosNotasGradoGuia(idGrado:string,idCurso:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/cuadroguia/${idGrado}`,data,httpOptions).pipe(
+    return this.http.get(`${this.URL}/cuadroguia/${idGrado}/${idCurso}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-
+  getAlumnosGradoCuadroGuia(idGrado:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cuadroguia/alumnos/${idGrado}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+ getActividadesCurso(idCurso:string,idUnidad:string){
+  const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+  return this.http.get(`${this.URL}/cuadroguia/actividades-curso/${idCurso}/${idUnidad}`,httpOptions).pipe(
+    catchError(this.handleError)
+  );
+ }
+ getNotasFinal(idCurso:string,idUnidad:string,idGrado:string,){
+  const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+  return this.http.get(`${this.URL}/cuadroguia/${idCurso}/${idUnidad}/${idGrado}`,httpOptions).pipe(
+    catchError(this.handleError)
+  );
+ }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

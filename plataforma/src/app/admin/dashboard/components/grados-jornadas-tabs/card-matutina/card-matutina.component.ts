@@ -68,25 +68,7 @@ export class CardMatutinaComponent implements OnInit {
   }
   consolidado(idGrado:string){
 
-    this.cursoGradoService.getCursosGrado(idGrado).subscribe(
-      res=>{
-        this.cursosConsolidado=res
-        this.sppinerOn=false;
-          this.bimestreSeleccionadoConsolidado={idUnidad:'1'}
-          this.cuadroGuiaService.getCursosNotasGradoGuia(idGrado,this.bimestreSeleccionadoConsolidado).subscribe(
-            res=>{
-              this.notasCursoConsolidado=res
-            },
-            err=>{
-              console.log(err)
-              this.sppinerOn=false;
-            }
-          )
-      },
-      err=>{
-        console.log(err)
-      }
-    )
+
   }
   getGradosMatutina(){
     const idJornada='1';

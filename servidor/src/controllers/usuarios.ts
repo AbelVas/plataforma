@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword} from "../service/usuarios";
+import {getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword} from "../service/usuarios";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -82,5 +82,23 @@ const compararPass=async(req:Request,res:Response)=>{
          handleHttp(res,'Error al Actualizar la contraseña',e)
      }
 }
+const verNotasAlumnos=async(req:Request,res:Response)=>{
+    const {id}=req.params
+    try {
+        const accion=await verNotasAlumnosService(id);
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Actualizar estado',e)
+    }
+}
+const getNotasVer=async(req:Request,res:Response)=>{
+    try {
+        const accion=await getNotasVerService();
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Obtener Estado',e)
+    }
 
-export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass}
+}
+
+export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer}

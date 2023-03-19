@@ -1,0 +1,236 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Consolidado Bimestral</h1>
+    <nav>
+       <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+       </ol>
+    </nav>
+ </div>
+  <section class="section dashboard">
+    <div>
+      <form [formGroup]="buscarBimestre" (ngSubmit)="consolidadoBuscar()">
+        <br>
+        <label for="cmb_unidad" style="float:left;">Seleccione una opción:  </label>
+        <select formControlName="bimestre" [class]="errorLogininputs">
+            <option value="0">Seleccione un Bimestre</option>
+            <option value="1">Primer Bimestre</option>
+            <option value="2">Segundo Bimestre</option>
+            <option value="3">Tercer Bimestre</option>
+            <option value="4">Cuarto Bimestre</option>
+        </select>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+        </div>
+        </form>
+    </div>
+    <hr>
+    <div id="areaImprimir">
+      <div class="logodiv" style="float:left;">
+        <img src="../../../assets/img/consolidadoLogo/logo.jpg">
+    </div>
+     <div class="encabezadodiv"><br>
+    </div>
+      <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion}}</u><h5 id='bimes' style='font-size:16px;'>Cuadro Guía - {{bimestreSeleccionado}} </h5><h5 id='bimes' style='font-size:16px;'>Curso - {{GradoSeccion[0].nombre_curso}} </h5><h5 id='bimes' style='font-size:16px;'>Docente - {{GradoSeccion[0].profesor}} </h5></label><br><br><br>
+    <table class="table">
+      <thead>
+        <th class="text-center">Alumno</th>
+        <th *ngFor="let a of Actividades" class="text-center">{{a.nombre_actividad}}</th>
+        <th class="text-center">Final</th>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="CantidadActividades==1">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center" *ngIf="n.uno>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==2">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==3">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==4">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==5">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==6">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==7">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==8">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==9">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==10">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==11">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center">{{n.once}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==12">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center">{{n.once}}</td>
+            <td class="text-center">{{n.doce}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+
+      </tbody>
+    </table>
+    <div class="text-center">
+      <br><br><br>
+       <input class="text-center" type="text" value="Docente" style="color:#000;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white; margin-left:20px; width:280px;" disabled>
+
+       <input type="text" style="border:none;background:white; margin-left:20px;" disabled>
+
+       <input class="text-center" type="text" value="Comisi&oacute;n de Evaluaci&oacute;n" style="color:#000;width:280px;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white" disabled><br><br><br><br>
+   </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary" ><i class="fas fa-print" style='width:40px; height:35px'></i></button>
+      </div>
+    <br>
+    <br><br>
+
+  </section>
+</main>

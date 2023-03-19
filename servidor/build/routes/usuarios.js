@@ -13,3 +13,5 @@ router.post("/", usuarios_1.insertarAlumno);
 router.put("/:id", session_1.checkJwt, usuarios_1.updateAlumno);
 router.delete("/:id", session_1.checkJwt, usuarios_1.deleteAlumno);
 router.post("/pass/:id", session_1.checkJwt, usuarios_1.compararPass);
+router.post("/ver_notas/:id", usuarios_1.verNotasAlumnos);
+router.get("/obtener-notas/:id", session_1.checkJwt, usuarios_1.getNotasVer);

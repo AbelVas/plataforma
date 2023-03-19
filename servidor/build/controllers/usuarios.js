@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = void 0;
+exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = void 0;
 const usuarios_1 = require("../service/usuarios");
 const error_handle_1 = require("../utils/error.handle");
 const passwordFunction_1 = require("../utils/passwordFunction");
@@ -72,7 +72,7 @@ const deleteAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoAlumno);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar al Alumno');
+        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar al Alumno', e);
     }
 });
 exports.deleteAlumno = deleteAlumno;
@@ -106,3 +106,24 @@ const compararPass = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.compararPass = compararPass;
+const verNotasAlumnos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const accion = yield (0, usuarios_1.verNotasAlumnosService)(id);
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+    }
+});
+exports.verNotasAlumnos = verNotasAlumnos;
+const getNotasVer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const accion = yield (0, usuarios_1.getNotasVerService)();
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+    }
+});
+exports.getNotasVer = getNotasVer;
