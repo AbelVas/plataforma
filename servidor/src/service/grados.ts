@@ -39,4 +39,8 @@ const getGradoxJornada=async(id:string)=>{
     const responseGradoJornada=await conexion.query('SELECT g.idGrado,g.idNivel,g.idSeccion,g.nombre_grado,s.seccion,n.nivel,g.estatus,count(al.idAlumno) as Alumnos FROM (((tbGrado g INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)LEFT JOIN tbAlumno al ON al.idGrado=g.idGrado WHERE j.idJornada=?  group by g.nombre_grado ORDER BY n.idNivel,g.idGrado',[id])
     return responseGradoJornada;
 }
-export{GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService, getGradoNivelService,getGradoxJornada,getGradoProfesorService}
+const GetGradoSeccionService=async(id:string)=>{
+    const responseGet=await conexion.query('SELECT g.idGrado, s.seccion, n.nivel, g.nombre_grado, j.jornada FROM ((tbGrado g INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada WHERE idGrado=?',[id]);
+    return responseGet;
+}
+export{GetGradosService,GetGradoService,updateGradoService,deleteGradoService,insertGradoService, getGradoNivelService,getGradoxJornada,getGradoProfesorService,GetGradoSeccionService}

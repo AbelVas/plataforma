@@ -10,12 +10,7 @@ export class CuadroGuiaService {
   URL=environment.url
   constructor(private http:HttpClient) { }
 
-  getCursosNotasGradoGuia(idGrado:string,idCurso:string){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.get(`${this.URL}/cuadroguia/${idGrado}/${idCurso}`,httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
+//consolidado bimestral ADMINISTRADORES/PROFESORES
   getAlumnosGradoCuadroGuia(idGrado:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/cuadroguia/alumnos/${idGrado}`,httpOptions).pipe(
@@ -34,6 +29,25 @@ export class CuadroGuiaService {
     catchError(this.handleError)
   );
  }
+  cursoDocente(idCruso:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/curso-profesor-individual/${idCruso}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+//CUADRO GUIA
+  obtenerGradoSeccion(idGrado:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/grados/grado-seccion-nivel-jornada/${idGrado}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  obtenerCursosGrado(idGrado:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cuadroguia/cursos-cuadro-guia/${idGrado}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){

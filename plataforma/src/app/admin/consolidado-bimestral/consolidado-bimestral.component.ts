@@ -1,6 +1,5 @@
 import { Component,OnInit } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { Router } from "@angular/router";
 import { FormBuilder, FormControl,Validators } from "@angular/forms";
 import { CuadroGuiaService } from "../services/cuadro-guia.service";
 
@@ -11,6 +10,7 @@ import { CuadroGuiaService } from "../services/cuadro-guia.service";
 })
 export class ConsolidadoBimestralComponent implements OnInit {
   errorLogininputs='form-select'
+  docenteCurso:any=[]
   idGrado:any;
   idCurso:any;
   idProfesor:any;
@@ -33,8 +33,9 @@ export class ConsolidadoBimestralComponent implements OnInit {
       this.idGrado=params['idGrado']
       this.idCurso=params['idCurso']
       this.idProfesor=params['idProfesor']
-    }
+    }this.cursoDocente()
     this.obtenerGradoSeccion()
+
   }
 
   consolidadoBuscar(){
@@ -68,7 +69,7 @@ export class ConsolidadoBimestralComponent implements OnInit {
     )
   }
   obtenerGradoSeccion(){
-    this.cuadroGuia.getCursosNotasGradoGuia(this.idGrado,this.idCurso).subscribe(
+    this.cuadroGuia.obtenerGradoSeccion(this.idGrado).subscribe(
       res=>{
         this.GradoSeccion=res
       },
@@ -93,6 +94,16 @@ export class ConsolidadoBimestralComponent implements OnInit {
                 console.log(err)
               }
             )
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  cursoDocente(){
+    this.cuadroGuia.cursoDocente(this.idCurso).subscribe(
+      res=>{
+        this.docenteCurso=res
       },
       err=>{
         console.log(err)

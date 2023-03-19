@@ -1,1 +1,56 @@
-<p>cuadro-guia works!</p>
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Cuadro Guía</h1>
+    <nav>
+       <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+       </ol>
+    </nav>
+ </div>
+ <section class="section dashboard">
+  <div>
+    <form [formGroup]="buscarBimestre" (ngSubmit)="consolidadoBuscar()">
+      <br>
+      <label for="cmb_unidad" style="float:left;">Seleccione una opción:  </label>
+      <select formControlName="bimestre" [class]="errorLogininputs">
+          <option value="0">Seleccione un Bimestre</option>
+          <option value="1">Primer Bimestre</option>
+          <option value="2">Segundo Bimestre</option>
+          <option value="3">Tercer Bimestre</option>
+          <option value="4">Cuarto Bimestre</option>
+      </select>
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+      </div>
+      </form>
+  </div>
+  <hr>
+    <div id="areaImprimir">
+      <div class="logodiv" style="float:left;">
+        <img src="../../../assets/img/consolidadoLogo/logo.jpg">
+      </div>
+      <div class="encabezadodiv"><br>
+      </div>
+      <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion+', Nivel: '+GradoSeccion[0].nivel+', Jornada: '+GradoSeccion[0].jornada}}</u><h5 id='bimes' style='font-size:16px;'>Cuadro Guía - {{bimestreSeleccionado}} </h5></label><br><br><br>
+      <table class="table">
+        <thead>
+          <th class="text-center">Alumno</th>
+          <th *ngFor="let c of cursos" class="text-center">{{c.nombre_curso}}</th>
+          <th class="text-center">Final</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      <div class="text-center">
+        <br><br><br>
+         <input class="text-center" type="text" value="Dirección" style="color:#000;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white; margin-left:20px; width:280px;" disabled>
+
+         <input type="text" style="border:none;background:white; margin-left:20px;" disabled>
+
+         <input class="text-center" type="text" value="Comisi&oacute;n de Evaluaci&oacute;n" style="color:#000;width:280px;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white" disabled><br><br><br><br>
+     </div>
+    </div>
+    </section>
+</main>
