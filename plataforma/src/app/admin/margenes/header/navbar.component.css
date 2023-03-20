@@ -1,8 +1,9 @@
 @media print{
-  #sidebar{
+  #header{
     display: none;
   }
-  ul,aside{
+  div,nav,ul,a,img,span,i,header{
     display: none;
   }
+
 }
