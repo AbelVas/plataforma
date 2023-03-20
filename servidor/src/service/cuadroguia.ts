@@ -343,43 +343,46 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
         case 1:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
                     uno:notaArray[0].cero,
+                    promedio:Math.round(notaArray[0].cero)
                 }
                }
             break;
         case 2:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
                     uno:notaArray[0].cero,
                     dos:notaArray[0].uno,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno)/2)
                 }
                }
             break;
         case 3:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
                     uno:notaArray[0].cero,
                     dos:notaArray[0].uno,
                     tres:notaArray[0].dos,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos)/3)
                 }
                }
             break;
         case 4:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -387,13 +390,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     dos:notaArray[0].uno,
                     tres:notaArray[0].dos,
                     cuatro:notaArray[0].tres,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres)/4)
                 }
                }
             break;
         case 5:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -402,29 +406,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     tres:notaArray[0].dos,
                     cuatro:notaArray[0].tres,
                     cinco:notaArray[0].cuatro,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro)/5)
                 }
                }
             break;
         case 6:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
-                const notaArray:any=Object.values(consulta);
-                temp[i]={
-                    alumno:notaArray[0].alumno,
-                    uno:notaArray[0].cero,
-                    dos:notaArray[0].uno,
-                    tres:notaArray[0].dos,
-                    cuatro:notaArray[0].tres,
-                    cinco:notaArray[0].cuatro,
-                    seis:notaArray[0].cinco
-                }
-               }
-            break; 
-        case 7:
-            for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -434,14 +423,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     cuatro:notaArray[0].tres,
                     cinco:notaArray[0].cuatro,
                     seis:notaArray[0].cinco,
-                    siete:notaArray[0].seis
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco)/6)
                 }
                }
-            break;
-        case 8:
+            break; 
+        case 7:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -452,14 +441,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     cinco:notaArray[0].cuatro,
                     seis:notaArray[0].cinco,
                     siete:notaArray[0].seis,
-                    ocho:notaArray[0].siete
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis)/7)
                 }
                }
             break;
-        case 9:
+        case 8:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -471,14 +460,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     seis:notaArray[0].cinco,
                     siete:notaArray[0].seis,
                     ocho:notaArray[0].siete,
-                    nueve:notaArray[0].ocho
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete)/8)
                 }
                }
             break;
-        case 10:
+        case 9:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -491,14 +480,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     siete:notaArray[0].seis,
                     ocho:notaArray[0].siete,
                     nueve:notaArray[0].ocho,
-                    diez:notaArray[0].nueve
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho)/9)
                 }
                }
             break;
-        case 11:
+        case 10:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -512,14 +501,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     ocho:notaArray[0].siete,
                     nueve:notaArray[0].ocho,
                     diez:notaArray[0].nueve,
-                    once:notaArray[0].diez
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve)/10)
                 }
                }
             break;
-        case 12:
+        case 11:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -534,14 +523,15 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     nueve:notaArray[0].ocho,
                     diez:notaArray[0].nueve,
                     once:notaArray[0].diez,
-                    doce:notaArray[0].once
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez)/11)
+                    
                 }
                }
             break;
-        case 13:
+        case 12:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -557,14 +547,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     diez:notaArray[0].nueve,
                     once:notaArray[0].diez,
                     doce:notaArray[0].once,
-                    trece:notaArray[0].doce
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once)/12)
                 }
                }
             break;
-        case 14:
+        case 13:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -581,14 +571,14 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     once:notaArray[0].diez,
                     doce:notaArray[0].once,
                     trece:notaArray[0].doce,
-                    catorce:notaArray[0].trece
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once+notaArray[0].doce)/13)
                 }
                }
             break;
-        case 15:
+        case 14:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece, fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as catorce FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -606,14 +596,39 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     doce:notaArray[0].once,
                     trece:notaArray[0].doce,
                     catorce:notaArray[0].trece,
-                    quince:notaArray[0].catorce
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once+notaArray[0].doce+notaArray[0].trece)/14)
+                }
+               }
+            break;
+        case 15:
+            for(let i=0;i<idAlumnos.length;i++){
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece, fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as catorce FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+        
+                const notaArray:any=Object.values(consulta);
+                temp[i]={
+                    alumno:notaArray[0].alumno,
+                    uno:notaArray[0].cero,
+                    dos:notaArray[0].uno,
+                    tres:notaArray[0].dos,
+                    cuatro:notaArray[0].tres,
+                    cinco:notaArray[0].cuatro,
+                    seis:notaArray[0].cinco,
+                    siete:notaArray[0].seis,
+                    ocho:notaArray[0].siete,
+                    nueve:notaArray[0].ocho,
+                    diez:notaArray[0].nueve,
+                    once:notaArray[0].diez,
+                    doce:notaArray[0].once,
+                    trece:notaArray[0].doce,
+                    catorce:notaArray[0].trece,
+                    quince:notaArray[0].catorce,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once+notaArray[0].doce+notaArray[0].trece+notaArray[0].catorce)/15)
                 }
                }
             break;
         case 16:
             for(let i=0;i<idAlumnos.length;i++){
                 consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,' ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece, fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as catorce,fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as quince  FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
-                console.log(consulta)
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -633,6 +648,7 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     catorce:notaArray[0].trece,
                     quince:notaArray[0].catorce,
                     dieciseis:notaArray[0].quince,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once+notaArray[0].doce+notaArray[0].trece+notaArray[0].catorce+notaArray[0].quince)/16)
                 }
                }
             break;
