@@ -214,6 +214,95 @@
           </tr>
         </ng-container>
 
+        <ng-container *ngIf="CantidadActividades==13">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center">{{n.once}}</td>
+            <td class="text-center">{{n.doce}}</td>
+            <td class="text-center">{{n.trece}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==14">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center">{{n.once}}</td>
+            <td class="text-center">{{n.doce}}</td>
+            <td class="text-center">{{n.trece}}</td>
+            <td class="text-center">{{n.catorce}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==15">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center">{{n.once}}</td>
+            <td class="text-center">{{n.doce}}</td>
+            <td class="text-center">{{n.trece}}</td>
+            <td class="text-center">{{n.catorce}}</td>
+            <td class="text-center">{{n.quince}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce+n.quince>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce+n.quince}}</td></ng-template>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="CantidadActividades==16">
+          <tr *ngFor="let n of tabla">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center">{{n.uno}}</td>
+            <td class="text-center">{{n.dos}}</td>
+            <td class="text-center">{{n.tres}}</td>
+            <td class="text-center">{{n.cuatro}}</td>
+            <td class="text-center">{{n.cinco}}</td>
+            <td class="text-center">{{n.seis}}</td>
+            <td class="text-center">{{n.siete}}</td>
+            <td class="text-center">{{n.ocho}}</td>
+            <td class="text-center">{{n.nueve}}</td>
+            <td class="text-center">{{n.diez}}</td>
+            <td class="text-center">{{n.once}}</td>
+            <td class="text-center">{{n.doce}}</td>
+            <td class="text-center">{{n.trece}}</td>
+            <td class="text-center">{{n.catorce}}</td>
+            <td class="text-center">{{n.quince}}</td>
+            <td class="text-center">{{n.dieciseis}}</td>
+            <td class="text-center" *ngIf="n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce+n.quince+n.dieciseis>100;else esto">{{100}}</td>
+            <ng-template #esto><td class="text-center">{{n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce+n.quince+n.dieciseis}}</td></ng-template>
+          </tr>
+        </ng-container>
 
       </tbody>
     </table>

@@ -15,6 +15,8 @@ export class CuadroGuiaComponent implements OnInit {
   alumnosGrado:any=[]
   CantidadAlumnos:any;
   cursos:any=[]
+  CantidadCursos:any='';
+  tabla:any=[{}];
   bimestreSeleccionado:string='SELECCIONE PARA ACTUALIZAR';
   buscarBimestre=this.formBuilder.group({
     bimestre:new FormControl('',[Validators.required]),
@@ -47,6 +49,18 @@ export class CuadroGuiaComponent implements OnInit {
       this.bimestreSeleccionado="Cuarto Bimestre"
     }
     this.obtenerAlumnosGrado();
+    this.obtenerNotasCursos(loginData.bimestre)
+  }
+  obtenerNotasCursos(idUnidad:any){
+    var unidad=idUnidad
+    this.cuadroGuia.obtenerNotasCuadroGuia(this.idGrado,unidad).subscribe(
+      res=>{
+        this.tabla=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
   obtenerAlumnosGrado(){
     this.cuadroGuia.getAlumnosGradoCuadroGuia(this.idGrado).subscribe(
@@ -73,6 +87,7 @@ export class CuadroGuiaComponent implements OnInit {
     this.cuadroGuia.obtenerCursosGrado(this.idGrado).subscribe(
       res=>{
        this.cursos=res
+       this.CantidadCursos=this.cursos.length
       },
       err=>{
         console.log(err)

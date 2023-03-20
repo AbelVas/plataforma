@@ -12,5 +12,4 @@ router.get("/:idGrado/:idUnidad",checkJwt,notasalumnosCursoFinal)
 router.get("/:idGrado/:idCurso",checkJwt,getCursoBimestreConsolidado)
 
 
-
 export {router}
