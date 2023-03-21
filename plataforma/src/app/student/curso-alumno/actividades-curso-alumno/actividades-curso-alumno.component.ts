@@ -114,10 +114,10 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
 
           porcentaje=(res[i].nota*100)/res[i].valor
 
-          if(porcentaje==69 || porcentaje<69){
+          if(porcentaje==74 || porcentaje<74){
             res[i].letranota='DM - Debe Mejorar'
           }else{
-            if(porcentaje==70 || porcentaje>70 && porcentaje<81){
+            if(porcentaje==75 || porcentaje>75 && porcentaje<81){
               res[i].letranota='B - Bueno'
             }else{
               if(porcentaje==81 || porcentaje>81 && porcentaje<91){
@@ -151,11 +151,11 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
           }
         }
 
-        if(this.suma==69 || this.suma<69){
+        if(this.suma==74 || this.suma<74){
           this.colorprogress='red';
           this.letraFinal='DM - Debe Mejorar'
         }else{
-          if(this.suma==70 || (this.suma>70 && this.suma<81)){
+          if(this.suma==75 || (this.suma>75 && this.suma<81)){
             this.colorprogress='orange';
             this.letraFinal='B - Bueno'
           }else{
