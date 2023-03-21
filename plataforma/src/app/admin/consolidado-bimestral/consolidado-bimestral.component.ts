@@ -1,4 +1,4 @@
-import { Component,OnInit } from "@angular/core";
+import { Component,ElementRef,OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl,Validators } from "@angular/forms";
 import { CuadroGuiaService } from "../services/cuadro-guia.service";
@@ -20,7 +20,10 @@ export class ConsolidadoBimestralComponent implements OnInit {
   Actividades:any=[]
   CantidadActividades:any='';
   tabla:any=[{}];
+  table:any=[];
+  tablebody:any=[];
   equisde:any=[]
+
   bimestreSeleccionado:string='SELECCIONE PARA ACTUALIZAR';
   buscarBimestre=this.formBuilder.group({
     bimestre:new FormControl('',[Validators.required]),
@@ -111,4 +114,15 @@ export class ConsolidadoBimestralComponent implements OnInit {
     )
   }
   get f() { return this.buscarBimestre.controls; }
+
+
+  PrintThis(){
+    //this.table.innerHTML=document.getElementById('#areaImprimir');
+    //this.tablebody=document.body.innerHTML;
+    //document.body.innerHTML=this.table;
+    window.print();
+
+    //document.body.innerHTML=this.tablebody;
+
+  }
 }
