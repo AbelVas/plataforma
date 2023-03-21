@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGradoProfesorService = exports.getGradoxJornada = exports.getGradoNivelService = exports.insertGradoService = exports.deleteGradoService = exports.updateGradoService = exports.GetGradoService = exports.GetGradosService = void 0;
+exports.GetGradoSeccionService = exports.getGradoProfesorService = exports.getGradoxJornada = exports.getGradoNivelService = exports.insertGradoService = exports.deleteGradoService = exports.updateGradoService = exports.GetGradoService = exports.GetGradosService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 // Mi primer Appi Queza
 const GetGradosService = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -55,3 +55,8 @@ const getGradoxJornada = (id) => __awaiter(void 0, void 0, void 0, function* () 
     return responseGradoJornada;
 });
 exports.getGradoxJornada = getGradoxJornada;
+const GetGradoSeccionService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const responseGet = yield database_1.default.query('SELECT g.idGrado, s.seccion, n.nivel, g.nombre_grado, j.jornada FROM ((tbGrado g INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbNivel n ON n.idNivel=g.idNivel)INNER JOIN tbJornada j ON j.idJornada=n.idJornada WHERE idGrado=?', [id]);
+    return responseGet;
+});
+exports.GetGradoSeccionService = GetGradoSeccionService;

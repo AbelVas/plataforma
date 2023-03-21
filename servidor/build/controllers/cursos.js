@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfeCurso = exports.getCursosPorAlumno = exports.obtenerCursosPorProfesorGradoSeccion = exports.getCursoporGradoProfesor = exports.getCursoporProfesor = exports.getCursoporGrado = exports.insertCurso = exports.deleteCurso = exports.updateCurso = exports.getCursos = exports.getCurso = exports.getCursoporGradoProfesorAdmin = void 0;
+exports.getProfeCurso = exports.getCursosPorAlumno = exports.obtenerCursosPorProfesorGradoSeccion = exports.getCursoporGradoProfesor = exports.getCursoporProfesor = exports.getCursoporGrado = exports.insertCurso = exports.deleteCurso = exports.updateCurso = exports.getCursos = exports.getCurso = exports.getCursoporGradoProfesorAdmin = exports.obtenerCursodeProfesorIndividual = void 0;
 const cursos_1 = require("../service/cursos");
 const error_handle_1 = require("../utils/error.handle");
 const obtenerCursosPorProfesorGradoSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -142,3 +142,15 @@ const getCursoporGradoProfesorAdmin = (req, res) => __awaiter(void 0, void 0, vo
     }
 });
 exports.getCursoporGradoProfesorAdmin = getCursoporGradoProfesorAdmin;
+const obtenerCursodeProfesorIndividual = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultadoProfesor = yield (0, cursos_1.obtenerCursodeProfesor)(id);
+        res.send(resultadoProfesor);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener curso y Docente');
+    }
+});
+exports.obtenerCursodeProfesorIndividual = obtenerCursodeProfesorIndividual;
+cursos_1.obtenerCursodeProfesor;

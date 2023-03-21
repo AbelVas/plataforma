@@ -9,19 +9,80 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCursoBimestreConsolidado = void 0;
+exports.notasalumnosCursoFinal = exports.cursosGradoCuadroGuia = exports.alumnosGrado = exports.notasalumnosFinal = exports.actividadesCursoGrado = exports.getCursoBimestreConsolidado = void 0;
 const cuadroguia_1 = require("../service/cuadroguia");
 const error_handle_1 = require("../utils/error.handle");
 const getCursoBimestreConsolidado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { idGrado } = req.params;
-        const idUnidad = req.body.idUnidad;
-        const idCurso = req.body.idCurso;
-        const obtenerCursosNotas = yield (0, cuadroguia_1.obtenerCursosNotasService)(idGrado, idUnidad, idCurso);
+        const { idCurso } = req.params;
+        const obtenerCursosNotas = yield (0, cuadroguia_1.GradoCursoSeccionService)(idGrado, idCurso);
         res.send(obtenerCursosNotas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el consolidado', e);
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Grado y Sección', e);
     }
 });
 exports.getCursoBimestreConsolidado = getCursoBimestreConsolidado;
+const actividadesCursoGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { idCurso } = req.params;
+        const { idUnidad } = req.params;
+        const obtenerActividadesCurso = yield (0, cuadroguia_1.actividadesCursoGradoService)(idCurso, idUnidad);
+        res.send(obtenerActividadesCurso);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Actividades el Curso', e);
+    }
+});
+exports.actividadesCursoGrado = actividadesCursoGrado;
+const notasalumnosFinal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { idCurso } = req.params;
+        const { idUnidad } = req.params;
+        const { idGrado } = req.params;
+        const { idAlumnos } = req.params;
+        console.log(idAlumnos);
+        const prueba = yield (0, cuadroguia_1.notasalumnosFinalService)(idCurso, idUnidad, idGrado);
+        res.send(prueba);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error', e);
+    }
+});
+exports.notasalumnosFinal = notasalumnosFinal;
+const alumnosGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { idGrado } = req.params;
+        const prueba = yield (0, cuadroguia_1.alumnosGradoService)(idGrado);
+        res.send(prueba);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error', e);
+    }
+});
+exports.alumnosGrado = alumnosGrado;
+const cursosGradoCuadroGuia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { idGrado } = req.params;
+        console.log(idGrado);
+        const prueba = yield (0, cuadroguia_1.cursosGradoCuadroGuiaService)(idGrado);
+        res.send(prueba);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error', e);
+    }
+});
+exports.cursosGradoCuadroGuia = cursosGradoCuadroGuia;
+const notasalumnosCursoFinal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { idGrado } = req.params;
+        const { idUnidad } = req.params;
+        const prueba = yield (0, cuadroguia_1.notasalumnosCursoFinalService)(idGrado, idUnidad);
+        res.send(prueba);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error', e);
+    }
+});
+exports.notasalumnosCursoFinal = notasalumnosCursoFinal;
