@@ -94,4 +94,10 @@ export class CuadroGuiaComponent implements OnInit {
       }
     )
   }
+
+  PrintThis(){
+
+    window.print();
+
+  }
 }

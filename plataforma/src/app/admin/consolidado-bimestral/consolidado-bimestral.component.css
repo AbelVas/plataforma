@@ -3,10 +3,14 @@
 
 }
 @media print{
-  button{
-    display:none;
+  hr{
+    display: none;
   }
   #NoPrint{
-    display:none;
+    display: none;
+  }
+  #areaImprimir{
+    position: absolute;
+    top:0%;
   }
 }

@@ -2,3 +2,15 @@
   background-color: white;
 
 }
+@media print{
+  hr{
+    display: none;
+  }
+  #NoPrint{
+    display: none;
+  }
+  #areaImprimir{
+    position: absolute;
+    top:0%;
+  }
+}
