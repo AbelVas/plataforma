@@ -75,6 +75,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ConsolidadoBimestralComponent } from "./consolidado-bimestral/consolidado-bimestral.component";
 import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
+import { BoletasComponent } from './boletas/boletas.component';
 
 
 @NgModule({
@@ -120,7 +121,8 @@ import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
         TutorialComponent,
         PagosComponent,
         ConsolidadoBimestralComponent,
-        CuadroGuiaComponent
+        CuadroGuiaComponent,
+        BoletasComponent
     ],
     exports: [],
     providers: [
