@@ -31,7 +31,7 @@
                         <div><span>Jornada {{cm.jornada}}</span></div>
                         <div><span>{{cm.nivel}}</span></div>
                         <br>
-                        <button type="button" class="btn btn-primary" disabled><i class="fa-solid fa-chart-simple"></i></button>
+                        <a class="btn btn-primary" routerLink="/teacher/curso/notas/{{cm.idGrado}}/{{cm.idCurso}}/{{cm.idProfesor}}" target="_blank"><i class="fa-solid fa-table"></i></a>
                        </h5>
                     </div>
                  </div>
@@ -61,7 +61,7 @@
                         <div><span>Jornada {{cv.jornada}}</span></div>
                         <div><span>{{cv.nivel}}</span></div>
                         <br>
-                        <button type="button" class="btn btn-primary" disabled><i class="fa-solid fa-chart-simple"></i></button>
+                        <a class="btn btn-primary" routerLink="/teacher/curso/notas/{{cv.idGrado}}/{{cv.idCurso}}/{{cv.idProfesor}}" target="_blank"><i class="fa-solid fa-table"></i></a>
                        </h5>
                     </div>
                  </div>
