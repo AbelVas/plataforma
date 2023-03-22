@@ -52,6 +52,7 @@ import { TemaProfesorService } from "./services/tema-profesor.service";
 import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/archivos-perfil-profesor/archivos-perfil-profesor.component';
 import { NgChartsModule } from "ng2-charts";
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { CuadrosCursoComponent } from './cuadros-curso/cuadros-curso.component';
 //
 
 
@@ -98,7 +99,8 @@ import { TutorialComponent } from './tutorial/tutorial.component';
   GradoGuiaIndividualComponent,
   CalendariogeneralComponent,
   ArchivosPerfilProfesorComponent,
-  TutorialComponent
+  TutorialComponent,
+  CuadrosCursoComponent
   ],
   exports:[
   ],

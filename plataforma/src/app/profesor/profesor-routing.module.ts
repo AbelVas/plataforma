@@ -14,6 +14,7 @@ import { ForoCursoProfesorComponent } from "./foro-curso-profesor/foro-curso-pro
 import { ExamenCursoProfesorComponent } from "./examen-curso-profesor/examen-curso-profesor.component";
 import { GradoGuiaIndividualComponent } from "./grado-guia-profesor/grado-guia-individual/grado-guia-individual.component";
 import { TutorialComponent } from "./tutorial/tutorial.component";
+import { CuadrosCursoComponent } from "./cuadros-curso/cuadros-curso.component";
 
 const routes:Routes=[
   {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component: ProfesorComponent,children:
@@ -29,6 +30,7 @@ const routes:Routes=[
     {path:'curso/foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoCursoProfesorComponent},
     {path:'curso/examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ExamenCursoProfesorComponent},
     {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
+    {path:'curso/notas/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:CuadrosCursoComponent},
   ]
   },
 ]
