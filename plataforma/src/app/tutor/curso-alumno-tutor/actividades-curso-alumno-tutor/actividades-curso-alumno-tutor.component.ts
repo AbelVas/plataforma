@@ -123,10 +123,10 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
           }
         }
 
-        if(this.suma==69 || this.suma<69){
+        if(this.suma==74 || this.suma<74){
           this.colorprogress='red';
         }else{
-          if(this.suma==70 || (this.suma>70 && this.suma<81)){
+          if(this.suma==75 || (this.suma>75 && this.suma<81)){
             this.colorprogress='orange';
           }else{
             if(this.suma==81 || (this.suma>81 && this.suma<91)){

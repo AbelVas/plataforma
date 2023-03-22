@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGradoProfesor = exports.getGradoJornada = exports.getGradosNivel = exports.insertarGrado = exports.deleteGrado = exports.updateGrado = exports.getGrado = exports.getGrados = void 0;
+exports.GetGradoSeccion = exports.getGradoProfesor = exports.getGradoJornada = exports.getGradosNivel = exports.insertarGrado = exports.deleteGrado = exports.updateGrado = exports.getGrado = exports.getGrados = void 0;
 const grados_1 = require("../service/grados");
 const error_handle_1 = require("../utils/error.handle");
 // Mi primer Appi Queza
@@ -99,3 +99,14 @@ const getGradoJornada = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getGradoJornada = getGradoJornada;
+const GetGradoSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const resultadoGradoProfesor = yield (0, grados_1.GetGradoSeccionService)(id);
+        res.send(resultadoGradoProfesor);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al buscar el Grado y Sección', e);
+    }
+});
+exports.GetGradoSeccion = GetGradoSeccion;

@@ -15,3 +15,4 @@ router.post("/", session_1.checkJwt, grados_1.insertarGrado);
 router.get("/grado-nivel/:id", session_1.checkJwt, grados_1.getGradosNivel);
 router.get("/grado-profesor/:id", session_1.checkJwt, grados_1.getGradoProfesor);
 router.get("/grado-jornada/:id", session_1.checkJwt, grados_1.getGradoJornada);
+router.get("/grado-seccion-nivel-jornada/:id", session_1.checkJwt, grados_1.GetGradoSeccion);

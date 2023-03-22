@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerProfePorCurso = exports.obtenerCursosPorAlumnoService = exports.obtenerCursosPorProfesorGradoSeccionService = exports.obtenerCursosPorGradoProfesorService = exports.obtenerCursosPorProfesorService = exports.obtenerCursosPorGradoService = exports.insertCursosService = exports.deleteCursosService = exports.updateCursosService = exports.obtenerCursoService = exports.obtenerCursosService = exports.obtenerCursosPorGradoProfesorAdminService = void 0;
+exports.obtenerCursodeProfesor = exports.obtenerProfePorCurso = exports.obtenerCursosPorAlumnoService = exports.obtenerCursosPorProfesorGradoSeccionService = exports.obtenerCursosPorGradoProfesorService = exports.obtenerCursosPorProfesorService = exports.obtenerCursosPorGradoService = exports.insertCursosService = exports.deleteCursosService = exports.updateCursosService = exports.obtenerCursoService = exports.obtenerCursosService = exports.obtenerCursosPorGradoProfesorAdminService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const obtenerCursosService = () => __awaiter(void 0, void 0, void 0, function* () {
     const responseGet = yield database_1.default.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas`  FROM tbCurso');
@@ -74,3 +74,8 @@ const obtenerCursosPorGradoProfesorAdminService = (idGrado) => __awaiter(void 0,
     return responseGet;
 });
 exports.obtenerCursosPorGradoProfesorAdminService = obtenerCursosPorGradoProfesorAdminService;
+const obtenerCursodeProfesor = (idCurso) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield database_1.default.query("SELECT c.nombre_curso,CONCAT(p.apellido_profesor,' ',p.nombre_profesor) as profesor FROM tbCurso c INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor WHERE c.idCurso=?", [idCurso]);
+    return response;
+});
+exports.obtenerCursodeProfesor = obtenerCursodeProfesor;
