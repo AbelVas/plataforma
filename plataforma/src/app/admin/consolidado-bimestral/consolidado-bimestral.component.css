@@ -3,7 +3,9 @@
 
 }
 @media print{
-
+  hr{
+    display: none;
+  }
   #NoPrint{
     display: none;
   }
