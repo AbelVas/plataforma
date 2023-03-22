@@ -67,7 +67,6 @@ export class CardAlumnosComponent implements OnInit {
     this.alumnosGradoService.getAlmunosGrado(this.idGrado).subscribe(
       res=>{
         this.listaAlumnos=res;
-        console.log(res)
       },
       err=>{
         console.log(err)

@@ -76,7 +76,7 @@ import { PagosComponent } from './pagos/pagos.component';
 import { ConsolidadoBimestralComponent } from "./consolidado-bimestral/consolidado-bimestral.component";
 import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
 import { BoletasComponent } from './boletas/boletas.component';
-
+import { BoletasService } from "./services/boletas.service";
 
 @NgModule({
     declarations: [
@@ -145,7 +145,9 @@ import { BoletasComponent } from './boletas/boletas.component';
         AlumnosService,
         EstadisticasDashboardService,
         ImagenesPerfilDefectoService,
-        AlumnosService
+        AlumnosService,
+        CuadroGuiaService,
+        BoletasService
     ],
     imports: [
         AdminRoutingModule,
