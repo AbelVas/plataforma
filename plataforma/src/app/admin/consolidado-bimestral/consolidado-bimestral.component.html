@@ -8,7 +8,7 @@
        </ol>
     </nav>
  </div>
-  <section class="section dashboard">
+  <section id="section" class="section dashboard">
     <div id="NoPrint">
       <form [formGroup]="buscarBimestre" (ngSubmit)="consolidadoBuscar()">
         <br>
@@ -306,7 +306,7 @@
 
       </tbody>
     </table>
-    <div class="text-center">
+    <div class="text-center" id="page">
       <br><br><br>
        <input class="text-center" type="text" value="Docente" style="color:#000;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white; margin-left:20px; width:280px;" disabled>
 
@@ -315,7 +315,7 @@
        <input class="text-center" type="text" value="Comisi&oacute;n de Evaluaci&oacute;n" style="color:#000;width:280px;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white" disabled><br><br><br><br>
    </div>
     </div>
-    <div class="text-center">
+    <div class="text-center" id="NoPrint">
       <button class="btn btn-primary" (click)="PrintThis()"><i class="fas fa-print" style='width:40px; height:20px'></i></button>
       </div>
     <br>

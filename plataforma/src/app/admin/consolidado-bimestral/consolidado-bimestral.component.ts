@@ -117,12 +117,8 @@ export class ConsolidadoBimestralComponent implements OnInit {
 
 
   PrintThis(){
-    //this.table.innerHTML=document.getElementById('#areaImprimir');
-    //this.tablebody=document.body.innerHTML;
-    //document.body.innerHTML=this.table;
-    window.print();
 
-    //document.body.innerHTML=this.tablebody;
+    window.print();
 
   }
 }
