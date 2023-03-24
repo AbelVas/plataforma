@@ -31,7 +31,8 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     valor:'',
     idUnidad:'',
     nota:'',
-    letranota:''
+    letranota:'',
+    disponible:''
   }
 
   idNivelNivel:any=[];

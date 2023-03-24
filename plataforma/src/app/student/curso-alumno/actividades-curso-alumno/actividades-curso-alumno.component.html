@@ -24,29 +24,34 @@
                   </thead>
                   <tbody>
                      <tr *ngFor="let t of tareas;let i = index">
-                        <td align="center">{{t.nombre_actividad}}</td>
+                        <td align="center" *ngIf="t.disponible==1 else nada">{{t.nombre_actividad}}</td>
+                        <ng-template #nada>
+                          </ng-template>
                         <!--Detalle de la actividad-->
-                        <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(t.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
+                        <td align="center" *ngIf="t.disponible==1 else nada"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(t.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
                          </td>
                           <!--Comentario del profesor -->
-                          <td align="center"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
+                          <td align="center" *ngIf="t.disponible==1 else nada"><button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalComentario">
                             <i class="fa-regular fa-comment-dots"></i>
                              </button>
                            </td>
                            <!--Añadir Entregable -->
-                           <td align="center"><button type="button" class="btn btn-warning rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalEntregable">
+                           <td align="center" *ngIf="t.disponible==1 else nada"><button type="button" class="btn btn-warning rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalEntregable">
                             <i class="fa-solid fa-paperclip"></i>
                              </button>
                            </td>
-                           <td align="center" *ngIf="verNota==0 else verNota2">
-                            <i class="fa-solid fa-eye-slash" style="color: lightslategrey;"></i>
-                           </td>
-                            <ng-template #verNota2>
-                              <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
-                            <ng-template #notaNulaTar>
-                            <td class="text-center">{{t.nota + '/' + t.valor}}</td>
-                            </ng-template>
-                            </ng-template>
+                           <td class="d-none" align="center" *ngIf="t.disponible==0 else todo"></td>
+                          <ng-template #todo>
+                            <td align="center" *ngIf="verNota==0 else verNota2">
+                              <i class="fa-solid fa-eye-slash" style="color: lightslategrey;"></i>
+                             </td>
+                              <ng-template #verNota2>
+                                <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
+                              <ng-template #notaNulaTar>
+                              <td class="text-center">{{t.nota + '/' + t.valor}}</td>
+                              </ng-template>
+                              </ng-template>
+                          </ng-template>
 
                         <div class="modal fade" id="ModalComentario" tabindex="-1">
                           <div class="modal-dialog modal-dialog-centered">
@@ -283,16 +288,21 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let a of calificacionesGet">
-                          <td align="center">{{a.tipoActividad}}</td>
-                          <td align="center">{{a.nombre_actividad}}</td>
-                          <td align="center" *ngIf="verNota==0 else verNotatabla">
-                            <i class="fa-solid fa-eye-slash" style="color: lightslategrey;"></i>
-                          </td>
-                          <ng-template #verNotatabla>
-                            <td align="center" *ngIf="a.nota==null;else notaNulaTar">No ingresada</td>
-                            <ng-template #notaNulaTar>
+                          <td align="center" *ngIf="a.disponible==1 else nada">{{a.tipoActividad}}</td>
+                          <ng-template #nada>
+                          </ng-template>
+                          <td align="center" *ngIf="a.disponible==1 else nada">{{a.nombre_actividad}}</td>
+                          <td class="d-none" align="center" *ngIf="a.disponible==0 else todo"></td>
+                          <ng-template #todo>
+                            <td align="center" *ngIf="verNota==0 else verNota2">
+                              <i class="fa-solid fa-eye-slash" style="color: lightslategrey;"></i>
+                             </td>
+                              <ng-template #verNota2>
+                                <td align="center" *ngIf="a.nota==null;else notaNulaTar">No ingresada</td>
+                              <ng-template #notaNulaTar>
                               <td class="text-center">{{a.nota + '/' + a.valor}}</td>
-                            </ng-template>
+                              </ng-template>
+                              </ng-template>
                           </ng-template>
                       </tr>
                     </tbody>
