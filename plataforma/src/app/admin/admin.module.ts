@@ -75,7 +75,8 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ConsolidadoBimestralComponent } from "./consolidado-bimestral/consolidado-bimestral.component";
 import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
-
+import { BoletasComponent } from './boletas/boletas.component';
+import { BoletasService } from "./services/boletas.service";
 
 @NgModule({
     declarations: [
@@ -120,7 +121,8 @@ import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
         TutorialComponent,
         PagosComponent,
         ConsolidadoBimestralComponent,
-        CuadroGuiaComponent
+        CuadroGuiaComponent,
+        BoletasComponent
     ],
     exports: [],
     providers: [
@@ -143,7 +145,9 @@ import { CuadroGuiaComponent } from './cuadro-guia/cuadro-guia.component';
         AlumnosService,
         EstadisticasDashboardService,
         ImagenesPerfilDefectoService,
-        AlumnosService
+        AlumnosService,
+        CuadroGuiaService,
+        BoletasService
     ],
     imports: [
         AdminRoutingModule,

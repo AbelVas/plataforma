@@ -27,7 +27,7 @@
           <td class="text-center">{{c.activo}}</td>
           <td class="text-center">
               <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#EditAlumnoModal"  (click)="buscarAlumnoArray(c.idAlumno)"></i></button>
-              <button class="btn btn-success"><i class="fa-solid fa-table"></i></button>
+              <a class="btn btn-success" routerLink="/admin/boletas/{{idGrado}}/{{c.idAlumno}}/"><i class="fa-solid fa-table"></i></a>
               <button class="btn btn-danger"><i class="fa-solid fa-trash-can"data-bs-toggle="modal" data-bs-target="#EliminarAlumnoModal" (click)="buscarAlumnoArray(c.idAlumno)"></i></button>
           </td>
       </tr>
