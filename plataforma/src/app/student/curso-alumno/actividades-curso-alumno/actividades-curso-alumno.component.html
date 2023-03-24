@@ -44,11 +44,8 @@
                             <ng-template #verNota2>
                               <td align="center" *ngIf="t.nota==null;else notaNulaTar">No ingresada</td>
                             <ng-template #notaNulaTar>
-                            <td class="text-center"   *ngIf="idNivelNivel==1; else calinumerouno">{{t.letranota}}</td>
+                            <td class="text-center">{{t.nota + '/' + t.valor}}</td>
                             </ng-template>
-                              <ng-template #calinumerouno>
-                              <td class="text-center">{{t.nota + '/' + t.valor}}</td>
-                              </ng-template>
                             </ng-template>
 
                         <div class="modal fade" id="ModalComentario" tabindex="-1">
@@ -253,12 +250,9 @@
                   <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <ng-template #progressbar>
-                  <div class="progress" style="height: 30px;" *ngIf="idNivelNivel==1; else progresnum">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: suma+'%', 'background-color': colorprogress}">{{letraFinal}}</div>
-                  </div>
-                  <ng-template #progresnum>
+                  <div class="progress" style="height: 30px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: suma+'%', 'background-color': colorprogress}">{{suma + '%'}}</div>
-                  </ng-template>
+                  </div>
                 </ng-template>
               </div>
             </div>
@@ -297,11 +291,8 @@
                           <ng-template #verNotatabla>
                             <td align="center" *ngIf="a.nota==null;else notaNulaTar">No ingresada</td>
                             <ng-template #notaNulaTar>
-                            <td class="text-center" *ngIf="idNivelNivel==1; else calinumerodos">{{a.letranota}}</td>
+                              <td class="text-center">{{a.nota + '/' + a.valor}}</td>
                             </ng-template>
-                           <ng-template #calinumerodos>
-                            <td class="text-center">{{a.nota + '/' + a.valor}}</td>
-                           </ng-template>
                           </ng-template>
                       </tr>
                     </tbody>
@@ -320,10 +311,7 @@
                           La visualización de notas ha sido bloqueada por el administrador
                         </td>
                         <ng-template #verFinal>
-                          <td align="right" *ngIf="idNivelNivel==1; else letrafinal">{{letraFinal}}</td>
-                          <ng-template #letrafinal>
-                            <td align="right">{{suma}}/100</td>
-                          </ng-template>
+                          <td align="right">{{suma}}/100</td>
                         </ng-template>
                       </tr>
                     </tbody>
