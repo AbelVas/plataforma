@@ -42,7 +42,8 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     fecha_creacion:'',
     idCurso:'',
     idUnidad:'',
-    enlace:''
+    enlace:'',
+    diponible:''
   }
 
   listaAnuncioCurso:any=[]
