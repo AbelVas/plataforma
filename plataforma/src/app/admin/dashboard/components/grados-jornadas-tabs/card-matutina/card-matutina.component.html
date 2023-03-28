@@ -10,9 +10,9 @@
   <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
 </mat-form-field>
 <div>
-  <div style="overflow-x: auto;">
     <!--Dentro del loader-->
 <ng-template #MostrarDataPerfilOverview>
+  <div style="overflow-x: auto;">
   <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
 
     <ng-container matColumnDef="nombre_grado">
@@ -59,8 +59,9 @@
       <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
     </tr>
   </table>
+</div>
 </ng-template>
-  </div>
+
 <mat-paginator [pageSize]="gradosPorPagina" aria-label="Select page of users"></mat-paginator>
 
 <div  *ngIf="errorService.codigoError!=''">
