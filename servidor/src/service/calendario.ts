@@ -1,12 +1,12 @@
 import conexion from "../config/database";
 
 const getActividadesPorAlumno=async(idUsuario:string)=>{
-    const response=await conexion.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.idCurso,tc.nombre_curso FROM(tbAlumno al INNER JOIN tbCurso tc ON al.idGrado=tc.idGrado)INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso WHERE al.idAlumno=? ORDER BY da.fecha_entrega DESC;',[idUsuario])
+    const response=await conexion.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.idCurso,tc.nombre_curso FROM((tbAlumno al INNER JOIN tbCurso tc ON al.idGrado=tc.idGrado)INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=da.idUnidad WHERE al.idAlumno=? and u.estado=1 ORDER BY da.fecha_entrega DESC;',[idUsuario])
     return response;
 }
 
 const getActividadesPorProfesor=async(idUsuario:string)=>{
-    const response=await conexion.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.nombre_curso,tc.idCurso,tc.idProfesor,tc.idGrado FROM tbCurso tc INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso WHERE tc.idProfesor=? ORDER BY da.fecha_entrega DESC;',[idUsuario])
+    const response=await conexion.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.nombre_curso,tc.idCurso,tc.idProfesor,tc.idGrado FROM (tbCurso tc INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=da.idUnidad WHERE tc.idProfesor=? and u.estado=1 ORDER BY da.fecha_entrega DESC;',[idUsuario])
     return response;
 }
 
