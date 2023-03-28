@@ -1,13 +1,13 @@
 import multer, { diskStorage } from "multer";
 import conexion from "../config/database";
 
-var rutapadre:'localhost:4200';
+var rutapadre:any;
 var rutahijo = `/assets/img`;
 var rutaimagen:any;
 
 const storage = diskStorage({
     destination:function (req, file, cb){
-        //rutapadre = `${__dirname}`;
+        rutapadre = `${__dirname}`;
         const rutafinal = rutapadre+rutahijo;
         
         cb(null, rutafinal);
