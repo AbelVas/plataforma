@@ -315,6 +315,32 @@ const notasalumnosFinalService=async(idCurso:string,idUnidad:string,idGrado:stri
             }
            }
         break;
+        case 17:
+            for(let i=0;i<idAlumnos.length;i++){
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[0]+","+idUnidad+") as cero,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[1]+","+idUnidad+") as uno,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[2]+","+idUnidad+") as dos,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[3]+","+idUnidad+") as tres,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[4]+","+idUnidad+") as cuatro,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[5]+","+idUnidad+") as cinco,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[6]+","+idUnidad+") as seis,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[7]+","+idUnidad+") as siete,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[8]+","+idUnidad+") as ocho,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[9]+","+idUnidad+") as nueve,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[10]+","+idUnidad+") as diez,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[11]+","+idUnidad+") as once,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[12]+","+idUnidad+") as doce,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[13]+","+idUnidad+") as trece,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[14]+","+idUnidad+") as catorce,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[15]+","+idUnidad+") as quince,fcursoactividad("+idCurso+","+idAlumnos[i]+","+idActividades[16]+","+idUnidad+") as dieciseis FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+                const notaArray:any=Object.values(consulta);
+                temp[i]={
+                    alumno:notaArray[0].alumno,
+                    uno:notaArray[0].cero,
+                    dos:notaArray[0].uno,
+                    tres:notaArray[0].dos,
+                    cuatro:notaArray[0].tres,
+                    cinco:notaArray[0].cuatro,
+                    seis:notaArray[0].cinco,
+                    siete:notaArray[0].seis,
+                    ocho:notaArray[0].siete,
+                    nueve:notaArray[0].ocho,
+                    diez:notaArray[0].nueve,
+                    once:notaArray[0].diez,
+                    doce:notaArray[0].once,
+                    trece:notaArray[0].doce,
+                    catorce:notaArray[0].trece,
+                    quince:notaArray[0].catorce,
+                    dieciseis:notaArray[0].quince,
+                    diecisiete:notaArray[0].dieciseis,
+                }
+               }
+            break;
    }
     return temp
 }
@@ -628,7 +654,7 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
             break;
         case 16:
             for(let i=0;i<idAlumnos.length;i++){
-                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece, fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as catorce,fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as quince  FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece, fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as catorce,fmateria("+idUnidad+","+idCursos[15]+","+idAlumnos[i]+") as quince  FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
                 const notaArray:any=Object.values(consulta);
                 temp[i]={
                     alumno:notaArray[0].alumno,
@@ -649,6 +675,33 @@ const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
                     quince:notaArray[0].catorce,
                     dieciseis:notaArray[0].quince,
                     promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once+notaArray[0].doce+notaArray[0].trece+notaArray[0].catorce+notaArray[0].quince)/16)
+                }
+               }
+            break;
+            case 17:
+            for(let i=0;i<idAlumnos.length;i++){
+                consulta=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria("+idUnidad+","+idCursos[0]+","+idAlumnos[i]+") as cero,fmateria("+idUnidad+","+idCursos[1]+","+idAlumnos[i]+") as uno,fmateria("+idUnidad+","+idCursos[2]+","+idAlumnos[i]+") as dos,fmateria("+idUnidad+","+idCursos[3]+","+idAlumnos[i]+") as tres,fmateria("+idUnidad+","+idCursos[4]+","+idAlumnos[i]+") as cuatro,fmateria("+idUnidad+","+idCursos[5]+","+idAlumnos[i]+") as cinco,fmateria("+idUnidad+","+idCursos[6]+","+idAlumnos[i]+") as seis,fmateria("+idUnidad+","+idCursos[7]+","+idAlumnos[i]+") as siete,fmateria("+idUnidad+","+idCursos[8]+","+idAlumnos[i]+") as ocho, fmateria("+idUnidad+","+idCursos[9]+","+idAlumnos[i]+") as nueve, fmateria("+idUnidad+","+idCursos[10]+","+idAlumnos[i]+") as diez, fmateria("+idUnidad+","+idCursos[11]+","+idAlumnos[i]+") as once, fmateria("+idUnidad+","+idCursos[12]+","+idAlumnos[i]+") as doce, fmateria("+idUnidad+","+idCursos[13]+","+idAlumnos[i]+") as trece, fmateria("+idUnidad+","+idCursos[14]+","+idAlumnos[i]+") as catorce,fmateria("+idUnidad+","+idCursos[15]+","+idAlumnos[i]+") as quince,fmateria("+idUnidad+","+idCursos[16]+","+idAlumnos[i]+") as dieciseis  FROM tbAlumno a WHERE idAlumno="+idAlumnos[i]+"")
+                const notaArray:any=Object.values(consulta);
+                temp[i]={
+                    alumno:notaArray[0].alumno,
+                    uno:notaArray[0].cero,
+                    dos:notaArray[0].uno,
+                    tres:notaArray[0].dos,
+                    cuatro:notaArray[0].tres,
+                    cinco:notaArray[0].cuatro,
+                    seis:notaArray[0].cinco,
+                    siete:notaArray[0].seis,
+                    ocho:notaArray[0].siete,
+                    nueve:notaArray[0].ocho,
+                    diez:notaArray[0].nueve,
+                    once:notaArray[0].diez,
+                    doce:notaArray[0].once,
+                    trece:notaArray[0].doce,
+                    catorce:notaArray[0].trece,
+                    quince:notaArray[0].catorce,
+                    dieciseis:notaArray[0].quince,
+                    diecisiete:notaArray[0].dieciseis,
+                    promedio:Math.round((notaArray[0].cero+notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro+notaArray[0].cinco+notaArray[0].seis+notaArray[0].siete+notaArray[0].ocho+notaArray[0].nueve+notaArray[0].diez+notaArray[0].once+notaArray[0].doce+notaArray[0].trece+notaArray[0].catorce+notaArray[0].quince+notaArray[0].dieciseis)/17)
                 }
                }
             break;
