@@ -43,7 +43,7 @@ var rutahijo = `/assets/img`;
 var rutaimagen;
 const storage = (0, multer_1.diskStorage)({
     destination: function (req, file, cb) {
-        //rutapadre = `${__dirname}`;
+        rutapadre = `${__dirname}`;
         const rutafinal = rutapadre + rutahijo;
         cb(null, rutafinal);
     },

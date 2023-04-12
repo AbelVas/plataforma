@@ -15,12 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getActividadesCalificacionAlumnoTotal = exports.getActividadesCalificacionAlumno = exports.getActividadesPorTipoForo = exports.getActividadesPorTipoTarea = exports.getActividadesPorTipoExamen = exports.getActividadesPorProfesor = exports.getActividadesPorTutor = exports.getActividadesPorAlumno = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const getActividadesPorAlumno = (idUsuario) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.idCurso,tc.nombre_curso FROM(tbAlumno al INNER JOIN tbCurso tc ON al.idGrado=tc.idGrado)INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso WHERE al.idAlumno=? ORDER BY da.fecha_entrega DESC;', [idUsuario]);
+    const response = yield database_1.default.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.idCurso,tc.nombre_curso FROM((tbAlumno al INNER JOIN tbCurso tc ON al.idGrado=tc.idGrado)INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=da.idUnidad WHERE al.idAlumno=? and u.estado=1 ORDER BY da.fecha_entrega DESC;', [idUsuario]);
     return response;
 });
 exports.getActividadesPorAlumno = getActividadesPorAlumno;
 const getActividadesPorProfesor = (idUsuario) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.nombre_curso,tc.idCurso,tc.idProfesor,tc.idGrado FROM tbCurso tc INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso WHERE tc.idProfesor=? ORDER BY da.fecha_entrega DESC;', [idUsuario]);
+    const response = yield database_1.default.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.nombre_curso,tc.idCurso,tc.idProfesor,tc.idGrado FROM (tbCurso tc INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=da.idUnidad WHERE tc.idProfesor=? and u.estado=1 ORDER BY da.fecha_entrega DESC;', [idUsuario]);
     return response;
 });
 exports.getActividadesPorProfesor = getActividadesPorProfesor;

@@ -16,7 +16,7 @@ exports.duplicarActividades = exports.updateActividadService = exports.deleteTar
 const database_1 = __importDefault(require("../config/database"));
 //traigo las tareas por curso (tanto foros, examenes, etc...)
 const getActividadesCursoService = (idCurso) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT ac.idDetalleActividad,ac.nombre_actividad,ac.detalle,ac.cotejo,DATE_FORMAT(ac.fecha_entrega, "%Y-%m-%d") as fecha_entrega,ac.valor,ac.recurso,ac.ruta_recurso,DATE_FORMAT(ac.creada, "%Y-%m-%d") as creada,ac.disponible,ac.entrega_fuera_fecha,ta.tipoActividad,u.idUnidad,u.unidad,ac.ultima_modificacion, tc.color_curso FROM ((tbDetalleActividad ac INNER JOIN tbTipoActividad ta ON ta.idTipoActividad=ac.idTipoActividad)INNER JOIN tbCurso tc ON tc.idCurso=ac.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=ac.idUnidad WHERE ac.idCurso=? ORDER BY ac.fecha_entrega DESC', [idCurso]);
+    const response = yield database_1.default.query('SELECT ac.idDetalleActividad,ac.nombre_actividad,ac.detalle,ac.cotejo,DATE_FORMAT(ac.fecha_entrega, "%Y-%m-%d") as fecha_entrega,ac.valor,ac.recurso,ac.ruta_recurso,DATE_FORMAT(ac.creada, "%Y-%m-%d") as creada,ac.disponible,ac.entrega_fuera_fecha,ta.tipoActividad,u.idUnidad,u.unidad,ac.ultima_modificacion, tc.color_curso FROM ((tbDetalleActividad ac INNER JOIN tbTipoActividad ta ON ta.idTipoActividad=ac.idTipoActividad)INNER JOIN tbCurso tc ON tc.idCurso=ac.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=ac.idUnidad WHERE ac.idCurso=? and u.estado=1 ORDER BY ac.fecha_entrega DESC', [idCurso]);
     return response;
 });
 exports.getActividadesCursoService = getActividadesCursoService;
