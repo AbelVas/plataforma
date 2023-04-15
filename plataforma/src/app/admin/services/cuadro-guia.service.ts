@@ -55,30 +55,7 @@ export class CuadroGuiaService {
     );
   }
   private handleError(error:HttpErrorResponse){
-    var msg={};
-    if(error.status==400){
-       msg=
-        {
-          codigoError:error.statusText,
-          Mensaje:"Acceso Denegado, Vuelva a iniciar sesión",
-          icono:'<i class="fa-solid fa-shield-xmark"></i>'
-        }
-    }else{
-      if(error.status==0){
-        msg={
-          codigoError:error.statusText,
-          Mensaje:"Error de conexión con el servidor",
-          icono:'<i class="fa-solid fa-shield-xmark"></i>'
-        }
-      }else{
-        if(error.status==500){
-          msg={
-            codigoError:error.statusText,
-            Mensaje:"Error en la Petición",
-          }
-        }
-      }
-    }
-    return throwError(msg)
+
+    return throwError(error)
   }
 }
