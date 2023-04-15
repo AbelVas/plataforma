@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { PerfilService } from '../../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-defecto.service';
+import { FormBuilder, FormControl,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-edit-perfil-admin',
@@ -10,7 +11,7 @@ import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-
   styleUrls: ['./edit-perfil-admin.component.css']
 })
 export class EditPerfilAdminComponent implements OnInit {
-  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService) { }
+  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder) { }
   pipe = new DatePipe('en-US');
   imagenPerfilDefecto:any='assets/img/blank_profile.png'
   listaImagenes:any=[]
@@ -22,7 +23,18 @@ export class EditPerfilAdminComponent implements OnInit {
   permitirVer:any;
   adminIndividual:any=[{
   }];
+
+  upload = ({ dest: '././././assets/img/perfiles' })
+  ImgForm=this.formBuilder.group({
+    archivoImagen:new FormControl('',[Validators.required]),
+  })
+
+  @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
+  @ViewChild('cerrarEditarModal') modalCloseEditarImg: any;
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
+
+  @ViewChild('subirImagen', { static: false }) subirImagen!: ElementRef;
+
   @Output() datosEventoImagen=new EventEmitter<any>();
   ngOnInit(): void {
     this.perfilAdminService.disparadorCopiarData.subscribe(data=>{
@@ -122,4 +134,25 @@ export class EditPerfilAdminComponent implements OnInit {
       }
     )
   }
-}
+  actualizarImgImport(idProfesor:string){
+    const imageBlob = this.subirImagen.nativeElement.files[0];
+    const data = new FormData ();
+    data.set('myfile',imageBlob)
+    console.log(data)
+    console.log(imageBlob)
+      this.imagenPerfilService.subirDocImagenPerfil(idProfesor,data).subscribe(
+        res=>{
+          this.ejecutarEventoActualizar(imageBlob)
+          this.modalCloseEditarImg.nativeElement.click()
+          this.modalCloseEditar.nativeElement.click()
+        },
+        err=>{
+          this.ejecutarEventoActualizar(imageBlob)
+          console.log(err)
+        }
+      )
+    }
+
+
+  }
+
