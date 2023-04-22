@@ -1,8 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { PerfilService } from '../../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-defecto.service';
+import { FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import decode from "jwt-decode"
 
 @Component({
   selector: 'app-admin-edit-perfil-admin',
@@ -10,8 +13,9 @@ import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-
   styleUrls: ['./edit-perfil-admin.component.css']
 })
 export class EditPerfilAdminComponent implements OnInit {
-  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService) { }
+  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder) { }
   pipe = new DatePipe('en-US');
+  token:any=localStorage.getItem('Acces-Token');
   imagenPerfilDefecto:any='assets/img/blank_profile.png'
   listaImagenes:any=[]
   imagenPerfilActual:any=''
@@ -22,7 +26,17 @@ export class EditPerfilAdminComponent implements OnInit {
   permitirVer:any;
   adminIndividual:any=[{
   }];
+
+  ImgForm=this.formBuilder.group({
+    archivoImagen:new FormControl(null,[Validators.required]),
+  })
+
+  @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
+  @ViewChild('cerrarEditarModal') modalCloseEditarImg: any;
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
+
+  @ViewChild('subirImagen', { static: false }) subirImagen!: ElementRef;
+
   @Output() datosEventoImagen=new EventEmitter<any>();
   ngOnInit(): void {
     this.perfilAdminService.disparadorCopiarData.subscribe(data=>{
@@ -122,4 +136,49 @@ export class EditPerfilAdminComponent implements OnInit {
       }
     )
   }
-}
+  actualizarImgImport(idProfesor:string){
+    const imageBlob = this.subirImagen.nativeElement.files[0];
+    const data = new FormData ();
+    data.set('myfile',imageBlob)
+    console.log(data)
+    console.log(imageBlob)
+      this.imagenPerfilService.subirDocImagenPerfil(idProfesor,data).subscribe(
+        res=>{
+          this.ejecutarEventoActualizar(imageBlob)
+          this.modalCloseEditarImg.nativeElement.click()
+          this.modalCloseEditar.nativeElement.click()
+        },
+        err=>{
+          this.ejecutarEventoActualizar(imageBlob)
+          console.log(err)
+        }
+      )
+    }
+
+    subirArchivo(event:any) {
+     if(event.target.files.length > 0){
+      const file = event.target.files[0];
+      const formData = new FormData()
+      formData.append('myfile',file);
+      const Doc = formData
+      const {idUsuario}:any=decode(this.token);
+      console.log('id profesor = '+idUsuario)
+      this.imagenPerfilService.subirDocImagenPerfil(idUsuario,formData).subscribe(
+        res=>{
+          console.log(Doc)
+          this.ejecutarEventoActualizar(file)
+        },
+        err=>{
+          console.log(file)
+          console.log('Documento comprobante de datos = '+file.name)
+          console.log('id profesor = '+idUsuario)
+          console.log('This admin Individual = '+this.adminIndividual.idUsuario)
+          console.log('error= '+err)
+        }
+      )
+     }
+
+    }
+
+  }
+
