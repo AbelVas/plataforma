@@ -2,7 +2,7 @@ import multer, { diskStorage } from "multer";
 import conexion from "../config/database";
 
 var rutapadre:any;
-var rutahijo = `/assets/img`;
+var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;
 var rutaimagen:any;
 
 const storage = diskStorage({
@@ -13,12 +13,12 @@ const storage = diskStorage({
         cb(null, rutafinal);
     },
     filename: function (req, file, cb){
-        const {nombre} = req.params;
+        const {id} = req.params;
         const ext= file.originalname.split(".").pop();
-        const filename = `${nombre+'-'+Date.now()+'-'+file.originalname}`;
+        const filename = `${id+'-'+Date.now()+'-'+file.originalname}`;
         
         const imagenperfil = async(rutabd:string) => {
-            const update = await conexion.query("UPDATE tbProfesor set imagen = ? WHERE idProfesor = ?",[rutabd,nombre]);
+            const update = await conexion.query("UPDATE tbProfesor set imagen = ? WHERE idProfesor = ?",[rutabd,id]);
         }
         const ruta:any = rutahijo+filename;
         imagenperfil(ruta);

@@ -3,7 +3,9 @@ import { PerfilService } from '../../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-defecto.service';
-import { FormBuilder, FormControl,Validators } from '@angular/forms';
+import { FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import decode from "jwt-decode"
 
 @Component({
   selector: 'app-admin-edit-perfil-admin',
@@ -13,6 +15,7 @@ import { FormBuilder, FormControl,Validators } from '@angular/forms';
 export class EditPerfilAdminComponent implements OnInit {
   constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder) { }
   pipe = new DatePipe('en-US');
+  token:any=localStorage.getItem('Acces-Token');
   imagenPerfilDefecto:any='assets/img/blank_profile.png'
   listaImagenes:any=[]
   imagenPerfilActual:any=''
@@ -24,9 +27,8 @@ export class EditPerfilAdminComponent implements OnInit {
   adminIndividual:any=[{
   }];
 
-  upload = ({ dest: '././././assets/img/perfiles' })
   ImgForm=this.formBuilder.group({
-    archivoImagen:new FormControl('',[Validators.required]),
+    archivoImagen:new FormControl(null,[Validators.required]),
   })
 
   @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
@@ -153,6 +155,30 @@ export class EditPerfilAdminComponent implements OnInit {
       )
     }
 
+    subirArchivo(event:any) {
+     if(event.target.files.length > 0){
+      const file = event.target.files[0];
+      const formData = new FormData()
+      formData.append('myfile',file);
+      const Doc = formData
+      const {idUsuario}:any=decode(this.token);
+      console.log('id profesor = '+idUsuario)
+      this.imagenPerfilService.subirDocImagenPerfil(idUsuario,formData).subscribe(
+        res=>{
+          console.log(Doc)
+          this.ejecutarEventoActualizar(file)
+        },
+        err=>{
+          console.log(file)
+          console.log('Documento comprobante de datos = '+file.name)
+          console.log('id profesor = '+idUsuario)
+          console.log('This admin Individual = '+this.adminIndividual.idUsuario)
+          console.log('error= '+err)
+        }
+      )
+     }
+
+    }
 
   }
 
