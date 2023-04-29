@@ -1,6 +1,6 @@
 import multer, { diskStorage } from "multer";
 import conexion from "../config/database";
-
+//cambio sin nada, solo para generar el cambio
 var rutapadre:any;
 var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;
 var rutaimagen:any;

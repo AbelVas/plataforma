@@ -24,7 +24,7 @@ export class ImagenesPerfilDefectoService {
       catchError(this.handleError)
     )
   }
-
+//cambio sin nada
   subirDocImagenPerfil(idAdmin:string,data:FormData){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.post(`${this.URL}/storage/${idAdmin}`,data,httpOptions).pipe(

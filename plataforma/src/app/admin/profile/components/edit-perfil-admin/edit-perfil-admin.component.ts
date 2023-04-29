@@ -154,7 +154,7 @@ export class EditPerfilAdminComponent implements OnInit {
         }
       )
     }
-
+//Cambio sin nada
     subirArchivo(event:any) {
      if(event.target.files.length > 0){
       const file = event.target.files[0];
