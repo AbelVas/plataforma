@@ -48,7 +48,6 @@ const duplicarActividades=async(data:any,idActividad:string)=>{
     DatosObject[0].idCurso
     var contador=0;
     for(let i=0;i<data.length;i++){
-        //console.log(data[i].idCurso)
         var Aux:any=0;
         DatosObject[0].idCurso=data[i].idCurso      
         const insertarCopias=await conexion.query('INSERT INTO tbDetalleActividad SET ?',[DatosObject[0]])
@@ -81,8 +80,6 @@ const duplicarActividades=async(data:any,idActividad:string)=>{
             }
         }
     }
-    //console.log(Aux)
-   //console.log(data.length)
     return true
 }
 export {crearTareaService,getActividadesCursoService,deleteTareaService,updateActividadService,duplicarActividades}
