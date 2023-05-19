@@ -53,6 +53,7 @@
           <label for="floatingName">Nombre de la Jornada</label>
           <span class="text-danger" *ngIf="submitted&&f.jornada.invalid">*** Campo Obligatorio ***</span>
         </div>
+        <span><b>Jornada Actual: </b>{{jornadasIndividual.jornada}}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

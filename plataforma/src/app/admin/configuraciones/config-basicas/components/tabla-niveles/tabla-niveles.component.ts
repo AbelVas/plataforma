@@ -163,7 +163,7 @@ export class TablaNivelesComponent implements OnInit {
         this.obtenerNiveles();
       },
       err=>{
-        this.toastrService.error(`Nivel no Editado`,'Error')
+        this.toastrService.error(`Nivel no Creado`,'Error')
         this.modalCloseCrear.nativeElement.click();
       }
     )
