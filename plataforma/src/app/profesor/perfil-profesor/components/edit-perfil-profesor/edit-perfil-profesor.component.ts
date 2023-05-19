@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { PerfilProfesorService } from '../../../services/perfil-profesor.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
+import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-perfil-profesor',
@@ -9,14 +11,26 @@ import { Router } from "@angular/router";
   styleUrls: ['./edit-perfil-profesor.component.css']
 })
 export class EditPerfilProfesorComponent implements OnInit {
-  constructor(private perfilProfesorService:PerfilProfesorService, private router:Router) { }
-
+  constructor(private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
+  submitted=false;
   pipe = new DatePipe('en-US');
   classBadgeActive:any;
   estado:any;
   permitirVer:any;
   profesorIndividual:any=[{
   }];
+
+  EditarProfesorForm=this.formBuilder.group({
+    nombre_profesor:new FormControl('',[Validators.required]),
+    apellido_profesor:new FormControl('',[Validators.required]),
+    telefono:new FormControl('',[Validators.required]),
+    CUI:new FormControl('',[Validators.required]),
+    fecha_nacimiento:new FormControl('',[Validators.required]),
+    usuario:new FormControl('',[Validators.required]),
+    permitir_ver_correo:new FormControl(''),
+    correo1:new FormControl(''),
+    correo2:new FormControl(''),
+  })
 
   //imagen de este coso de cambiar imagen de perfil
   imagenPerfilDefecto:any='assets/img/blank_profile.png'
@@ -55,11 +69,13 @@ export class EditPerfilProfesorComponent implements OnInit {
     }
    }
    insertProfesor(idAdmin:string){
-    delete this.profesorIndividual[0].creado
-    delete this.profesorIndividual[0].idRol
-    delete this.profesorIndividual[0].codigo
-    this.profesorIndividual[0].permitir_ver_correo=this.permitirVer;
-    this.perfilProfesorService.updateProfesor(this.profesorIndividual[0],idAdmin).subscribe(
+    this.submitted=true;
+    if (this.EditarProfesorForm.invalid) {
+      this.toastrService.error(`Falta información`,'Error')
+      return;
+    }
+    this.EditarProfesorForm.value.permitir_ver_correo=this.permitirVer;
+    this.perfilProfesorService.updateProfesor(this.EditarProfesorForm.value,idAdmin).subscribe(
       response=>{
         this.router.navigate(['/teacher/perfil']);
         if(this.profesorIndividual[0].estatus==1){
@@ -70,9 +86,11 @@ export class EditPerfilProfesorComponent implements OnInit {
           this.estado="Inactivo"
         }
         this.permitirVer=this.profesorIndividual[0].permitir_ver_correo;
+        this.toastrService.success(`Pefil Actualizado`,'Realizado')
       },
       error=>{
         console.log(error)
+        this.toastrService.error(`Perfil no Actualizado`,'Error')
       }
     )
   }
@@ -131,5 +149,8 @@ export class EditPerfilProfesorComponent implements OnInit {
     this.getImagenesPerfil(e.target.value);
   }
 //------------------------------------------
+
+//esto es para validar que un campo no se vaya vacio si es importante
+get f() { return this.EditarProfesorForm.controls; }
 
 }

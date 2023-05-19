@@ -3,6 +3,7 @@ import { PerfilAlumnoService } from '../../../services/perfil-alumno.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-perfil-alumno',
@@ -11,12 +12,19 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditPerfilAlumnoComponent implements OnInit {
 
-  constructor(private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService) { }
-
+  constructor(private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService, private formBuilder:FormBuilder) { }
+  submitted=false;
   classBadgeActive:any;
   estado:any;
   alumnoIndividual:any=[{
   }];
+
+      //Formulario editar Alumno
+      EditarAlumnoForm=this.formBuilder.group({
+        nombres_alumno:new FormControl('',[Validators.required]),
+        apellidos_alumno:new FormControl('',[Validators.required]),
+        usuario:new FormControl('',[Validators.required]),
+      })
 
   ngOnInit(): void {
     this.perfilAlumnosService.disparadorCopiarData.subscribe(data=>{
@@ -31,14 +39,16 @@ export class EditPerfilAlumnoComponent implements OnInit {
       this.alumnoIndividual[0];
     });
   }
+  //esto es para validar que un campo no se vaya vacio si es importante
+  get f() { return this.EditarAlumnoForm.controls; }
 
   insertAlumno(idAlumno:string){
-    delete this.alumnoIndividual[0].idGrado
-    delete this.alumnoIndividual[0].nombre_grado
-    delete this.alumnoIndividual[0].idSeccion
-    delete this.alumnoIndividual[0].seccion
-    delete this.alumnoIndividual[0].codigo
-    this.perfilAlumnosService.updateAlumno(this.alumnoIndividual[0],idAlumno).subscribe(
+    this.submitted=true;
+    if (this.EditarAlumnoForm.invalid) {
+      this.toastrService.error(`Falta información`,'Error')
+      return;
+    }
+    this.perfilAlumnosService.updateAlumno(this.EditarAlumnoForm.value,idAlumno).subscribe(
       response=>{
         this.router.navigate(['/student/perfil']);
         if(this.alumnoIndividual[0].activo==1){

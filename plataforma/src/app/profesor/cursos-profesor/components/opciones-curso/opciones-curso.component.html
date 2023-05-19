@@ -218,7 +218,7 @@
                   <div class="modal-body">
                     <div class="mb-3">
                       <label class="form-label">Bimestre:</label>
-                      <select formControlName="idUnidad" formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors }" aria-label="Default select example">
+                      <select formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors }" aria-label="Default select example">
                         <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
                       </select>
                       <span class="text-danger" *ngIf="submitted&&f.idUnidad.invalid">*** Campo Obligatorio ***</span>
@@ -556,6 +556,7 @@
                 </div>
 
                 <div class="modal-body">
+                  <form ></form>
                   <div class="mb-3">
                     <label class="form-label"><b>Bimestre:</b></label>
                     <select class="form-select" [(ngModel)]="ActividadIndividualEdit.idUnidad" aria-label="Default select example">

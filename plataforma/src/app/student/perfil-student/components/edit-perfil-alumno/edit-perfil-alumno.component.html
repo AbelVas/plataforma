@@ -1,4 +1,4 @@
-<form autocomplete="off">
+<form [formGroup]="EditarAlumnoForm" (ngSubmit)="insertAlumno(alumnoIndividual[0].idAlumno)" autocomplete="off">
   <div class="row mb-3">
      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
      <div class="col-md-8 col-lg-9">
@@ -8,11 +8,13 @@
   </div>
   <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Nombre</label>
-     <div class="col-md-8 col-lg-9"> <input name="nombres_alumno" type="text" class="form-control" [(ngModel)]="alumnoIndividual[0].nombres_alumno"></div>
+     <div class="col-md-8 col-lg-9">
+      <input formControlName="nombres_alumno" name="nombres_alumno" type="text" class="form-control" [(ngModel)]="alumnoIndividual[0].nombres_alumno" [ngClass]="{'is-invalid': submitted&&f.nombres_alumno.invalid}"></div>
   </div>
   <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Apellidos</label>
-     <div class="col-md-8 col-lg-9"> <input name="apellidos_alumno" type="text" class="form-control" [(ngModel)]="alumnoIndividual[0].apellidos_alumno"></div>
+     <div class="col-md-8 col-lg-9">
+      <input formControlName="apellidos_alumno" name="apellidos_alumno" type="text" class="form-control" [(ngModel)]="alumnoIndividual[0].apellidos_alumno" [ngClass]="{'is-invalid': submitted&&f.apellidos_alumno.invalid}"></div>
   </div>
   <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Rol</label>
@@ -20,14 +22,15 @@
   </div>
   <div class="row mb-3">
      <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
-     <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="alumnoIndividual[0].usuario"></div>
+     <div class="col-md-8 col-lg-9">
+      <input formControlName="usuario" name="usuario" type="email" class="form-control" [(ngModel)]="alumnoIndividual[0].usuario" [ngClass]="{'is-invalid': submitted&&f.usuario.invalid}"></div>
   </div>
   <div class="row mb-3">
     <label class="col-md-4 col-lg-3 col-form-label">Estado</label>
     <div class="col-md-8 col-lg-9"><span [class]="classBadgeActive">{{estado}}</span></div>
   </div>
   <hr>
-  <div class="text-center"> <button type="submit" class="btn btn-primary" (click)="insertAlumno(alumnoIndividual[0].idAlumno)">Actualizar Datos</button></div>
+  <div class="text-center"> <button type="submit" class="btn btn-primary">Actualizar Datos</button></div>
 </form>
 
 

@@ -6,6 +6,7 @@ import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-
 import { FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import decode from "jwt-decode"
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-edit-perfil-admin',
@@ -13,7 +14,8 @@ import decode from "jwt-decode"
   styleUrls: ['./edit-perfil-admin.component.css']
 })
 export class EditPerfilAdminComponent implements OnInit {
-  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder) { }
+  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
+  submitted=false;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
   imagenPerfilDefecto:any='assets/img/blank_profile.png'
@@ -29,6 +31,16 @@ export class EditPerfilAdminComponent implements OnInit {
 
   ImgForm=this.formBuilder.group({
     archivoImagen:new FormControl(null,[Validators.required]),
+  })
+
+  EditarAdminForm=this.formBuilder.group({
+    nombre_profesor:new FormControl('',[Validators.required]),
+    apellido_profesor:new FormControl('',[Validators.required]),
+    telefono:new FormControl('',[Validators.required]),
+    CUI:new FormControl('',[Validators.required]),
+    fecha_nacimiento:new FormControl('',[Validators.required]),
+    usuario:new FormControl('',[Validators.required]),
+    permitir_ver_correo:new FormControl(''),
   })
 
   @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
@@ -116,11 +128,13 @@ export class EditPerfilAdminComponent implements OnInit {
     this.getImagenesPerfil(e.target.value);
   }
   insertAdmin(idAdmin:string){
-    delete this.adminIndividual[0].creado
-    delete this.adminIndividual[0].idRol
-    delete this.adminIndividual[0].codigo
-    this.adminIndividual[0].permitir_ver_correo=this.permitirVer;
-    this.perfilAdminService.updateAdmin(this.adminIndividual[0],idAdmin).subscribe(
+    this.submitted=true;
+    if (this.EditarAdminForm.invalid) {
+      this.toastrService.error(`Falta información`,'Error')
+      return;
+    }
+    this.EditarAdminForm.value.permitir_ver_correo=this.permitirVer;
+    this.perfilAdminService.updateAdmin(this.EditarAdminForm.value,idAdmin).subscribe(
       response=>{
         if(this.adminIndividual[0].estatus==1){
           this.classBadgeActive='badge bg-success';
@@ -130,9 +144,11 @@ export class EditPerfilAdminComponent implements OnInit {
           this.estado="Inactivo"
         }
         this.permitirVer=this.adminIndividual[0].permitir_ver_correo;
+        this.toastrService.success(`Pefil Actualizado`,'Realizado')
       },
       error=>{
         console.log(error)
+        this.toastrService.error(`Perfil no Actualizado`,'Error')
       }
     )
   }
@@ -180,5 +196,7 @@ export class EditPerfilAdminComponent implements OnInit {
 
     }
 
+
+    get f() { return this.EditarAdminForm.controls; }
   }
 
