@@ -6,3 +6,20 @@
   font-size: 14px;
   width: 100%;
 }
+.trophy-button{
+  color: white;
+  background-color: goldenrod;
+}
+@media print{
+  hr{
+    display: none;
+  }
+  #NoPrint{
+    display: none;
+  }
+  #areaImprimir{
+    position: absolute;
+    top:0%;
+  }
+}
+

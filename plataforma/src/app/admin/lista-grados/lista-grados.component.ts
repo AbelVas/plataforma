@@ -8,6 +8,7 @@ import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { SeccionesService } from '../services/secciones.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CuadroGuiaService } from '../services/cuadro-guia.service';
 
 
 @Component({
@@ -35,6 +36,20 @@ export class ListaGradosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  //consolidado bimestral
+  GradoSeccion:any=[{}];
+  idGrado:any
+  alumnosGrado:any=[]
+  CantidadAlumnos:any;
+  cursos:any=[]
+  tabla:any=[{}];
+  CantidadCursos:any='';
+  bimestreSeleccionado:string='SELECCIONE PARA ACTUALIZAR';
+  buscarBimestre=this.formBuilder.group({
+    bimestre:new FormControl('',[Validators.required]),
+  })
+  errorLogininputs='form-select'
+  //fin consolidado bimestral
   displayedColumns: string[] = ['no','nombre_grado', 'seccion','cantidad_alumnos','status','acciones'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,7 +57,7 @@ export class ListaGradosComponent implements OnInit {
   @ViewChild('cerrarCrearModal') modalCloseCrear: any;
   @ViewChild('cerrarEditarModal') modalCloseEditar: any;
   @ViewChild('CerrarAlerta') closeAlert: any;
-  constructor(private nivelesService:NivelesService,private activedRoute:ActivatedRoute,private gradoService:GradosService,private formBuilder:FormBuilder,private seccionesService:SeccionesService,private toastrService:ToastrService) { }
+  constructor(private cuadroGuia:CuadroGuiaService,private nivelesService:NivelesService,private activedRoute:ActivatedRoute,private gradoService:GradosService,private formBuilder:FormBuilder,private seccionesService:SeccionesService,private toastrService:ToastrService) { }
   alertaValor:any={
     classAlerta:'',
     mensajeAlerta:'',
@@ -63,6 +78,83 @@ export class ListaGradosComponent implements OnInit {
     }
     this.obtenerNiveles();
     this.getSecciones();
+
+  }
+  obtenerGradoSeccion(idGrado:any){
+    this.cuadroGuia.obtenerGradoSeccion(idGrado).subscribe(
+      res=>{
+        this.GradoSeccion=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  //Consolidado Bimestral
+  GradoSeleccionado(idGrado:any){
+    this.idGrado=idGrado
+  }
+  consolidadoBuscar(){
+    if (this.buscarBimestre.invalid) {
+      this.errorLogininputs='form-select border-danger';
+      return;
+    }
+    var loginData:any={}
+    loginData=Object.assign(this.buscarBimestre.value)
+    if(loginData.bimestre==1){
+      this.bimestreSeleccionado="Primer Bimestre"
+    }else if(loginData.bimestre==2){
+      this.bimestreSeleccionado="Segundo Bimestre"
+    }else if(loginData.bimestre==3){
+      this.bimestreSeleccionado="Tercer Bimestre"
+    }else if(loginData.bimestre==4){
+      this.bimestreSeleccionado="Cuarto Bimestre"
+    }
+    this.obtenerAlumnosGrado();
+    this.obtenerNotasCursos(loginData.bimestre)
+    this.obtenerGradoSeccion(this.idGrado)
+    this.obtenerAlumnosGrado();
+    this.obtenerCursosGrado();
+  }
+
+  obtenerNotasCursos(idUnidad:any){
+    var unidad=idUnidad
+    this.cuadroGuia.obtenerNotasCuadroGuia(this.idGrado,unidad).subscribe(
+      res=>{
+        this.tabla=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  obtenerAlumnosGrado(){
+    this.cuadroGuia.getAlumnosGradoCuadroGuia(this.idGrado).subscribe(
+      res=>{
+        this.alumnosGrado=res
+        this.CantidadAlumnos=this.alumnosGrado.length
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  obtenerCursosGrado(){
+    this.cuadroGuia.obtenerCursosGrado(this.idGrado).subscribe(
+      res=>{
+       this.cursos=res
+       this.CantidadCursos=this.cursos.length
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  //Fin consolidado Bimestral
+  PrintThis(){
+
+    window.print();
+
   }
   crearGrado(){
     this.submitted = true;
@@ -136,7 +228,6 @@ export class ListaGradosComponent implements OnInit {
     this.gradoService.getGradoNivel(idNivel).subscribe(
       res=>{
         this.listaGrados=res;
-        console.log(this.listaGrados)
         this.dataSource = new MatTableDataSource(this.listaGrados);
         this.paginator._intl.itemsPerPageLabel = 'Grados por Página: ';
         this.dataSource.paginator = this.paginator;
