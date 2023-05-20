@@ -10,16 +10,29 @@
   color: white;
   background-color: goldenrod;
 }
-@media print{
-  hr{
-    display: none;
+
+/*@media screen {
+  #printSection {
+      display: none;
   }
-  #NoPrint{
-    display: none;
+}
+NO BORRAR, ESTO PUEDE SERVIR LUEGO
+*/
+
+
+@media print{
+  #main,#gradoEdit,#EliminarGradoModal,#AgregarGradoModal{
+      display: none;
+  }
+  #modalConsolidadoBimestral *:not(#areaImprimir):not(#areaImprimir *){
+    position: absolute;
+    top: 0;
+    left: 15px;
+    visibility: hidden;
   }
   #areaImprimir{
-    position: absolute;
-    top:0%;
+    visibility: visible;
+    margin: 10px;
   }
 }
 

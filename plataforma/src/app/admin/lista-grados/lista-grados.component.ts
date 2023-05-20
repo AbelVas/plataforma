@@ -151,11 +151,32 @@ export class ListaGradosComponent implements OnInit {
     )
   }
   //Fin consolidado Bimestral
+  //Imprimir
   PrintThis(){
-
     window.print();
 
+    /*const HTML = document.getElementById("areaImprimir");
+    this.printElement(HTML);*/ //  NO BORRAR, ESTO PUEDE SERVIR LUEGO
   }
+
+  /*printElement(elem: any) { //  NO BORRAR, ESTO PUEDE SERVIR LUEGO
+    const domClone = elem.cloneNode(true) as HTMLElement;
+
+    let $printSection = document.getElementById("printSection");
+
+    if (!$printSection) {
+        $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+  } */
+
+
+
   crearGrado(){
     this.submitted = true;
     if (this.gradoFormthis.invalid) {
