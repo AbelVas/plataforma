@@ -144,33 +144,43 @@
                        <!--Modal Editar-->
                        <div class="modal fade" id="EditarRecurso" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
+                          <form [formGroup]="crearRecursoForm" (ngSubmit)="editarRecurso(RecursoIndividual.idtbRecursoVideo)" autocomplete="off">
                            <div class="modal-content">
                               <div class="modal-header">
                                  <h5 class="modal-title">Editar Recurso</h5>
                                  <button type="button" class="btn-close" #editarRecursoCerrar data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
+
+                                <div class="mb-3">
+                                  <label class="form-label">Bimestre:</label>
+                                  <select formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && R.idUnidad.errors}" aria-label="Default select example">
+                                    <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+                                  </select>
+                                  <p class="text-primary">{{'Actual:'+RecursoIndividual.unidad}}</p>
+                                </div>
                                 <div class="mb-3">
                                   <label class="form-label"><b>Nombre:</b></label>
-                                  <input type="text" class="form-control" [(ngModel)]="RecursoIndividualEdit.titulo">
+                                  <input formControlName="titulo" type="text" class="form-control" [(ngModel)]="RecursoIndividualEdit.titulo" [ngClass]="{'is-invalid': submitted&&R.titulo.invalid}">
                                   <p class="text-primary">{{'Actual:'+RecursoIndividual.titulo}}</p>
                                 </div>
                                 <div class="mb-3">
                                   <label class="form-label"><b>Descripcion:</b></label>
-                                  <input type="text" class="form-control" [(ngModel)]="RecursoIndividualEdit.descripcion">
+                                  <input formControlName="descripcion" type="text" class="form-control" [(ngModel)]="RecursoIndividualEdit.descripcion" [ngClass]="{'is-invalid': submitted&&R.descripcion.invalid}">
                                   <p class="text-primary">{{'Actual:'+RecursoIndividual.descripcion}}</p>
                                 </div>
                                 <div class="mb-3">
                                   <label class="form-label"><b>Enlace:</b></label>
-                                  <input type="text" class="form-control" [(ngModel)]="RecursoIndividualEdit.enlace">
+                                  <input formControlName="enlace" type="text" class="form-control" [(ngModel)]="RecursoIndividualEdit.enlace" [ngClass]="{'is-invalid': submitted&&R.enlace.invalid}">
                                   <p class="text-primary">{{'Actual:'+RecursoIndividual.enlace}}</p>
                                 </div>
                               </div>
                               <div class="modal-footer">
                                 <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary"(click)="editarRecurso(RecursoIndividual.idtbRecursoVideo)">Editar Recurso</button>
+                                <button type="submit" class="btn btn-primary">Editar Recurso</button>
                               </div>
                            </div>
+                          </form>
                         </div>
                      </div>
                      <!--Modal Eliminar-->
@@ -554,12 +564,12 @@
                   <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar {{ActividadIndividualEdit.tipoActividad}}</h1>
                   <button type="button" class="btn-close" #editarActividadCerrar data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
+                <form [formGroup]="crearTareaForm" (ngSubmit)="editarActividad(ActividadIndividualEdit.idDetalleActividad)"  autocomplete="off"> <!--Aquí me quede 18/05/2023 22:40 horas-->
                 <div class="modal-body">
-                  <form ></form>
+
                   <div class="mb-3">
                     <label class="form-label"><b>Bimestre:</b></label>
-                    <select class="form-select" [(ngModel)]="ActividadIndividualEdit.idUnidad" aria-label="Default select example">
+                    <select formControlName="idUnidad" class="form-select" [(ngModel)]="ActividadIndividualEdit.idUnidad" aria-label="Default select example">
                       <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
                     </select>
                     <p class="text-primary">Actual: {{ActividadIndividual.unidad}}</p>
@@ -567,30 +577,30 @@
 
                   <div class="mb-3">
                     <label class="form-label"><b>Nombre {{ActividadIndividualEdit.tipoActividad}}:</b></label>
-                    <input type="text" class="form-control" [(ngModel)]="ActividadIndividualEdit.nombre_actividad">
+                    <input formControlName="nombre_actividad" type="text" class="form-control" [(ngModel)]="ActividadIndividualEdit.nombre_actividad" [ngClass]="{'is-invalid': submitted&&f.nombre_actividad.invalid}">
                     <p class="text-primary">Actual: {{ActividadIndividual.nombre_actividad}}</p>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label"><b>Fecha de Entrega:</b></label>
-                    <input type="date" class="form-control" [(ngModel)]="ActividadIndividual.fecha_entrega">
+                    <input formControlName="fecha_entrega" type="date" class="form-control" [(ngModel)]="ActividadIndividual.fecha_entrega" [ngClass]="{'is-invalid': submitted&&f.fecha_entrega.invalid}">
                     <p class="text-primary">Actual: {{ActividadIndividual.fecha_entrega | date:'dd/MM/yyyy'}}</p>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label"><b>Valor:</b></label>
-                    <input type="number" [(ngModel)]="ActividadIndividual.valor" class="form-control" min="0">
+                    <input formControlName="valor" type="number" [(ngModel)]="ActividadIndividual.valor" class="form-control" min="0" [ngClass]="{'is-invalid': submitted&&f.valor.invalid}">
                     <p class="text-primary">Actual: {{ActividadIndividual.valor+' pts'}}</p>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label"><b>Detalle:</b></label>
-                    <textarea [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7"></textarea>
+                    <textarea formControlName="detalle" [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7"></textarea>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label"><b>Cotejo:</b></label>
-                    <textarea class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7"></textarea>
+                    <textarea formControlName="cotejo" class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7"></textarea>
                   </div>
 
                   <!--<hr>
@@ -642,8 +652,9 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-primary" (click)="editarActividad(ActividadIndividual.idDetalleActividad)">Editar Actividad</button>
+                  <button type="submit" class="btn btn-primary">Editar Actividad</button>
                 </div>
+              </form>
               </div>
             </div>
           </div>

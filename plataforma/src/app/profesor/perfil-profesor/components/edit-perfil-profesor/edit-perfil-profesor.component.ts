@@ -71,7 +71,7 @@ export class EditPerfilProfesorComponent implements OnInit {
    insertProfesor(idAdmin:string){
     this.submitted=true;
     if (this.EditarProfesorForm.invalid) {
-      this.toastrService.error(`Falta información`,'Error')
+      this.toastrService.error(`Falta información`,'Error',{disableTimeOut:true})
       return;
     }
     this.EditarProfesorForm.value.permitir_ver_correo=this.permitirVer;

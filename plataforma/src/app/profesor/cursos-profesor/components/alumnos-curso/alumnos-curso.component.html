@@ -109,28 +109,37 @@
            <!--Modal Editar-->
            <div class="modal fade" id="EditarAnuncio" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
+              <form [formGroup]="crearAnuncioForm" (ngSubmit)="editarAnuncio(AnuncioIndividual.idAnuncio)" autocomplete="off">
                <div class="modal-content">
                   <div class="modal-header">
                      <h5 class="modal-title">Editar Anuncio</h5>
                      <button type="button" class="btn-close" #editarAnuncioCerrar data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
+                  </div >
                   <div class="modal-body">
                     <div class="mb-3">
+                      <label class="form-label">Bimestre:</label>
+                      <select formControlName="idUnidad" class="form-select" [ngClass]="{ 'is-invalid': submitted && A.idUnidad.errors}" aria-label="Default select example">
+                        <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+                      </select>
+                      <p class="text-primary">{{'Actual:'+AnuncioIndividual.unidad}}</p>
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label"><b>Nombre:</b></label>
-                      <input type="text" class="form-control" [(ngModel)]="AnuncioIndividualEdit.nombre_anuncio">
+                      <input formControlName="nombre_anuncio" type="text" class="form-control" [(ngModel)]="AnuncioIndividual.nombre_anuncio" [ngClass]="{ 'is-invalid': submitted && A.nombre_anuncio.invalid}">
                       <p class="text-primary">{{'Actual:'+AnuncioIndividual.nombre_anuncio}}</p>
                     </div>
                     <div class="mb-3">
                       <label class="form-label"><b>Anuncio:</b></label>
-                      <input type="text" class="form-control" [(ngModel)]="AnuncioIndividualEdit.Anuncio">
+                      <input formControlName="anuncio" type="text" class="form-control" [(ngModel)]="AnuncioIndividual.anuncio" [ngClass]="{ 'is-invalid': submitted && A.anuncio.invalid}">
                       <p class="text-primary">{{'Actual:'+AnuncioIndividual.anuncio}}</p>
                     </div>
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary"(click)="editarAnuncio(AnuncioIndividual.idAnuncio)">Editar Anuncio</button>
+                    <button type="submit" class="btn btn-primary">Editar Anuncio</button>
                   </div>
                </div>
+              </form>
             </div>
          </div>
          <!--Modal Eliminar-->

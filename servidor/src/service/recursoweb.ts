@@ -41,7 +41,7 @@ const insertRecursoWebService=async(data:Request)=>{
 
 const GetRecursoWebServiceGrado=async(id:string)=>{
 
-    const responseGet=await conexion.query('SELECT * FROM tbRecursoWeb WHERE idCurso=?',[id]);
+    const responseGet=await conexion.query('SELECT rw.idtbRecursoVideo,rw.idUnidad,rw.titulo,rw.enlace,rw.descripcion,rw.idCurso,u.unidad FROM tbRecursoWeb rw INNER JOIN tbUnidad u on rw.idUnidad=u.idUnidad WHERE rw.idCurso=?',[id]);
     return responseGet;
 
 }

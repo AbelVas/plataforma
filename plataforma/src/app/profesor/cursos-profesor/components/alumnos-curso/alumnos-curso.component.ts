@@ -61,7 +61,8 @@ export class AlumnosCursoComponent implements OnInit {
     fecha_anuncio:'',
     idCurso:'',
     idUnidad:'',
-    anuncio:''
+    anuncio:'',
+    unidad:''
   }
   AnuncioIndividualEdit:any={
     idAnuncio:'',
@@ -69,7 +70,8 @@ export class AlumnosCursoComponent implements OnInit {
     fecha_anuncio:'',
     idCurso:'',
     idUnidad:'',
-    anuncio:''
+    anuncio:'',
+    unidad:''
   }
   @ViewChild('eliminarAnuncioModalCerrar') modalCloseEliminar: any;
   @ViewChild('editarAnuncioCerrar') modalCloseEditar: any;
@@ -169,17 +171,16 @@ export class AlumnosCursoComponent implements OnInit {
       }
     )
   }
-
+  get A() { return this.crearAnuncioForm.controls; }
   editarAnuncio(idAnuncio:string){
     //eliminamos lo que no sirve del arreglo, dejamos solo los datos que necesita la tabla tbDetalleActividades
-    delete this.AnuncioIndividualEdit.idunidad
-    delete this.AnuncioIndividualEdit.idAnuncio
-    delete this.AnuncioIndividualEdit.fecha_anuncio
+    this.submitted=true;
+    if (this.crearAnuncioForm.invalid) {
+      this.toastrService.error(`Completar informacion restante`,'Error')
+      return;
+    }
 
-    //delete this.ActividadIndividualEdit.disponible
-    //delete this.ActividadIndividualEdit.entrega_fuera_fecha
-
-    this.actividadesOpcionesCursoService.updateAnuncio(idAnuncio,this.AnuncioIndividualEdit).subscribe(
+    this.actividadesOpcionesCursoService.updateAnuncio(idAnuncio,this.crearAnuncioForm.value).subscribe(
       res=>{
         this.modalCloseEditar.nativeElement.click();
         this.getAnunciosPorGrado()

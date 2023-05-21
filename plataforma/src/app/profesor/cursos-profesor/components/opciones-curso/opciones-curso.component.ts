@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { event } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/actividades-opciones-curso.service';
 
@@ -11,6 +12,8 @@ import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/activ
 })
 export class OpcionesCursoComponent implements OnInit {
 
+
+
   listaRecursoCurso:any=[]
 
   RecursoIndividual:any={
@@ -20,7 +23,8 @@ export class OpcionesCursoComponent implements OnInit {
     fecha_creacion:'',
     idCurso:'',
     idUnidad:'',
-    enlace:''
+    enlace:'',
+    unidad:''
   }
   RecursoIndividualEdit:any={
     idtbRecursoVideo:'',
@@ -29,7 +33,8 @@ export class OpcionesCursoComponent implements OnInit {
     fecha_creacion:'',
     idCurso:'',
     idUnidad:'',
-    enlace:''
+    enlace:'',
+    unidad:''
   }
 
 
@@ -116,6 +121,9 @@ export class OpcionesCursoComponent implements OnInit {
     valor:new FormControl('',[Validators.required]),
     detalle:new FormControl(''),
     cotejo:new FormControl(''),
+    ultima_modificacion:new FormControl(''),
+    entrega_fuera_fecha: new FormControl(''),
+    disponible: new FormControl('')
   })
   //Formulario recurosweb
   crearRecursoForm=this.formBuilder.group({
@@ -148,6 +156,7 @@ export class OpcionesCursoComponent implements OnInit {
     this.getCursosDocente()
     this.getAlumnos();
     this.getRecursosPorGrado()
+    console.log(this.listaRecursoCurso)
   }
 
   validarCalificacionRefresh(idActividad:string,idUnidad:string){
@@ -238,7 +247,6 @@ export class OpcionesCursoComponent implements OnInit {
       res=>{
         this.sppinerOn=false;
         this.listaActividades=res
-        console.log(this.idCurso)
       },
       err=>{
         console.log(err)
@@ -251,20 +259,18 @@ export class OpcionesCursoComponent implements OnInit {
     this.ActividadIndividualEdit=this.listaActividades.find((x:any)=>x.idDetalleActividad===idActividad)
   }
 
+  get f() { return this.crearTareaForm.controls; }
+
   editarActividad(idActividad:string){
-    //eliminamos lo que no sirve del arreglo, dejamos solo los datos que necesita la tabla tbDetalleActividades
-    delete this.ActividadIndividualEdit.unidad
-    delete this.ActividadIndividualEdit.idDetalleActividad
-    delete this.ActividadIndividualEdit.tipoActividad
-    delete this.ActividadIndividualEdit.creada
-    delete this.ActividadIndividualEdit.color_curso
-    this.ActividadIndividualEdit.ultima_modificacion=this.fecha
-
-    //delete this.ActividadIndividualEdit.disponible
-    //delete this.ActividadIndividualEdit.entrega_fuera_fecha
-    console.log(this.ActividadIndividualEdit);
-
-    this.actividadesOpcionesCursoService.updateActividad(idActividad,this.ActividadIndividualEdit).subscribe(
+    this.submitted=true;
+    if (this.crearTareaForm.invalid) {
+      this.toastrService.error(`Completar información restante`,'Error')
+      return;
+    }
+    this.crearTareaForm.value.disponible= this.propiedadActividad.disponible;
+    this.crearTareaForm.value.entrega_fuera_fecha= this.propiedadActividad.entrega_fuera_fecha;
+    this.crearTareaForm.value.ultima_modificacion=this.fecha;
+    this.actividadesOpcionesCursoService.updateActividad(idActividad,this.crearTareaForm.value).subscribe(
       res=>{
         this.modalCloseEditar.nativeElement.click();
         this.getTareas()
@@ -406,41 +412,40 @@ export class OpcionesCursoComponent implements OnInit {
   //logica Check para editar
   selectedCheckDisponibleEditar(e:any){
     if(e.target.checked){
-      return this.ActividadIndividualEdit.disponible='1';
+      return this.propiedadActividad.disponible='1';
     }else{
-      return this.ActividadIndividualEdit.disponible='0';
+      return this.propiedadActividad.disponible='0';
     }
   }
   noselectedCheckDisponibleEditar(e:any){
     if(e.target.checked==false){
-      return this.ActividadIndividualEdit.disponible='0';
+      return this.propiedadActividad.disponible='0';
     }else{
-      return this.ActividadIndividualEdit.disponible='1';
+      return this.propiedadActividad.disponible='1';
     }
   }
   selectedCheckFueraFechaEditar(e:any){
     if(e.target.checked){
-      return this.ActividadIndividualEdit.entrega_fuera_fecha='1';
+      return this.propiedadActividad.entrega_fuera_fecha='1';
     }else{
-      return this.ActividadIndividualEdit.entrega_fuera_fecha='0';
+      return this.propiedadActividad.entrega_fuera_fecha='0';
     }
   }
   noselectedCheckFueraFechaEditar(e:any){
     if(e.target.checked==false){
-      return this.ActividadIndividualEdit.entrega_fuera_fecha='0';
+      return this.propiedadActividad.entrega_fuera_fecha='0';
     }else{
-      return this.ActividadIndividualEdit.entrega_fuera_fecha='1';
+      return this.propiedadActividad.entrega_fuera_fecha='1';
     }
   }
   //para los forms siempre debemos traer los validadores
-  get f() { return this.crearTareaForm.controls; }
+  get R() { return this.crearRecursoForm.controls; }
 
 //Aquí empieza lo de los recursos web
   getRecursosPorGrado(){
     this.actividadesOpcionesCursoService.getRecursosCurso(this.idCurso).subscribe(
       res=>{
         this.listaRecursoCurso=res;
-        console.log(this.listaRecursoCurso)
       },
       err=>{
         console.log(err)
@@ -471,15 +476,12 @@ export class OpcionesCursoComponent implements OnInit {
   }
 
   editarRecurso(idtbRecursoVideo:string){
-    //eliminamos lo que no sirve del arreglo, dejamos solo los datos que necesita la tabla tbDetalleActividades
-    delete this.RecursoIndividualEdit.idunidad
-    delete this.RecursoIndividualEdit.idtbRecursoVideo
-    delete this.RecursoIndividualEdit.fecha_creacion
-
-    //delete this.ActividadIndividualEdit.disponible
-    //delete this.ActividadIndividualEdit.entrega_fuera_fecha
-
-    this.actividadesOpcionesCursoService.updateRecurso(idtbRecursoVideo,this.RecursoIndividualEdit).subscribe(
+    this.submitted=true;
+    if (this.crearRecursoForm.invalid) {
+      this.toastrService.error(`Completar informacion restante`,'Error')
+      return;
+    }
+    this.actividadesOpcionesCursoService.updateRecurso(idtbRecursoVideo,this.crearRecursoForm.value).subscribe(
       res=>{
         this.modalRecursoCloseEditar.nativeElement.click();
         this.getRecursosPorGrado()
