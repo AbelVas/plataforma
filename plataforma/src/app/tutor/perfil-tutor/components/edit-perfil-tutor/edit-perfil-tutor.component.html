@@ -1,4 +1,4 @@
-<form autocomplete="off">
+<form [formGroup]="EditarTutorForm" (ngSubmit)="insertTutor(tutorIndividual[0].idTutor)" autocomplete="off">
     <div class="row mb-3">
        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
        <div class="col-md-8 col-lg-9">
@@ -8,11 +8,13 @@
     </div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Nombre</label>
-       <div class="col-md-8 col-lg-9"> <input name="nombre_tutor" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].nombre_tutor"></div>
+       <div class="col-md-8 col-lg-9">
+        <input formControlName="nombre_tutor" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].nombre_tutor" [ngClass]="{'is-invalid': submitted&&f.nombre_tutor.invalid}"></div>
     </div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Apellidos</label>
-       <div class="col-md-8 col-lg-9"> <input name="apellido_tutor" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].apellido_tutor"></div>
+       <div class="col-md-8 col-lg-9">
+        <input formControlName="apellido_tutor" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].apellido_tutor" [ngClass]="{'is-invalid': submitted&&f.apellido_tutor.invalid}"></div>
     </div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Rol</label>
@@ -20,41 +22,49 @@
     </div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Teléfono 1</label>
-       <div class="col-md-8 col-lg-9"> <input name="telefono_1" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono1"></div>
+       <div class="col-md-8 col-lg-9">
+        <input formControlName="telefono1" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono1" [ngClass]="{'is-invalid': submitted&&f.telefono1.invalid}"></div>
     </div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Teléfono 2</label>
-       <div class="col-md-8 col-lg-9"> <input name="telefono_2" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono2"></div>
+       <div class="col-md-8 col-lg-9">
+        <input formControlName="telefono2" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono2" [ngClass]="{'is-invalid': submitted&&f.telefono2.invalid}"></div>
     </div>
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Teléfono de Casa</label>
-      <div class="col-md-8 col-lg-9"> <input name="telefono_casa" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono_casa"></div>
+      <div class="col-md-8 col-lg-9">
+        <input formControlName="telefono_casa" type="text" class="form-control" [(ngModel)]="tutorIndividual[0].telefono_casa" [ngClass]="{'is-invalid': submitted&&f.telefono_casa.invalid}"></div>
    </div>
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Dirección</label>
-      <div class="col-md-8 col-lg-9"> <input name="direccion" type="text" class="form-control" id="Country" [(ngModel)]="tutorIndividual[0].direccion"></div>
+      <div class="col-md-8 col-lg-9">
+        <input formControlName="direccion" type="text" class="form-control" id="Country" [(ngModel)]="tutorIndividual[0].direccion" [ngClass]="{'is-invalid': submitted&&f.direccion.invalid}"></div>
    </div>
    <div class="row mb-3">
     <label class="col-md-4 col-lg-3 col-form-label">Correo 1</label>
-    <div class="col-md-8 col-lg-9"> <input name="correo_1" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].correo1"></div>
+    <div class="col-md-8 col-lg-9">
+      <input formControlName="correo1" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].correo1" [ngClass]="{'is-invalid': submitted&&f.correo1.invalid}"></div>
  </div>
  <div class="row mb-3">
   <label class="col-md-4 col-lg-3 col-form-label">Correo 2</label>
-  <div class="col-md-8 col-lg-9"> <input name="correo_2" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].correo2"></div>
+  <div class="col-md-8 col-lg-9">
+    <input formControlName="correo2" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].correo2" [ngClass]="{'is-invalid': submitted&&f.correo2.invalid}"></div>
 </div>
     <div class="row mb-3">
        <label class="col-md-4 col-lg-3 col-form-label">Fecha de Nacimiento</label>
-       <div class="col-md-8 col-lg-9"> <input name="fecha_nacimiento" type="date" class="form-control" [(ngModel)]="tutorIndividual[0].fecha_nacimiento"></div>
+       <div class="col-md-8 col-lg-9">
+        <input formControlName="fecha_nacimiento" type="date" class="form-control" [(ngModel)]="tutorIndividual[0].fecha_nacimiento" [ngClass]="{'is-invalid': submitted&&f.fecha_nacimiento.invalid}"></div>
     </div>
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
-      <div class="col-md-8 col-lg-9"> <input name="usuario" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].usuario"></div>
+      <div class="col-md-8 col-lg-9">
+        <input formControlName="usuario" type="email" class="form-control" [(ngModel)]="tutorIndividual[0].usuario" [ngClass]="{'is-invalid': submitted&&f.usuario.invalid}"></div>
    </div>
     <div class="row mb-3">
       <label class="col-md-4 col-lg-3 col-form-label">Estado</label>
       <div class="col-md-8 col-lg-9"><span [class]="classBadgeActive">{{estado}}</span></div>
     </div>
     <hr>
-    <div class="text-center"> <button type="submit" class="btn btn-primary" (click)="insertTutor(tutorIndividual[0].idTutor)">Actualizar Datos</button></div>
+    <div class="text-center"> <button type="submit" class="btn btn-primary">Actualizar Datos</button></div>
   </form>
 
