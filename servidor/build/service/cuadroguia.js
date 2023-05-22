@@ -378,7 +378,6 @@ const notasalumnosCursoFinalService = (idGrado, idUnidad) => __awaiter(void 0, v
     for (let h = 0; h < dataAlumnos.length; h++) {
         idAlumnos[h] = alumnosArray[h].idAlumno;
     }
-    console.log(idCursos.length);
     switch (idCursos.length) {
         case 1:
             for (let i = 0; i < idAlumnos.length; i++) {

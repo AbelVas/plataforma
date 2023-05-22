@@ -68,7 +68,6 @@ const duplicarActividades = (data, idActividad) => __awaiter(void 0, void 0, voi
     DatosObject[0].idCurso;
     var contador = 0;
     for (let i = 0; i < data.length; i++) {
-        //console.log(data[i].idCurso)
         var Aux = 0;
         DatosObject[0].idCurso = data[i].idCurso;
         const insertarCopias = yield database_1.default.query('INSERT INTO tbDetalleActividad SET ?', [DatosObject[0]]);
@@ -106,8 +105,6 @@ const duplicarActividades = (data, idActividad) => __awaiter(void 0, void 0, voi
             }
         }
     }
-    //console.log(Aux)
-    //console.log(data.length)
     return true;
 });
 exports.duplicarActividades = duplicarActividades;

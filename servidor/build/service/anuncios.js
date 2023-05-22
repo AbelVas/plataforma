@@ -40,7 +40,7 @@ const insertAnuncioService = (data) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.insertAnuncioService = insertAnuncioService;
 const GetAnuncioServiceGrado = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT * FROM tbAnuncio WHERE idCurso=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT a.idAnuncio,a.idCurso,a.nombre_anuncio,a.anuncio,u.unidad FROM tbAnuncio a INNER JOIN tbUnidad u on a.idUnidad=u.idUnidad WHERE a.idCurso=?', [id]);
     return responseGet;
 });
 exports.GetAnuncioServiceGrado = GetAnuncioServiceGrado;
