@@ -5,7 +5,7 @@ import { checkJwt } from "../middleware/session";
 //Cambio sin nada
 
 const router = Router();
-router.post("/:id",checkJwt,uploadMiddleware.single("myfile"), (req, res) => {
+router.post("/upload/:id",checkJwt,uploadMiddleware.single("myfile"), (req, res) => {
     res.json("Se subió el archivo");
 });
 

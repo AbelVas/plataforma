@@ -7,6 +7,6 @@ const session_1 = require("../middleware/session");
 //Cambio sin nada
 const router = (0, express_1.Router)();
 exports.router = router;
-router.post("/:id", session_1.checkJwt, handleStorage_1.uploadMiddleware.single("myfile"), (req, res) => {
+router.post("/upload/:id", session_1.checkJwt, handleStorage_1.uploadMiddleware.single("myfile"), (req, res) => {
     res.json("Se subió el archivo");
 });
