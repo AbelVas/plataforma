@@ -185,6 +185,7 @@
 <div class="modal fade" id="EditarTarea" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+      <form [formGroup]="crearTareaForm" (ngSubmit)="editarActividad(ActividadIndividualEdit.idDetalleActividad)" autocomplete="off">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar {{ActividadIndividualEdit.tipoActividad}}</h1>
         <button type="button" class="btn-close" #editarActividadCerrar data-bs-dismiss="modal" aria-label="Close"></button>
@@ -193,7 +194,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Bimestre:</label>
-            <select class="form-select" [(ngModel)]="ActividadIndividualEdit.idUnidad" aria-label="Default select example">
+            <select formControlName="idUnidad" class="form-select" [(ngModel)]="ActividadIndividualEdit.idUnidad" aria-label="Default select example" [ngClass]="{ 'is-invalid': submitted && f.idUnidad.errors}">
               <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
             </select>
             <span class="text">Actual:<b> {{ActividadIndividual.unidad}}</b></span>
@@ -201,30 +202,30 @@
 
           <div class="mb-3">
             <label class="form-label">Nombre {{ActividadIndividualEdit.tipoActividad}}:</label>
-            <input type="text" class="form-control" [(ngModel)]="ActividadIndividualEdit.nombre_actividad">
+            <input formControlName="nombre_actividad" type="text" class="form-control" [(ngModel)]="ActividadIndividualEdit.nombre_actividad" [ngClass]="{'is-invalid': submitted&&f.nombre_actividad.invalid}">
             <span class="text">Actual:<b> {{ActividadIndividual.nombre_actividad}}</b></span>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Fecha de Entrega:</label>
-            <input type="date" class="form-control" [(ngModel)]="ActividadIndividual.fecha_entrega">
+            <input formControlName="fecha_entrega" type="date" class="form-control" [(ngModel)]="ActividadIndividual.fecha_entrega" [ngClass]="{'is-invalid': submitted&&f.fecha_entrega.invalid}">
             <span class="text">Actual:<b> {{ActividadIndividual.fecha_entrega | date:'dd/MM/yyyy'}}</b></span>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Valor:</label>
-            <input type="number" [(ngModel)]="ActividadIndividual.valor" class="form-control" min="0">
+            <input formControlName="valor" type="number" [(ngModel)]="ActividadIndividual.valor" class="form-control" min="0" [ngClass]="{'is-invalid': submitted&&f.valor.invalid}">
             <span class="text">Actual:<b> {{ActividadIndividual.valor+' pts'}}</b></span>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Detalle:</label>
-            <textarea [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7"></textarea>
+            <textarea formControlName="detalle" [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7" [ngClass]="{'is-invalid': submitted&&f.detalle.invalid}"></textarea>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Cotejo:</label>
-            <textarea class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7"></textarea>
+            <textarea formControlName="cotejo" class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7" [ngClass]="{'is-invalid': submitted&&f.cotejo.invalid}"></textarea>
           </div>
 
           <hr>
@@ -277,8 +278,9 @@
         </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary" (click)="editarActividad(ActividadIndividual.idDetalleActividad)">Editar Actividad</button>
+        <button type="submit" class="btn btn-primary">Editar Actividad</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

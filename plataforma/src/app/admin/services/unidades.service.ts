@@ -42,14 +42,9 @@ export class UnidadesService {
     );
   }
 
-  deshabilitarVerNotas(estado:any){
-    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/usuarios/ver_notas/0`,httpOptions).pipe(
-      catchError(this.handleError));
-  }
   habilitarVerNotas(estado:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.post(`${this.URL}/usuarios/ver_notas/1`,httpOptions).pipe(
+    return this.http.post(`${this.URL}/usuarios/ver_notas/${estado}`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -59,6 +54,47 @@ export class UnidadesService {
       catchError(this.handleError)
     );
   }
+
+  getEstadoAlumno(){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/EstadoAlumno/1`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getEstadoProfesor(){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/EstadoProfesor/1`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getEstadoTutor(){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/EstadoTutor/1`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateEstadoAlumno(data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/usuarios/EstadoAlumnoUpdate/${data}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateEstadoProfesor(data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/usuarios/EstadoProfesorUpdate/${data}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updateEstadoTutor(data:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/usuarios/EstadoTutorUpdate/${data}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
   private handleError(error:HttpErrorResponse){
 

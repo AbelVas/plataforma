@@ -106,6 +106,9 @@ export class ListaActividadesComponent implements OnInit {
     valor:new FormControl('',[Validators.required]),
     detalle:new FormControl(''),
     cotejo:new FormControl(''),
+    ultima_modificacion: new FormControl(''),
+    entrega_fuera_fecha: new FormControl(''),
+    disponible: new FormControl(''),
   })
 
     //Formulario recurosweb
@@ -239,18 +242,20 @@ export class ListaActividadesComponent implements OnInit {
     this.ActividadIndividualEdit=this.listaActividades.find((x:any)=>x.idDetalleActividad===idActividad)
   }
   editarActividad(idActividad:string){
-    //eliminamos lo que no sirve del arreglo, dejamos solo los datos que necesita la tabla tbDetalleActividades
-    delete this.ActividadIndividualEdit.unidad
-    delete this.ActividadIndividualEdit.idDetalleActividad
-    delete this.ActividadIndividualEdit.tipoActividad
-    delete this.ActividadIndividualEdit.creada
-    delete this.ActividadIndividual.color_curso
-    this.ActividadIndividualEdit.ultima_modificacion=this.fecha
-    this.actividadService.updateActividad(idActividad,this.ActividadIndividualEdit).subscribe(
+    this.submitted=true;
+    if (this.crearTareaForm.invalid) {
+      this.toastrService.error(`Completar información restante`,'Error')
+      return;
+    }
+    this.crearTareaForm.value.disponible = this.ActividadIndividualEdit.disponible
+    this.crearTareaForm.value.entrega_fuera_fecha = this.ActividadIndividualEdit.entrega_fuera_fecha
+    this.crearTareaForm.value.ultima_modificacion=this.fecha
+    this.actividadService.updateActividad(idActividad,this.crearTareaForm.value).subscribe(
       res=>{
         this.modalCloseEditar.nativeElement.click();
         this.getTareas()
         this.toastrService.success(`Actividad Editada`,'Realizado')
+        console.log(this.crearTareaForm.value)
       },
       err=>{
         this.modalCloseEditar.nativeElement.click();

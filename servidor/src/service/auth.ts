@@ -5,11 +5,11 @@ import { generateToken } from "../utils/jwt.generador";
 
 const loginUser=async(email:string,password:string)=>{
     var data:any
-    const checkIs=await conexion.query("SELECT p.idProfesor,p.idRol,p.pass,p.nombre_profesor,p.apellido_profesor,p.usuario,r.rol,p.imagen FROM tbProfesor p INNER JOIN tbRol r ON r.idRol=p.idRol WHERE p.usuario=? GROUP BY p.idProfesor",[email]);
+    const checkIs=await conexion.query("SELECT p.idProfesor,p.idRol,p.pass,p.nombre_profesor,p.apellido_profesor,p.usuario,r.rol,p.imagen FROM tbProfesor p INNER JOIN tbRol r ON r.idRol=p.idRol WHERE p.usuario=? and p.estatus='1' GROUP BY p.idProfesor",[email]);
     if(checkIs==''){
-        const checkIs=await conexion.query("SELECT t.idTutor,t.idRol,t.pass,t.nombre_tutor,t.apellido_tutor,t.usuario,r.rol FROM tbTutor t INNER JOIN tbRol r ON r.idRol=t.idRol WHERE t.usuario=? GROUP BY t.idTutor",[email]);
+        const checkIs=await conexion.query("SELECT t.idTutor,t.idRol,t.pass,t.nombre_tutor,t.apellido_tutor,t.usuario,r.rol FROM tbTutor t INNER JOIN tbRol r ON r.idRol=t.idRol WHERE t.usuario=? and t.estado='1' GROUP BY t.idTutor",[email]);
         if(checkIs==''){
-            const checkIs=await conexion.query("SELECT a.idAlumno,a.idRol,a.pass,a.nombres_alumno,a.apellidos_alumno,a.usuario,r.rol,a.imagen FROM tbAlumno a INNER JOIN tbRol r ON r.idRol=a.idRol WHERE a.usuario=? GROUP BY a.idAlumno",[email]);
+            const checkIs=await conexion.query("SELECT a.idAlumno,a.idRol,a.pass,a.nombres_alumno,a.apellidos_alumno,a.usuario,r.rol,a.imagen FROM tbAlumno a INNER JOIN tbRol r ON r.idRol=a.idRol WHERE a.usuario=? and a.activo='1' GROUP BY a.idAlumno",[email]);
             if(checkIs==''){
                 return "Usuario o Contraseña Incorrecta"
             }else{

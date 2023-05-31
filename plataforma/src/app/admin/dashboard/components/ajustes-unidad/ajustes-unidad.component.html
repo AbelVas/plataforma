@@ -38,12 +38,86 @@
     </div>
 
     <div class="card">
+      <div class="card-body">
+          <h5 class="card-title">Ingresos <span>|  Usuarios</span></h5>
+          <div class="activity">
+            <!--Aqui debo meter el for-->
+            <div *ngIf="sppinerOn==true;else Mostrar3">
+              <app-loaderpeque></app-loaderpeque>
+            </div>
+            <!--Dentro del loader-->
+            <ng-template #Mostrar3>
+          <div>
+            <div class="row">
+              <div class="activity-item d-flex col-md-6">
+                <div class="activite-label">
+                  <div class="form-check form-switch">
+                    <div *ngIf="estadoFinalAlumno=='1'; else switchOffAlumno" >
+                      <input class="form-check-input" type="checkbox" (change)="selectedCheckAlumno($event)" role="switch" value="{{estadoFinalAlumno}}" checked>
+                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{"Ingresos Alumnos"}}</b></label>
+                    </div>
+                    <ng-template #switchOffAlumno>
+                     <div>
+                      <input class="form-check-input" type="checkbox"(change)="noselectedCheckAlumno($event)" role="switch" value="{{estadoFinalAlumno}}">
+                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{"Ingresos Alumnos"}}</b></label></div>
+                    </ng-template>
+                  </div>
+                  <div class="form-check form-switch">
+                    <div *ngIf="estadoFinalProfesor=='1'; else switchOffProfesor" >
+                      <input class="form-check-input" type="checkbox" (change)="selectedCheckProfesor($event)" role="switch" value="{{estadoFinalProfesor}}" checked>
+                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{"Ingresos Profesor"}}</b></label>
+                    </div>
+                    <ng-template #switchOffProfesor>
+                     <div>
+                      <input class="form-check-input" type="checkbox"(change)="noselectedCheckProfesor($event)" role="switch" value="{{estadoFinalProfesor}}">
+                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{"Ingresos Profesor"}}</b></label></div>
+                    </ng-template>
+                  </div>
+                  <div class="form-check form-switch">
+                  <div *ngIf="estadoFinalTutor=='1'; else switchOffTutor" >
+                    <input class="form-check-input" type="checkbox" (change)="selectedCheckTutor($event)" role="switch" value="{{estadoFinalTutor}}" checked>
+                    <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{"Ingresos Tutor"}}</b></label>
+                  </div>
+                  <ng-template #switchOffTutor>
+                   <div>
+                    <input class="form-check-input" type="checkbox"(change)="noselectedCheckTutor($event)" role="switch" value="{{estadoFinalTutor}}">
+                    <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{"Ingresos Tutor"}}</b></label></div>
+                  </ng-template>
+                </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!--aqui finaliza el for-->
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="card-body pb-0">
         <h5 class="card-title">Visualización  <span>| de Notas</span></h5>
         <div class="text-center">
-          <button class="btn bnt-primary btn-success" (click)="habilitarVerNotas()"><i class="fa-solid fa-eye"></i> Habilitar</button>
-          <button class="btn bnt-primary btn-danger" (click)="deshabilitarVerNotas()"><i class="fa-solid fa-eye-slash"></i> Deshabilitar</button>
-          <br>
+          <div>
+            <div class="row">
+              <div class="activity-item d-flex col-md-6">
+                <div class="activite-label">
+                  <div class="form-check form-switch aling-center">
+                    <div *ngIf="estadoFinalNotas=='1'; else switchOffNotas" >
+                      <input class="form-check-input" type="checkbox" (change)="selectedCheckNotas($event)" role="switch" value="{{estadoFinalNotas}}" checked>
+                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{'Estado Notas'}}</b></label>
+                    </div>
+                    <ng-template #switchOffNotas>
+                     <div>
+                      <input class="form-check-input" type="checkbox"(change)="noselectedCheckNotas($event)" role="switch" value="{{estadoFinalNotas}}">
+                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{'Estado Notas'}}</b></label></div>
+                    </ng-template>
+                  </div>
+                </div>
+            </div>
+            </div>
+            <!--aqui finaliza el for-->
+          </div>
           <div class="row">
             <div class="col-md-6">Habilitados: {{estado.ver}}</div>
             <div class="col-md-6">Deshabilitados: {{estado.noVer}}</div>
