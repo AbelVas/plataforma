@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { event } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/actividades-opciones-curso.service';
 

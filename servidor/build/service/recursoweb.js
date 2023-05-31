@@ -42,7 +42,7 @@ const insertRecursoWebService = (data) => __awaiter(void 0, void 0, void 0, func
 });
 exports.insertRecursoWebService = insertRecursoWebService;
 const GetRecursoWebServiceGrado = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT * FROM tbRecursoWeb WHERE idCurso=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT rw.idtbRecursoVideo,rw.idUnidad,rw.titulo,rw.enlace,rw.descripcion,rw.idCurso,u.unidad FROM tbRecursoWeb rw INNER JOIN tbUnidad u on rw.idUnidad=u.idUnidad WHERE rw.idCurso=?', [id]);
     return responseGet;
 });
 exports.GetRecursoWebServiceGrado = GetRecursoWebServiceGrado;
