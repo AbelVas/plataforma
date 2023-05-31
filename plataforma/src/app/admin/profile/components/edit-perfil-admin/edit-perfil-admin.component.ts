@@ -155,7 +155,7 @@ export class EditPerfilAdminComponent implements OnInit {
   actualizarImgImport(idProfesor:string){
     const imageBlob = this.subirImagen.nativeElement.files[0];
     const data = new FormData ();
-    data.set('myfile',imageBlob)
+    data.set('myFile',imageBlob)
     console.log(data)
     console.log(imageBlob)
       this.imagenPerfilService.subirDocImagenPerfil(idProfesor,data).subscribe(
@@ -175,7 +175,7 @@ export class EditPerfilAdminComponent implements OnInit {
      if(event.target.files.length > 0){
       const file = event.target.files[0];
       const formData = new FormData()
-      formData.append('myfile',file);
+      formData.append('myFile',file);
       const Doc = formData
       const {idUsuario}:any=decode(this.token);
       console.log('id profesor = '+idUsuario)
