@@ -18,6 +18,9 @@ export class AjustesUnidadComponent implements OnInit {
   estadoUnidad:any={
     estado:''
   }
+  EstadoProfesor:any={}
+  EstadoAlumno:any={}
+  EstadoTutor:any={}
   estado:any={}
   totalNinos:any=''
   totalNinas:any=''
@@ -25,6 +28,11 @@ export class AjustesUnidadComponent implements OnInit {
   codigoInactivo:any=''
   passDocenteCambiada:any=''
   passDocenteNoCambiada:any=''
+
+  estadoFinalAlumno=''
+  estadoFinalProfesor=''
+  estadoFinalTutor=''
+  estadoFinalNotas=''
 
   constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService, private elementRef: ElementRef,private unidadesService:UnidadesService) { }
 
@@ -34,40 +42,78 @@ export class AjustesUnidadComponent implements OnInit {
     this.getCodigoActivoInactivo();
     this.getPassChangeDocentes();
     this.getEstadoVerNotas();
+    this.GetEstadoAlumnos();
+    this.GetEstadoProfesor();
+    this.GetEstadoTutor();
   }
 
   getEstadoVerNotas(){
     this.unidadesService.getNotasVer().subscribe(
       res=>{
         this.estado=res
+        if(this.estado.noVer<this.estado.ver){
+          this.estadoFinalNotas = '1';
+        }else{
+          this.estadoFinalNotas = '0';
+        }
       },
       err=>{
         console.log(err)
       }
     )
   }
-  habilitarVerNotas(){
-    var estado=1;
-    this.unidadesService.habilitarVerNotas(estado).subscribe(
-      res=>{
-        this.getEstadoVerNotas()
-      },
-      err=>{
-        console.log(err)
-      }
-    )
+  //Check Ver notas
+
+  selectedCheckNotas(e:any) { // here e is a native event
+    if(e.target.checked){
+      this.estadoFinalNotas='1';
+      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
+        response=>{
+          this.getEstadoVerNotas()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalNotas='0';
+      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
+        response=>{
+          this.getEstadoVerNotas()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
   }
-  deshabilitarVerNotas(){
-    var estado=0;
-    this.unidadesService.deshabilitarVerNotas(estado).subscribe(
-      res=>{
-        this.getEstadoVerNotas()
-      },
-      err=>{
-        console.log(err)
-      }
-    )
+  noselectedCheckNotas(e:any){
+    if(!e.target.checked){
+      this.estadoFinalNotas='0';
+      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
+        response=>{
+          this.getEstadoVerNotas()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalNotas='1';
+      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
+        response=>{
+          this.getEstadoVerNotas()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
   }
+
+
+
+  //Gets
   getNinosNinas(){
     this.estadisticaService.getTotalAlumnosHombres().subscribe(
       res=>{
@@ -187,6 +233,196 @@ export class AjustesUnidadComponent implements OnInit {
       this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
         response=>{
           this.getUnidades()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
+  }
+
+  //Estados Usuarios
+  GetEstadoAlumnos(){
+    this.unidadesService.getEstadoAlumno().subscribe(
+      res=>{
+        this.EstadoAlumno=res
+        if(this.EstadoAlumno.noActivo<this.EstadoAlumno.siActivo){
+          this.estadoFinalAlumno = '1';
+        }else{
+          this.estadoFinalAlumno = '0';
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  GetEstadoProfesor(){
+    this.unidadesService.getEstadoProfesor().subscribe(
+      res=>{
+        this.EstadoProfesor=res
+        if(this.EstadoProfesor.noActivo<this.EstadoProfesor.siActivo){
+          this.estadoFinalProfesor = '1';
+        }else{
+          this.estadoFinalProfesor = '0';
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  GetEstadoTutor(){
+    this.unidadesService.getEstadoTutor().subscribe(
+      res=>{
+        this.EstadoTutor=res
+        if(this.EstadoTutor.noActivo<this.EstadoTutor.siActivo){
+          this.estadoFinalTutor = '1';
+        }else{
+          this.estadoFinalTutor = '0';
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+//Checks de alumno
+  selectedCheckAlumno(e:any) { // here e is a native event
+    if(e.target.checked){
+      this.estadoFinalAlumno='1';
+      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
+        response=>{
+          this.GetEstadoAlumnos()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalAlumno='0';
+      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
+        response=>{
+          this.GetEstadoAlumnos()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
+  }
+  noselectedCheckAlumno(e:any){
+    if(!e.target.checked){
+      this.estadoFinalAlumno='0';
+      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
+        response=>{
+          this.GetEstadoAlumnos()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalAlumno='1';
+      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
+        response=>{
+          this.GetEstadoAlumnos()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
+  }
+
+  //Checks Profesor
+  selectedCheckProfesor(e:any) { // here e is a native event
+    if(e.target.checked){
+      this.estadoFinalProfesor='1';
+      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
+        response=>{
+          this.GetEstadoProfesor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalProfesor='0';
+      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
+        response=>{
+          this.GetEstadoProfesor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
+  }
+  noselectedCheckProfesor(e:any){
+    if(!e.target.checked){
+      this.estadoFinalProfesor='0';
+      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
+        response=>{
+          this.GetEstadoProfesor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalProfesor='1';
+      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
+        response=>{
+          this.GetEstadoProfesor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
+  }
+
+  //Checks Tutor
+  selectedCheckTutor(e:any) { // here e is a native event
+    if(e.target.checked){
+      this.estadoFinalTutor='1';
+      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
+        response=>{
+          this.GetEstadoTutor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalTutor='0';
+      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
+        response=>{
+          this.GetEstadoTutor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }
+  }
+  noselectedCheckTutor(e:any){
+    if(!e.target.checked){
+      this.estadoFinalTutor='0';
+      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
+        response=>{
+          this.GetEstadoTutor()
+        },
+        error=>{
+          this.errorServicio=error
+        }
+      )
+    }else{
+      this.estadoFinalTutor='1';
+      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
+        response=>{
+          this.GetEstadoTutor()
         },
         error=>{
           this.errorServicio=error

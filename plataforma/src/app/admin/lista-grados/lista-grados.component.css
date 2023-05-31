@@ -20,7 +20,7 @@ NO BORRAR, ESTO PUEDE SERVIR LUEGO
 */
 
 
-@media print{
+@media print and (orientation: landscape){
   #main,#gradoEdit,#EliminarGradoModal,#AgregarGradoModal{
       display: none;
   }

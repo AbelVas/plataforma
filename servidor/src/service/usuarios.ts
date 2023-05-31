@@ -67,4 +67,61 @@ const getNotasVerService=async()=>{
     return objtVer
 }
 
-export{getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword}
+const getEstadoAlumno=async()=>{
+    const ActivoEstudiante=await conexion.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE activo=1')
+    const NoActivoEstudiante=await conexion.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE activo=0')
+    const Activo:any=Object.values(ActivoEstudiante[0]);
+    const Inactivo:any=Object.values(NoActivoEstudiante[0]);
+    var objtEstudiantesActivo={
+        noActivo:Inactivo[0],
+        siActivo:Activo[0]
+    }
+    return objtEstudiantesActivo
+}
+
+const getEstadoProfesor=async()=>{
+    const ActivoProfesor=await conexion.query('SELECT count(idProfesor) FROM `tbProfesor` WHERE estatus=1')
+    const NoActivoProfesor=await conexion.query('SELECT count(idProfesor) FROM `tbProfesor` WHERE estatus=0')
+    const Activo:any=Object.values(ActivoProfesor[0]);
+    const Inactivo:any=Object.values(NoActivoProfesor[0]);
+    var objtProfesorActivo={
+        noActivo:Inactivo[0],
+        siActivo:Activo[0]
+    }
+    return objtProfesorActivo
+}
+
+const getEstadoTutor=async()=>{
+    const ActivoTutor=await conexion.query('SELECT count(idTutor) FROM `tbTutor` WHERE estado=1')
+    const NoActivoTutor=await conexion.query('SELECT count(idTutor) FROM `tbTutor` WHERE estado=0')
+    const Activo:any=Object.values(ActivoTutor[0]);
+    const Inactivo:any=Object.values(NoActivoTutor[0]);
+    var objTutorActivo={
+        noActivo:Inactivo[0],
+        siActivo:Activo[0]
+    }
+    return objTutorActivo
+}
+
+const UpdateStatusAlumnos=async(id:string)=>{
+
+    const update=await conexion.query('Update tbAlumno set activo=? where idRol=4',[id]);
+    return update;
+}
+
+const UpdateStatusProfesor=async(id:string)=>{
+
+    const update=await conexion.query('Update tbProfesor set estatus=? where idRol=2',[id]);
+    return update;
+}
+
+const UpdateStatusTutores=async(id:string)=>{
+
+    const update=await conexion.query('Update tbTutor set estado=? where idRol=3',[id]);
+    return update;
+}
+
+
+
+export{getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
+    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor}

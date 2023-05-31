@@ -1,5 +1,6 @@
 import { Request,Response } from "express";
-import {getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword} from "../service/usuarios";
+import {getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
+    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor} from "../service/usuarios";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -100,5 +101,64 @@ const getNotasVer=async(req:Request,res:Response)=>{
     }
 
 }
+const ObtEstadoAlumno=async(req:Request,res:Response)=>{
+    try {
+        const accion=await getEstadoAlumno();
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Obtener Estado',e)
+    }
 
-export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer}
+}
+const ObtEstadoProfesor=async(req:Request,res:Response)=>{
+    try {
+        const accion=await getEstadoProfesor();
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Obtener Estado',e)
+    }
+
+}
+const ObtEstadoTutor=async(req:Request,res:Response)=>{
+    try {
+        const accion=await getEstadoTutor();
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Obtener Estado',e)
+    }
+
+}
+
+const updateEstadoAlumno=async(req:Request,res:Response)=>{
+    const {id}=req.params
+    try {
+        const accion=await UpdateStatusAlumnos(id);
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Actualizar estado',e)
+    }
+}
+
+const updateEstadoProfesor=async(req:Request,res:Response)=>{
+    const {id}=req.params
+    try {
+        const accion=await UpdateStatusProfesor(id);
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Actualizar estado',e)
+    }
+}
+
+const updateEstadoTutor=async(req:Request,res:Response)=>{
+    const {id}=req.params
+    try {
+        const accion=await UpdateStatusTutores(id);
+        res.send(accion)
+    } catch (e) {
+        handleHttp(res,'Error al Actualizar estado',e)
+    }
+}
+
+
+export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer,
+    ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor}

@@ -97,7 +97,7 @@ export class DocentesResumenComponent implements OnInit {
   editarProfesor(idProfesor:string){
     this.submitted = true;
     if ((this.f.pass.value!=this.f.confirmPass.value)) {
-      this.passNoCoincide='border-danger'
+      this.toastrService.error(`La contraseña no coincide`,'Error')
       return;
     }
     var DatoDocenteEditado:any={}
