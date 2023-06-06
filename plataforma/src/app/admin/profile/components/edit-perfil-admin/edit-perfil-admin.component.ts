@@ -152,51 +152,6 @@ export class EditPerfilAdminComponent implements OnInit {
       }
     )
   }
-  actualizarImgImport(idProfesor:string){
-    const imageBlob = this.subirImagen.nativeElement.files[0];
-    const data = new FormData ();
-    data.set('myFile',imageBlob)
-    console.log(data)
-    console.log(imageBlob)
-      this.imagenPerfilService.subirDocImagenPerfil(idProfesor,data).subscribe(
-        res=>{
-          this.ejecutarEventoActualizar(imageBlob)
-          this.modalCloseEditarImg.nativeElement.click()
-          this.modalCloseEditar.nativeElement.click()
-        },
-        err=>{
-          this.ejecutarEventoActualizar(imageBlob)
-          console.log(err)
-        }
-      )
-    }
-//Cambio sin nada
-    subirArchivo(event:any) {
-     if(event.target.files.length > 0){
-      const file = event.target.files[0];
-      const formData = new FormData()
-      formData.append('myFile',file);
-      const Doc = formData
-      const {idUsuario}:any=decode(this.token);
-      console.log('id profesor = '+idUsuario)
-      this.imagenPerfilService.subirDocImagenPerfil(idUsuario,formData).subscribe(
-        res=>{
-          console.log(Doc)
-          this.ejecutarEventoActualizar(file)
-        },
-        err=>{
-          console.log(file)
-          console.log('Documento comprobante de datos = '+file.name)
-          console.log('id profesor = '+idUsuario)
-          console.log('This admin Individual = '+this.adminIndividual.idUsuario)
-          console.log('error= '+err)
-        }
-      )
-     }
-
-    }
-
-
     get f() { return this.EditarAdminForm.controls; }
   }
 

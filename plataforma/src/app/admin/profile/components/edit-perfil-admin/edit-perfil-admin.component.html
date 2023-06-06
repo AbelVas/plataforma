@@ -104,28 +104,3 @@
   <div class="text-center"> <button type="submit" class="btn btn-primary">Actualizar Datos</button></div>
 </form>
 
-<!--Modal Subir Imagen - poner en form -> [formGroup]="" (ngSubmit)="" -->
-<div class="modal fade" id="importImg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Subir imagen de perfil</h5>
-        <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form enctype="multipart/form-data" method="post" autocomplete="off" [formGroup]="ImgForm" (ngSubmit)="actualizarImgImport">
-      <div class="modal-body">
-
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Suba su imagen</label>
-          <input class="form-control" type="file" id="subirImagen" (change)="subirArchivo($event)"> <!--Cambio sin nada-->
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" (click)="actualizarImgImport" class="btn btn-primary">Guardar</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
