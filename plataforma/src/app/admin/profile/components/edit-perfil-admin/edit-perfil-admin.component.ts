@@ -181,15 +181,11 @@ export class EditPerfilAdminComponent implements OnInit {
       console.log('id profesor = '+idUsuario)
       this.imagenPerfilService.subirDocImagenPerfil(idUsuario,formData).subscribe(
         res=>{
-          console.log(Doc)
+          console.log("Si subio el doc")
           this.ejecutarEventoActualizar(file)
         },
         err=>{
-          console.log(file)
-          console.log('Documento comprobante de datos = '+file.name)
-          console.log('id profesor = '+idUsuario)
-          console.log('This admin Individual = '+this.adminIndividual.idUsuario)
-          console.log('error= '+err)
+          console.log(err)
         }
       )
      }
