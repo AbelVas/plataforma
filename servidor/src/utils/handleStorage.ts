@@ -1,26 +1,34 @@
 import multer, { diskStorage } from "multer";
 import conexion from "../config/database";
-//cambio sin nada, solo para generar el cambio
 
-var rutaFinal='/home/flrsjejd/_hosting/brincoteca-server.orquiholic.com/content/'
+
+var rutapadre:any;
+var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;
+var rutaimagen:any;
+
 const storage = diskStorage({
-    destination:'/home/flrsjejd/_hosting/brincoteca-server.orquiholic.com/content/',
+    destination:function (req, file, cb){
+        rutapadre = `${__dirname}`;
+        const rutafinal = rutapadre+rutahijo;
+        
+        cb(null, rutafinal);
+    },
     filename: function (req, file, cb){
-        const {id} = req.params;
+        const {nombre} = req.params;
         const ext= file.originalname.split(".").pop();
-        const filename = `${id+'-'+Date.now()+'-'+file.originalname}`;
-        cb(null,filename)
-
+        const filename = `${nombre}.${ext}`;
         
         const imagenperfil = async(rutabd:string) => {
-            const update = await conexion.query("UPDATE tbProfesor set imagen = ? WHERE idProfesor = ?",[rutabd,id]);
+            const update = await conexion.query("UPDATE tbProfesor set imagen = ? WHERE idProfesor = ?",[rutabd,nombre]);
         }
-        imagenperfil(rutaFinal);
+        const ruta:any = rutahijo+filename;
+        imagenperfil(ruta);
 
         cb(null, filename)
-      
     }
 
 });
-const uploadMiddleware = multer({storage:storage});
+
+const uploadMiddleware = multer({storage});
+
 export {uploadMiddleware}
