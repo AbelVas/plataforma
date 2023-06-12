@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = void 0;
+exports.updateEstadoTutor = exports.updateEstadoProfesor = exports.updateEstadoAlumno = exports.ObtEstadoTutor = exports.ObtEstadoProfesor = exports.ObtEstadoAlumno = exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = void 0;
 const usuarios_1 = require("../service/usuarios");
 const error_handle_1 = require("../utils/error.handle");
 const passwordFunction_1 = require("../utils/passwordFunction");
@@ -127,3 +127,66 @@ const getNotasVer = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getNotasVer = getNotasVer;
+const ObtEstadoAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const accion = yield (0, usuarios_1.getEstadoAlumno)();
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+    }
+});
+exports.ObtEstadoAlumno = ObtEstadoAlumno;
+const ObtEstadoProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const accion = yield (0, usuarios_1.getEstadoProfesor)();
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+    }
+});
+exports.ObtEstadoProfesor = ObtEstadoProfesor;
+const ObtEstadoTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const accion = yield (0, usuarios_1.getEstadoTutor)();
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+    }
+});
+exports.ObtEstadoTutor = ObtEstadoTutor;
+const updateEstadoAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const accion = yield (0, usuarios_1.UpdateStatusAlumnos)(id);
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+    }
+});
+exports.updateEstadoAlumno = updateEstadoAlumno;
+const updateEstadoProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const accion = yield (0, usuarios_1.UpdateStatusProfesor)(id);
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+    }
+});
+exports.updateEstadoProfesor = updateEstadoProfesor;
+const updateEstadoTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const accion = yield (0, usuarios_1.UpdateStatusTutores)(id);
+        res.send(accion);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+    }
+});
+exports.updateEstadoTutor = updateEstadoTutor;
