@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = void 0;
+exports.getEstadoTutor = exports.getEstadoProfesor = exports.getEstadoAlumno = exports.UpdateStatusTutores = exports.UpdateStatusProfesor = exports.UpdateStatusAlumnos = exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const passwordFunction_1 = require("../utils/passwordFunction");
 //CRUD
@@ -89,3 +89,54 @@ const getNotasVerService = () => __awaiter(void 0, void 0, void 0, function* () 
     return objtVer;
 });
 exports.getNotasVerService = getNotasVerService;
+const getEstadoAlumno = () => __awaiter(void 0, void 0, void 0, function* () {
+    const ActivoEstudiante = yield database_1.default.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE activo=1');
+    const NoActivoEstudiante = yield database_1.default.query('SELECT count(idAlumno) FROM `tbAlumno` WHERE activo=0');
+    const Activo = Object.values(ActivoEstudiante[0]);
+    const Inactivo = Object.values(NoActivoEstudiante[0]);
+    var objtEstudiantesActivo = {
+        noActivo: Inactivo[0],
+        siActivo: Activo[0]
+    };
+    return objtEstudiantesActivo;
+});
+exports.getEstadoAlumno = getEstadoAlumno;
+const getEstadoProfesor = () => __awaiter(void 0, void 0, void 0, function* () {
+    const ActivoProfesor = yield database_1.default.query('SELECT count(idProfesor) FROM `tbProfesor` WHERE estatus=1');
+    const NoActivoProfesor = yield database_1.default.query('SELECT count(idProfesor) FROM `tbProfesor` WHERE estatus=0');
+    const Activo = Object.values(ActivoProfesor[0]);
+    const Inactivo = Object.values(NoActivoProfesor[0]);
+    var objtProfesorActivo = {
+        noActivo: Inactivo[0],
+        siActivo: Activo[0]
+    };
+    return objtProfesorActivo;
+});
+exports.getEstadoProfesor = getEstadoProfesor;
+const getEstadoTutor = () => __awaiter(void 0, void 0, void 0, function* () {
+    const ActivoTutor = yield database_1.default.query('SELECT count(idTutor) FROM `tbTutor` WHERE estado=1');
+    const NoActivoTutor = yield database_1.default.query('SELECT count(idTutor) FROM `tbTutor` WHERE estado=0');
+    const Activo = Object.values(ActivoTutor[0]);
+    const Inactivo = Object.values(NoActivoTutor[0]);
+    var objTutorActivo = {
+        noActivo: Inactivo[0],
+        siActivo: Activo[0]
+    };
+    return objTutorActivo;
+});
+exports.getEstadoTutor = getEstadoTutor;
+const UpdateStatusAlumnos = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const update = yield database_1.default.query('Update tbAlumno set activo=? where idRol=4', [id]);
+    return update;
+});
+exports.UpdateStatusAlumnos = UpdateStatusAlumnos;
+const UpdateStatusProfesor = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const update = yield database_1.default.query('Update tbProfesor set estatus=? where idRol=2', [id]);
+    return update;
+});
+exports.UpdateStatusProfesor = UpdateStatusProfesor;
+const UpdateStatusTutores = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const update = yield database_1.default.query('Update tbTutor set estado=? where idRol=3', [id]);
+    return update;
+});
+exports.UpdateStatusTutores = UpdateStatusTutores;

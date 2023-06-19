@@ -1,6 +1,6 @@
 import multer, { diskStorage } from "multer";
 import conexion from "../config/database";
-
+var path = require('path');
 
 var rutapadre:any;
 var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;
@@ -11,7 +11,7 @@ const storage = diskStorage({
         rutapadre = `${__dirname}`;
         const rutafinal = rutapadre+rutahijo;
         
-        cb(null, rutafinal);
+        cb(null, path.join(__dirname,'archivos'));
     },
     filename: function (req, file, cb){
         const {nombre} = req.params;

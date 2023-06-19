@@ -15,3 +15,11 @@ router.delete("/:id", session_1.checkJwt, usuarios_1.deleteAlumno);
 router.post("/pass/:id", session_1.checkJwt, usuarios_1.compararPass);
 router.post("/ver_notas/:id", usuarios_1.verNotasAlumnos);
 router.get("/obtener-notas/:id", session_1.checkJwt, usuarios_1.getNotasVer);
+//Obtener mayoria de estados
+router.get("/EstadoAlumno/:id", session_1.checkJwt, usuarios_1.ObtEstadoAlumno);
+router.get("/EstadoProfesor/:id", session_1.checkJwt, usuarios_1.ObtEstadoProfesor);
+router.get("/EstadoTutor/:id", session_1.checkJwt, usuarios_1.ObtEstadoTutor);
+//Editar los estados
+router.post("/EstadoAlumnoUpdate/:id", usuarios_1.updateEstadoAlumno);
+router.post("/EstadoProfesorUpdate/:id", usuarios_1.updateEstadoProfesor);
+router.post("/EstadoTutorUpdate/:id", usuarios_1.updateEstadoTutor);
