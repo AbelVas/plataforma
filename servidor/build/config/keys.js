@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     database: {
         host: '204.93.224.100',
-        user: 'flrsjejd_plataforma',
+        user: 'flrsjejd_brincoteca',
         password: 'macromish40322454',
-        database: 'flrsjejd_plataformaplanbasico_test'
+        database: 'flrsjejd_plataformaplanbasico_brincoteca'
     }
 };
 /*
