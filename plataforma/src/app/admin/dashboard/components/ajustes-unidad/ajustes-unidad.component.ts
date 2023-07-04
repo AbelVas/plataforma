@@ -11,7 +11,10 @@ Chart.register(...registerables);
   styleUrls: ['./ajustes-unidad.component.css']
 })
 export class AjustesUnidadComponent implements OnInit {
-  sppinerOn:boolean=true;
+  sppinerOn:boolean=true; //Unidades
+  sppinerOn2:boolean=true; //Ver estado notas
+  sppinerOn3:boolean=true;  // Ingreso Alumnos, Profesores, Tutores
+  sppinerOn4:boolean=true; //Estadisticas generales
   unidades:any =[];
   ActivoInactivo='cheked';
   errorServicio:any={};
@@ -56,9 +59,11 @@ export class AjustesUnidadComponent implements OnInit {
         }else{
           this.estadoFinalNotas = '0';
         }
+        this.sppinerOn2=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn2=false;
       }
     )
   }
@@ -115,68 +120,73 @@ export class AjustesUnidadComponent implements OnInit {
 
   //Gets
   getNinosNinas(){
+    this.sppinerOn4=true;
     this.estadisticaService.getTotalAlumnosHombres().subscribe(
       res=>{
         this.totalNinos=res[0].nino
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       },
       err=>{
         console.log(err)
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       }
     )
+    this.sppinerOn4=true;
     this.estadisticaService.getTotalAlumnosMujeres().subscribe(
       res=>{
         this.totalNinas=res[0].nina
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       },
       err=>{
         console.log(err)
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       }
     )
   }
   getPassChangeDocentes(){
+    this.sppinerOn4=true;
     this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
       res=>{
         this.passDocenteCambiada=res[0].siCambioContra
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       },
       err=>{
        console.log(err)
-       this.sppinerOn=false;
+       this.sppinerOn4=false;
       }
     )
     this.estadisticaService.getDocenteContrasenaNoCambiada().subscribe(
       res=>{
         this.passDocenteNoCambiada=res[0].noCambioContra
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       },
       err=>{
        console.log(err)
-       this.sppinerOn=false;
+       this.sppinerOn4=false;
       }
     )
   }
   getCodigoActivoInactivo(){
+    this.sppinerOn4=true;
     this.estadisticaService.getTotalCodigosUso().subscribe(
       res=>{
         this.codigoActivo=res[0].activo
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       },
       err=>{
         console.log(err)
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       }
     )
+    this.sppinerOn4=true;
     this.estadisticaService.getTotalCodigosNoUso().subscribe(
       res=>{
         this.codigoInactivo=res[0].noActivo
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       },
       err=>{
         console.log(err)
-        this.sppinerOn=false;
+        this.sppinerOn4=false;
       }
     )
   }
@@ -243,6 +253,7 @@ export class AjustesUnidadComponent implements OnInit {
 
   //Estados Usuarios
   GetEstadoAlumnos(){
+    this.sppinerOn=true;
     this.unidadesService.getEstadoAlumno().subscribe(
       res=>{
         this.EstadoAlumno=res
@@ -251,13 +262,16 @@ export class AjustesUnidadComponent implements OnInit {
         }else{
           this.estadoFinalAlumno = '0';
         }
+        this.sppinerOn3=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn3=false;
       }
     )
   }
   GetEstadoProfesor(){
+    this.sppinerOn3=true;
     this.unidadesService.getEstadoProfesor().subscribe(
       res=>{
         this.EstadoProfesor=res
@@ -266,13 +280,16 @@ export class AjustesUnidadComponent implements OnInit {
         }else{
           this.estadoFinalProfesor = '0';
         }
+        this.sppinerOn3=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn3=false;
       }
     )
   }
   GetEstadoTutor(){
+    this.sppinerOn3=true;
     this.unidadesService.getEstadoTutor().subscribe(
       res=>{
         this.EstadoTutor=res
@@ -281,9 +298,11 @@ export class AjustesUnidadComponent implements OnInit {
         }else{
           this.estadoFinalTutor = '0';
         }
+        this.sppinerOn3=false;
       },
       err=>{
         console.log(err)
+        this.sppinerOn3=false;
       }
     )
   }
