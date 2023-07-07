@@ -78,6 +78,7 @@ export class VistaEstudianteComponent implements OnInit {
       response=>{
         this.cursosGet=response;
         this.cantidad_cursos=response
+        console.log(this.cursosGet)
       },
       error=>{
         console.log('Error: '+error);

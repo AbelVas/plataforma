@@ -55,7 +55,6 @@ export class CalendarioCursoComponent implements OnInit {
     this.calendario.getActividadesCurso( idUsuario).subscribe(
       res=>{
         this.ActividadesInfoCalendario=res;
-        console.log(res)
         for(let i =0; i<this.ActividadesInfoCalendario.length; i++){
           this.EventsDatosCalendario[i]={
             title:this.ActividadesInfoCalendario[i].nombre_actividad,

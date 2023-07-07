@@ -12,16 +12,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./cursos-profesor.component.css']
 })
 export class CursosProfesorComponent implements OnInit {
-
+  listaImagenes:any=[]
   idClase:string='';
   cursosGet:any=[];
   cursosIndividual:any={
-    idCurso:'',
-    idGrado:'',
-    nombre_grado:'',
-    nombre_curso:'',
-    abreviatura:'',
-    color_curso:''
+    ruta_imagen:''
   };
   idGradoCurso:string='';
   alumnosGet:any=[];
@@ -51,6 +46,7 @@ export class CursosProfesorComponent implements OnInit {
   intervalo:any
   cursoForm:any
   @ViewChild('cerrarEditarModal') modalCloseEditar: any;
+  @ViewChild('cerrarEditarModalPerfil') CerrarModal: any;
   //variables de colores
   cfondo1:string='';
   cfondo2:string='';
@@ -64,7 +60,7 @@ export class CursosProfesorComponent implements OnInit {
     this.idGradoCurso=params['idGrado'];
     this.obtenerDatosCursos();
     this.obtenerAlumnosCursos();
-    this.cursosGet=this.cursosIndividual;
+    this.getImagenesPerfil(2);
 
     this.cursoForm=this.formBuilder.group({
       color_curso:new FormControl('',[Validators.required]),
@@ -133,6 +129,37 @@ export class CursosProfesorComponent implements OnInit {
       this.modalCloseEditar.nativeElement.click();
       //Aquí va el mensajito flotante de no se realizaron cambios
     }
+  }
+  //IMAGENES POR DEFECTO
+  getImagenesPerfil(idCategoria:any){
+    this.cardResumenService.getImagenCategoria(idCategoria).subscribe(
+      res=>{
+        this.listaImagenes=res
+        console.log(this.listaImagenes)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  valueGetImagen(e:any){
+    this.cursosIndividual.ruta_imagen=e
+    console.log(this.cursosIndividual.ruta_imagen)
+  }
+
+  actualizarImagenPredisenada(idCurso=this.idClase){
+    this.cardResumenService.updateCurso(idCurso,this.cursosIndividual).subscribe(
+      res=>{
+        this.obtenerDatosCursos()
+        this.CerrarModal.nativeElement.click();
+        this.toastrService.success(`Curso Actualizado`,'Realizado')
+      },
+      err=>{
+        this.CerrarModal.nativeElement.click();
+        this.toastrService.error(`Error al Actulizar`,'Error')
+        console.log(err)
+      }
+    )
   }
 
   get f() { return this.cursoForm.controls; }

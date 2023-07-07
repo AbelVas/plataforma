@@ -155,7 +155,6 @@ export class OpcionesCursoComponent implements OnInit {
     this.getCursosDocente()
     this.getAlumnos();
     this.getRecursosPorGrado()
-    console.log(this.listaRecursoCurso)
   }
 
   validarCalificacionRefresh(idActividad:string,idUnidad:string){
