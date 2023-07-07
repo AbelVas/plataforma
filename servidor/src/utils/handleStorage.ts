@@ -1,6 +1,6 @@
 import multer, { diskStorage } from "multer";
 import conexion from "../config/database";
-var path = require('path');
+import * as path from 'path';
 
 var rutapadre:any;
 var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;

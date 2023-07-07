@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadMiddleware = void 0;
 const multer_1 = __importStar(require("multer"));
 const database_1 = __importDefault(require("../config/database"));
-var path = require('path');
+const path = __importStar(require("path"));
 var rutapadre;
 var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;
 var rutaimagen;
