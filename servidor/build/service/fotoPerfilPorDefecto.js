@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.obtenerImagenCategoriaService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const obtenerImagenCategoriaService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT ip.ruta FROM tbImagenPerfil ip INNER JOIN tbCategoriaImagenPerfil im WHERE im.idCategoriaImagenPerfil=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT ruta FROM tbImagenPerfil WHERE idCategoriaImagenPerfil=?', [id]);
     return responseGet;
 });
 exports.obtenerImagenCategoriaService = obtenerImagenCategoriaService;
