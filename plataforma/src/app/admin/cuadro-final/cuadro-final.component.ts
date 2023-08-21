@@ -9,6 +9,7 @@ import { CuadroFinalService } from '../services/cuadro-final.service';
   styleUrls: ['./cuadro-final.component.css']
 })
 export class CuadroFinalComponent implements OnInit {
+  sppinerOn:boolean=true;
   errorLogininputs='form-select'
   idGrado:any;
   GradoSeccion:any=[{}];
@@ -38,6 +39,7 @@ export class CuadroFinalComponent implements OnInit {
     this.cuadroFinal.obtenerNotasCuadroFinal(idGrado).subscribe(
       res=>{
         this.tabla=res
+        this.sppinerOn=false;
       },
       err=>{
         console.log(err)
