@@ -31,6 +31,18 @@ export class CuadroFinalComponent implements OnInit {
     this.obtenerGradoSeccion(this.idGrado)
     this.obtenerAlumnosGrado();
     this.obtenerCursosGrado();
+    this.obtenerNotasCursos();
+  }
+  obtenerNotasCursos(){
+    var idGrado=this.idGrado
+    this.cuadroFinal.obtenerNotasCuadroFinal(idGrado).subscribe(
+      res=>{
+        this.tabla=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
   obtenerAlumnosGrado(){
     this.cuadroFinal.getAlumnosGradoCuadroGuia(this.idGrado).subscribe(

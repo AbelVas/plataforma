@@ -29,6 +29,12 @@ export class CuadroFinalService {
       catchError(this.handleError)
     );
   }
+  obtenerNotasCuadroFinal(idGrado:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cuadroFinal/cuadro-final/${idGrado}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error:HttpErrorResponse){
 
     return throwError(error)

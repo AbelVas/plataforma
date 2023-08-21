@@ -23,7 +23,7 @@ const notasalumnosFinalService=async(idGrado:string)=>{
     }
     //cantidad cursos para promedio
     cantidadCursos=dataCursos.length
-
+console.log("Entrando")
 
     switch(cantidadCursos){
         case 11:
