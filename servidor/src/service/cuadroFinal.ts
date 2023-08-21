@@ -23,7 +23,6 @@ const notasalumnosFinalService=async(idGrado:string)=>{
     }
     //cantidad cursos para promedio
     cantidadCursos=dataCursos.length
-console.log("Entrando")
 
     switch(cantidadCursos){
         case 11:
@@ -295,7 +294,7 @@ console.log("Entrando")
                     catorce:Math.round((notaArray1[13].trece+notaArray2[13].trece+notaArray3[13].trece+notaArray4[13].trece)/4),
                     quince:Math.round((notaArray1[14].catorce+notaArray2[14].catorce+notaArray3[14].catorce+notaArray4[14].catorce)/4),
                     dieciseis:Math.round((notaArray1[15].quince+notaArray2[15].quince+notaArray3[15].quince+notaArray4[15].quince)/4),
-                    diecisiete:Math.round((notaArray1[15].dieciseis+notaArray2[15].dieciseis+notaArray3[15].dieciseis+notaArray4[15].dieciseis)/4),
+                    diecisiete:Math.round((notaArray1[16].dieciseis+notaArray2[16].dieciseis+notaArray3[16].dieciseis+notaArray4[16].dieciseis)/4),
                 }
                     contador=contador+1;
                 }

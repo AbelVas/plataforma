@@ -28,7 +28,6 @@ const notasalumnosFinal=async(req:Request,res:Response)=>{
         const {idUnidad}=req.params;
         const {idGrado}=req.params 
         const {idAlumnos}=req.params
-        console.log(idAlumnos)
         const prueba=await notasalumnosFinalService(idCurso,idUnidad,idGrado);
         res.send(prueba)
     }catch(e){
@@ -47,7 +46,6 @@ const alumnosGrado=async(req:Request,res:Response)=>{
 const cursosGradoCuadroGuia=async(req:Request,res:Response)=>{
     try{
         const {idGrado}=req.params 
-        console.log(idGrado)
         const prueba=await cursosGradoCuadroGuiaService(idGrado);
         res.send(prueba)
     }catch(e){
