@@ -1,0 +1,584 @@
+<div class="main">
+
+  <div class="row">
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionEnero">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnero" aria-expanded="true" aria-controls="collapseEnero">
+              Enero
+            </button>
+          </h2>
+          <div id="collapseEnero" class="accordion-collapse collapse show" data-bs-parent="#accordionEnero">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Enero!='';else tablaVaciaEnero">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Enero; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaEnero>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionFebrero">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFebrero" aria-expanded="true" aria-controls="collapseFebrero">
+              Febrero
+            </button>
+          </h2>
+          <div id="collapseFebrero" class="accordion-collapse collapse show" data-bs-parent="#accordionFebrero">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Febrero!='';else tablaVaciaFebrero">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Febrero; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaFebrero>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionMarzo">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarzo" aria-expanded="true" aria-controls="collapseMarzo">
+              Marzo
+            </button>
+          </h2>
+          <div id="collapseMarzo" class="accordion-collapse collapse show" data-bs-parent="#accordionMarzo">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Marzo!='';else tablaVaciaMarzo">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Marzo; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaMarzo>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionAbril">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAbril" aria-expanded="true" aria-controls="collapseAbril">
+              Abril
+            </button>
+          </h2>
+          <div id="collapseAbril" class="accordion-collapse collapse show" data-bs-parent="#accordionAbril">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Abril!='';else tablaVaciaAbril">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Abril; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaAbril>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionMayo">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMayo" aria-expanded="true" aria-controls="collapseMayo">
+              Mayo
+            </button>
+          </h2>
+          <div id="collapseMayo" class="accordion-collapse collapse show" data-bs-parent="#accordionMayo">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Mayo!='';else tablaVaciaMayo">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Mayo; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaMayo>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionJunio">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJunio" aria-expanded="true" aria-controls="collapseJunio">
+              Junio
+            </button>
+          </h2>
+          <div id="collapseJunio" class="accordion-collapse collapse show" data-bs-parent="#accordionJunio">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Junio!='';else tablaVaciaJunio">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Junio; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaJunio>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionJulio">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJulio" aria-expanded="true" aria-controls="collapseJulio">
+              Julio
+            </button>
+          </h2>
+          <div id="collapseJulio" class="accordion-collapse collapse show" data-bs-parent="#accordionJulio">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Julio!='';else tablaVaciaJulio">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Julio; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaJulio>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionAgosto">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAgosto" aria-expanded="true" aria-controls="collapseAgosto">
+              Agosto
+            </button>
+          </h2>
+          <div id="collapseAgosto" class="accordion-collapse collapse show" data-bs-parent="#accordionAgosto">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Agosto!='';else tablaVaciaAgosto">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Agosto; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaAgosto>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionSeptiembre">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeptiembre" aria-expanded="true" aria-controls="collapseSeptiembre">
+              Septiembre
+            </button>
+          </h2>
+          <div id="collapseSeptiembre" class="accordion-collapse collapse show" data-bs-parent="#accordionSeptiembre">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Septiembre!='';else tablaVaciaSeptiembre">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Septiembre; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaSeptiembre>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionOctubre">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOctubre" aria-expanded="true" aria-controls="collapseOctubre">
+              Octubre
+            </button>
+          </h2>
+          <div id="collapseOctubre" class="accordion-collapse collapse show" data-bs-parent="#accordionOctubre">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Octubre!='';else tablaVaciaOctubre">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Octubre; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaOctubre>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionNoviembre">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNoviembre" aria-expanded="true" aria-controls="collapseNoviembre">
+              Noviembre
+            </button>
+          </h2>
+          <div id="collapseNoviembre" class="accordion-collapse collapse show" data-bs-parent="#accordionNoviembre">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Noviembre!='';else tablaVaciaNoviembre">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Noviembre; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaNoviembre>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--MES-->
+
+    <div class="col-6 mb-3">
+
+      <div class="accordion" id="accordionDiciembre">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiciembre" aria-expanded="true" aria-controls="collapseDiciembre">
+              Diciembre
+            </button>
+          </h2>
+          <div id="collapseDiciembre" class="accordion-collapse collapse show" data-bs-parent="#accordionDiciembre">
+            <div class="accordion-body">
+              <div style="overflow-x: auto;"  *ngIf="Diciembre!='';else tablaVaciaDiciembre">
+              <table class="table table-hover">
+                <thead>
+                   <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Ir al curso</th>
+                      <th scope="col">Fecha entrega</th>
+                   </tr>
+                </thead>
+                <tbody *ngFor="let e of Diciembre; let i=index">
+                   <tr>
+                      <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
+                      <td>{{e.title}}</td>
+                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
+                      <td>{{e.date}}</td>
+                   </tr>
+                </tbody>
+             </table>
+             </div>
+
+             <ng-template #tablaVaciaDiciembre>
+              <div class="d-flex flex-column align-items-center">
+                <br>
+                <h5 class="text-center">No hay actividades en este Mes...</h5>
+              </div>
+              </ng-template>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
