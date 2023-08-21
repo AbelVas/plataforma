@@ -47,6 +47,7 @@
       <td mat-cell *matCellDef="let grado">
         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropEditar" (click)="buscarGradoIndividual(grado.idGrado)"><i class="fa-solid fa-pen-to-square"></i></button>
         <a class="btn btn-success btn-sm" routerLink="/admin/cuadro-guia/{{grado.idGrado}}"><i class="fa-solid fa-table"></i></a>
+        <a class="btn btn-warning btn-sm" routerLink="/admin/cuadro-final/{{grado.idGrado}}"><i class="fa-solid fa-table"></i></a>
         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropEliminar" (click)="buscarGradoIndividual(grado.idGrado)"><i class="fa-solid fa-trash"></i></button>
       </td>
     </ng-container>
