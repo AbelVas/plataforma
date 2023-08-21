@@ -18,6 +18,7 @@ import { PagosComponent } from "./pagos/pagos.component";
 import { ConsolidadoBimestralComponent } from "./consolidado-bimestral/consolidado-bimestral.component";
 import { CuadroGuiaComponent } from "./cuadro-guia/cuadro-guia.component";
 import { BoletasComponent } from "./boletas/boletas.component";
+import { CuadroFinalComponent } from "./cuadro-final/cuadro-final.component";
 
 
 const routes:Routes=[
@@ -41,6 +42,7 @@ const routes:Routes=[
     {path:'pagos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:PagosComponent},
     {path:'consolidado/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ConsolidadoBimestralComponent},
     {path:'cuadro-guia/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CuadroGuiaComponent},
+    {path:'cuadro-final/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CuadroFinalComponent},
     {path:'boletas/:idGrado/:idAlumno',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletasComponent},
   ]
   },
