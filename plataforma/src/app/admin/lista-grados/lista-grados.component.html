@@ -72,7 +72,7 @@
               <ng-container matColumnDef="acciones">
                 <th mat-header-cell *matHeaderCellDef class="text-center"> Sección </th>
                 <td mat-cell *matCellDef="let g" class="text-center">
-                  <button class="btn trophy-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Consolidado Final"><i class="fa-solid fa-trophy"></i></button>
+                  <button class="btn trophy-button" data-bs-toggle="tooltip" data-bs-placement="top" (click)="cuadroFinalSeleccionado(g.idGrado)" title="Consolidado Final" data-bs-toggle="modal" data-bs-target="#modalConsolidadoFinal"><i class="fa-solid fa-trophy"></i></button>
                   <button class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top" (click)="GradoSeleccionado(g.idGrado)" title="Consolidado Bimestral" data-bs-toggle="modal" data-bs-target="#modalConsolidadoBimestral"><i class="fa-solid fa-table"></i></button>
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gradoEdit" (click)="buscarGradoIndividual(g.idGrado)"><i class="fa-solid fa-pen-to-square"></i></button>
                   <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarGradoModal" (click)="buscarGradoIndividual(g.idGrado)"><i class="fa-solid fa-trash-can"></i></button>
@@ -124,358 +124,13 @@
   </div>
 </section>
 </main>
-<!--Modal Consolidado Bimestral-->
-<div class="modal fade" id="modalConsolidadoBimestral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div id="NoPrint" class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Consolidado Bimestral</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div id="NoPrint">
-          <form [formGroup]="buscarBimestre" (ngSubmit)="consolidadoBuscar()">
-            <br>
-            <label for="cmb_unidad" style="float:left;">Seleccione una opción:  </label>
-            <select formControlName="bimestre" [class]="errorLogininputs">
-                <option value="0">Seleccione un Bimestre</option>
-                <option value="1">Primer Bimestre</option>
-                <option value="2">Segundo Bimestre</option>
-                <option value="3">Tercer Bimestre</option>
-                <option value="4">Cuarto Bimestre</option>
-            </select>
-            <div class="text-end">
-              <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
-            </div>
-          </form>
-          </div>
-
-          <hr>
-          <div id="areaImprimir">
-            <div class="logodiv" style="float:left;">
-              <img src="../../../assets/img/consolidadoLogo/logo.jpg">
-            </div>
-            <div class="encabezadodiv"><br>
-            </div>
-            <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion+', Nivel: '+GradoSeccion[0].nivel+', Jornada: '+GradoSeccion[0].jornada}}</u><h5 id='bimes' style='font-size:16px;'>Cuadro Guía - {{bimestreSeleccionado}} </h5></label><br><br><br>
-            <table class="table">
-              <thead>
-                <th class="text-center">Alumno</th>
-                <th *ngFor="let c of cursos" class="text-center">{{c.nombre_curso}}</th>
-                <th class="text-center">Promedio</th>
-              </thead>
-              <tbody>
-                <ng-container *ngIf="CantidadCursos==1">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==2">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==3">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==4">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==5">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==6">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==7">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==8">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==9">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==10">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==11">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==12">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.doce}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==13">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.doce}}</td>
-                    <td class="text-center">{{n.trece}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==14">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.doce}}</td>
-                    <td class="text-center">{{n.trece}}</td>
-                    <td class="text-center">{{n.catorce}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==15">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.doce}}</td>
-                    <td class="text-center">{{n.trece}}</td>
-                    <td class="text-center">{{n.catorce}}</td>
-                    <td class="text-center">{{n.quince}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==16">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.doce}}</td>
-                    <td class="text-center">{{n.trece}}</td>
-                    <td class="text-center">{{n.catorce}}</td>
-                    <td class="text-center">{{n.quince}}</td>
-                    <td class="text-center">{{n.dieciseis}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container *ngIf="CantidadCursos==17">
-                  <tr *ngFor="let n of tabla">
-                    <td class="text-center">{{n.alumno}}</td>
-                    <td class="text-center">{{n.uno}}</td>
-                    <td class="text-center">{{n.dos}}</td>
-                    <td class="text-center">{{n.tres}}</td>
-                    <td class="text-center">{{n.cuatro}}</td>
-                    <td class="text-center">{{n.cinco}}</td>
-                    <td class="text-center">{{n.seis}}</td>
-                    <td class="text-center">{{n.siete}}</td>
-                    <td class="text-center">{{n.ocho}}</td>
-                    <td class="text-center">{{n.nueve}}</td>
-                    <td class="text-center">{{n.diez}}</td>
-                    <td class="text-center">{{n.once}}</td>
-                    <td class="text-center">{{n.doce}}</td>
-                    <td class="text-center">{{n.trece}}</td>
-                    <td class="text-center">{{n.catorce}}</td>
-                    <td class="text-center">{{n.quince}}</td>
-                    <td class="text-center">{{n.dieciseis}}</td>
-                    <td class="text-center">{{n.diecisiete}}</td>
-                    <td class="text-center">{{n.promedio}}</td>
-                  </tr>
-                </ng-container>
-
-              </tbody>
-            </table>
-            <div class="text-center">
-              <br><br><br>
-               <input class="text-center" type="text" value="Dirección" style="color:#000;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white; margin-left:20px; width:200px;" disabled>
-
-               <input type="text" style="border:none;background:white; margin-left:20px;" disabled>
-
-               <input class="text-center" type="text" value="Comisi&oacute;n de Evaluaci&oacute;n" style="color:#000;width:200px;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white" disabled><br><br><br><br>
-           </div>
-          </div>
-          <div class="text-center" id="NoPrint">
-            <button class="btn btn-primary" (click)="PrintThis()"><i class="fas fa-print" style='width:40px; height:20px'></i></button>
-          </div>
-
-
-
-
-
-
-
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Imprimir</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Modal Editar-->
 <div class="modal fade" id="gradoEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Grado</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabell">Editar Grado</h1>
         <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form class="row g-3" [formGroup]="gradoFormthis" (ngSubmit)="editGrado(gradoIndividual.idGrado)" autocomplete="off">
@@ -528,7 +183,7 @@
 
 <!--modal Eliminar-->
 <div class="modal fade" id="EliminarGradoModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Eliminar Docente</h5>
@@ -547,7 +202,7 @@
 
 <!-- Modal Crear-->
 <div class="modal fade" id="AgregarGradoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Grado</h1>
@@ -592,5 +247,519 @@
     </div>
   </div>
 </div>
+<!--Modal Consolidado Final-->
+<div class="modal fade" id="modalConsolidadoFinal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div id="NoPrint" class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Consolidado Final</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="vaciarVariablesFinal()"></button>
+      </div>
+      <div class="modal-body">
+        <div id="areaImprimir">
+          <div class="logodiv" style="float:left;">
+            <img src="../../../assets/img/consolidadoLogo/logo.jpg">
+          </div>
+          <div class="encabezadodiv"><br>
+          </div>
+          <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion+', Nivel: '+GradoSeccion[0].nivel+', Jornada: '+GradoSeccion[0].jornada}}</u><h5 id='bimes' style='font-size:16px;'>Cuadro de Promoción </h5></label><br><br><br>
+        </div>
+        <div *ngIf="sppinerOn3==true;else cargaSpinnerFinal">
+          <app-loaderpeque></app-loaderpeque>
+          <h4 class="text-center">Cargando información, por favor espere...</h4>
+        </div>
+        <ng-template #cargaSpinnerFinal>
+          <table class="table">
+            <thead>
+              <th class="text-center">Alumno</th>
+              <th *ngFor="let h of cursosFinal" class="text-center">{{h.nombre_curso}}</th>
+              <th class="text-center">Promedio</th>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="CantidadCursosFinal==11">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once)/11 | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
 
+              <ng-container *ngIf="CantidadCursosFinal==12">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{t.doce}}</td>
+                  <td class="text-center">{{((t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce)/12) | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
 
+              <ng-container *ngIf="CantidadCursosFinal==13">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{t.doce}}</td>
+                  <td class="text-center">{{t.trece}}</td>
+                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece)/13 | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="CantidadCursosFinal==14">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{t.doce}}</td>
+                  <td class="text-center">{{t.trece}}</td>
+                  <td class="text-center">{{t.catorce}}</td>
+                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce)/14 | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="CantidadCursosFinal==15">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{t.doce}}</td>
+                  <td class="text-center">{{t.trece}}</td>
+                  <td class="text-center">{{t.catorce}}</td>
+                  <td class="text-center">{{t.quince}}</td>
+                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince)/15 | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="CantidadCursosFinal==16">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{t.doce}}</td>
+                  <td class="text-center">{{t.trece}}</td>
+                  <td class="text-center">{{t.catorce}}</td>
+                  <td class="text-center">{{t.quince}}</td>
+                  <td class="text-center">{{t.dieciseis}}</td>
+                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis)/16 | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="CantidadCursosFinal==17">
+                <tr *ngFor="let t of tablaFinal">
+                  <td class="text-center">{{t.alumno}}</td>
+                  <td class="text-center">{{t.uno}}</td>
+                  <td class="text-center">{{t.dos}}</td>
+                  <td class="text-center">{{t.tres}}</td>
+                  <td class="text-center">{{t.cuatro}}</td>
+                  <td class="text-center">{{t.cinco}}</td>
+                  <td class="text-center">{{t.seis}}</td>
+                  <td class="text-center">{{t.siete}}</td>
+                  <td class="text-center">{{t.ocho}}</td>
+                  <td class="text-center">{{t.nueve}}</td>
+                  <td class="text-center">{{t.diez}}</td>
+                  <td class="text-center">{{t.once}}</td>
+                  <td class="text-center">{{t.doce}}</td>
+                  <td class="text-center">{{t.trece}}</td>
+                  <td class="text-center">{{t.catorce}}</td>
+                  <td class="text-center">{{t.quince}}</td>
+                  <td class="text-center">{{t.dieciseis}}</td>
+                  <td class="text-center">{{t.diecisiete}}</td>
+                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis+t.diecisiete)/17 | number: '1.0-0'}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </ng-template>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="vaciarVariablesFinal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Consolidado Bimestral-->
+<div class="modal fade" id="modalConsolidadoBimestral" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div id="NoPrint" class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Consolidado Bimestral</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="vaciarVariablesBimestral()"></button>
+      </div>
+      <div class="modal-body">
+        <div id="NoPrint">
+          <form [formGroup]="buscarBimestre" (ngSubmit)="consolidadoBuscar()">
+            <br>
+            <label for="cmb_unidad" style="float:left;">Seleccione una opción:  </label>
+            <select formControlName="bimestre" [class]="errorLogininputs">
+                <option value="0">Seleccione un Bimestre</option>
+                <option value="1">Primer Bimestre</option>
+                <option value="2">Segundo Bimestre</option>
+                <option value="3">Tercer Bimestre</option>
+                <option value="4">Cuarto Bimestre</option>
+            </select>
+            <div class="text-end">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+          </form>
+          </div>
+
+          <hr>
+          <div id="areaImprimir">
+            <div class="logodiv" style="float:left;">
+              <img src="../../../assets/img/consolidadoLogo/logo.jpg">
+            </div>
+
+            <div class="encabezadodiv"><br>
+            </div>
+            <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion+', Nivel: '+GradoSeccion[0].nivel+', Jornada: '+GradoSeccion[0].jornada}}</u><h5 id='bimes' style='font-size:16px;'>Cuadro Guía - {{bimestreSeleccionado}} </h5></label><br><br><br>
+            <div *ngIf="sppinerOn2==true;else cargaSpinnerBimestral">
+              <app-loaderpeque></app-loaderpeque>
+              <h4 class="text-center">Cargando información, por favor espere...</h4>
+            </div>
+            <ng-template #cargaSpinnerBimestral>
+              <table class="table">
+                <thead>
+                  <th class="text-center">Alumno</th>
+                  <th *ngFor="let c of cursos" class="text-center">{{c.nombre_curso}}</th>
+                  <th class="text-center">Promedio</th>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="CantidadCursos==1">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==2">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==3">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==4">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==5">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==6">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==7">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==8">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==9">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==10">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==11">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==12">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.doce}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==13">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.doce}}</td>
+                      <td class="text-center">{{n.trece}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==14">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.doce}}</td>
+                      <td class="text-center">{{n.trece}}</td>
+                      <td class="text-center">{{n.catorce}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==15">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.doce}}</td>
+                      <td class="text-center">{{n.trece}}</td>
+                      <td class="text-center">{{n.catorce}}</td>
+                      <td class="text-center">{{n.quince}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==16">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.doce}}</td>
+                      <td class="text-center">{{n.trece}}</td>
+                      <td class="text-center">{{n.catorce}}</td>
+                      <td class="text-center">{{n.quince}}</td>
+                      <td class="text-center">{{n.dieciseis}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container *ngIf="CantidadCursos==17">
+                    <tr *ngFor="let n of tabla">
+                      <td class="text-center">{{n.alumno}}</td>
+                      <td class="text-center">{{n.uno}}</td>
+                      <td class="text-center">{{n.dos}}</td>
+                      <td class="text-center">{{n.tres}}</td>
+                      <td class="text-center">{{n.cuatro}}</td>
+                      <td class="text-center">{{n.cinco}}</td>
+                      <td class="text-center">{{n.seis}}</td>
+                      <td class="text-center">{{n.siete}}</td>
+                      <td class="text-center">{{n.ocho}}</td>
+                      <td class="text-center">{{n.nueve}}</td>
+                      <td class="text-center">{{n.diez}}</td>
+                      <td class="text-center">{{n.once}}</td>
+                      <td class="text-center">{{n.doce}}</td>
+                      <td class="text-center">{{n.trece}}</td>
+                      <td class="text-center">{{n.catorce}}</td>
+                      <td class="text-center">{{n.quince}}</td>
+                      <td class="text-center">{{n.dieciseis}}</td>
+                      <td class="text-center">{{n.diecisiete}}</td>
+                      <td class="text-center">{{n.promedio}}</td>
+                    </tr>
+                  </ng-container>
+
+                </tbody>
+              </table>
+            </ng-template>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="vaciarVariablesBimestral()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
