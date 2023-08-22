@@ -110,7 +110,7 @@ export class ListaGradosComponent implements OnInit {
     )
   }
   obtenerCursosGradoFinal(idGrado:any){
-    this.cuadroFinal.obtenerCursosGrado(idGrado).subscribe(
+    this.cuadroFinal.obtenerCursosGradoFinal(idGrado).subscribe(
       res=>{
        this.cursosFinal=res
        this.CantidadCursosFinal=this.cursosFinal.length
