@@ -41,6 +41,7 @@ import { FullCalendarModule } from "@fullcalendar/angular";
 import { TemaEstudianteService } from "./services/tema-estudiante.service";
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { ListaActividadesComponent } from './lista-actividades/lista-actividades.component';
+import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-actividades-curso.component';
 //
 
 
@@ -80,7 +81,8 @@ import { ListaActividadesComponent } from './lista-actividades/lista-actividades
     ActividadCursoStudentComponent,
     ExamenCursoStudentComponent,
     TutorialComponent,
-    ListaActividadesComponent
+    ListaActividadesComponent,
+    ListaActividadesCursoComponent
   ],
   exports:[
   ],

@@ -1,19 +1,19 @@
 <div class="main">
 
-  <div class="row">
+  <div>
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionEnero">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnero" aria-expanded="true" aria-controls="collapseEnero">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnero" aria-expanded="true" aria-controls="collapseEnero">
               Enero
             </button>
           </h2>
-          <div id="collapseEnero" class="accordion-collapse collapse show" data-bs-parent="#accordionEnero">
+          <div id="collapseEnero" class="accordion-collapse collapse" data-bs-parent="#accordionEnero">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Enero!='';else tablaVaciaEnero">
               <table class="table table-hover">
@@ -21,7 +21,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -29,7 +28,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -53,16 +51,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionFebrero">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFebrero" aria-expanded="true" aria-controls="collapseFebrero">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFebrero" aria-expanded="true" aria-controls="collapseFebrero">
               Febrero
             </button>
           </h2>
-          <div id="collapseFebrero" class="accordion-collapse collapse show" data-bs-parent="#accordionFebrero">
+          <div id="collapseFebrero" class="accordion-collapse collapse" data-bs-parent="#accordionFebrero">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Febrero!='';else tablaVaciaFebrero">
               <table class="table table-hover">
@@ -70,7 +68,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -78,7 +75,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -102,16 +98,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionMarzo">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarzo" aria-expanded="true" aria-controls="collapseMarzo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarzo" aria-expanded="true" aria-controls="collapseMarzo">
               Marzo
             </button>
           </h2>
-          <div id="collapseMarzo" class="accordion-collapse collapse show" data-bs-parent="#accordionMarzo">
+          <div id="collapseMarzo" class="accordion-collapse collapse" data-bs-parent="#accordionMarzo">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Marzo!='';else tablaVaciaMarzo">
               <table class="table table-hover">
@@ -119,7 +115,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -127,7 +122,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -151,16 +145,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionAbril">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAbril" aria-expanded="true" aria-controls="collapseAbril">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAbril" aria-expanded="true" aria-controls="collapseAbril">
               Abril
             </button>
           </h2>
-          <div id="collapseAbril" class="accordion-collapse collapse show" data-bs-parent="#accordionAbril">
+          <div id="collapseAbril" class="accordion-collapse collapse" data-bs-parent="#accordionAbril">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Abril!='';else tablaVaciaAbril">
               <table class="table table-hover">
@@ -168,7 +162,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -176,7 +169,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -200,16 +192,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionMayo">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMayo" aria-expanded="true" aria-controls="collapseMayo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMayo" aria-expanded="true" aria-controls="collapseMayo">
               Mayo
             </button>
           </h2>
-          <div id="collapseMayo" class="accordion-collapse collapse show" data-bs-parent="#accordionMayo">
+          <div id="collapseMayo" class="accordion-collapse collapse" data-bs-parent="#accordionMayo">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Mayo!='';else tablaVaciaMayo">
               <table class="table table-hover">
@@ -217,7 +209,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -225,7 +216,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -249,16 +239,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionJunio">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJunio" aria-expanded="true" aria-controls="collapseJunio">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJunio" aria-expanded="true" aria-controls="collapseJunio">
               Junio
             </button>
           </h2>
-          <div id="collapseJunio" class="accordion-collapse collapse show" data-bs-parent="#accordionJunio">
+          <div id="collapseJunio" class="accordion-collapse collapse" data-bs-parent="#accordionJunio">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Junio!='';else tablaVaciaJunio">
               <table class="table table-hover">
@@ -266,7 +256,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -274,7 +263,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -298,16 +286,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionJulio">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJulio" aria-expanded="true" aria-controls="collapseJulio">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJulio" aria-expanded="true" aria-controls="collapseJulio">
               Julio
             </button>
           </h2>
-          <div id="collapseJulio" class="accordion-collapse collapse show" data-bs-parent="#accordionJulio">
+          <div id="collapseJulio" class="accordion-collapse collapse" data-bs-parent="#accordionJulio">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Julio!='';else tablaVaciaJulio">
               <table class="table table-hover">
@@ -315,7 +303,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -323,7 +310,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -347,16 +333,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionAgosto">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAgosto" aria-expanded="true" aria-controls="collapseAgosto">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAgosto" aria-expanded="true" aria-controls="collapseAgosto">
               Agosto
             </button>
           </h2>
-          <div id="collapseAgosto" class="accordion-collapse collapse show" data-bs-parent="#accordionAgosto">
+          <div id="collapseAgosto" class="accordion-collapse collapse" data-bs-parent="#accordionAgosto">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Agosto!='';else tablaVaciaAgosto">
               <table class="table table-hover">
@@ -364,7 +350,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -372,7 +357,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -396,16 +380,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionSeptiembre">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeptiembre" aria-expanded="true" aria-controls="collapseSeptiembre">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeptiembre" aria-expanded="true" aria-controls="collapseSeptiembre">
               Septiembre
             </button>
           </h2>
-          <div id="collapseSeptiembre" class="accordion-collapse collapse show" data-bs-parent="#accordionSeptiembre">
+          <div id="collapseSeptiembre" class="accordion-collapse collapse" data-bs-parent="#accordionSeptiembre">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Septiembre!='';else tablaVaciaSeptiembre">
               <table class="table table-hover">
@@ -413,7 +397,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -421,7 +404,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -445,16 +427,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionOctubre">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOctubre" aria-expanded="true" aria-controls="collapseOctubre">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOctubre" aria-expanded="true" aria-controls="collapseOctubre">
               Octubre
             </button>
           </h2>
-          <div id="collapseOctubre" class="accordion-collapse collapse show" data-bs-parent="#accordionOctubre">
+          <div id="collapseOctubre" class="accordion-collapse collapse" data-bs-parent="#accordionOctubre">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Octubre!='';else tablaVaciaOctubre">
               <table class="table table-hover">
@@ -462,7 +444,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -470,7 +451,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -494,16 +474,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionNoviembre">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNoviembre" aria-expanded="true" aria-controls="collapseNoviembre">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNoviembre" aria-expanded="true" aria-controls="collapseNoviembre">
               Noviembre
             </button>
           </h2>
-          <div id="collapseNoviembre" class="accordion-collapse collapse show" data-bs-parent="#accordionNoviembre">
+          <div id="collapseNoviembre" class="accordion-collapse collapse" data-bs-parent="#accordionNoviembre">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Noviembre!='';else tablaVaciaNoviembre">
               <table class="table table-hover">
@@ -511,7 +491,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -519,7 +498,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
@@ -543,16 +521,16 @@
 
     <!--MES-->
 
-    <div class="col-6 mb-3">
+    <div class="col-lg mb-3">
 
       <div class="accordion" id="accordionDiciembre">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiciembre" aria-expanded="true" aria-controls="collapseDiciembre">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiciembre" aria-expanded="true" aria-controls="collapseDiciembre">
               Diciembre
             </button>
           </h2>
-          <div id="collapseDiciembre" class="accordion-collapse collapse show" data-bs-parent="#accordionDiciembre">
+          <div id="collapseDiciembre" class="accordion-collapse collapse" data-bs-parent="#accordionDiciembre">
             <div class="accordion-body">
               <div style="overflow-x: auto;"  *ngIf="Diciembre!='';else tablaVaciaDiciembre">
               <table class="table table-hover">
@@ -560,7 +538,6 @@
                    <tr>
                       <th scope="col"></th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Ir al curso</th>
                       <th scope="col">Fecha entrega</th>
                    </tr>
                 </thead>
@@ -568,7 +545,6 @@
                    <tr>
                       <th scope="row" [ngStyle]="{'font-size.px': '25'}" [style.color]="e.color">•</th>
                       <td>{{e.title}}</td>
-                      <td><a href="{{e.url}}"><button class="btn" [style.color]="e.color"><i class="fa-solid fa-chart-simple"></i></button></a></td>
                       <td>{{e.date}}</td>
                    </tr>
                 </tbody>
