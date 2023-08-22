@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { GradoCursoSeccionService,actividadesCursoGradoService, notasalumnosFinalService,alumnosGradoService,cursosGradoCuadroGuiaService,notasalumnosCursoFinalService } from "../service/cuadroguia"
+import { cursosGradoCuadroFinalService,GradoCursoSeccionService,actividadesCursoGradoService, notasalumnosFinalService,alumnosGradoService,cursosGradoCuadroGuiaService,notasalumnosCursoFinalService } from "../service/cuadroguia"
 import { handleHttp } from "../utils/error.handle"
 
 const getCursoBimestreConsolidado = async (req:Request, res:Response)=>{
@@ -62,5 +62,15 @@ const notasalumnosCursoFinal=async(req:Request,res:Response)=>{
         handleHttp(res,'Error',e)
     }
 }
+const cursosGradoCuadroFinal=async(req:Request,res:Response)=>{
+    try {
+        const {idGrado}=req.params 
+        const prueba=await cursosGradoCuadroFinalService(idGrado);
+        res.send(prueba)
+        
+    } catch (e) {
+        handleHttp(res,'Error',e)
+    }
+}
 
-export{getCursoBimestreConsolidado,actividadesCursoGrado,notasalumnosFinal,alumnosGrado,cursosGradoCuadroGuia,notasalumnosCursoFinal}
+export{cursosGradoCuadroFinal,getCursoBimestreConsolidado,actividadesCursoGrado,notasalumnosFinal,alumnosGrado,cursosGradoCuadroGuia,notasalumnosCursoFinal}

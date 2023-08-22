@@ -344,7 +344,10 @@ const notasalumnosFinalService=async(idCurso:string,idUnidad:string,idGrado:stri
    }
     return temp
 }
-
+const cursosGradoCuadroFinalService=async(idGrado:string)=>{
+    const cursos=await conexion.query("SELECT idCurso,abreviatura,nombre_curso FROM tbCurso WHERE idGrado=? and consolidado_anual=1",[idGrado]);
+    return cursos
+}
 //consolidado cursos del grado por bimestre
 const notasalumnosCursoFinalService=async(idGrado:string,idUnidad:string)=>{
     var consulta:any={}
@@ -711,4 +714,4 @@ const cursosGradoCuadroGuiaService=async(idGrado:string)=>{
     const cursos=await conexion.query("SELECT idCurso,abreviatura,nombre_curso FROM tbCurso WHERE idGrado=? and consolidado_bimestre=1",[idGrado]);
     return cursos
 }
-export{GradoCursoSeccionService,actividadesCursoGradoService,notasalumnosFinalService,alumnosGradoService,cursosGradoCuadroGuiaService,notasalumnosCursoFinalService}
+export{cursosGradoCuadroFinalService,GradoCursoSeccionService,actividadesCursoGradoService,notasalumnosFinalService,alumnosGradoService,cursosGradoCuadroGuiaService,notasalumnosCursoFinalService}

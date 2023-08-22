@@ -68,7 +68,7 @@ export class CuadroFinalComponent implements OnInit {
     )
   }
   obtenerCursosGrado(){
-    this.cuadroFinal.obtenerCursosGrado(this.idGrado).subscribe(
+    this.cuadroFinal.obtenerCursosGradoFinal(this.idGrado).subscribe(
       res=>{
        this.cursos=res
        this.CantidadCursos=this.cursos.length
