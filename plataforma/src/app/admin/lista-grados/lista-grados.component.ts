@@ -9,6 +9,7 @@ import { SeccionesService } from '../services/secciones.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CuadroGuiaService } from '../services/cuadro-guia.service';
+import { CuadroFinalService } from '../services/cuadro-final.service';
 
 
 @Component({
@@ -17,7 +18,9 @@ import { CuadroGuiaService } from '../services/cuadro-guia.service';
   styleUrls: ['./lista-grados.component.css']
 })
 export class ListaGradosComponent implements OnInit {
-  sppinerOn:boolean=true;
+  sppinerOn3:boolean=false;
+  sppinerOn:boolean=false;
+  sppinerOn2:boolean=false;
   rutaParaVerElRetorno:string='';
   idNivelSelecciondo:string='';
   nivelSeleccionado:any=[];
@@ -36,6 +39,10 @@ export class ListaGradosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  //consolidado final
+  cursosFinal:any=[]
+  CantidadCursosFinal:any='';
+  tablaFinal:any=[{}];
   //consolidado bimestral
   GradoSeccion:any=[{}];
   idGrado:any
@@ -57,7 +64,7 @@ export class ListaGradosComponent implements OnInit {
   @ViewChild('cerrarCrearModal') modalCloseCrear: any;
   @ViewChild('cerrarEditarModal') modalCloseEditar: any;
   @ViewChild('CerrarAlerta') closeAlert: any;
-  constructor(private cuadroGuia:CuadroGuiaService,private nivelesService:NivelesService,private activedRoute:ActivatedRoute,private gradoService:GradosService,private formBuilder:FormBuilder,private seccionesService:SeccionesService,private toastrService:ToastrService) { }
+  constructor(private cuadroFinal:CuadroFinalService,private cuadroGuia:CuadroGuiaService,private nivelesService:NivelesService,private activedRoute:ActivatedRoute,private gradoService:GradosService,private formBuilder:FormBuilder,private seccionesService:SeccionesService,private toastrService:ToastrService) { }
   alertaValor:any={
     classAlerta:'',
     mensajeAlerta:'',
@@ -78,7 +85,58 @@ export class ListaGradosComponent implements OnInit {
     }
     this.obtenerNiveles();
     this.getSecciones();
+  }
+  //consolidado Final
+  vaciarVariablesFinal(){
+    this.cursosFinal=null
+    this.CantidadCursosFinal=null
+    this.tablaFinal=null
+  }
+  cuadroFinalSeleccionado(idGrado:any){
+    this.sppinerOn3=true
+    this.obtenerGradoSeccionFinal(idGrado)
+    this.obtenerCursosGradoFinal(idGrado)
+    this.obtenerNotasCursosFinal(idGrado);
+  }
+  obtenerGradoSeccionFinal(idGrado:any){
+    this.cuadroGuia.obtenerGradoSeccion(idGrado).subscribe(
+      res=>{
+        this.GradoSeccion=res
 
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  obtenerCursosGradoFinal(idGrado:any){
+    this.cuadroFinal.obtenerCursosGrado(idGrado).subscribe(
+      res=>{
+       this.cursosFinal=res
+       this.CantidadCursosFinal=this.cursosFinal.length
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  obtenerNotasCursosFinal(idGrado:any){
+    this.cuadroFinal.obtenerNotasCuadroFinal(idGrado).subscribe(
+      res=>{
+        this.tablaFinal=res
+        this.sppinerOn3=false;
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  //Fin Consolidado Final
+  //Consolidado Bimestral
+  vaciarVariablesBimestral(){
+    this.cursos=[]
+    this.buscarBimestre.reset()
+    this.CantidadCursos=0
   }
   obtenerGradoSeccion(idGrado:any){
     this.cuadroGuia.obtenerGradoSeccion(idGrado).subscribe(
@@ -90,11 +148,11 @@ export class ListaGradosComponent implements OnInit {
       }
     )
   }
-  //Consolidado Bimestral
   GradoSeleccionado(idGrado:any){
     this.idGrado=idGrado
   }
   consolidadoBuscar(){
+    this.sppinerOn2=true;
     if (this.buscarBimestre.invalid) {
       this.errorLogininputs='form-select border-danger';
       return;
@@ -122,6 +180,7 @@ export class ListaGradosComponent implements OnInit {
     this.cuadroGuia.obtenerNotasCuadroGuia(this.idGrado,unidad).subscribe(
       res=>{
         this.tabla=res
+        this.sppinerOn2=false;
       },
       err=>{
         console.log(err)
@@ -154,29 +213,7 @@ export class ListaGradosComponent implements OnInit {
   //Imprimir
   PrintThis(){
     window.print();
-
-    /*const HTML = document.getElementById("areaImprimir");
-    this.printElement(HTML);*/ //  NO BORRAR, ESTO PUEDE SERVIR LUEGO
   }
-
-  /*printElement(elem: any) { //  NO BORRAR, ESTO PUEDE SERVIR LUEGO
-    const domClone = elem.cloneNode(true) as HTMLElement;
-
-    let $printSection = document.getElementById("printSection");
-
-    if (!$printSection) {
-        $printSection = document.createElement("div");
-        $printSection.id = "printSection";
-        document.body.appendChild($printSection);
-    }
-
-    $printSection.innerHTML = "";
-    $printSection.appendChild(domClone);
-    window.print();
-  } */
-
-
-
   crearGrado(){
     this.submitted = true;
     if (this.gradoFormthis.invalid) {
