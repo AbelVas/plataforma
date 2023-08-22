@@ -17,6 +17,11 @@
       <div class="encabezadodiv"><br>
       </div>
       <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion+', Nivel: '+GradoSeccion[0].nivel+', Jornada: '+GradoSeccion[0].jornada}}</u><h5 id='bimes' style='font-size:16px;'>Cuadro de Grado</h5></label><br><br><br>
+      <div *ngIf="sppinerOn==true;else Mostrar1">
+        <app-loaderpeque></app-loaderpeque>
+        <h4 class="text-center">Cargando información, por favor espere...</h4>
+      </div>
+      <ng-template #Mostrar1>
       <table class="table">
         <thead>
           <th class="text-center">Alumno</th>
@@ -170,9 +175,9 @@
               <td class="text-center">{{(n.uno+n.dos+n.tres+n.cuatro+n.cinco+n.seis+n.siete+n.ocho+n.nueve+n.diez+n.once+n.doce+n.trece+n.catorce+n.quince+n.dieciseis+n.diecisiete)/17 | number: '1.0-0'}}</td>
             </tr>
           </ng-container>
-
         </tbody>
       </table>
+      </ng-template>
       <div class="text-center">
         <br><br><br>
          <input class="text-center" type="text" value="Dirección" style="color:#000;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white; margin-left:20px; width:230px;" disabled>

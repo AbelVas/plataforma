@@ -16,6 +16,7 @@ import { LoaderchiquiComponent } from './loaderchiqui/loaderchiqui.component';
 import { CodigosService } from "../admin/services/codigos.service";
 import { GradosService } from "../admin/services/grados-admin.service";
 import { AlumnosService } from "../admin/services/alumnos.service";
+import { LoaderConsolComponent } from './loader-consol/loader-consol.component';
 
 @NgModule({
   imports:[
@@ -31,12 +32,14 @@ import { AlumnosService } from "../admin/services/alumnos.service";
     LoaderpequeComponent,
     CalendarioComponent,
     LoaderchiquiComponent,
+    LoaderConsolComponent,
 
   ],
   exports:[
     LoaderComponent,
     LoaderpequeComponent,
     LoaderchiquiComponent,
+    LoaderConsolComponent,
     CalendarioComponent,
   ],
   providers:[
