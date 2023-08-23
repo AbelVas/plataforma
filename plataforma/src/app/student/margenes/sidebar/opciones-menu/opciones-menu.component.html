@@ -1,5 +1,6 @@
 <li class="nav-item"> <h6 class="card-title"><a [style]="{'background-color': cnavbar2, 'color': ctexto2}" routerLink="dashboard" class="nav-link collapsed"> <i class="fa-solid fa-house"></i> Inicio </a></h6></li>
-<li class="nav-item"> <h6 class="card-title"><a [style]="{'background-color': cnavbar2, 'color': ctexto2}" routerLink="calendario" class="nav-link collapsed"> <i class="fa-solid fa-calendar-week"></i> Calendario </a></h6></li>
+<ng-container *ngIf="Calendario1==1"><li class="nav-item"> <h6 class="card-title"><a [style]="{'background-color': cnavbar2, 'color': ctexto2}" routerLink="calendario/Lista" class="nav-link collapsed"> <i class="fa-solid fa-calendar-week"></i> Calendario </a></h6></li></ng-container>
+<ng-container *ngIf="Calendario2==1"><li class="nav-item"> <h6 class="card-title"><a [style]="{'background-color': cnavbar2, 'color': ctexto2}" routerLink="calendario/MonthGrid" class="nav-link collapsed"> <i class="fa-solid fa-calendar-week"></i> Calendario </a></h6></li></ng-container>
 <li class="nav-item"> <h6 class="card-title"><a [style]="{'background-color': cnavbar2, 'color': ctexto2}" routerLink="calificaciones" class="nav-link collapsed"> <i class="fa-solid fa-graduation-cap"></i> Calificaciones </a></h6></li>
 <li class="nav-item"> <h6 class="card-title"> <a [style]="{'background-color': cnavbar2, 'color': ctexto2}"routerLink="tutorial" class="nav-link collapsed disabled"><i class="fa-solid fa-shoe-prints"></i> Tutorial </a></h6></li>
 

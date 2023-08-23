@@ -42,6 +42,7 @@ import { TemaEstudianteService } from "./services/tema-estudiante.service";
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { ListaActividadesComponent } from './lista-actividades/lista-actividades.component';
 import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-actividades-curso.component';
+import { CalendarioVistaMesComponent } from './calendario-vista-mes/calendario-vista-mes.component';
 //
 
 
@@ -82,7 +83,8 @@ import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-
     ExamenCursoStudentComponent,
     TutorialComponent,
     ListaActividadesComponent,
-    ListaActividadesCursoComponent
+    ListaActividadesCursoComponent,
+    CalendarioVistaMesComponent
   ],
   exports:[
   ],

@@ -1,9 +1,9 @@
 export default{
     database:{
-        host: '75.102.58.70',
-        user: 'nthdovqx_academicoverapaz',
+        host: '204.93.224.100',
+        user: 'flrsjejd_brincoteca',
         password: 'macromish40322454',
-        database: 'nthdovqx_plataforma_academicoverapaz'
+        database: 'flrsjejd_plataformaplanbasico_brincoteca'
     }
 }
 
