@@ -143,29 +143,21 @@ const notasalumnosFinalService=async(idGrado:string)=>{
             var contador=0;
             for(let i=0;i<cantidadCursos;i++){
                 while(contador<dataAlumnos.length){
-                    //consulta primer bimestre
-                    const consulta1=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(1,"+idCursos[0]+",a.idAlumno) as cero, fmateria(1,"+idCursos[1]+",a.idAlumno) as uno, fmateria(1,"+idCursos[2]+",a.idAlumno) as dos, fmateria(1,"+idCursos[3]+",a.idAlumno) as tres, fmateria(1,"+idCursos[4]+",a.idAlumno) as cuatro FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
-                    //consulta segundo bimestre
-                    const consulta2=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(2,"+idCursos[0]+",a.idAlumno) as cero, fmateria(2,"+idCursos[1]+",a.idAlumno) as uno, fmateria(2,"+idCursos[2]+",a.idAlumno) as dos, fmateria(2,"+idCursos[3]+",a.idAlumno) as tres, fmateria(2,"+idCursos[4]+",a.idAlumno) as cuatro FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
-                    //consulta segundo bimestre
-                    const consulta3=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(3,"+idCursos[0]+",a.idAlumno) as cero, fmateria(3,"+idCursos[1]+",a.idAlumno) as uno, fmateria(3,"+idCursos[2]+",a.idAlumno) as dos, fmateria(3,"+idCursos[3]+",a.idAlumno) as tres, fmateria(3,"+idCursos[4]+",a.idAlumno) as cuatro FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
-                    //consulta segundo bimestre
-                    const consulta4=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(4,"+idCursos[0]+",a.idAlumno) as cero, fmateria(4,"+idCursos[1]+",a.idAlumno) as uno, fmateria(4,"+idCursos[2]+",a.idAlumno) as dos, fmateria(4,"+idCursos[3]+",a.idAlumno) as tres, fmateria(4,"+idCursos[4]+",a.idAlumno) as cuatro FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
+                    //consulta PARA PROMEDIO POR CURSO Y ESTUDIANTE
+                    const consulta1=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,PromedioFinalCurso("+idCursos[0]+",a.idAlumno) as cero, PromedioFinalCurso("+idCursos[1]+",a.idAlumno) as uno, PromedioFinalCurso("+idCursos[2]+",a.idAlumno) as dos, PromedioFinalCurso("+idCursos[3]+",a.idAlumno) as tres, PromedioFinalCurso("+idCursos[4]+",a.idAlumno) as cuatro FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idAlumnos[contador]])
                     //array consultas
                     const notaArray1:any=Object.values(consulta1);
-                    const notaArray2:any=Object.values(consulta2);
-                    const notaArray3:any=Object.values(consulta3);
-                    const notaArray4:any=Object.values(consulta4);
+
                    //chingo de arrays
                    temp[contador]={
                     alumno:notaArray1[0].alumno,
-                    uno:Math.round((notaArray1[0].cero+notaArray2[0].cero+notaArray3[0].cero+notaArray4[0].cero)/4),
-                    dos:Math.round((notaArray1[0].uno+notaArray2[0].uno+notaArray3[0].uno+notaArray4[0].uno)/4),
-                    tres:Math.round((notaArray1[0].dos+notaArray2[0].dos+notaArray3[0].dos+notaArray4[0].dos)/4),
-                    cuatro:Math.round((notaArray1[0].tres+notaArray2[0].tres+notaArray3[0].tres+notaArray4[0].tres)/4),
-                    cinco:Math.round((notaArray1[0].cuatro+notaArray2[0].cuatro+notaArray3[0].cuatro+notaArray4[0].cuatro)/4),
+                    uno:notaArray1[0].cero,
+                    dos:notaArray1[0].uno,
+                    tres:notaArray1[0].dos,
+                    cuatro:notaArray1[0].tres,
+                    cinco:notaArray1[0].cuatro,
+                    promedio:Math.round((notaArray1[0].cero+notaArray1[0].uno+notaArray1[0].dos+notaArray1[0].tres+notaArray1[0].cuatro)/5)
                 }
-
                     contador=contador+1;
                 }
             }
@@ -239,32 +231,23 @@ const notasalumnosFinalService=async(idGrado:string)=>{
             var contador=0;
             for(let i=0;i<cantidadCursos;i++){
                 while(contador<dataAlumnos.length){
-                    //consulta primer bimestre
-                    const consulta1=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(1,"+idCursos[0]+",a.idAlumno) as cero, fmateria(1,"+idCursos[1]+",a.idAlumno) as uno, fmateria(1,"+idCursos[2]+",a.idAlumno) as dos, fmateria(1,"+idCursos[3]+",a.idAlumno) as tres, fmateria(1,"+idCursos[4]+",a.idAlumno) as cuatro, fmateria(1,"+idCursos[5]+",a.idAlumno) as cinco, fmateria(1,"+idCursos[6]+",a.idAlumno) as seis, fmateria(1,"+idCursos[7]+",a.idAlumno) as siete FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
-                    //consulta segundo bimestre
-                    const consulta2=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(2,"+idCursos[0]+",a.idAlumno) as cero, fmateria(2,"+idCursos[1]+",a.idAlumno) as uno, fmateria(2,"+idCursos[2]+",a.idAlumno) as dos, fmateria(2,"+idCursos[3]+",a.idAlumno) as tres, fmateria(2,"+idCursos[4]+",a.idAlumno) as cuatro, fmateria(2,"+idCursos[5]+",a.idAlumno) as cinco, fmateria(2,"+idCursos[6]+",a.idAlumno) as seis, fmateria(2,"+idCursos[7]+",a.idAlumno) as siete FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
-                    //consulta segundo bimestre
-                    const consulta3=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(3,"+idCursos[0]+",a.idAlumno) as cero, fmateria(3,"+idCursos[1]+",a.idAlumno) as uno, fmateria(3,"+idCursos[2]+",a.idAlumno) as dos, fmateria(3,"+idCursos[3]+",a.idAlumno) as tres, fmateria(3,"+idCursos[4]+",a.idAlumno) as cuatro, fmateria(3,"+idCursos[5]+",a.idAlumno) as cinco, fmateria(3,"+idCursos[6]+",a.idAlumno) as seis, fmateria(3,"+idCursos[7]+",a.idAlumno) as siete FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
-                    //consulta segundo bimestre
-                    const consulta4=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,fmateria(4,"+idCursos[0]+",a.idAlumno) as cero, fmateria(4,"+idCursos[1]+",a.idAlumno) as uno, fmateria(4,"+idCursos[2]+",a.idAlumno) as dos, fmateria(4,"+idCursos[3]+",a.idAlumno) as tres, fmateria(4,"+idCursos[4]+",a.idAlumno) as cuatro, fmateria(4,"+idCursos[5]+",a.idAlumno) as cinco, fmateria(4,"+idCursos[6]+",a.idAlumno) as seis, fmateria(4,"+idCursos[7]+",a.idAlumno) as siete FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idGrado=? and a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idGrado,idAlumnos[contador]])
+                    //consulta PARA PROMEDIO POR CURSO Y ESTUDIANTE
+                    const consulta1=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno,PromedioFinalCurso("+idCursos[0]+",a.idAlumno) as cero, PromedioFinalCurso("+idCursos[1]+",a.idAlumno) as uno, PromedioFinalCurso("+idCursos[2]+",a.idAlumno) as dos, PromedioFinalCurso("+idCursos[3]+",a.idAlumno) as tres, PromedioFinalCurso("+idCursos[4]+",a.idAlumno) as cuatro, PromedioFinalCurso("+idCursos[5]+",a.idAlumno) as cinco, PromedioFinalCurso("+idCursos[6]+",a.idAlumno) as seis, PromedioFinalCurso("+idCursos[7]+",a.idAlumno) as siete FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idAlumnos[contador]])
                     //array consultas
                     const notaArray1:any=Object.values(consulta1);
-                    const notaArray2:any=Object.values(consulta2);
-                    const notaArray3:any=Object.values(consulta3);
-                    const notaArray4:any=Object.values(consulta4);
                    //chingo de arrays
                    temp[contador]={
                     alumno:notaArray1[0].alumno,
-                    uno:Math.round((notaArray1[0].cero+notaArray2[0].cero+notaArray3[0].cero+notaArray4[0].cero)/4),
-                    dos:Math.round((notaArray1[0].uno+notaArray2[0].uno+notaArray3[0].uno+notaArray4[0].uno)/4),
-                    tres:Math.round((notaArray1[0].dos+notaArray2[0].dos+notaArray3[0].dos+notaArray4[0].dos)/4),
-                    cuatro:Math.round((notaArray1[0].tres+notaArray2[0].tres+notaArray3[0].tres+notaArray4[0].tres)/4),
-                    cinco:Math.round((notaArray1[0].cuatro+notaArray2[0].cuatro+notaArray3[0].cuatro+notaArray4[0].cuatro)/4),
-                    seis:Math.round((notaArray1[0].cinco+notaArray2[0].cinco+notaArray3[0].cinco+notaArray4[0].cinco)/4),
-                    siete:Math.round((notaArray1[0].seis+notaArray2[0].seis+notaArray3[0].seis+notaArray4[0].seis)/4),
-                    ocho:Math.round((notaArray1[0].siete+notaArray2[0].siete+notaArray3[0].siete+notaArray4[0].siete)/4),
+                    uno:notaArray1[0].cero,
+                    dos:notaArray1[0].uno,
+                    tres:notaArray1[0].dos,
+                    cuatro:notaArray1[0].tres,
+                    cinco:notaArray1[0].cuatro,
+                    seis:notaArray1[0].cinco,
+                    siete:notaArray1[0].seis,
+                    ocho:notaArray1[0].siete,
+                    promedio:Math.round((notaArray1[0].cero+notaArray1[0].uno+notaArray1[0].dos+notaArray1[0].tres+notaArray1[0].cuatro+notaArray1[0].cinco+notaArray1[0].seis+notaArray1[0].siete)/8)
                 }
-
                     contador=contador+1;
                 }
             }
