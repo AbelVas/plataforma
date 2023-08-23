@@ -277,57 +277,57 @@
             </thead>
             <tbody>
               <ng-container *ngIf="CantidadCursosFinal==1">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
-                  <td class="text-center">{{(t.uno)/1 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==2">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
-                  <td class="text-center">{{(t.uno+t.dos)/2 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==3">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
                   <td class="text-center">{{t.tres}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres)/3 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==4">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
                   <td class="text-center">{{t.tres}}</td>
                   <td class="text-center">{{t.cuatro}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro)/4 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==5">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
                   <td class="text-center">{{t.tres}}</td>
                   <td class="text-center">{{t.cuatro}}</td>
                   <td class="text-center">{{t.cinco}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco)/5 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==6">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -335,12 +335,12 @@
                   <td class="text-center">{{t.cuatro}}</td>
                   <td class="text-center">{{t.cinco}}</td>
                   <td class="text-center">{{t.seis}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis)/6 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==7">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -349,12 +349,12 @@
                   <td class="text-center">{{t.cinco}}</td>
                   <td class="text-center">{{t.seis}}</td>
                   <td class="text-center">{{t.siete}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete)/7 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==8">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -364,12 +364,12 @@
                   <td class="text-center">{{t.seis}}</td>
                   <td class="text-center">{{t.siete}}</td>
                   <td class="text-center">{{t.ocho}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho)/8 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==9">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -380,12 +380,12 @@
                   <td class="text-center">{{t.siete}}</td>
                   <td class="text-center">{{t.ocho}}</td>
                   <td class="text-center">{{t.nueve}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve)/9 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==10">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -397,12 +397,12 @@
                   <td class="text-center">{{t.ocho}}</td>
                   <td class="text-center">{{t.nueve}}</td>
                   <td class="text-center">{{t.diez}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez)/10 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==11">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -415,12 +415,12 @@
                   <td class="text-center">{{t.nueve}}</td>
                   <td class="text-center">{{t.diez}}</td>
                   <td class="text-center">{{t.once}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once)/11 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==12">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -434,12 +434,12 @@
                   <td class="text-center">{{t.diez}}</td>
                   <td class="text-center">{{t.once}}</td>
                   <td class="text-center">{{t.doce}}</td>
-                  <td class="text-center">{{((t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce)/12) | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==13">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -454,12 +454,12 @@
                   <td class="text-center">{{t.once}}</td>
                   <td class="text-center">{{t.doce}}</td>
                   <td class="text-center">{{t.trece}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece)/13 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==14">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -475,12 +475,12 @@
                   <td class="text-center">{{t.doce}}</td>
                   <td class="text-center">{{t.trece}}</td>
                   <td class="text-center">{{t.catorce}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce)/14 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==15">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -497,12 +497,12 @@
                   <td class="text-center">{{t.trece}}</td>
                   <td class="text-center">{{t.catorce}}</td>
                   <td class="text-center">{{t.quince}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince)/15 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==16">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -520,12 +520,12 @@
                   <td class="text-center">{{t.catorce}}</td>
                   <td class="text-center">{{t.quince}}</td>
                   <td class="text-center">{{t.dieciseis}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis)/16 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==17">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -544,12 +544,12 @@
                   <td class="text-center">{{t.quince}}</td>
                   <td class="text-center">{{t.dieciseis}}</td>
                   <td class="text-center">{{t.diecisiete}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis+t.diecisiete)/17 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==18">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -569,12 +569,12 @@
                   <td class="text-center">{{t.dieciseis}}</td>
                   <td class="text-center">{{t.diecisiete}}</td>
                   <td class="text-center">{{t.dieciocho}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis+t.diecisiete+t.dieciocho)/18 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==19">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -595,12 +595,12 @@
                   <td class="text-center">{{t.diecisiete}}</td>
                   <td class="text-center">{{t.dieciocho}}</td>
                   <td class="text-center">{{t.diecinueve}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis+t.diecisiete+t.dieciocho+t.diecinueve)/19 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
               <ng-container *ngIf="CantidadCursosFinal==20">
-                <tr *ngFor="let t of tabla">
+                <tr *ngFor="let t of tablaFinal">
                   <td class="text-center">{{t.alumno}}</td>
                   <td class="text-center">{{t.uno}}</td>
                   <td class="text-center">{{t.dos}}</td>
@@ -622,7 +622,7 @@
                   <td class="text-center">{{t.dieciocho}}</td>
                   <td class="text-center">{{t.diecinueve}}</td>
                   <td class="text-center">{{t.veinte}}</td>
-                  <td class="text-center">{{(t.uno+t.dos+t.tres+t.cuatro+t.cinco+t.seis+t.siete+t.ocho+t.nueve+t.diez+t.once+t.doce+t.trece+t.catorce+t.quince+t.dieciseis+t.diecisiete+t.dieciocho+t.diecinueve+t.veinte)/20 | number: '1.0-0'}}</td>
+                  <td class="text-center">{{(t.promedio)}}</td>
                 </tr>
               </ng-container>
 
