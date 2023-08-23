@@ -125,7 +125,7 @@ export class ListaGradosComponent implements OnInit {
       res=>{
         this.tablaFinal=res
         this.sppinerOn3=false;
-        console.log(this.tablaFinal)
+
       },
       err=>{
         console.log(err)
