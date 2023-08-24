@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Calendar } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-opciones-menu',
@@ -10,6 +11,8 @@ export class OpcionesMenuComponent implements OnInit {
 MenuOcultable:any;
 Hola="";
 Ruta:String='';
+Calendario1:any
+Calendario2:any
 
   @Input() cnavbar2:string='';
   @Input() ctexto2:string='';
@@ -27,6 +30,8 @@ Ruta:String='';
 
     const String = this.Hola
     console.log(String)
+    this.Calendario1="0"
+    this.Calendario2="1"
   }
 
 }

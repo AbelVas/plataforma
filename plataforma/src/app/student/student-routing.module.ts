@@ -15,13 +15,15 @@ import { ForoCursoStudentComponent } from "./foro-curso-student/foro-curso-stude
 import { PerfilStudentComponent } from "./perfil-student/perfil-student.component";
 import { StudentComponent } from "./student.component";
 import { TutorialComponent } from "./tutorial/tutorial.component";
+import { CalendarioVistaMesComponent } from "./calendario-vista-mes/calendario-vista-mes.component";
 
 const routes:Routes=[
   {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component: StudentComponent,children:
   [
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'dashboard',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:DashboardComponent},
-    {path:'calendario',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalendarioStudentComponent},
+    {path:'calendario/Lista',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalendarioStudentComponent},
+    {path:'calendario/MonthGrid',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalendarioVistaMesComponent},
     {path:'calificaciones',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:CalificacionesStudentComponent},
     {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:PerfilStudentComponent},
     {path:'curso/resumen/:id/:curso',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ResumenCursoAlumnoComponent},
