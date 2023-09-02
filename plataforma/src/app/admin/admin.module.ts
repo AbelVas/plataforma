@@ -79,6 +79,7 @@ import { BoletasComponent } from './boletas/boletas.component';
 import { BoletasService } from "./services/boletas.service";
 import { CuadroFinalComponent } from './cuadro-final/cuadro-final.component';
 import { CuadroFinalService } from "./services/cuadro-final.service";
+import { SubirImagenPerfilArchivoService } from "./services/subir-imagen-perfil-archivo.service";
 
 @NgModule({
     declarations: [
@@ -151,7 +152,8 @@ import { CuadroFinalService } from "./services/cuadro-final.service";
         AlumnosService,
         CuadroGuiaService,
         BoletasService,
-        CuadroFinalService
+        CuadroFinalService,
+        SubirImagenPerfilArchivoService
     ],
     imports: [
         AdminRoutingModule,

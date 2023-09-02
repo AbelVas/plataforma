@@ -4,9 +4,10 @@ import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-defecto.service';
 import { FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import decode from "jwt-decode"
 import { ToastrService } from 'ngx-toastr';
+import { SubirImagenPerfilArchivoService } from 'src/app/admin/services/subir-imagen-perfil-archivo.service';
+
 
 @Component({
   selector: 'app-admin-edit-perfil-admin',
@@ -14,7 +15,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edit-perfil-admin.component.css']
 })
 export class EditPerfilAdminComponent implements OnInit {
-  constructor(private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
+  selectedFile: File | undefined;
+  constructor(private fileUploadService: SubirImagenPerfilArchivoService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
+  }
   submitted=false;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
@@ -28,10 +31,6 @@ export class EditPerfilAdminComponent implements OnInit {
   permitirVer:any;
   adminIndividual:any=[{
   }];
-
-  ImgForm=this.formBuilder.group({
-    archivoImagen:new FormControl(null,[Validators.required]),
-  })
 
   EditarAdminForm=this.formBuilder.group({
     nombre_profesor:new FormControl('',[Validators.required]),
@@ -152,47 +151,25 @@ export class EditPerfilAdminComponent implements OnInit {
       }
     )
   }
-  actualizarImgImport(idProfesor:string){
-    const imageBlob = this.subirImagen.nativeElement.files[0];
-    const data = new FormData ();
-    data.set('myfile',imageBlob)
-    console.log(data)
-    console.log(imageBlob)
-      this.imagenPerfilService.subirDocImagenPerfil(idProfesor,data).subscribe(
-        res=>{
-          this.ejecutarEventoActualizar(imageBlob)
-          this.modalCloseEditarImg.nativeElement.click()
-          this.modalCloseEditar.nativeElement.click()
+//NUEVO CONTROL PARA SUBIR IMAGENES
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile)
+  }
+  uploadFile(event: Event) {
+    event.preventDefault();
+
+    if (this.selectedFile) {
+      this.fileUploadService.uploadFile(this.selectedFile).subscribe(
+        response => {
+          console.log('Archivo subido exitosamente', response);
         },
-        err=>{
-          this.ejecutarEventoActualizar(imageBlob)
-          console.log(err)
+        error => {
+          console.error('Error al subir el archivo', error);
         }
-      )
+      );
     }
-//Cambio sin nada
-    subirArchivo(event:any) {
-     if(event.target.files.length > 0){
-      const file = event.target.files[0];
-      const formData = new FormData()
-      formData.append('myfile',file);
-      const Doc = formData
-      const {idUsuario}:any=decode(this.token);
-      console.log('id profesor = '+idUsuario)
-      this.imagenPerfilService.subirDocImagenPerfil(idUsuario,formData).subscribe(
-        res=>{
-          console.log("Si subio el doc")
-          this.ejecutarEventoActualizar(file)
-        },
-        err=>{
-          console.log(err)
-        }
-      )
-     }
-
-    }
-
-
+  }
     get f() { return this.EditarAdminForm.controls; }
   }
 

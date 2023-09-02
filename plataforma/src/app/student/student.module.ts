@@ -43,6 +43,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 import { ListaActividadesComponent } from './lista-actividades/lista-actividades.component';
 import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-actividades-curso.component';
 import { CalendarioVistaMesComponent } from './calendario-vista-mes/calendario-vista-mes.component';
+import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-menu.service";
 //
 
 
@@ -96,8 +97,8 @@ import { CalendarioVistaMesComponent } from './calendario-vista-mes/calendario-v
     DahboardService,
     PerfilAlumnoService,
     CalificacionesStudentService,
-    TemaEstudianteService
-
+    TemaEstudianteService,
+    OpcionesMenuService
   ]
 })
 
