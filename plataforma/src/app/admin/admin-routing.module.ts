@@ -19,6 +19,7 @@ import { ConsolidadoBimestralComponent } from "./consolidado-bimestral/consolida
 import { CuadroGuiaComponent } from "./cuadro-guia/cuadro-guia.component";
 import { BoletasComponent } from "./boletas/boletas.component";
 import { CuadroFinalComponent } from "./cuadro-final/cuadro-final.component";
+import { BoletaEspecialComponent } from "./boleta-especial/boleta-especial.component";
 
 
 const routes:Routes=[
@@ -44,6 +45,7 @@ const routes:Routes=[
     {path:'cuadro-guia/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CuadroGuiaComponent},
     {path:'cuadro-final/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CuadroFinalComponent},
     {path:'boletas/:idGrado/:idAlumno',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletasComponent},
+    {path:'boleta-especial/:idGrado/:idAlumno',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletaEspecialComponent},
   ]
   },
 ]

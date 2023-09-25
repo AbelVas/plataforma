@@ -1,0 +1,20 @@
+#areaImprimir{
+  background-color: white;
+
+}
+@media print{
+  @page {
+    size: landscape;
+    margin: 1.5cm;
+}
+  hr{
+    display: none;
+  }
+  #NoPrint{
+    display: none;
+  }
+  #areaImprimir{
+    position: absolute;
+    top:0%;
+  }
+}

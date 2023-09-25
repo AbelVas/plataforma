@@ -80,6 +80,8 @@ import { BoletasService } from "./services/boletas.service";
 import { CuadroFinalComponent } from './cuadro-final/cuadro-final.component';
 import { CuadroFinalService } from "./services/cuadro-final.service";
 import { SubirImagenPerfilArchivoService } from "./services/subir-imagen-perfil-archivo.service";
+import { BoletaEspecialComponent } from './boleta-especial/boleta-especial.component';
+import { BoletaEspecialService } from "./services/boleta-especial.service";
 
 @NgModule({
     declarations: [
@@ -126,7 +128,8 @@ import { SubirImagenPerfilArchivoService } from "./services/subir-imagen-perfil-
         ConsolidadoBimestralComponent,
         CuadroGuiaComponent,
         BoletasComponent,
-        CuadroFinalComponent
+        CuadroFinalComponent,
+        BoletaEspecialComponent
     ],
     exports: [],
     providers: [
@@ -153,7 +156,8 @@ import { SubirImagenPerfilArchivoService } from "./services/subir-imagen-perfil-
         CuadroGuiaService,
         BoletasService,
         CuadroFinalService,
-        SubirImagenPerfilArchivoService
+        SubirImagenPerfilArchivoService,
+        BoletaEspecialService
     ],
     imports: [
         AdminRoutingModule,
