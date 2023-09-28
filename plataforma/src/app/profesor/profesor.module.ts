@@ -53,6 +53,7 @@ import { ArchivosPerfilProfesorComponent } from './perfil-profesor/components/ar
 import { NgChartsModule } from "ng2-charts";
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { CuadrosCursoComponent } from './cuadros-curso/cuadros-curso.component';
+import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso/boleta-final-promedio-curso.component';
 //
 
 
@@ -100,7 +101,8 @@ import { CuadrosCursoComponent } from './cuadros-curso/cuadros-curso.component';
   CalendariogeneralComponent,
   ArchivosPerfilProfesorComponent,
   TutorialComponent,
-  CuadrosCursoComponent
+  CuadrosCursoComponent,
+  BoletaFinalPromedioCursoComponent
   ],
   exports:[
   ],

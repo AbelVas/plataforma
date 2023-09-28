@@ -68,7 +68,7 @@ import { PagosComponent } from './pagos/pagos.component';
     ContenidoVistaEstudianteComponent,
     CalificacionesVistaEstudianteComponent,
     TutorialComponent,
-    PagosComponent
+    PagosComponent,
   ],
   exports:[
   ],

@@ -15,9 +15,7 @@ export class SubirImagenPerfilArchivoService {
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.URL}/cuadroguia/alumnos/`,formData,httpOptions).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.post(`${this.URL}/FotoPerfilAdmin/profil-admin/photo`,formData,httpOptions)
   }
 
   private handleError(error:HttpErrorResponse){

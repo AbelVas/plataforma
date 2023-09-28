@@ -37,6 +37,7 @@
             <td class="text-center">
                 <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#CursoEdit" (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-pen-to-square"></i></button>
                 <a class="btn btn-success" routerLink="/admin/consolidado/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}" target="_blank"><i class="fa-solid fa-table"></i></a>
+                <a class="btn btn-secondary" routerLink="/admin/boleta-especial-final/{{idGrado}}/{{c.idCurso}}/{{c.idProfesor}}" target="_blank"><i class="fa-solid fa-table"></i></a>
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#EliminarCurso"  (click)="buscarCursoIndividual(c.idCurso)"><i class="fa-solid fa-trash-can"></i></button>
             </td>
         </tr>

@@ -45,4 +45,32 @@ const alumnoNotasBoletaEspecialService=async(idGrado:string,idAlumno:string)=>{
     }
     return temp
 }
-export {alumnosGradoService,alumnoNotasBoletaService,alumnoNotasBoletaEspecialService}
+
+const alumnoNotasBoletaFinalPromedio=async(idCurso:string,idGrado:string)=>{
+    var temp:any=[];
+    var mensaje:any='';
+    var temp:any=[]
+    var idAlumnos:any=[]
+    //OBTENEMOS LOS ALUMNOS DEL GRADO
+        const dataAlumnos=await conexion.query("SELECT idAlumno FROM `tbAlumno` WHERE idGrado=? order by apellidos_alumno",[idGrado]);
+        const alumnosArray:any=Object.values(dataAlumnos);
+        //sacamos los ids de los alumnos
+        for(let j=0;j<dataAlumnos.length;j++){
+            idAlumnos[j]=alumnosArray[j].idAlumno
+        }
+    //FIN DE OBTENER LOS ALUMNOS DEL GRADO
+    for(let i=0;i<dataAlumnos.length;i++){
+        const cursosNotas=await conexion.query("SELECT CONCAT(a.apellidos_alumno,', ',a.nombres_alumno) as alumno, fTNOTA(1,"+idCurso+",a.idAlumno) as uno,fTNOTA(2,"+idCurso+",a.idAlumno) as dos, fTNOTA(3,"+idCurso+",a.idAlumno) as tres, fTNOTA(4,"+idCurso+",a.idAlumno) as cuatro FROM tbAlumno a INNER JOIN tbCurso c WHERE a.idAlumno=? GROUP BY a.idAlumno ORDER BY a.apellidos_alumno",[idAlumnos[i]])
+        const notaArray:any=Object.values(cursosNotas);
+        temp[i]={
+            alumno:notaArray[0].alumno,
+            uno:notaArray[0].uno,
+            dos:notaArray[0].dos,
+            tres:notaArray[0].tres,
+            cuatro:notaArray[0].cuatro,
+            promedio: Math.round((notaArray[0].uno+notaArray[0].dos+notaArray[0].tres+notaArray[0].cuatro)/4)
+        }
+    }
+    return temp
+}
+export {alumnosGradoService,alumnoNotasBoletaService,alumnoNotasBoletaEspecialService,alumnoNotasBoletaFinalPromedio}

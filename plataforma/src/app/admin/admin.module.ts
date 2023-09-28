@@ -82,6 +82,7 @@ import { CuadroFinalService } from "./services/cuadro-final.service";
 import { SubirImagenPerfilArchivoService } from "./services/subir-imagen-perfil-archivo.service";
 import { BoletaEspecialComponent } from './boleta-especial/boleta-especial.component';
 import { BoletaEspecialService } from "./services/boleta-especial.service";
+import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso/boleta-final-promedio-curso.component';
 
 @NgModule({
     declarations: [
@@ -129,7 +130,8 @@ import { BoletaEspecialService } from "./services/boleta-especial.service";
         CuadroGuiaComponent,
         BoletasComponent,
         CuadroFinalComponent,
-        BoletaEspecialComponent
+        BoletaEspecialComponent,
+        BoletaFinalPromedioCursoComponent
     ],
     exports: [],
     providers: [

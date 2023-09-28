@@ -41,6 +41,19 @@ export class CuadroFinalService {
       catchError(this.handleError)
     );
   }
+
+  obtenerPromedioFinalNotas(idGrado:string,idCurso:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/boletas/boleta-final-promedio-curso/${idCurso}/${idGrado}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  cursoDocente(idCruso:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/cursos/curso-profesor-individual/${idCruso}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error:HttpErrorResponse){
 
     return throwError(error)

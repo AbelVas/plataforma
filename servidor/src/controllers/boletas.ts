@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import { handleHttp } from "../utils/error.handle"
-import { alumnosGradoService,alumnoNotasBoletaService,alumnoNotasBoletaEspecialService } from "../service/boletas"
+import { alumnosGradoService,alumnoNotasBoletaService,alumnoNotasBoletaEspecialService,alumnoNotasBoletaFinalPromedio } from "../service/boletas"
 
 const alumnosGrado=async(req:Request,res:Response)=>{
     try{
@@ -33,5 +33,14 @@ const alumnoNotasBoletaEspecial=async(req:Request,res:Response)=>{
         handleHttp(res,'Error',e)
     }
 }
-
-export {alumnosGrado,alumnoNotasBoletaService,alumnoNotasBoleta,alumnoNotasBoletaEspecial}
+const alumnoNotasBoletaPromedioFinal=async(req:Request,res:Response)=>{
+    try {
+        const {idGrado}=req.params 
+        const {idCurso}=req.params 
+        const prueba=await alumnoNotasBoletaFinalPromedio(idCurso,idGrado);
+        res.send(prueba)
+    } catch (e) {
+        handleHttp(res,'Error',e)
+    }
+}
+export {alumnosGrado,alumnoNotasBoletaService,alumnoNotasBoleta,alumnoNotasBoletaEspecial,alumnoNotasBoletaPromedioFinal}

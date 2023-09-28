@@ -1,0 +1,57 @@
+<main id="main" class="main">
+  <div id="NoPrint" class="pagetitle">
+    <h1>Boleta de Calificaciones</h1>
+    <nav>
+       <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin/">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+       </ol>
+    </nav>
+ </div>
+  <section id="section" class="section dashboard">
+    <div id="areaImprimir" #areaImprimir>
+      <div class="logodiv" style="float:left;">
+        <img src="../../../assets/img/consolidadoLogo/logo.jpg">
+      </div>
+      <div class="encabezadodiv"><br>
+      </div>
+      <label for="" style="margin-left:40px;font-family: sans-serif;">Grado: <u>{{GradoSeccion[0].nombre_grado+', Sección: '+GradoSeccion[0].seccion}}</u><h5 id='bimes' style='font-size:16px;'>Curso - {{docenteCurso[0].nombre_curso}} </h5><h5 id='bimes' style='font-size:16px;'>Docente - {{docenteCurso[0].profesor}} </h5><h5 id='bimes' style='font-size:16px;'>Cuadro de Promedio Final</h5></label><br><br><br>
+      <table class="table" style="width:100%;">
+        <thead>
+          <th class="text-center" style="width:600px;">Alumno</th>
+          <th class="text-center" style="width:80px;">I</th>
+          <th class="text-center" style="width:80px;">II</th>
+          <th class="text-center" style="width:80px;">III</th>
+          <th class="text-center" style="width:80px;">IV</th>
+          <th class="text-center">Final</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let n of tabla" class="border border-dark">
+            <td class="text-center">{{n.alumno}}</td>
+            <td class="text-center" *ngIf="n.uno;else vacio1">{{n.uno}}</td>
+            <ng-template #vacio1><td class="text-center">0</td></ng-template>
+            <td class="text-center" *ngIf="n.dos;else vacio2">{{n.dos}}</td>
+            <ng-template #vacio2><td class="text-center">0</td></ng-template>
+            <td class="text-center" *ngIf="n.tres;else vacio3">{{n.tres}}</td>
+            <ng-template #vacio3><td class="text-center">0</td></ng-template>
+            <td class="text-center" *ngIf="n.cuatro;else vacio4">{{n.cuatro}}</td>
+            <ng-template #vacio4><td class="text-center">0</td></ng-template>
+            <td class="text-center">{{n.promedio}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center" id="page">
+        <br><br><br>
+         <input class="text-center" type="text" value="Docente" style="color:#000;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white; margin-left:20px; width:200px;" disabled>
+
+         <input type="text" style="border:none;background:white; margin-left:20px;" disabled>
+
+         <input class="text-center" type="text" value="Comisi&oacute;n de Evaluaci&oacute;n" style="color:#000;width:200px;border-top:1px solid;border-bottom:none;border-left:none;border-right:none;background:white" disabled><br><br><br><br>
+     </div>
+    </div>
+    <div class="text-center" id="NoPrint">
+      <button class="btn btn-primary" (click)="PrintThis()"><i class="fas fa-print" style='width:40px; height:20px'></i></button>
+      </div>
+    <br>
+  </section>
+ </main>
