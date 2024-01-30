@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
 import { ResumenCursoAlumnoService } from '../../services/resumen-curso-alumno.service';
 import { PerfilAlumnoService } from '../../services/perfil-alumno.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-actividades-curso-alumno',
@@ -12,6 +14,8 @@ import { PerfilAlumnoService } from '../../services/perfil-alumno.service';
 export class ActividadesCursoAlumnoComponent implements OnInit {
 
   constructor(public activedRoute:ActivatedRoute, public resumenCurso:ResumenCursoAlumnoService, private perfilAlumnosService:PerfilAlumnoService) { }
+  public AreaCkeditor = ClassicEditor;
+
   idEstudiante:string='';
   alumnoGet:any=[];
   alumnoIndividual:any={
@@ -27,6 +31,7 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
     idDetalleActividad:'',
     nombre_actividad:'',
     detalle:'',
+    cotejo:'',
     idTipoActividad:'',
     valor:'',
     idUnidad:'',

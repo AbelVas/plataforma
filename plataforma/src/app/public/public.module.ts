@@ -17,6 +17,7 @@ import { CodigosService } from "../admin/services/codigos.service";
 import { GradosService } from "../admin/services/grados-admin.service";
 import { AlumnosService } from "../admin/services/alumnos.service";
 import { LoaderConsolComponent } from './loader-consol/loader-consol.component';
+import { LoginNuevoComponent } from './login/containers/login-nuevo/login-nuevo.component';
 
 @NgModule({
   imports:[
@@ -33,7 +34,7 @@ import { LoaderConsolComponent } from './loader-consol/loader-consol.component';
     CalendarioComponent,
     LoaderchiquiComponent,
     LoaderConsolComponent,
-
+    LoginNuevoComponent,
   ],
   exports:[
     LoaderComponent,

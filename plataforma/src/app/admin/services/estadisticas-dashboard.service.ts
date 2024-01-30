@@ -54,12 +54,14 @@ export class EstadisticasDashboardService {
     );
   }
 
+/*
   getDocenteContrasenaNoCambiada():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/estadistica/Profesor-Contrasena/No-Cambiada/`,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
+*/
 
   getCantidadGrados():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}

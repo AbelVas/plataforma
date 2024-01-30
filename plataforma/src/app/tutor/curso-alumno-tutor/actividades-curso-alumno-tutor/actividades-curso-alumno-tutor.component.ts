@@ -154,6 +154,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     this.actividadesCursoAlumnoTutorService.getRecursosCurso(this.idCursoCurso).subscribe(
       res=>{
         this.listaRecursoCurso=res;
+        console.log(this.listaRecursoCurso)
       },
       err=>{
         console.log(err)
@@ -163,7 +164,6 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
 
   buscarRecursoArray(idtbRecursoVideo:string){
     this.RecursoIndividual=this.listaRecursoCurso.find((x:any)=>x.idtbRecursoVideo===idtbRecursoVideo)
-
   }
 
   getAnunciosPorGrado(){

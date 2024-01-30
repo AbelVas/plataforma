@@ -1,0 +1,88 @@
+<body>
+  <div id="Contenedor">
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+        <img id="img-logo" class="img-fluid" src="assets\img\logo\LBC-Azul.png" alt="">
+      </div>
+      <div class="col-lg-6 col-sm-12">
+        <!-- Registrarse o Iniciar Sesión -->
+
+             <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Iniciar Sesión
+                  </button>
+                </li>
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    Registrarse
+                  </button>
+                </li>
+             </ul>
+
+             <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+                  <!--AQUI VA EL FORMS PARA INICIAR SESION-->
+                  <form [formGroup]="loginForm" (ngSubmit)="loginIn()">
+
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <label for="floatingInput">Usuario</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                      <label for="floatingPassword">Contraseña</label>
+                    </div>
+
+                    <button class="btn btn-outline-primary rounded-pill">
+                      Iniciar Sesión
+                    </button>
+                  </form>
+                </div>
+                <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <!--AQUI VA EL FORMS PARA REGISTRARSE-->
+                  <form [formGroup]="loginForm" (ngSubmit)="loginIn()">
+
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingInput1" placeholder="">
+                      <label for="floatingInput1">Código</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingInput2" placeholder="">
+                      <label for="floatingInput2">Nombre Alumno</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingInput3" placeholder="">
+                      <label for="floatingInput3">Apellido Alumno</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" id="floatingInput4" placeholder="usuario@example.com">
+                      <label for="floatingInput4">Usuario</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" id="floatingInput5" placeholder="">
+                      <label for="floatingInput5">Contraseña</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" id="floatingPassword6" placeholder="">
+                      <label for="floatingPassword6">Confirmar Contraseña</label>
+                    </div>
+
+                    <button class="btn btn-outline-primary rounded-pill">
+                      Registrarse
+                    </button>
+                  </form>
+                </div>
+             </div>
+
+        <!-- Registrarse o Iniciar Sesión -->
+      </div>
+    </div>
+  </div>
+</body>

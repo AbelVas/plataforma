@@ -29,8 +29,8 @@ export class AjustesUnidadComponent implements OnInit {
   totalNinas:any=''
   codigoActivo:any=''
   codigoInactivo:any=''
-  passDocenteCambiada:any=''
-  passDocenteNoCambiada:any=''
+  passDocenteCambiada:any=0
+  passDocenteNoCambiada:any=0
 
   estadoFinalAlumno=''
   estadoFinalProfesor=''
@@ -143,21 +143,15 @@ export class AjustesUnidadComponent implements OnInit {
       }
     )
   }
+
+//Contraseñas cambiadas
+
   getPassChangeDocentes(){
     this.sppinerOn4=true;
     this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
       res=>{
-        this.passDocenteCambiada=res[0].siCambioContra
-        this.sppinerOn4=false;
-      },
-      err=>{
-       console.log(err)
-       this.sppinerOn4=false;
-      }
-    )
-    this.estadisticaService.getDocenteContrasenaNoCambiada().subscribe(
-      res=>{
-        this.passDocenteNoCambiada=res[0].noCambioContra
+        this.passDocenteCambiada=res[0].CambioContra
+        this.passDocenteNoCambiada=res[1].CambioContra
         this.sppinerOn4=false;
       },
       err=>{
@@ -166,6 +160,8 @@ export class AjustesUnidadComponent implements OnInit {
       }
     )
   }
+
+
   getCodigoActivoInactivo(){
     this.sppinerOn4=true;
     this.estadisticaService.getTotalCodigosUso().subscribe(

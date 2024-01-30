@@ -5,6 +5,9 @@ import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GradosAlumnosService } from '../../../../services/grados-alumnos.service';
 import { ToastrService } from 'ngx-toastr';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-lista-actividades-admin',
@@ -25,6 +28,13 @@ export class ListaActividadesComponent implements OnInit {
   listaCalificacionAlumno:any=[]
   listaRecursoCurso:any=[]
   listaAnuncioCurso:any=[]
+  public AreaCkeditor = ClassicEditor;
+  AnuncioCkeditor:any='';
+  RecursoCkeditor:any='';
+  TCotejoCkeditor:any='';
+  TDescripcionCkEditor: any = '';
+
+
   //Crear Actividad
   propiedadActividad:any={
     idTipoActividad:'',

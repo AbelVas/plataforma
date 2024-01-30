@@ -220,12 +220,12 @@
 
           <div class="mb-3">
             <label class="form-label">Detalle:</label>
-            <textarea formControlName="detalle" [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7" [ngClass]="{'is-invalid': submitted&&f.detalle.invalid}"></textarea>
+            <ckeditor formControlName="detalle" class="form" [editor]="AreaCkeditor" [(ngModel)]="ActividadIndividual.detalle" [ngClass]="{'is-invalid': submitted&&f.cotejo.invalid}"></ckeditor>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Cotejo:</label>
-            <textarea formControlName="cotejo" class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7" [ngClass]="{'is-invalid': submitted&&f.cotejo.invalid}"></textarea>
+            <ckeditor formControlName="cotejo" class="form" [editor]="AreaCkeditor" [(ngModel)]="ActividadIndividual.cotejo" [ngClass]="{'is-invalid': submitted&&f.cotejo.invalid}"></ckeditor>
           </div>
 
           <hr>
@@ -284,7 +284,7 @@
     </div>
   </div>
 </div>
-<!--Modal Ver Actividad Completa-->
+<!--Modal Ver Actividad Completa--> <!-- CKEDITOR -->
 <div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -354,7 +354,10 @@
         <div class="mb-3">
           <label class="form-label"><b>Detalle:</b></label>
           <br>
-          <label *ngIf="ActividadIndividual.detalle!='';else noDetalle" class="form-label">{{ActividadIndividual.detalle}}</label>
+          <label *ngIf="ActividadIndividual.detalle!='';else noDetalle" class="form-control">
+            <div [innerHTML]="ActividadIndividual.detalle"></div>
+          </label>
+
           <ng-template #noDetalle>
             <label class="form-label">*** No ingresado ***</label>
           </ng-template>
@@ -363,7 +366,10 @@
         <div class="mb-3">
           <label class="form-label"><b>Cotejo:</b></label>
           <br>
-          <label *ngIf="ActividadIndividual.cotejo!='';else noCotejo" class="form-label">{{ActividadIndividual.cotejo}}</label>
+          <label *ngIf="ActividadIndividual.cotejo!='';else noCotejo" class="form-control">
+            <div [innerHTML]="ActividadIndividual.cotejo"></div>
+          </label>
+
           <ng-template #noCotejo>
             <label class="form-label">*** No ingresado ***</label>
           </ng-template>
@@ -470,7 +476,7 @@
     </div>
   </div>
 </div>
-<!--Modal Crear Tarea-->
+<!--Modal Crear Tarea--> <!-- CKEDITOR INTEGRADO -->
 <div class="modal fade" id="CrearTarea" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -508,12 +514,12 @@
 
           <div class="mb-3">
             <label class="form-label">Detalle:</label>
-            <textarea formControlName="detalle" class="form-control" rows="7"></textarea>
+            <ckeditor formControlName="detalle" class="form-control" [editor]="AreaCkeditor" [(ngModel)]="TDescripcionCkEditor"></ckeditor>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Cotejo:</label>
-            <textarea formControlName="cotejo" class="form-control" rows="7"></textarea>
+            <ckeditor formControlName="cotejo" class="form-control" [editor]="AreaCkeditor" [(ngModel)]="TCotejoCkeditor"></ckeditor>
           </div>
 
           <hr>
@@ -565,7 +571,7 @@
   </div>
 </div>
 
-<!--Modal Crear Recurso Web-->
+<!--Modal Crear Recurso Web--> <!--CKEDITOR INTEGRADO-->
 <div class="modal fade" id="CrearRecurso" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -592,7 +598,7 @@
 
           <div class="mb-3">
             <label class="form-label">Descripción:</label>
-            <textarea formControlName="descripcion" class="form-control" rows="7"></textarea>
+            <ckeditor formControlName="descripcion" class="form" [editor]="AreaCkeditor" [(ngModel)]="RecursoCkeditor"></ckeditor>
           </div>
 
           <hr>
@@ -628,7 +634,7 @@
   </div>
 </div>
 
-<!--Modal Crear Anuncio-->
+<!--Modal Crear Anuncio--> <!--CKEDITOR INTEGRADO-->
 <div class="modal fade" id="CrearAnuncio" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -655,7 +661,7 @@
 
           <div class="mb-3">
             <label class="form-label">Descripción:</label>
-            <textarea formControlName="anuncio" class="form-control" rows="7"></textarea>
+            <ckeditor formControlName="anuncio" class="form-control" [editor]="AreaCkeditor" [(ngModel)]="AnuncioCkeditor"></ckeditor>
           </div>
 
         </div>

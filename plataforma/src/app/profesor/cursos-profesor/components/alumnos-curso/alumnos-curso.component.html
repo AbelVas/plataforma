@@ -56,7 +56,7 @@
 
               <div class="mb-3">
                 <label class="form-label">Descripción:</label>
-                <textarea formControlName="anuncio" class="form-control" rows="7"></textarea>
+                <ckeditor [editor]="AreaCkeditor" formControlName="anuncio" class="form"></ckeditor>
               </div>
 
             </div>
@@ -101,14 +101,14 @@
                        <h5 class="modal-title">Descripción</h5>
                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">{{AnuncioIndividual.anuncio}}</div>
+                    <div class="p-3" [innerHTML]="AnuncioIndividual.anuncio"></div>
                     <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                  </div>
               </div>
            </div>
            <!--Modal Editar-->
            <div class="modal fade" id="EditarAnuncio" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-md">
               <form [formGroup]="crearAnuncioForm" (ngSubmit)="editarAnuncio(AnuncioIndividual.idAnuncio)" autocomplete="off">
                <div class="modal-content">
                   <div class="modal-header">
@@ -130,9 +130,9 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label"><b>Anuncio:</b></label>
-                      <input formControlName="anuncio" type="text" class="form-control" [(ngModel)]="AnuncioIndividual.anuncio" [ngClass]="{ 'is-invalid': submitted && A.anuncio.invalid}">
-                      <p class="text-primary">{{'Actual:'+AnuncioIndividual.anuncio}}</p>
+                      <ckeditor [editor]="AreaCkeditor" formControlName="anuncio" class="form" [(ngModel)]="AnuncioIndividual.anuncio"></ckeditor>
                     </div>
+                    <p class="text-primary">{{'Actual:'+AnuncioIndividual.anuncio}}</p>
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

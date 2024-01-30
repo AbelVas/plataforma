@@ -194,7 +194,9 @@
                                                 <div class="mb-3">
                                                   <label class="form-label"><b>Detalle:</b></label>
                                                   <br>
-                                                  <label *ngIf="calificacionIndividual.detalle!='';else noDetalle" class="form-label">{{calificacionIndividual.detalle}}</label>
+                                                  <label *ngIf="calificacionIndividual.detalle!='';else noDetalle" class="form-control">
+                                                    <div [innerHTML]="calificacionIndividual.detalle"></div>
+                                                  </label>
                                                   <ng-template #noDetalle>
                                                     <label class="form-label">*** No ingresado ***</label>
                                                   </ng-template>
@@ -203,7 +205,9 @@
                                                 <div class="mb-3">
                                                   <label class="form-label"><b>Cotejo:</b></label>
                                                   <br>
-                                                  <label *ngIf="calificacionIndividual.cotejo!='';else noCotejo" class="form-label">{{calificacionIndividual.cotejo}}</label>
+                                                  <label *ngIf="calificacionIndividual.cotejo!='';else noCotejo" class="form-control">
+                                                    <div [innerHTML]="calificacionIndividual.cotejo"></div>
+                                                  </label>
                                                   <ng-template #noCotejo>
                                                     <label class="form-label">*** No ingresado ***</label>
                                                   </ng-template>
@@ -413,7 +417,9 @@
                                    <h5 class="modal-title">Descripción</h5>
                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">{{AnuncioIndividual.anuncio}}</div>
+                                <div class="modal-body">
+                                  <div class="pd-3" [innerHTML]="AnuncioIndividual.anuncio"></div>
+                                </div>
                                 <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                              </div>
                           </div>
@@ -444,7 +450,7 @@
                      <tr *ngFor="let r of  listaRecursoCurso;let i = index">
                         <td align="center">{{r.titulo}}</td>
                         <!--Ver descripcion-->
-                        <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerDescripcionRecurso" (click)="buscarActividadArray(r.idtbRecursoVideo)"><i class="fa-solid fa-eye"></i></button></td>
+                        <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerDescripcionRecurso" (click)="buscarRecursoArray(r.idtbRecursoVideo)"><i class="fa-solid fa-eye"></i></button></td>
                         <!--Ir al enlace-->
                         <td align="center"><button class="btn btn-primary rounded-pill" >
                           <a href="{{r.enlace}}" target="_blank" class="text-decoration-none">
@@ -460,7 +466,9 @@
                                    <h5 class="modal-title">Descripción</h5>
                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">{{RecursoIndividual.descripcion}}</div>
+                                <div class="modal-body">
+                                  <div class="pd-3" [innerHTML]="RecursoIndividual.descripcion"></div>
+                                </div>
                                 <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                              </div>
                           </div>

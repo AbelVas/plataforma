@@ -153,7 +153,9 @@
                                 <div class="mb-3">
                                   <label class="form-label"><b>Detalle:</b></label>
                                   <br>
-                                  <label *ngIf="calificacionIndividual.detalle!='';else noDetalle" class="form-label">{{calificacionIndividual.detalle}}</label>
+                                  <label *ngIf="calificacionIndividual.detalle!='';else noDetalle" class="form-control">
+                                    <div [innerHTML]="calificacionIndividual.detalle"></div>
+                                  </label>
                                   <ng-template #noDetalle>
                                     <label class="form-label">*** No ingresado ***</label>
                                   </ng-template>
@@ -162,7 +164,9 @@
                                 <div class="mb-3">
                                   <label class="form-label"><b>Cotejo:</b></label>
                                   <br>
-                                  <label *ngIf="calificacionIndividual.cotejo!='';else noCotejo" class="form-label">{{calificacionIndividual.cotejo}}</label>
+                                  <label *ngIf="calificacionIndividual.cotejo!='';else noCotejo" class="form-control">
+                                    <div [innerHTML]="calificacionIndividual.cotejo"></div>
+                                  </label>
                                   <ng-template #noCotejo>
                                     <label class="form-label">*** No ingresado ***</label>
                                   </ng-template>

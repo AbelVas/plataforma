@@ -136,7 +136,9 @@
                                    <h5 class="modal-title">Descripción</h5>
                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">{{RecursoIndividual.descripcion}}</div>
+                                <div class="modal-body">
+                                  <div class="pd-3" [innerHTML]="RecursoIndividual.descripcion"></div>
+                                </div>
                                 <div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
                              </div>
                           </div>
@@ -315,12 +317,12 @@
 
                     <div class="mb-3">
                       <label class="form-label">Detalle:</label>
-                      <textarea formControlName="detalle" class="form-control" rows="7"></textarea>
+                      <ckeditor formControlName="detalle" class="form" [editor]="AreaCkeditor" [(ngModel)]="TDescripcionCkEditor"></ckeditor>
                     </div>
 
                     <div class="mb-3">
                       <label class="form-label">Cotejo:</label>
-                      <textarea formControlName="cotejo" class="form-control" rows="7"></textarea>
+                      <ckeditor formControlName="cotejo" class="form" [editor]="AreaCkeditor" [(ngModel)]="TCotejoCkeditor"></ckeditor>
                     </div>
 
                   <!-- <hr>
@@ -398,7 +400,7 @@
 
                     <div class="mb-3">
                       <label class="form-label">Descripción:</label>
-                      <textarea formControlName="descripcion" class="form-control" rows="7"></textarea>
+                      <ckeditor [editor]="AreaCkeditor" formControlName="descripcion" class="form"></ckeditor>
                     </div>
 
                     <hr>
@@ -595,12 +597,12 @@
 
                   <div class="mb-3">
                     <label class="form-label"><b>Detalle:</b></label>
-                    <textarea formControlName="detalle" [(ngModel)]="ActividadIndividual.detalle" class="form-control" rows="7"></textarea>
+                    <ckeditor [editor]="AreaCkeditor" formControlName="detalle" [(ngModel)]="ActividadIndividual.detalle" class="form" ></ckeditor>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label"><b>Cotejo:</b></label>
-                    <textarea formControlName="cotejo" class="form-control" [(ngModel)]="ActividadIndividual.cotejo" rows="7"></textarea>
+                    <ckeditor [editor]="AreaCkeditor" formControlName="cotejo" class="form" [(ngModel)]="ActividadIndividual.cotejo"></ckeditor>
                   </div>
 
                   <!--<hr>
@@ -658,7 +660,7 @@
               </div>
             </div>
           </div>
-          <!--Modal Ver Actividad Completa-->
+          <!--Modal Ver Actividad Completa       CKEDITOR       -->
           <div class="modal fade" id="VerActividadCompleta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -728,7 +730,9 @@
                   <div class="mb-3">
                     <label class="form-label"><b>Detalle:</b></label>
                     <br>
-                    <label *ngIf="ActividadIndividual.detalle!='';else noDetalle" class="form-label">{{ActividadIndividual.detalle}}</label>
+                    <label *ngIf="ActividadIndividual.detalle!='';else noDetalle" class="form-control">
+                      <div [innerHTML]="ActividadIndividual.detalle"></div>
+                    </label>
                     <ng-template #noDetalle>
                       <label class="form-label">*** No ingresado ***</label>
                     </ng-template>
@@ -737,7 +741,9 @@
                   <div class="mb-3">
                     <label class="form-label"><b>Cotejo:</b></label>
                     <br>
-                    <label *ngIf="ActividadIndividual.cotejo!='';else noCotejo" class="form-label">{{ActividadIndividual.cotejo}}</label>
+                    <label *ngIf="ActividadIndividual.cotejo!='';else noCotejo" class="form-control">
+                      <div [innerHTML]="ActividadIndividual.cotejo"></div>
+                    </label>
                     <ng-template #noCotejo>
                       <label class="form-label">*** No ingresado ***</label>
                     </ng-template>
