@@ -54,7 +54,9 @@ import { NgChartsModule } from "ng2-charts";
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { CuadrosCursoComponent } from './cuadros-curso/cuadros-curso.component';
 import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso/boleta-final-promedio-curso.component';
-//
+//servicios que se encuentran dentro de admin para reusar
+import {CuadroFinalService} from '../admin/services/cuadro-final.service'
+import { CuadroGuiaService } from "../admin/services/cuadro-guia.service";
 
 
 @NgModule({
@@ -117,7 +119,9 @@ import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso
     ForoCursoProfesorService,
     ExamenCursoProfesorService,
     CalendarioCursoService,
-    TemaProfesorService
+    TemaProfesorService,
+    CuadroFinalService,
+    CuadroGuiaService
   ]
 })
 
