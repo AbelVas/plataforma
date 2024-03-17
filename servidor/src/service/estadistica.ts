@@ -37,14 +37,7 @@ const GetCodigosEnDesuso=async()=>{
 }
 
 const GetContrasenaProfesorCambiada=async()=>{  //Usé esta para contar las contraseñas cambiadas y no cambiadas
-
-    const responseGet=await conexion.query('SELECT cambio_contrasena, COUNT(cambio_contrasena) as CambioContra FROM tbProfesor group by cambio_contrasena order by cambio_contrasena DESC');
-    return responseGet;
-}
-
-const GetContrasenaProfesorNoCambiada=async()=>{
-
-    const responseGet=await conexion.query('SELECT COUNT(cambio_contrasena) AS noCambioContra FROM tbProfesor WHERE cambio_contrasena=0');
+    const responseGet=await conexion.query('SELECT valores.cambio_contrasena AS cambio_contrasena, COUNT(tbProfesor.cambio_contrasena) AS CambioContra FROM (SELECT 0 AS cambio_contrasena UNION SELECT 1 AS cambio_contrasena) AS valores LEFT JOIN tbProfesor ON valores.cambio_contrasena = tbProfesor.cambio_contrasena GROUP BY valores.cambio_contrasena ORDER BY cambio_contrasena DESC');
     return responseGet;
 }
 
@@ -62,4 +55,4 @@ const GetCantidadDocentesService=async()=>{
 
 
 
-export{GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetContrasenaProfesorNoCambiada,GetCantidadGradosService,GetCantidadDocentesService}
+export{GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetCantidadGradosService,GetCantidadDocentesService}

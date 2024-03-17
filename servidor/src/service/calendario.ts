@@ -1,7 +1,7 @@
 import conexion from "../config/database";
 
 const getActividadesPorAlumno=async(idUsuario:string)=>{
-    const response=await conexion.query('SELECT da.detalle,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.idCurso,tc.nombre_curso FROM((tbAlumno al INNER JOIN tbCurso tc ON al.idGrado=tc.idGrado)INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=da.idUnidad WHERE al.idAlumno=? and u.estado=1 ORDER BY da.fecha_entrega DESC;',[idUsuario])
+    const response=await conexion.query('SELECT da.detalle, da.cotejo,da.nombre_actividad, DATE_FORMAT(da.fecha_entrega, "%Y-%m-%d") as fecha_entrega,tc.color_curso,tc.idCurso,tc.nombre_curso FROM((tbAlumno al INNER JOIN tbCurso tc ON al.idGrado=tc.idGrado)INNER JOIN tbDetalleActividad da ON tc.idCurso=da.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=da.idUnidad WHERE al.idAlumno=? and u.estado=1 ORDER BY da.fecha_entrega DESC;',[idUsuario])
     return response;
 }
 
@@ -23,7 +23,7 @@ const getActividadesPorTipoExamen=async(idUsuario:string,idAlum:string)=>{
 }
 
 const getActividadesPorTipoTarea=async(idUsuario:string,idAlum:string)=>{
-    const response=await conexion.query('SELECT ac.nombre_actividad,ac.detalle,ta.idTarea,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbTarea ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
+    const response=await conexion.query('SELECT ac.nombre_actividad,ac.detalle, ac.cotejo ,ta.idTarea,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbTarea ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
     return response;
 }
 

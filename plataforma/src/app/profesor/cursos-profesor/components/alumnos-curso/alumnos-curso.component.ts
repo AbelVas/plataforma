@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CardResumenService } from 'src/app/profesor/services/card-resumen.service';
 import { Chart, registerables } from 'node_modules/chart.js'
 Chart.register(...registerables);
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-alumnos-curso',
@@ -15,6 +17,7 @@ Chart.register(...registerables);
 export class AlumnosCursoComponent implements OnInit {
 
   constructor( public cardResumenService:CardResumenService, private activedRoute:ActivatedRoute, private elementRef: ElementRef, private actividadesOpcionesCursoService:ActividadesOpcionesCursoService, private formBuilder:FormBuilder, private toastrService:ToastrService ) { }
+  public AreaCkeditor = ClassicEditor;
   sppinerOn:boolean=true;
   idGradoCurso:string='';
   alumnosGet:any=[

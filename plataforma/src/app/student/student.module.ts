@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../core/shared/components/shared.module";
 import { StudentRoutingModule } from "./student-routing.module";
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import {StudentComponent} from "./student.component"
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -52,7 +53,8 @@ import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-m
     StudentRoutingModule,
     SharedModule,
     PublicModule,
-    FullCalendarModule
+    FullCalendarModule,
+    CKEditorModule
   ],
   declarations:[
     StudentComponent,

@@ -2,7 +2,7 @@ import { Router} from "express";
 import { logMiddleware } from "../middleware/log";
 import { checkRol } from "../middleware/rolCheck";
 import { checkJwt } from "../middleware/session";
-import {obtenerAlumnosTotal, obtenerAlumnosTotalPorGrado,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada,obtenerContrasenaProfesorNoCambiada,GetCantidadGrados,GetCantidadDocentes} from "../controllers/estadistica"
+import {obtenerAlumnosTotal, obtenerAlumnosTotalPorGrado,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada,GetCantidadGrados,GetCantidadDocentes} from "../controllers/estadistica"
 
 const router = Router();
 
@@ -13,7 +13,6 @@ router.get("/Alumnos-Mujeres/",checkJwt,obtenerAlumnosMujeres);
 router.get("/Codigos-uso/",checkJwt,obtenerCodigosEnUso);
 router.get("/Codigos-desuso",checkJwt,obtenerCodigosEnDesuso);
 router.get("/Profesor-Contrasena/Cambiada/",checkJwt,obtenerContrasenaProfesorCambiada);
-router.get("/Profesor-Contrasena/No-Cambiada/",checkJwt,obtenerContrasenaProfesorNoCambiada);
 router.get("/CantidadGrados",checkJwt,GetCantidadGrados)
 router.get("/Cantidad-docentes",checkJwt,GetCantidadDocentes)
 

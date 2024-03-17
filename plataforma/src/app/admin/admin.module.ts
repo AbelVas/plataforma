@@ -11,6 +11,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {FormsModule, ReactiveFormsModule } from "@angular/forms";
 //Cosito notificaciones
 //Fin cosos tabla
+// CkEditor
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { AdminComponent } from "./admin.component";
 import { IndexAdminComponent } from "./dashboard/index-admin.component";
@@ -172,7 +174,8 @@ import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso
         MatSortModule,
         FormsModule,
         ReactiveFormsModule,
-        NgChartsModule
+        NgChartsModule,
+        CKEditorModule
     ]
 })
 

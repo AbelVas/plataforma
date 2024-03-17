@@ -5,6 +5,7 @@ import { ProfesorRoutingModule } from "./profesor-routing.module";
 import { PublicModule } from "../public/public.module";
 import { FullCalendarModule } from "@fullcalendar/angular";
 import { CalendariogeneralComponent } from "./calendariogeneral/calendariogeneral.component";
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { ProfesorComponent } from "./profesor.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -66,7 +67,8 @@ import { CuadroGuiaService } from "../admin/services/cuadro-guia.service";
     ReactiveFormsModule,
     FullCalendarModule,
     PublicModule,
-    NgChartsModule
+    NgChartsModule,
+    CKEditorModule
   ],
   declarations:[
   ProfesorComponent,

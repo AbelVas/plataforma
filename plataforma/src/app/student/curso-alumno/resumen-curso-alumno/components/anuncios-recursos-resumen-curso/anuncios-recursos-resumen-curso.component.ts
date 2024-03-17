@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ResumenCursoAlumnoService } from 'src/app/student/services/resumen-curso-alumno.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-anuncios-recursos-resumen-curso',
@@ -11,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AnunciosRecursosResumenCursoComponent implements OnInit {
 
   constructor( private resumenCursoAlumnoService:ResumenCursoAlumnoService, private toastrService:ToastrService, private activedRoute:ActivatedRoute ) { }
+  public AreaCkeditor = ClassicEditor;
   listaRecursoCurso:any=[]
   RecursoIndividual:any={
     idtbRecursoVideo:'',

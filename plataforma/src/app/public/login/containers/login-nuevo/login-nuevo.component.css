@@ -1,0 +1,52 @@
+body{
+  height: 100%;
+  width: 100%;
+  padding: 5%;
+  background-image: url("../../../../../assets/img/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#Contenedor{
+  background-color: rgb(255, 255, 255);
+  width: 80%;
+  height: 470px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: auto auto;
+  opacity: .7;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#img-logo{
+  margin: 1%;
+}
+
+#borderedTabJustified{
+  margin-top: 2%;
+}
+
+.btn{
+  border-color: blue;
+  color: blue;
+  margin-left: 20px;
+}
+
+.btn:hover{
+  border-color: blue;
+  color: white;
+  background-color: blue;
+}
+
+.form-floating{
+  width: 90%;
+  margin: auto;
+}
+
+
+@media only screen and (max-width: 767px) {
+  #Contenedor{
+    height: 620px;
+  }
+}

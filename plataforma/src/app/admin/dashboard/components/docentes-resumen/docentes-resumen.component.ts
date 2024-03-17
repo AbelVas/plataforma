@@ -126,6 +126,7 @@ export class DocentesResumenComponent implements OnInit {
       this.modalCloseEditar.nativeElement.click();
       this.toastrService.warning(`Sin datos para modificar`,'Atención')
     }else{
+      DatoDocenteEditado.cambio_contrasena= this.isEditPassword
       this.profesorService.updateProfesor(idProfesor,DatoDocenteEditado).subscribe(
         res=>{
           this.getProfesores()

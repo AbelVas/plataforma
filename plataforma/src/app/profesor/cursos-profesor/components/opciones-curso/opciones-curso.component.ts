@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/actividades-opciones-curso.service';
 
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-opciones-curso',
   templateUrl: './opciones-curso.component.html',
@@ -11,7 +14,13 @@ import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/activ
 })
 export class OpcionesCursoComponent implements OnInit {
 
-
+  // CKEDITOR
+  public AreaCkeditor = ClassicEditor;
+  AnuncioCkeditor:any='';
+  RecursoCkeditor:any='';
+  TCotejoCkeditor:any='';
+  TDescripcionCkEditor: any = '';
+  // CKEDITOR
 
   listaRecursoCurso:any=[]
 
