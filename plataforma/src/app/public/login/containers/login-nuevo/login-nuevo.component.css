@@ -13,10 +13,11 @@ body{
   height: fit-content;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: auto auto;
+  margin: auto auto auto auto;
   opacity: .7;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: auto;
 }
 
 
@@ -54,9 +55,22 @@ body{
   margin: auto;
 }
 
+@media only screen and (min-width: 767px) and (max-width: 995px) {
+  body{
+    height: 100%;
+    width: 100%;
+  }
+  #Contenedor{
+    height: 700px;
+  }
+}
 
 @media only screen and (max-width: 767px) {
+  body{
+    height: 100%;
+    width: 100%;
+  }
   #Contenedor{
-    height: 620px;
+    height: fit-content;
   }
 }
