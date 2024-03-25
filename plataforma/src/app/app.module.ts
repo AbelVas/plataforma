@@ -7,6 +7,8 @@ import { CoreModule } from './core/shared/core.module';
 import {JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ToastrModule } from 'ngx-toastr';
+import { WebSocketService } from './web-socket.service';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ToastrModule } from 'ngx-toastr';
   providers: [
     {provide: JWT_OPTIONS, useValue:JWT_OPTIONS},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    JwtHelperService
+    JwtHelperService,
+    WebSocketService
   ],
   bootstrap: [AppComponent]
 })
