@@ -38,7 +38,6 @@ export class EditPerfilAdminComponent implements OnInit {
     telefono:new FormControl('',[Validators.required]),
     CUI:new FormControl('',[Validators.required]),
     fecha_nacimiento:new FormControl('',[Validators.required]),
-    usuario:new FormControl('',[Validators.required]),
     permitir_ver_correo:new FormControl(''),
   })
 

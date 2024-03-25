@@ -42,5 +42,28 @@
     </div>
   </div>
 
+  <div class="col-xxl-12 col-md-12">
+   <div class="card info-card customers-card">
+      <div class="card-body">
+         <h4 class="card-title" >Colores de actividad por curso</h4>
+         <div *ngIf="cantidadcursos!='';else tablaVaciaC">
+         <div class="row" >
+           <div class="col-xxl-12 col-md-12 mb-3" *ngFor="let c of cantidadcursos" >
+             <div>
+                     <div class="text-center rounded-pill pt-2 pb-2 p-2"[ngStyle]="{'background-color': c.color_curso}">{{c.nombre_curso}}: <br>{{c.grado}}</div>
+             </div>
+           </div>
+         </div>
+       </div>
+         <ng-template #tablaVaciaC>
+           <div class="alert alert-warning" role="alert">
+             Sin registros, no tiene ningún curso asignado aún...
+           </div>
+         </ng-template>
+         </div>
+      </div>
+   </div>
+
+
 </div>
 

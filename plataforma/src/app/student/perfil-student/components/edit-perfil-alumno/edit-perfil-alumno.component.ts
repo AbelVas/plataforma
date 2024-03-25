@@ -23,7 +23,6 @@ export class EditPerfilAlumnoComponent implements OnInit {
       EditarAlumnoForm=this.formBuilder.group({
         nombres_alumno:new FormControl('',[Validators.required]),
         apellidos_alumno:new FormControl('',[Validators.required]),
-        usuario:new FormControl('',[Validators.required]),
       })
 
   ngOnInit(): void {

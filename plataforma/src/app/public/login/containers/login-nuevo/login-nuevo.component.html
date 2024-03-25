@@ -1,3 +1,8 @@
+<section class="vh-100" *ngIf="sppinerOn==true;else LoginOriginal">
+  <app-loader-general></app-loader-general>
+</section>
+
+<ng-template #LoginOriginal>
 <body>
   <div id="Contenedor">
     <div class="row">
@@ -26,55 +31,67 @@
                   <form [formGroup]="loginForm" (ngSubmit)="loginIn()">
 
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <input type="email" formControlName="usuario" name="usuario" class="form-control" id="floatingInput" [class]="errorLogininputs" placeholder="name@example.com">
                       <label for="floatingInput">Usuario</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="pass" [class]="errorLogininputs">
                       <label for="floatingPassword">Contraseña</label>
                     </div>
 
-                    <button class="btn btn-outline-primary rounded-pill">
+                    <button type="submit" class="btn btn-outline-primary rounded-pill">
                       Iniciar Sesión
                     </button>
                   </form>
                 </div>
                 <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
                   <!--AQUI VA EL FORMS PARA REGISTRARSE-->
-                  <form [formGroup]="loginForm" (ngSubmit)="loginIn()">
+                  <form [formGroup]="alumnoForm" (ngSubmit)="register()" autocomplete="off">
 
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingInput1" placeholder="">
+                      <input formControlName="idCodigo1" type="text" class="form-control" id="floatingInput1" [ngClass]="{ 'is-invalid': submitted && f.nombres_alumno.errors }">
                       <label for="floatingInput1">Código</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingInput2" placeholder="">
+                      <input formControlName="apellidos_alumno" type="text" class="form-control" id="floatingInput2" [ngClass]="{ 'is-invalid': submitted && f.nombres_alumno.errors }">
                       <label for="floatingInput2">Nombre Alumno</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingInput3" placeholder="">
+                      <input formControlName="nombres_alumno" type="text" class="form-control" id="floatingInput3" [ngClass]="{ 'is-invalid': submitted && f.nombres_alumno.errors }">
                       <label for="floatingInput3">Apellido Alumno</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="floatingInput4" placeholder="usuario@example.com">
+                      <input formControlName="usuario" type="email" class="form-control" id="floatingInput4" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }">
                       <label for="floatingInput4">Usuario</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="floatingInput5" placeholder="">
+                      <input formControlName="carnet" type="email" class="form-control" id="floatingInput8" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }">
+                      <label for="floatingInput8">Carnet</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input formControlName="pass" type="password" class="form-control" id="floatingInput5" [class]="passNoCoincide" [ngClass]="{ 'is-invalid': submitted && f.pass.errors }">
                       <label for="floatingInput5">Contraseña</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="floatingPassword6" placeholder="">
+                      <input formControlName="confirmPass" type="password" class="form-control" id="floatingPassword6" [class]="passNoCoincide" [ngClass]="{ 'is-invalid': submitted && f.confirmPass.errors }">
                       <label for="floatingPassword6">Confirmar Contraseña</label>
                     </div>
 
-                    <button class="btn btn-outline-primary rounded-pill">
+                    <div class="form-floating2 mb-3">
+                      <label class="form-label">Seleccione Grado:</label>
+                      <select class="form-select" formControlName="idGrado" [ngClass]="{ 'is-invalid': submitted && f.idGrado.errors }">
+                        <option *ngFor="let g of listaGrados" value="{{g.idGrado}}">{{g.nombre_grado+', Sección: '+g.seccion+', Nivel: '+g.nivel}}</option>
+                      </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary rounded-pill">
                       Registrarse
                     </button>
                   </form>
@@ -86,3 +103,4 @@
     </div>
   </div>
 </body>
+</ng-template>

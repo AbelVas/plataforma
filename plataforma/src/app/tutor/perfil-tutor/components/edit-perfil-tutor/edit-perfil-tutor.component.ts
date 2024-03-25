@@ -23,7 +23,6 @@ export class EditPerfilTutorComponent implements OnInit {
   EditarTutorForm=this.formBuilder.group({
     nombre_tutor:new FormControl('',[Validators.required]),
     apellido_tutor:new FormControl('',[Validators.required]),
-    usuario:new FormControl('',[Validators.required]),
     telefono1:new FormControl('',[Validators.required]),
     telefono2:new FormControl(''),
     telefono_casa:new FormControl('',[Validators.required]),

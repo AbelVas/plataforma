@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TemaEstudianteService } from '../services/tema-estudiante.service';
+import decode from 'jwt-decode';
+import { DahboardService } from '../services/dahboard.service';
 
 @Component({
   selector: 'app-calendario-vista-mes',
@@ -7,6 +9,8 @@ import { TemaEstudianteService } from '../services/tema-estudiante.service';
   styleUrls: ['./calendario-vista-mes.component.css']
 })
 export class CalendarioVistaMesComponent implements OnInit {
+
+  cantidadcursos:any=[];
 
   temaactivo:string='1';
 
@@ -27,14 +31,29 @@ export class CalendarioVistaMesComponent implements OnInit {
   cfondo1:string='';
   ctexto1:string='';
 
-  constructor(private temaEstudianteService:TemaEstudianteService) { }
+  constructor(private temaEstudianteService:TemaEstudianteService, public cardResumenStudent:DahboardService) { }
 
   ngOnInit(): void {
 
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
-
+    this.obtenerDatosCursos();
   }
+
+  obtenerDatosCursos(){
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario}:any=decode(token);
+    this. cardResumenStudent.getCursoparaAlumno(idUsuario).subscribe(
+      response=>{
+        this.cantidadcursos=response
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
+  }
+
+
   obtenerDatosTema(){
     this.temaEstudianteService.getTemaActivo(this.temaactivo).subscribe(
       response=>{

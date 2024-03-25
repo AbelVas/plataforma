@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit{
     }
     this.codigoService.isCodigoCorrect(dataCodigoAlumno).subscribe(
       res=>{
+        console.log(res)
         if(res==false){
           this.codigoError='border-danger'
         }else{
@@ -105,6 +106,7 @@ export class LoginComponent implements OnInit{
       res=>{
         this.alumnoForm.reset();
         this.router.navigate(['admin']);
+        console.log(alumnoInsert)
         this.alertaCreadoCorrecto='1'
         this.salirRegistro()
       },
