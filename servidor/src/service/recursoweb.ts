@@ -41,7 +41,7 @@ const insertRecursoWebService=async(data:Request)=>{
 
 const GetRecursoWebServiceGrado=async(id:string)=>{
 
-    const responseGet=await conexion.query('SELECT rw.idtbRecursoVideo,rw.idUnidad,rw.titulo,rw.enlace,rw.descripcion,rw.idCurso,u.unidad FROM tbRecursoWeb rw INNER JOIN tbUnidad u on rw.idUnidad=u.idUnidad WHERE rw.idCurso=?',[id]);
+    const responseGet=await conexion.query('SELECT rw.idtbRecursoVideo,rw.idUnidad,rw.titulo,rw.enlace,rw.descripcion,rw.idCurso, DATE_FORMAT(rw.fecha_creacion, "%d/%m/%Y") AS fechaC,u.unidad FROM tbRecursoWeb rw INNER JOIN tbUnidad u on rw.idUnidad=u.idUnidad WHERE rw.idCurso=?',[id]);
     return responseGet;
 
 }
