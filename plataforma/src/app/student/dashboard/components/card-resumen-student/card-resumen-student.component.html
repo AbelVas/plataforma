@@ -45,21 +45,37 @@
   <div class="col-xxl-12 col-md-12">
    <div class="card info-card customers-card">
       <div class="card-body">
-         <h4 class="card-title" >Colores de actividad por curso</h4>
-         <div *ngIf="cantidadcursos!='';else tablaVaciaC">
-         <div class="row" >
-           <div class="col-xxl-12 col-md-12 mb-3" *ngFor="let c of cantidadcursos" >
-             <div>
-                     <div class="text-center rounded-pill pt-2 pb-2 p-2"[ngStyle]="{'background-color': c.color_curso}">{{c.nombre_curso}}: <br>{{c.grado}}</div>
+         <h5 class="card-title" >Colores de actividad por curso</h5>
+
+         <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+             <h3 class="accordion-header" id="flush-headingOne"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Listado de cursos</button></h3>
+             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                  <div *ngIf="cantidadcursos!='';else tablaVaciaC">
+                    <div class="row" >
+                     <table class="table table-hover .table-borderless">
+                       <tbody>
+                          <tr *ngFor="let c of cantidadcursos; let i=index" style="vertical-align:middle;">
+                             <th scope="row" [ngStyle]="{'font-size.px': '40'}" [style.color]="c.color_curso">•</th>
+                             <td>{{c.nombre_curso}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    </div>
+                  </div>
+                    <ng-template #tablaVaciaC>
+                      <div class="alert alert-warning" role="alert">
+                        Sin registros, no tiene ningún curso asignado aún...
+                      </div>
+                    </ng-template>
+
+                </div>
              </div>
-           </div>
-         </div>
+          </div>
        </div>
-         <ng-template #tablaVaciaC>
-           <div class="alert alert-warning" role="alert">
-             Sin registros, no tiene ningún curso asignado aún...
-           </div>
-         </ng-template>
+
          </div>
       </div>
    </div>

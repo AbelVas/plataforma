@@ -17,6 +17,7 @@
                      <tr>
                       <th scope="col" class="text-center">Anuncio</th>
                       <th scope="col" class="text-center">Descripción</th>
+                      <th scope="col" class="text-center">Fecha creación</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -24,7 +25,7 @@
                         <td align="center">{{a.nombre_anuncio}}</td>
                         <!--Ver descripcion-->
                         <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerDescripcionAnuncio" (click)="buscarAnuncioArray(a.idAnuncio)"><i class="fa-solid fa-eye"></i></button></td>
-
+                        <td align="center">{{a.fechaC}}</td>
                         <!--Modal Descripcion-->
                         <div class="modal fade" id="VerDescripcionAnuncio" tabindex="-1">
                           <div class="modal-dialog modal-dialog-centered">
@@ -59,6 +60,7 @@
                      <tr>
                       <th scope="col" class="text-center">Recurso</th>
                       <th scope="col" class="text-center">Descripción</th>
+                      <th scope="col" class="text-center">Fecha creación</th>
                       <th scope="col" class="text-center">Enlace</th>
                      </tr>
                   </thead>
@@ -67,6 +69,7 @@
                         <td align="center">{{r.titulo}}</td>
                         <!--Ver descripcion-->
                         <td align="center"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#VerDescripcionRecurso" (click)="buscarActividadArray(r.idtbRecursoVideo)"><i class="fa-solid fa-eye"></i></button></td>
+                        <td align="center">{{r.fechaC}}</td>
                         <!--Ir al enlace-->
                         <td align="center"><button class="btn btn-primary rounded-pill" >
                           <a href="{{r.enlace}}" target="_blank" class="text-decoration-none">

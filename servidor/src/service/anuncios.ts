@@ -38,7 +38,7 @@ const insertAnuncioService=async(data:Request)=>{
 
 const GetAnuncioServiceGrado=async(id:string)=>{
 
-    const responseGet=await conexion.query('SELECT a.idAnuncio,a.idCurso,a.nombre_anuncio,a.anuncio,u.unidad FROM tbAnuncio a INNER JOIN tbUnidad u on a.idUnidad=u.idUnidad WHERE a.idCurso=?',[id]);
+    const responseGet=await conexion.query('SELECT a.idAnuncio, DATE_FORMAT(a.fecha_anuncio, "%d/%m/%Y") AS fechaC,a.idCurso,a.nombre_anuncio,a.anuncio,u.unidad FROM tbAnuncio a INNER JOIN tbUnidad u on a.idUnidad=u.idUnidad WHERE a.idCurso=?',[id]);
     return responseGet;
 
 }
