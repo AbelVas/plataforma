@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 const cors=require('cors');
 app.use(cors({origin: "*", //servidor que deseas que consuma o (*) en caso que sea acceso libre
-credentials: true}));
+}));
 
 const server=createServer(app)
 //const httpServer=server.listen(PORT)
