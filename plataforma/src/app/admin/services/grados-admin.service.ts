@@ -47,6 +47,37 @@ export class GradosService {
       catchError(this.handleError)
     );
   }
+  //grados guias asignados y no asignados
+  gerGradoGuiaAsignado():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/gradoguiaasignacion/existentes`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  gerGradoGuiaSinAsignar():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/gradoguiaasignacion/faltantes`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  deleteGradoGuiaDocenteRelacion(idGradoGuia:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/gradoguiaasignacion/eliminar/${idGradoGuia}`,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  crearGradoGuiaDocenteRelacion(GradoDocenteGuia:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.post(`${this.URL}/gradoguiaasignacion/crear/`,GradoDocenteGuia,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+  updaateGradoGuiaDocenteRelacion(GradoDocenteGuia:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/gradoguiaasignacion/editar/`,GradoDocenteGuia,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
   private handleError(error:HttpErrorResponse){
     var msg={};
     if(error.status==400){
