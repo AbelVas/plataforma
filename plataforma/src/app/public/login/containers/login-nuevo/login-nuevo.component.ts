@@ -8,6 +8,10 @@ import { GradosService } from "src/app/admin/services/grados-admin.service";
 import { AlumnosService } from "src/app/admin/services/alumnos.service";
 import { ToastrService } from 'ngx-toastr';
 
+//para cambiar el titulo en cada sección
+import { Title } from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-login-nuevo',
@@ -62,12 +66,13 @@ export class LoginNuevoComponent implements OnInit {
   isCorrectCodigo:boolean=false
 
 
-  constructor(private router:Router,private loginService:LoginService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradosService:GradosService, private alumnoService:AlumnosService, private toastrService:ToastrService) {
+  constructor(private titleService: Title,private router:Router,private loginService:LoginService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradosService:GradosService, private alumnoService:AlumnosService, private toastrService:ToastrService) {
     //Aquí irian cosas de activación temprana como identificar rutas en tiempo real y demás, o no sé, yo para eso lo usé una vez
   }
 
   ngOnInit(): void {
     //Aquí iniciamos los metodos que usamos de primeras si o sí
+    this.titleService.setTitle('Login | Bienvenidos');
     this.getGrados();
   }
 
@@ -127,7 +132,7 @@ export class LoginNuevoComponent implements OnInit {
               this.alertaCreadoCorrecto='0'
               console.log(alumnoInsert)
               this.toastrService.error(`Codigo invalido`,'Error')
-            }          
+            }
           )
           //Aqui termina la funcion de registro
         }
@@ -150,7 +155,7 @@ export class LoginNuevoComponent implements OnInit {
       }
     )
   }
-  
+
   //Se registra
   register(){
     this.verificarCodigo(this.f.idCodigo1.value);
@@ -158,7 +163,7 @@ export class LoginNuevoComponent implements OnInit {
     //Marca vacio por la rapidez de las funciones que van después de la que está primero, que sería la de verificacion
   }
 
-  //Para entrar a la plataforma 
+  //Para entrar a la plataforma
   loginIn(){
     this.sppinerOn=true;
     if (this.loginForm.invalid) {
