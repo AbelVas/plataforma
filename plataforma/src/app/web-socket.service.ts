@@ -14,16 +14,13 @@ export class WebSocketService {
     this.socket = io(`${this.URL}`); // Reemplaza 'http://tu-servidor:puerto' con la URL de tu servidor y el puerto
   }
   // Método para escuchar un evento específico
-  listen(eventName: string): Observable<any> {
-    return new Observable((subscriber) => {
-      this.socket.on(eventName, (data: any) => {
-        subscriber.next(data);
-      });
-    });
+  escucharEvento(evento: string, callback: (datos: any) => void): void {
+    this.socket.on(evento, callback);
   }
 
+
   // Método para emitir un evento al servidor
-  emit(eventName: string, data: any): void {
-    this.socket.emit(eventName, data);
+  emitirEvento(evento: string, datos: any): void {
+    this.socket.emit(evento, datos);
   }
 }

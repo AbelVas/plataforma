@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-tabla-niveles',
@@ -49,11 +50,18 @@ export class TablaNivelesComponent implements OnInit {
     idJornada:new FormControl('',[Validators.required]),
   })
   submitted=false;
-  constructor(private nivelesService:NivelesService,private formBuilder:FormBuilder,private jornadaService:JornadasService,private toastrService:ToastrService) { }
+  constructor(private socketService:WebSocketService,private nivelesService:NivelesService,private formBuilder:FormBuilder,private jornadaService:JornadasService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.obtenerNiveles();
     this.obtenerJornadas();
+
+    this.socketService.escucharEvento('nuevo-nivel', (nuevoNivel: any) => {
+      console.log('Nuevo nivel Agregado:', nuevoNivel);
+      // Aquí puedes agregar lógica para refrescar la vista con la información del nuevo profesor
+      this.obtenerNiveles();
+      this.toastrService.success(`Otro Usuario creo un nivel`,'Realizado')
+    });
   }
   obtenerNiveles(){
     this.nivelesService.getNiveles().subscribe(
@@ -156,6 +164,7 @@ export class TablaNivelesComponent implements OnInit {
     this.nivelCreadaObj=this.nivelForm.value
     this.nivelesService.crearNivel(this.nivelCreadaObj).subscribe(
       res=>{
+        this.socketService.emitirEvento('nuevo-nivel', res);
         this.toastrService.success(`Nivel Creado`,'Realizado')
         this.modalCloseCrear.nativeElement.click();
         this.submitted = false;

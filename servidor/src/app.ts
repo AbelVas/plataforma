@@ -36,3 +36,6 @@ const io = new Server(server, {
   server.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
   });
+
+  // Exportar el objeto de Socket.io para usarlo en otros archivos
+export {io};

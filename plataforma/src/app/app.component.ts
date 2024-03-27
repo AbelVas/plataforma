@@ -15,16 +15,18 @@ export class AppComponent implements OnInit{
     s.type = "text/javascript";
     s.src = "../assets/js/main.js";
     this.elementRef.nativeElement.appendChild(s);
-    //coso del socket
+    /* /coso del socket
        // Escuchar eventos desde el servidor
        this.socketService.listen('evento-desde-servidor').subscribe((data) => {
         console.log('Evento recibido desde el servidor:', data);
         // Aquí puedes manejar la lógica correspondiente al evento recibido
       });
+      */
     }
-
+/*
     enviarEventoAlServidor(): void {
       this.socketService.emit('evento-desde-cliente', { mensaje: 'Hola desde Angular' });
     }
+    */
   }
 

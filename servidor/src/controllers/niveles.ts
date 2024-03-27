@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { insertNivelService,obtenerNivelesService,obtenerNivelService,eliminarNivelService,editarNivelService,getNivelesporJornadaService } from "../service/niveles"
 import { handleHttp } from "../utils/error.handle"
+import { io } from "../app"; // Importa el objeto de Socket.io
 
 const getNiveles=async(req:Request,res:Response)=>{
     try{
@@ -40,6 +41,8 @@ const deleteNivel=async(req:Request,res:Response)=>{
 const insertNivel=async(req:Request,res:Response)=>{
     try{
         const responseNivel=await insertNivelService(req.body);
+         // Emitir un evento de Socket.io para notificar a los administradores
+            io.emit("nuevo-nivel", responseNivel);
         res.send(responseNivel);
     }catch(e){
         handleHttp(res,'Error_Request_INSERT ',e)
