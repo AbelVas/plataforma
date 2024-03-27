@@ -1,0 +1,212 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Asignación de Grados Guías a Docentes</h1>
+    <nav>
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+         <li class="breadcrumb-item active">Grados Guía</li>
+      </ol>
+   </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+           <div class="card-body">
+            <div class="d-flex">
+              <h5 class="card-title"></h5>
+            </div>
+            <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+              <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Grados Con Guía</button></li>
+              <li class="nav-item flex-fill" role="presentation"> <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Grados Sin Guía</button></li>
+            </ul>
+
+            <div class="tab-content pt-2" id="myTabjustifiedContent">
+              <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
+
+
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" (keyup)="applyFilter($event)" autocomplete="off" #input>
+            </div>
+
+
+                <!--tabla para existentes-->
+                <table mat-table [dataSource]="dataSource" matSort class="table  align-middle table-striped table-hover">
+                  <ng-container matColumnDef="idGrado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Grado </th>
+                    <td mat-cell *matCellDef="let row"> {{row.idGrado}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Grado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado </th>
+                    <td mat-cell *matCellDef="let row"> {{row.Grado}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="idProfesor">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Profesor </th>
+                    <td mat-cell *matCellDef="let row"> {{row.idProfesor}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="profesor">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesor </th>
+                    <td mat-cell *matCellDef="let row"> {{row.profesor}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                    <td mat-cell *matCellDef="let p" class="text-center">
+                      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditarProfesorGradoGuia" (click)="buscarGradoGuiasArrayTabla1(p.idGuias)" ><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorGradoGuia" (click)="buscarGradoGuiasArrayTabla1(p.idGuias)"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                      <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="5">No se encuentra: "{{input.value}}"</td>
+                  </tr>
+                </table>
+                <mat-paginator  [pageSizeOptions]="[10]" aria-label="Grados por Página" #MatPaginator></mat-paginator>
+
+              </div>
+              <div class="tab-pane fade" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
+                <!--tabla para no existentes-->
+
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Buscar: </span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" (keyup)="applyFilter2($event)" autocomplete="off" #input2>
+                </div>
+
+                    <table mat-table [dataSource]="dataSource2" matSort class="table  align-middle table-striped table-hover">
+                      <ng-container matColumnDef="idGrado">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Grado </th>
+                        <td mat-cell *matCellDef="let row2"> {{row2.idGrado}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="Grado">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado </th>
+                        <td mat-cell *matCellDef="let row2"> {{row2.Grado}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="idProfesor">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Profesor </th>
+                        <td mat-cell *matCellDef="let row2">
+                          <span class="badge bg-success" *ngIf="row2.profesor=='';else activoInactivo">Activo</span>
+                          <ng-template #activoInactivo>
+                            <span class="badge bg-danger">No Asignado!</span>
+                          </ng-template>
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="profesor">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesor </th>
+                        <td mat-cell *matCellDef="let row2">
+                          <span class="badge bg-success" *ngIf="row2.profesor=='';else activoInactivo">Activo</span>
+                            <ng-template #activoInactivo>
+                              <span class="badge bg-danger">No Asignado!</span>
+                            </ng-template>
+                           </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                        <td mat-cell *matCellDef="let p" class="text-center">
+                          <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#CrearProfesorGradoGuia" (click)="buscarGradoGuiasArrayTabla2(p.idGuias)"><i class="fa-solid fa-plus"></i></button>
+
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                      <tr mat-row *matRowDef="let row2; columns: displayedColumns2;"></tr>
+                          <!-- Row shown when there is no matching data. -->
+                      <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="5">No se encuentra: "{{input2.value}}"</td>
+                      </tr>
+                    </table>
+              </div>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+</section>
+</main>
+
+
+<!--modal Eliminar-->
+<div class="modal fade" id="EliminarProfesorGradoGuia" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Desvincular Doncente-Grado Guía</h5>
+        <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning" role="alert">Al Eliminar al Docente, dejará de ver la información relacionada al grado en el apartado "Grado Guía" en su perfil. <b>Esa acción de concretarse no se puede deshacer</b></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteGuiasGrado(GradoGuiaIndividualConGuia.idGuias)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal Editar-->
+<div class="modal fade" id="EditarProfesorGradoGuia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Doncente-Grado Guía</h5>
+        <button type="button" #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="gradoGuiaDocenteFormEditar" (ngSubmit)="updateGradoGuiaConDocente()" autocomplete="off">
+          <div class="mb-3">
+            <label class="form-label">Lista de Docentes:</label>
+            <select formControlName="idProfesor" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idProfesor.errors }" aria-label="Default select example">
+              <option *ngFor="let j of listaProfesores" value="{{j.idProfesor}}">{{j.apellido_profesor+', '+j.nombre_profesor}}</option>
+            </select>
+            <span class="text-danger" *ngIf="submitted&&f.idProfesor.invalid">*** Campo Obligatorio ***</span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateGradoGuiaConDocente()"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--modal crear-->
+<div class="modal fade" id="CrearProfesorGradoGuia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Vincular Doncente-Grado Guía</h5>
+        <button type="button" #cerrarCrearModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="gradoGuiaDocenteForm" (ngSubmit)="crearGuiasGrado()" autocomplete="off">
+          <div class="mb-3">
+            <label class="form-label">Lista de Docentes:</label>
+            <select formControlName="idProfesor" class="form-select" [ngClass]="{ 'is-invalid': submitted && f.idProfesor.errors }" aria-label="Default select example">
+              <option *ngFor="let j of listaProfesores" value="{{j.idProfesor}}">{{j.apellido_profesor+', '+j.nombre_profesor}}</option>
+            </select>
+            <span class="text-danger" *ngIf="submitted&&f.idProfesor.invalid">*** Campo Obligatorio ***</span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="crearGuiasGrado()"><i class="fa-solid fa-plus"></i> Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+

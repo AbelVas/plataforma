@@ -121,6 +121,4 @@ const obtenerCursodeProfesorIndividual=async (req:Request, res:Response)=>{
     }
 }
 
-obtenerCursodeProfesor
-
 export {obtenerCursodeProfesorIndividual,getCursoporGradoProfesorAdmin,getCurso, getCursos, updateCurso,deleteCurso, insertCurso,getCursoporGrado,getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno, getProfeCurso}

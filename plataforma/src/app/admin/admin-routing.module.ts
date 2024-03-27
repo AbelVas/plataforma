@@ -21,6 +21,7 @@ import { BoletasComponent } from "./boletas/boletas.component";
 import { CuadroFinalComponent } from "./cuadro-final/cuadro-final.component";
 import { BoletaEspecialComponent } from "./boleta-especial/boleta-especial.component";
 import { BoletaFinalPromedioCursoComponent } from "./boleta-final-promedio-curso/boleta-final-promedio-curso.component";
+import { AsignacionGradoGuiaComponent } from "./asignacion-grado-guia/asignacion-grado-guia.component";
 
 
 const routes:Routes=[
@@ -34,6 +35,7 @@ const routes:Routes=[
     {path:'grado/curso/:idGrado/:id/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CursosComponent},
     {path:'codigos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:CodigosComponent},
     {path:'grados',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ListaGradosComponent},
+    {path:'grados-guias',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:AsignacionGradoGuiaComponent},
     {path:'usuarios',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:UsuariosComponent},
     {path:'complementos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ComplementosComponent},
     {path:'grado/:id/:data',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:GradosComponent},

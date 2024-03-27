@@ -6,7 +6,7 @@ import { checkJwt } from "../middleware/session";
 
 const router=Router();
 
-router.get("/",getGrados);
+router.get("/",checkJwt,getGrados);
 router.get("/:id",checkJwt,getGrado);
 router.put("/:id",checkJwt,updateGrado);
 router.delete("/:id",checkJwt,deleteGrado);
