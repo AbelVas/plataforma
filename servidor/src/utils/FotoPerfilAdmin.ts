@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, 'uploads/'); // Directorio donde se guardarán los archivos subidos
+      cb(null, '../../../plataforma/src/assets'); // Directorio donde se guardarán los archivos subidos
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);
