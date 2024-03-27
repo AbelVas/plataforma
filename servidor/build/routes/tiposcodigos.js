@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const tiposcodigos_1 = require("../controllers/tiposcodigos");
+const session_1 = require("../middleware/session");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/", session_1.checkJwt, tiposcodigos_1.getTiposCodigos);
+router.get("/:id", session_1.checkJwt, tiposcodigos_1.getTipoCodigo);
+router.put("/:id", session_1.checkJwt, tiposcodigos_1.upadteTipoCodigo);
+router.delete("/:id", session_1.checkJwt, tiposcodigos_1.deletetipocodigo);
+router.post("/", session_1.checkJwt, tiposcodigos_1.insertartipoCodigo);
