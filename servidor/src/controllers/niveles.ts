@@ -23,16 +23,24 @@ const getNivel=async(req:Request,res:Response)=>{
 const updateNivel=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params
+        const {idUsuario}=req.params
+        const {nombre}=req.params
         const responseNivel=await editarNivelService(req.body,id);
+        // Emitir un evento de Socket.io para notificar a los administradores
+        io.emit("Actualizar-nivel", {mensaje:'El usuario "'+nombre+'" Actualizó un Nivel'});
         res.send(responseNivel);
     }catch(e){
         handleHttp(res,'Error_Request_UPDATE ', e)
     }
 }
-const deleteNivel=async(req:Request,res:Response)=>{
+const deleteNivel=async(req:Request,res:Response)=>{ 
     try{
         const {id}=req.params;
+        const {idUsuario}=req.params
+        const {nombre}=req.params
         const responseNivel=await eliminarNivelService(id);
+        // Emitir un evento de Socket.io para notificar a los administradores
+        io.emit("Eliminar-nivel", {mensaje:'El usuario "'+nombre+'" eliminó un Nivel'});
         res.send(responseNivel);
     }catch(e){
         handleHttp(res,'Error_Request_DELETE ', e)
@@ -41,8 +49,10 @@ const deleteNivel=async(req:Request,res:Response)=>{
 const insertNivel=async(req:Request,res:Response)=>{
     try{
         const responseNivel=await insertNivelService(req.body);
-         // Emitir un evento de Socket.io para notificar a los administradores
-            io.emit("nuevo-nivel", responseNivel);
+        const {idUsuario}=req.params
+        const {nombre}=req.params
+        // Emitir un evento de Socket.io para notificar a los administradores
+        io.emit("nuevo-nivel", {mensaje:'El usuario "'+nombre+'" eliminó un Nivel'});
         res.send(responseNivel);
     }catch(e){
         handleHttp(res,'Error_Request_INSERT ',e)

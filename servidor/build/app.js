@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.io = void 0;
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const http_1 = require("http"); // Importa createServer de http
@@ -24,8 +25,8 @@ const io = new socket_io_1.Server(server, {
         credentials: true
     }
 });
+exports.io = io;
 io.on("connection", (socket) => {
-    console.log("Nuevo cliente conectado");
     // Escuchar eventos desde el cliente a través de Socket.io
     socket.on("evento-desde-cliente", (data) => {
         console.log("Evento recibido desde el cliente:", data);

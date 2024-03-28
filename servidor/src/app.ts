@@ -23,8 +23,7 @@ const io = new Server(server, {
   });
 
   io.on("connection", (socket: Socket) => {
-    console.log("Nuevo cliente conectado");
-  
+   
     // Escuchar eventos desde el cliente a través de Socket.io
     socket.on("evento-desde-cliente", (data: any) => {
       console.log("Evento recibido desde el cliente:", data);

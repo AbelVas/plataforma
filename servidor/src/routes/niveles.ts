@@ -7,9 +7,9 @@ const router=Router();
 
 router.get("/",checkJwt,getNiveles);
 router.get("/:id",checkJwt,getNivel);
-router.post("/",checkJwt,insertNivel);
-router.put("/:id",checkJwt,updateNivel);
-router.delete("/:id",checkJwt,deleteNivel);
+router.post("/:idUsuario/:nombre",checkJwt,insertNivel);
+router.put("/:id/:idUsuario/:nombre",checkJwt,updateNivel);
+router.delete("/:id/:idUsuario/:nombre",checkJwt,deleteNivel);
 router.get("/nivel-jornada/:id", checkJwt, getNivelesporJornada)
 
 export {router}
