@@ -86,6 +86,7 @@ import { BoletaEspecialComponent } from './boleta-especial/boleta-especial.compo
 import { BoletaEspecialService } from "./services/boleta-especial.service";
 import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso/boleta-final-promedio-curso.component';
 import { AsignacionGradoGuiaComponent } from './asignacion-grado-guia/asignacion-grado-guia.component';
+import { OpcionesAdminMenuService } from "./services/opciones-admin-menu.service";
 
 @NgModule({
     declarations: [
@@ -163,7 +164,8 @@ import { AsignacionGradoGuiaComponent } from './asignacion-grado-guia/asignacion
         BoletasService,
         CuadroFinalService,
         SubirImagenPerfilArchivoService,
-        BoletaEspecialService
+        BoletaEspecialService,
+        OpcionesAdminMenuService
     ],
     imports: [
         AdminRoutingModule,

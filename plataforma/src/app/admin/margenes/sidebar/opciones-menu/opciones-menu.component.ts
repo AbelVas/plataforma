@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OpcionesAdminMenuService } from 'src/app/admin/services/opciones-admin-menu.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-admin-opciones-menu',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OpcionesMenuComponent implements OnInit {
 
-  constructor() { }
+  opcionesSidebarGet:any=[];
+
+  constructor(private sideBarService:OpcionesAdminMenuService,private socketService:WebSocketService) { }
 
   ngOnInit(): void {
+    this.getSidebarOptionsMenu()
   }
-
+  getSidebarOptionsMenu(){
+    this.sideBarService.getOpcionesSideBarAdmin().subscribe(
+      res=>{
+        this.opcionesSidebarGet=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
 }

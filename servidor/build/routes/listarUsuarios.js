@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const listarUsuarios_1 = require("../controllers/listarUsuarios");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/admin", listarUsuarios_1.getAdmins);
+router.get("/admin/:id", listarUsuarios_1.getAdmin);
+router.get("/alumno", listarUsuarios_1.getAlumnos);
+router.get("/alumno/:id", listarUsuarios_1.getAlumno);
+router.get("/profesor", listarUsuarios_1.getProfesores);
+router.get("/profesor/:id", listarUsuarios_1.getProfesor);
