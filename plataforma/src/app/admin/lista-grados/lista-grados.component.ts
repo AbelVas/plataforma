@@ -231,11 +231,13 @@ export class ListaGradosComponent implements OnInit {
           this.getGradosNivel(this.idNivelSelecciondo);
         }
         this.modalCloseCrear.nativeElement.click();
+        this.gradoFormthis.reset()
         this.toastrService.success(`Grado Creado`,'Realizado')
       },
       err=>{
         this.modalCloseCrear.nativeElement.click();
         this.toastrService.error(`Grado no Creado`,'Error')
+        this.gradoFormthis.reset()
       }
     )
   }
@@ -256,10 +258,12 @@ export class ListaGradosComponent implements OnInit {
         this.getGradosNivel(this.idNivelSelecciondo);
         this.modalCloseEditar.nativeElement.click();
         this.toastrService.success(`Grado Editado`,'Realizado')
+        this.gradoFormthis.reset()
       },
       err=>{
         this.modalCloseEditar.nativeElement.click();
         this.toastrService.error(`Grado no Editado`,'Error')
+        this.gradoFormthis.reset()
       }
     )
   }

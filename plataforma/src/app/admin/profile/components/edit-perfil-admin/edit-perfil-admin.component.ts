@@ -18,6 +18,7 @@ export class EditPerfilAdminComponent implements OnInit {
   selectedFile: File | undefined;
   constructor(private fileUploadService: SubirImagenPerfilArchivoService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
   }
+  archivo:any="";
   submitted=false;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
@@ -31,6 +32,10 @@ export class EditPerfilAdminComponent implements OnInit {
   permitirVer:any;
   adminIndividual:any=[{
   }];
+
+  ImgForm=this.formBuilder.group({
+    archivoImagen:new FormControl(null,[Validators.required]),
+  })
 
   EditarAdminForm=this.formBuilder.group({
     nombre_profesor:new FormControl('',[Validators.required]),
@@ -169,6 +174,53 @@ export class EditPerfilAdminComponent implements OnInit {
       );
     }
   }
+
+  actualizarImgImport(event:Event){
+    if (event!=null) {
+      const imageBlob = this.archivo;
+      const data = new FormData ();
+      data.set('myfile',imageBlob)
+
+      console.log(data)
+      console.log(imageBlob)
+      const {idUsuario}:any=decode(this.token);
+        this.imagenPerfilService.subirDocImagenPerfil(idUsuario,data).subscribe(
+          res=>{
+            this.ejecutarEventoActualizar(imageBlob)
+            this.modalCloseEditarImg.nativeElement.click()
+            this.modalCloseEditar.nativeElement.click()
+            this.toastrService.success("Completado", "Se ha subido el archivo")
+          },
+          err=>{
+            this.ejecutarEventoActualizar(imageBlob)
+            this.toastrService.error("Error", "No se ha logrado subir el archivo")
+            console.log(err)
+          }
+        )
+
+    }else{
+      this.toastrService.error("Error", "No se ha logrado subir el archivo")
+    }
+    }
+//Cambio sin nada
+    subirArchivo(event:any) {
+     if(event.target.files.length > 0){
+      console.log("archivo")
+      const file = event.target.files[0];
+      const formData = new FormData()
+      formData.append('myfile',file);
+      const Doc = formData
+      this.archivo = file;
+      return file;
+     }else{
+      console.log("archivon't")
+     return null;
+     }
+     
+
+    }
+
+
     get f() { return this.EditarAdminForm.controls; }
   }
 
