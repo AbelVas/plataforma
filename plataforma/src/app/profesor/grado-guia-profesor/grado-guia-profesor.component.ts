@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import decode from 'jwt-decode';
 import { GradoGuiaProfesorService } from '../services/grado-guia-profesor.service';
 import { TemaProfesorService } from '../services/tema-profesor.service';
-
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-grado-guia-profesor',
@@ -47,7 +47,7 @@ export class GradoGuiaProfesorComponent implements OnInit {
   cfondo2:string='';
   ctexto1:string='';
 
-  constructor( private gradoGuiaProfesorService:GradoGuiaProfesorService, private temaProfesorService:TemaProfesorService ) { }
+  constructor(private socketService:WebSocketService,private gradoGuiaProfesorService:GradoGuiaProfesorService, private temaProfesorService:TemaProfesorService ) { }
 
   ngOnInit(): void {
     const token:any = localStorage.getItem('Acces-Token');

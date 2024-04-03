@@ -11,15 +11,9 @@ export class WebSocketService {
   private socket: Socket
 
   constructor() {
-    this.socket = io(`${this.URL}`); // Reemplaza 'http://tu-servidor:puerto' con la URL de tu servidor y el puerto
+    this.socket = io(`${this.URL}`);
   }
   // Método para escuchar un evento específico
-
-  /*
-  escucharEvento(evento: string, callback: (datos: any) => void): void {
-    this.socket.on(evento, callback);
-  }
-  */
   escucharEvento(evento: string): Observable<any> {
     return new Observable((observer) => {
       this.socket.on(evento, (data: any) => {
@@ -27,10 +21,18 @@ export class WebSocketService {
       });
     });
   }
-
-
   // Método para emitir un evento al servidor
   emitirEvento(evento: string, datos: any): void {
     this.socket.emit(evento, datos);
   }
+
+  guardarSocket(idUsuario: string): void {
+    this.socket.emit("guardar-socket", { idUsuario: idUsuario });
+  }
+  enviarCambio(): void {
+    // Simulación de envío de cambio desde Angular
+    this.socket.emit("cambio", { mensaje: "Se ha realizado un cambio desde Angular." });
+  }
 }
+
+

@@ -1,5 +1,8 @@
 import { Component,OnInit } from "@angular/core";
 import { TemaProfesorService } from "./services/tema-profesor.service";
+import { WebSocketService } from 'src/app/web-socket.service';
+import { ToastrService } from 'ngx-toastr';
+import decode from 'jwt-decode';
 
 @Component({
   selector:'app-profesor',
@@ -9,7 +12,6 @@ import { TemaProfesorService } from "./services/tema-profesor.service";
 export class ProfesorComponent implements OnInit{
 
   temaactivo:string='1';
-
   temaGet:any=[];
   temaIndividual:any={
     idTema: '',
@@ -24,6 +26,8 @@ export class ProfesorComponent implements OnInit{
     fondo1: '',
     estado: ''
   }
+  //obtener el ID del usuario
+  token:any = localStorage.getItem('Acces-Token');
 
   //variables de colores
   cnavbar1:string='';
@@ -31,11 +35,19 @@ export class ProfesorComponent implements OnInit{
   ctexto2:string='';
   cfondo1:string='';
 
-  constructor( private temaProfesorService:TemaProfesorService ){}
+  constructor(private socketService:WebSocketService,private temaProfesorService:TemaProfesorService,private toastrService:ToastrService){}
 
   ngOnInit(){
+    const {idUsuario}:any=decode(this.token);
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
+
+
+    // En el componente o servicio del módulo profesor
+this.socketService.escucharEvento('insertar-grado-guia-profesor').subscribe((data: any) => {
+  this.toastrService.success(data.mensaje, 'Atención!');
+  // Puedes realizar otras acciones aquí si es necesario
+});
   }
 
   obtenerDatosTema(){

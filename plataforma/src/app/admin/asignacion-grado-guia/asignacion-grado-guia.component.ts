@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ProfesoresService } from '../services/profesores.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder,FormControl,Validators  } from '@angular/forms';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-asignacion-grado-guia',
@@ -47,7 +48,7 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
 
   submitted=false;
   gradoGuiaDocenteAsignado:any=[]
-  constructor(private gradoServiceGuia:GradosService, private profesoresService:ProfesoresService,private toastrService:ToastrService,private formBuilder:FormBuilder) {
+  constructor(private socketService:WebSocketService,private gradoServiceGuia:GradosService, private profesoresService:ProfesoresService,private toastrService:ToastrService,private formBuilder:FormBuilder) {
 
    }
 
@@ -147,10 +148,17 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
     }
     var gradoGuiaInsert:any={}
     gradoGuiaInsert=Object.assign(this.gradoGuiaDocenteForm.value)
-    gradoGuiaInsert.idGrado=this.GradoGuiaIndividualSinGuia.idGrado,
+    gradoGuiaInsert.idGrado=this.GradoGuiaIndividualSinGuia.idGrado
+    var idProfesoUsuaraio=gradoGuiaInsert.idProfesor
     this.gradoServiceGuia.crearGradoGuiaDocenteRelacion(gradoGuiaInsert).subscribe(
       res=>{
         this.toastrService.success(`Docente asignado a Grado Guía`,'Realizado')
+        //SOCKET MAPEANDO ID
+        // En el componente o servicio del administrador
+        this.socketService.emitirEvento('insertar-grado-guia-profesor', {
+          idProfesor: idProfesoUsuaraio,
+          mensaje: 'Se te ha asignado un nuevo Grado Guía'
+        });
         this.modalCrearCerrar.nativeElement.click();
         this.submitted = false;
         this.gradoGuiaDocenteForm.reset();
@@ -172,6 +180,7 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
       res=>{
         this.modalCloseEliminar.nativeElement.click();
         this.getGradosConDocente();
+        this.getGradosSinDocente();
         this.toastrService.success(`Docente Guia Eliminado`,'Realizado')
       },
       err=>{
