@@ -1,4 +1,4 @@
-import { Request, response, Response } from "express"
+import { Request, Response, request } from "express"
 import {loginUser} from "../service/auth"
 import { handleHttp } from "../utils/error.handle"
 
@@ -14,7 +14,7 @@ const loginController=async({body}:Request,res:Response)=>{
             res.send(responseUser);   
         }
     }catch(e){
-         handleHttp(res,'Error, No existe el Usuario',e)
+        handleHttp(e, request, res);
     }
 }
 export {loginController}

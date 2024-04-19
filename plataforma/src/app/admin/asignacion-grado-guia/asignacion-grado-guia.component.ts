@@ -8,6 +8,7 @@ import { ProfesoresService } from '../services/profesores.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder,FormControl,Validators  } from '@angular/forms';
 import { WebSocketService } from 'src/app/web-socket.service';
+import decode from 'jwt-decode';
 
 @Component({
   selector: 'app-asignacion-grado-guia',
@@ -51,8 +52,14 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
   constructor(private socketService:WebSocketService,private gradoServiceGuia:GradosService, private profesoresService:ProfesoresService,private toastrService:ToastrService,private formBuilder:FormBuilder) {
 
    }
-
+  //obtener el ID del usuario
+   token:any = localStorage.getItem('Acces-Token');
+   idUsuarioConectado:any
+   idRolUsuarioConectado:any
   ngAfterViewInit(): void {
+    const decodedToken: any = decode(this.token);
+    this.idUsuarioConectado = decodedToken.idUsuario;
+    this.idRolUsuarioConectado=decodedToken.idRol;
     this.getGradosConDocente();
     this.getGradosSinDocente();
     this.getProfesores();
@@ -148,17 +155,19 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
     }
     var gradoGuiaInsert:any={}
     gradoGuiaInsert=Object.assign(this.gradoGuiaDocenteForm.value)
+    gradoGuiaInsert.idUsuarioRecibe=this.gradoGuiaDocenteForm.controls['idProfesor'].value;
+    gradoGuiaInsert.idUsuarioEnvia=this.idUsuarioConectado;
+    gradoGuiaInsert.idRolEnvia=this.idRolUsuarioConectado;
+    gradoGuiaInsert.idRolRecibe="2"
+    gradoGuiaInsert.titulo_notificacion="Asignación de grado."
+    gradoGuiaInsert.mensaje="Se le asignó un nuevo grado Guía: "+this.GradoGuiaIndividualSinGuia.Grado
+    gradoGuiaInsert.visto_recibe="0"
+    gradoGuiaInsert.visto_envia="1"
     gradoGuiaInsert.idGrado=this.GradoGuiaIndividualSinGuia.idGrado
-    var idProfesoUsuaraio=gradoGuiaInsert.idProfesor
+
     this.gradoServiceGuia.crearGradoGuiaDocenteRelacion(gradoGuiaInsert).subscribe(
       res=>{
         this.toastrService.success(`Docente asignado a Grado Guía`,'Realizado')
-        //SOCKET MAPEANDO ID
-        // En el componente o servicio del administrador
-        this.socketService.emitirEvento('insertar-grado-guia-profesor', {
-          idProfesor: idProfesoUsuaraio,
-          mensaje: 'Se te ha asignado un nuevo Grado Guía'
-        });
         this.modalCrearCerrar.nativeElement.click();
         this.submitted = false;
         this.gradoGuiaDocenteForm.reset();
@@ -171,6 +180,7 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
         this.gradoGuiaDocenteForm.reset();
       }
     )
+
   }
   get f() { return this.gradoGuiaDocenteForm.controls; }
   get g() { return this.gradoGuiaDocenteFormEditar.controls; }

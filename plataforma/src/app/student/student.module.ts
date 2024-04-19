@@ -45,6 +45,7 @@ import { ListaActividadesComponent } from './lista-actividades/lista-actividades
 import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-actividades-curso.component';
 import { CalendarioVistaMesComponent } from './calendario-vista-mes/calendario-vista-mes.component';
 import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-menu.service";
+import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 //
 
 
@@ -87,7 +88,8 @@ import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-m
     TutorialComponent,
     ListaActividadesComponent,
     ListaActividadesCursoComponent,
-    CalendarioVistaMesComponent
+    CalendarioVistaMesComponent,
+    ErroresComponent
   ],
   exports:[
   ],

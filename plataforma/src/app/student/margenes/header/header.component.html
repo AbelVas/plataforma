@@ -3,7 +3,8 @@
     <span class="d-none d-lg-block" [style]="{'color': ctexto2}">Alumno</span> </a> <i (click)="sidebarToggle()" class="fa-solid fa-bars toggle-sidebar-btn" [style]="{'color': ctexto2}"></i></div>
   <nav class="header-nav ms-auto">
      <ul class="d-flex align-items-center">
-      <!---<app-notificaciones></app-notificaciones>-->
+      <app-errores-student></app-errores-student>
+      <app-notificaciones></app-notificaciones>
       <app-opciones-perfil [ctexto2]="ctexto2"></app-opciones-perfil>
      </ul>
   </nav>

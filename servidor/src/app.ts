@@ -3,6 +3,9 @@ import express from "express"
 import { createServer } from "http"; // Importa createServer de http
 import { Server, Socket } from "socket.io"; // Importa Server y Socket de socket.io
 import {router} from "./routes"
+import { eliminarSocketTemporal, guardarSocketTemporal } from "./utils/socketsTemp";
+import { socketsTemp } from "./utils/socketsTemp";
+
 const PORT=process.env.PORT || 3000
 const app=express();
 
@@ -22,38 +25,26 @@ const io = new Server(server, {
       credentials: true
     }
   });
-// Estructura de datos para almacenar sockets de usuarios
-  const socketsMap = new Map<string, Socket>();
 
-  io.on("connection", (socket: Socket) => {
-    io.emit("ruta-detectada-server", { mensaje: 'ruta: ' +__dirname+',  ../assets/img/perfiles/profesores'});
-  // Guardar el socket del usuario en el mapa
-  socket.on("guardar-socket", (data: any) => {
-    const { idUsuario } = data;
-    socketsMap.set(idUsuario, socket);
-    console.log("Socket guardado para el usuario:", idUsuario);
+io.on("connection", async(socket: Socket) => {
+  socket.on("associateUser", (data: { idUsuario: string,idRol:string,rol:string }) => {
+    // Guardar temporalmente el socket con su idUsuario asociado
+    guardarSocketTemporal(socket.id, data.idUsuario, data.idRol,data.rol,socket);
   });
-  //para desconectar y eliminar lo guardadao
+
   socket.on("disconnect", () => {
-    // Eliminar el socket del usuario al desconectarse
-    console.log("Usuario desconectado:", socket.id);
-    socketsMap.forEach((value, key) => {
-      if (value === socket) {
-        socketsMap.delete(key);
-        console.log("Socket eliminado para el usuario:", key);
-      }
-    });
+    // Eliminar el socket temporalmente guardado al desconectarse
+    const socketData = socketsTemp.get(socket.id);
+    if (socketData) {
+      //eliminarSocketTemporal(socket.id)
+      eliminarSocketTemporal(socket.id, socketData.idRol);
+    }
   });
-  // Ejemplo de manejo de cambios simultáneos
-  socket.on("cambio", (data: any) => {
-  // Procesar el cambio y emitir notificaciones a todos los usuarios conectados
-    io.emit("notificacion", { mensaje: "Se ha realizado un cambio en la aplicación." });
-  });
+});
 
-  });
   server.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
   });
 
   // Exportar el objeto de Socket.io para usarlo en otros archivos
-export {io,socketsMap};
+export {io,socketsTemp};

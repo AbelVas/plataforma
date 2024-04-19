@@ -16,6 +16,8 @@ import { GradoGuiaIndividualComponent } from "./grado-guia-profesor/grado-guia-i
 import { TutorialComponent } from "./tutorial/tutorial.component";
 import { CuadrosCursoComponent } from "./cuadros-curso/cuadros-curso.component";
 import { BoletaFinalPromedioCursoComponent } from "./boleta-final-promedio-curso/boleta-final-promedio-curso.component";
+import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
+
 
 const routes:Routes=[
   {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component: ProfesorComponent,children:
@@ -33,6 +35,7 @@ const routes:Routes=[
     {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
     {path:'curso/notas/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:CuadrosCursoComponent},
     {path:'boleta-final/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:BoletaFinalPromedioCursoComponent},
+    {path:'notificaciones',canActivate:[AuthGuard,RolesGuard],data:{expectedRole:'2'},component:NotificacionesMensajesComponent},
   ]
   },
 ]

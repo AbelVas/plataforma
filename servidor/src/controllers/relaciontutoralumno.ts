@@ -9,7 +9,7 @@ const getTutorAlumno=async(req:Request,res:Response)=>{
         const tutoralumno=await getTutorAlumnoService(id);
         res.send(tutoralumno);
     }catch(e){
-        handleHttp(res,'Error al Obtener a los alumnos del tutor')
+        handleHttp(e, req, res);
     }
 }
 

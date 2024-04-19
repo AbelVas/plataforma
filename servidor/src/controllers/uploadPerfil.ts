@@ -8,8 +8,7 @@ const actualizaraPerfilAdmin=async(req:Request, res:Response)=>{
         const response=await actualizaraPerfilAdminService(id,req.body);
         res.send(response)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar Foto de Perfil Admin',e)
-        console.log(e)
+        handleHttp(e, req, res);
     }
 }
 const actualizaraPerfilTutor=async(req:Request, res:Response)=>{
@@ -18,8 +17,7 @@ const actualizaraPerfilTutor=async(req:Request, res:Response)=>{
         const response=await actualizaraPerfilTutorService(id,req.body);
         res.send(response)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar Foto de Perfil Tutor',e)
-        console.log(e)
+        handleHttp(e, req, res);
     }
 }
 const actualizaraPerfilAlumno=async(req:Request, res:Response)=>{
@@ -28,8 +26,7 @@ const actualizaraPerfilAlumno=async(req:Request, res:Response)=>{
         const response=await actualizaraPerfilAlumnoService(id,req.body);
         res.send(response)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar Foto de Perfil Alumno',e)
-        console.log(e)
+        handleHttp(e, req, res);
     }
 }
 const actualizaraPerfilProfesor=async(req:Request, res:Response)=>{
@@ -38,8 +35,7 @@ const actualizaraPerfilProfesor=async(req:Request, res:Response)=>{
         const response=await actualizaraPerfilProfesorService(id,req.body);
         res.send(response)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar Foto de Perfil Docente',e)
-        console.log(e)
+        handleHttp(e, req, res);
     }
 }
 

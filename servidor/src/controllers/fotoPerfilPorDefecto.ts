@@ -8,7 +8,7 @@ const obtenerImagenCategoria=async(req:Request, res:Response)=>{
         const response=await obtenerImagenCategoriaService(id);
         res.send(response)
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Cursos',e)
+        handleHttp(e, req, res);
     }
 }
 

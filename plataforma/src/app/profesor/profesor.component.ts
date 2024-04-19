@@ -35,19 +35,22 @@ export class ProfesorComponent implements OnInit{
   ctexto2:string='';
   cfondo1:string='';
 
-  constructor(private socketService:WebSocketService,private temaProfesorService:TemaProfesorService,private toastrService:ToastrService){}
+  constructor(private socket:WebSocketService,private socketService:WebSocketService,private temaProfesorService:TemaProfesorService,private toastrService:ToastrService){}
 
   ngOnInit(){
     const {idUsuario}:any=decode(this.token);
     this.obtenerDatosTema();
-    this.temaIndividual=this.temaGet
-
-
+    this.temaIndividual=this.temaGet;
+    const {idRol}:any=decode(this.token);
+    const {rol}:any=decode(this.token);
+    //asociamos el socket al usuario
+    this.socket.emitirEvento('associateUser', { idUsuario: idUsuario,idRol:idRol,rol:rol })
     // En el componente o servicio del módulo profesor
-this.socketService.escucharEvento('insertar-grado-guia-profesor').subscribe((data: any) => {
-  this.toastrService.success(data.mensaje, 'Atención!');
-  // Puedes realizar otras acciones aquí si es necesario
-});
+    this.socketService.escucharEvento('nuevo-grado-guia-asignado').subscribe((data: any) => {
+      if(data.usuario==idUsuario){
+        this.toastrService.success(data.mensaje, 'Atención!');//veamos
+      }
+    });
   }
 
   obtenerDatosTema(){

@@ -8,7 +8,7 @@ const getSecciones=async(req:Request,res:Response)=>{
         const resultadoGrados=await getSeccionesService();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener la Sección')
+        handleHttp(e, req, res);
     }
 }
 const getSeccion=async(req:Request,res:Response)=>{
@@ -17,7 +17,7 @@ const getSeccion=async(req:Request,res:Response)=>{
         const resultadoGrados=await getSeccionService(id);
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener la Sección')
+        handleHttp(e, req, res);
     }
 }
 const updateSeccion=async(req:Request,res:Response)=>{
@@ -26,7 +26,7 @@ const updateSeccion=async(req:Request,res:Response)=>{
         const resultadoGrados=await updateSeccionService(id,req.body);
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Actualizar la Sección')
+        handleHttp(e, req, res);
     }
 }
 const deleteSeccion=async(req:Request,res:Response)=>{
@@ -35,7 +35,7 @@ const deleteSeccion=async(req:Request,res:Response)=>{
         const resultadoGrados=await deleteSeccionService(id);
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Eliminar Sección')
+        handleHttp(e, req, res);
     }
 }
 const insertSeccion=async(req:Request,res:Response)=>{
@@ -43,7 +43,7 @@ const insertSeccion=async(req:Request,res:Response)=>{
         const resultadoGrados=await insertarSeccionService(req.body);
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Crear la Sección')
+        handleHttp(e, req, res);
     }
 }
 

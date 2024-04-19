@@ -10,7 +10,7 @@ const getAlumnosCalificacionActividadCursUnidad=async(req:Request,res:Response)=
         const resultado=await getAlumnosCalificacionActividadCursUnidadService(idActividad,Unidad,idCurso);
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las Calificaciones de la Actividad',e)
+        handleHttp(e, req, res);
     }
 }
 const calificarActividad=async(req:Request,res:Response)=>{
@@ -21,7 +21,7 @@ const calificarActividad=async(req:Request,res:Response)=>{
         const resultado=await calificarActividadService(idAlumno,idDetalleActividad,calificacion);
         res.send(resultado);
     } catch (e) {
-        handleHttp(res,'Error al Calificar la Actividad',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -32,7 +32,7 @@ const getCalificacionesAlumnoActividad=async(req:Request,res:Response)=>{
         const resultadoCalificaciones=await getCalificacionesAlumnoActividadService(idCurso, idAlumno)
         res.send(resultadoCalificaciones);
     }catch(e){
-        handleHttp(res,'Error al Obtener la calificacion')
+        handleHttp(e, req, res);
     }
 }
 

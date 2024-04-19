@@ -9,7 +9,7 @@ const alumnosGrado=async(req:Request,res:Response)=>{
         const prueba=await alumnosGradoService(idGrado,idAlumno);
         res.send(prueba)
     }catch(e){
-        handleHttp(res,'Error',e)
+        handleHttp(e, req, res);
     }
 }
 const alumnoNotasBoleta=async(req:Request,res:Response)=>{
@@ -19,7 +19,7 @@ const alumnoNotasBoleta=async(req:Request,res:Response)=>{
         const prueba=await alumnoNotasBoletaService(idGrado,idAlumno);
         res.send(prueba)
     } catch (e) {
-        handleHttp(res,'Error',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -30,7 +30,7 @@ const alumnoNotasBoletaEspecial=async(req:Request,res:Response)=>{
         const prueba=await alumnoNotasBoletaEspecialService(idGrado,idAlumno);
         res.send(prueba)
     } catch (e) {
-        handleHttp(res,'Error',e)
+        handleHttp(e, req, res);
     }
 }
 const alumnoNotasBoletaPromedioFinal=async(req:Request,res:Response)=>{
@@ -40,7 +40,7 @@ const alumnoNotasBoletaPromedioFinal=async(req:Request,res:Response)=>{
         const prueba=await alumnoNotasBoletaFinalPromedio(idCurso,idGrado);
         res.send(prueba)
     } catch (e) {
-        handleHttp(res,'Error',e)
+        handleHttp(e, req, res);
     }
 }
 export {alumnosGrado,alumnoNotasBoletaService,alumnoNotasBoleta,alumnoNotasBoletaEspecial,alumnoNotasBoletaPromedioFinal}

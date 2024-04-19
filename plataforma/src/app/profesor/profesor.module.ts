@@ -58,6 +58,12 @@ import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso
 //servicios que se encuentran dentro de admin para reusar
 import {CuadroFinalService} from '../admin/services/cuadro-final.service'
 import { CuadroGuiaService } from "../admin/services/cuadro-guia.service";
+//coso para el sonido de las notificaicones
+import { SonidosService } from "../sonidos.service";
+//notificaciones
+import { NotificacionesDocenteService } from "./services/notificaciones-docente.service";
+import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notificaciones-mensajes.component';
+import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 
 
 @NgModule({
@@ -106,7 +112,9 @@ import { CuadroGuiaService } from "../admin/services/cuadro-guia.service";
   ArchivosPerfilProfesorComponent,
   TutorialComponent,
   CuadrosCursoComponent,
-  BoletaFinalPromedioCursoComponent
+  BoletaFinalPromedioCursoComponent,
+  NotificacionesMensajesComponent,
+  ErroresComponent,
   ],
   exports:[
   ],
@@ -123,7 +131,9 @@ import { CuadroGuiaService } from "../admin/services/cuadro-guia.service";
     CalendarioCursoService,
     TemaProfesorService,
     CuadroFinalService,
-    CuadroGuiaService
+    CuadroGuiaService,
+    SonidosService,
+    NotificacionesDocenteService
   ]
 })
 

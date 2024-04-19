@@ -8,7 +8,7 @@ const getTutores=async(req:Request,res:Response)=>{
         const resultadoTutores=await obtenerTutoresService();
         res.send(resultadoTutores);
     }catch(e){
-        handleHttp(res,'Error al Obtener a los Tutores')
+        handleHttp(e, req, res);
     }
 }
 const getTutor= async(req:Request,res:Response)=>{
@@ -17,7 +17,7 @@ const getTutor= async(req:Request,res:Response)=>{
        const resultadoTutores=await obtenerTutorService(id);
        res.send(resultadoTutores);
     }catch(e){
-        handleHttp(res,'Error al Obtener al Tutor')
+        handleHttp(e, req, res);
     }
 }
 const updateTutor= async(req:Request,res:Response)=>{
@@ -34,7 +34,7 @@ const updateTutor= async(req:Request,res:Response)=>{
             res.send(resultado);
         }
     } catch (e) {
-        handleHttp(res,'Error al Editar Profesor',e)
+        handleHttp(e, req, res);
     }
 }
 const deleteTutor= async(req:Request,res:Response)=>{
@@ -43,7 +43,7 @@ const deleteTutor= async(req:Request,res:Response)=>{
        const resultadoTutores=await deleteTutoresService(id);
        res.send(resultadoTutores);
     }catch(e){
-        handleHttp(res,'Error al Eliminar al Tutor')
+        handleHttp(e, req, res);
     }
 }
 const insertarTutor= async(req:Request,res:Response)=>{
@@ -58,7 +58,7 @@ const insertarTutor= async(req:Request,res:Response)=>{
             res.send(resultadoAlumno);
         }
     }catch(e){
-        handleHttp(res,'Error al Insertar al Tutor',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -69,7 +69,7 @@ const compararPass=async(req:Request,res:Response)=>{
         const resultadoDelete=await verifyPassword(id,pass);
         res.send(resultadoDelete);
      }catch(e){
-         handleHttp(res,'Error al Actualizar la contraseña',e)
+        handleHttp(e, req, res);
      }
 }
 
@@ -79,7 +79,7 @@ const getTutorconAlumno=async(req:Request,res:Response)=>{
         const resultTutorConAlimn=await getTutorconAlumnoService(id);
         res.send(resultTutorConAlimn);
     }catch(e){
-        handleHttp(res,'Error al Obtener al Tutor')
+        handleHttp(e, req, res);
     }
 }
 
@@ -89,7 +89,7 @@ const getAlumnoporTutor=async(req:Request,res:Response)=>{
         const resultAlumnosporTutor=await getAlumnoporTutorService(id);
         res.send(resultAlumnosporTutor);
     }catch(e){
-        handleHttp(res,'Error al Obtener a los alumnos')
+        handleHttp(e, req, res);
     }
 }
 

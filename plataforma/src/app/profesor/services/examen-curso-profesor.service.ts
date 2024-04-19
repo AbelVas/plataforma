@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ManejoDeErroresService } from 'src/app/manejo-de-errores.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExamenCursoProfesorService {
   URL=environment.url
-  constructor() { }
+  constructor(private errorHandler: ManejoDeErroresService) { }
 }

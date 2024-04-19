@@ -7,7 +7,7 @@ const getSideBarOpcionAdmin=async(req:Request,res:Response)=>{
         const query=await sidebarServiceAdminOptions();
         res.send(query)
     } catch (e) {
-        handleHttp(res,'Error al Obtener a los Profesores')
+        handleHttp(e, req, res);
     }
 }
 

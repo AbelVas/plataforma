@@ -8,6 +8,10 @@ import {JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ToastrModule } from 'ngx-toastr';
 import { WebSocketService } from './web-socket.service';
+import { SonidosService } from './sonidos.service';
+import { ManejoDeErroresService } from './manejo-de-errores.service';
+import { ErrorInterceptor } from './error.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,7 +30,10 @@ import { WebSocketService } from './web-socket.service';
     {provide: JWT_OPTIONS, useValue:JWT_OPTIONS},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     JwtHelperService,
-    WebSocketService
+    WebSocketService,
+    SonidosService,
+    ManejoDeErroresService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

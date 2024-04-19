@@ -7,7 +7,7 @@ const getTiposCodigos = async (req:Request, res:Response)=>{
         const resultadoTiposCodigos=await obtenertiposcodigoService();
         res.send (resultadoTiposCodigos);
     }catch(e){
-        handleHttp(res, 'Error al obtener los tipos de codigos')
+        handleHttp(e, req, res);
     }
 }
 
@@ -17,7 +17,7 @@ const getTipoCodigo = async (req:Request, res:Response)=>{
         const resultadoTipoCodigo=await obtenertipocodigoService(id);
         res.send(resultadoTipoCodigo);
     }catch(e){
-        handleHttp(res,'Error al obtener el tipo de codigo')
+        handleHttp(e, req, res);
     }
 }
 
@@ -27,7 +27,7 @@ const upadteTipoCodigo = async (req:Request, res:Response)=>{
         const resultadoupTipoCodigo=await updatetipocodigoService(req.body, id)
         res.send(resultadoupTipoCodigo);
     }catch(e){
-        handleHttp(res,'Error al actualizar el tipo de codigo')
+        handleHttp(e, req, res);
     }
 }
 
@@ -37,7 +37,7 @@ const deletetipocodigo = async (req:Request, res:Response)=>{
         const resultadoDeletetipoCodigo=await deletetipocodigoService(id)
         res.send(resultadoDeletetipoCodigo)
     }catch(e){
-        handleHttp(res,'Error al eliminar tipo de codigo')
+        handleHttp(e, req, res);
     }
 }
 
@@ -46,7 +46,7 @@ const insertartipoCodigo=async (req:Request, res:Response)=>{
         const resultadoInstipoCodigo = await inserttipocodigoService(req.body);
         res.send(resultadoInstipoCodigo)
     }catch(e){
-        handleHttp(res,'Error al insertar el tipo de codigo')
+        handleHttp(e, req, res);
     }
 }
 

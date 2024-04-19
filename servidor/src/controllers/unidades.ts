@@ -8,7 +8,7 @@ const getUnidades= async(req:Request,res:Response)=>{
        const resultadoUnidades=await obtenerUnidadesService();
        res.send(resultadoUnidades);
     }catch(e){
-        handleHttp(res,'Error Al obtener la Unidad')
+handleHttp(e, req, res);
     }
 }
 const getUnidad= async(req:Request,res:Response)=>{
@@ -18,7 +18,7 @@ const getUnidad= async(req:Request,res:Response)=>{
         res.json(resultadoUnidad);
      
     }catch(e){
-        handleHttp(res,'Error Al obtener la Unidad')
+handleHttp(e, req, res);
     }
 }
 const postUnidad=async (req:Request,res:Response)=>{
@@ -26,7 +26,7 @@ const postUnidad=async (req:Request,res:Response)=>{
         const responseUnidad=await insertUnidadService(req.body);
         res.send(responseUnidad);
     }catch(e){
-        handleHttp(res,'Error al Insertar la Unidad',e)
+handleHttp(e, req, res);
     }
 }
 const updateUnidades=async(req:Request,res:Response)=>{
@@ -35,7 +35,7 @@ const updateUnidades=async(req:Request,res:Response)=>{
         const responseUpdate=await updateUnidadService(req.body,id);
         res.send(responseUpdate);
     }catch(e){
-        handleHttp(res,'Error Al Actualizar la Unidad')
+handleHttp(e, req, res);
     }
 }
 const deleteUnidad= async(req:Request,res:Response)=>{
@@ -44,7 +44,7 @@ const deleteUnidad= async(req:Request,res:Response)=>{
         const responseDelete=await deleteUnidadService(id);
         res.send(responseDelete); 
     }catch(e){
-        handleHttp(res,'Error al Eliminar la Unidad: ',e)
+handleHttp(e, req, res);
     }
 }
 const getUnidadActiva= async(req:Request,res:Response)=>{
@@ -52,7 +52,7 @@ const getUnidadActiva= async(req:Request,res:Response)=>{
        const resultadoUnidades=await getUnidadesActivasService();
        res.send(resultadoUnidades);
     }catch(e){
-        handleHttp(res,'Error Al obtener la Unidades activas',e)
+handleHttp(e, req, res);
     }
 }
 export {getUnidades,getUnidad,postUnidad,updateUnidades,deleteUnidad,getUnidadActiva}
