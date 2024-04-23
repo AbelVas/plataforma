@@ -89,7 +89,7 @@ import { AsignacionGradoGuiaComponent } from './asignacion-grado-guia/asignacion
 import { OpcionesAdminMenuService } from "./services/opciones-admin-menu.service";
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 //
-import { UploadFotoPerfilService } from "./profile/components/edit-perfil-admin/upload-foto-perfil.service";
+import { UploadFotoPerfilService } from "./services/upload-foto-perfil.service";
 
 @NgModule({
     declarations: [
@@ -170,7 +170,8 @@ import { UploadFotoPerfilService } from "./profile/components/edit-perfil-admin/
         SubirImagenPerfilArchivoService,
         BoletaEspecialService,
         OpcionesAdminMenuService,
-        UploadFotoPerfilService
+        UploadFotoPerfilService,
+        SeccionesService
     ],
     imports: [
         AdminRoutingModule,

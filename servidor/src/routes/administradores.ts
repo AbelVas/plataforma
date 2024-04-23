@@ -1,5 +1,5 @@
 import { Router} from "express";
-import { compararPass,putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,fotoPerfilAdminController} from "../controllers/administradores";
+import { getFotoPerfilActivaAdmin,compararPass,putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,fotoPerfilAdminController} from "../controllers/administradores";
 import { logMiddleware } from "../middleware/log";
 import { checkJwt } from "../middleware/session";
 
@@ -12,6 +12,7 @@ router.put("/admin/:id",checkJwt,updateAdmin);
 router.delete("/admin/:id",checkJwt,deleteAdmin)
 router.post("/admin/pass/:id",checkJwt,compararPass)
 router.put("/admin-foto-perfil",checkJwt,fotoPerfilAdminController)
+router.get("/admin-foto-perfil/:id",checkJwt,getFotoPerfilActivaAdmin)
 
 
 

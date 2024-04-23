@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import decode from 'jwt-decode';
+import { WebSocketService } from 'src/app/web-socket.service';
+import { ImagenesPerfilDefectoService } from '../services/imagenes-perfil-defecto.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-profile',
@@ -7,24 +11,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
-  dataAdmin:any={
-    nombre_profesor:'',
-    apellido_profesor:'',
-    imagen:''
-  }
+  token: any = localStorage.getItem('Acces-Token');
+  idUsuario: any;
+  idRol: any;
+  rol:any
+  imagenActiva:any=[]
+
+  constructor(private socketService:WebSocketService,private toastrService:ToastrService, private imagenesPerfil: ImagenesPerfilDefectoService) { }
+
   ngOnInit(): void {
+    const decodedToken: any = decode(this.token);
+    this.idUsuario = decodedToken.idUsuario;
+    this.idRol = decodedToken.idRol;
+    this.rol=decodedToken.rol
+    this.getImagenPerfil();
+  // En el componente o servicio del módulo profesor
+  this.socketService.escucharEvento('actualizar-foto-ferfil-admin').subscribe((data: any) => {
+    if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
+      this.getImagenPerfil()
+      console.log("cambio desde socket coso de arriba")
+      }
+    });
 
   }
-  getEvent(e:any){
-    this.dataAdmin.nombre_profesor=e[0].nombre_profesor
-    this.dataAdmin.apellido_profesor=e[0].apellido_profesor
-    this.dataAdmin.imagen=e[0].imagen
+
+  getImagenPerfil() {
+    this.imagenesPerfil.getFotoAdmin(this.idUsuario).subscribe(
+      res=>{
+        this.imagenActiva=res
+        if(this.imagenActiva[0]?.ruta_imagen==undefined){
+          this.imagenActiva[0].ruta_imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
-  getEvent2(e:any){
-    this.dataAdmin.imagen=e.imagen
-  }
-  getEvent3(e:any){
-    console.log('asdasd')
-  }
+
 }

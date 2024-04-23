@@ -7,11 +7,11 @@ const insertarAdminService=async(req:Request)=>{
         return insert;
 }
 const getAdminService=async(id:string)=>{
-    const data=await conexion.query("SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol,p.imagen FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idProfesor=? and p.idRol=1",[id])
+    const data=await conexion.query("SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idProfesor=? and p.idRol=1",[id])
     return data;
 }
 const getAdminsService=async()=>{
-    const data=await conexion.query("SELECT idProfesor, idCodigo, nombre_profesor, apellido_profesor, telefono, CUI, usuario, fecha_nacimiento, estatus, creado, permitir_ver_correo, idRol,imagen FROM `tbProfesor` WHERE idProfesor!=1 and idRol=1")
+    const data=await conexion.query("SELECT idProfesor, idCodigo, nombre_profesor, apellido_profesor, telefono, CUI, usuario, fecha_nacimiento, estatus, creado, permitir_ver_correo, idRol FROM `tbProfesor` WHERE idProfesor!=1 and idRol=1")
     return data;
 }
 const updateAdminService=async(admin:Request,id:string)=>{
@@ -38,7 +38,14 @@ const verifyPassword=async(id:string,pass:string)=>{
 }
 
 const fotoPerfilAdminService=async(id:string,ruta:string,peso:string)=>{
-    const consulta=await conexion.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_imagen=?',[id,ruta,peso])
+    const consultaprev=await conexion.query("UPDATE tbImagenPerfilProfesor SET activa=0 WHERE idProfesor=?",[id]);
+    const consulta=await conexion.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_imagen=?, activa=1',[id,ruta,peso])
     return consulta
 }
-export {fotoPerfilAdminService,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService,verifyPassword};
+
+const getFotoPerfilAdminService=async(id:string)=>{
+    const getFoto=await conexion.query("SELECT CASE WHEN img.activa = 1 THEN img.ruta_imagen WHEN img.activa IS NULL THEN NULL ELSE 'null' END AS ruta_imagen, CONCAT(p.nombre_profesor, ' ', p.apellido_profesor) AS profesor FROM tbImagenPerfilProfesor img RIGHT JOIN tbProfesor p ON p.idProfesor = img.idProfesor WHERE p.idProfesor = ? AND (img.activa = 1 OR img.activa IS NULL);",[id])
+    return getFoto
+}
+
+export {getFotoPerfilAdminService,fotoPerfilAdminService,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService,verifyPassword};

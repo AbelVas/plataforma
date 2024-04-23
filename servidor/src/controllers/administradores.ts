@@ -1,7 +1,8 @@
 import {  Request, Response } from "express";
-import { fotoPerfilAdminService,verifyPassword,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService } from "../service/administradores";
+import { getFotoPerfilAdminService,fotoPerfilAdminService,verifyPassword,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService } from "../service/administradores";
 import { handleHttp } from "../utils/error.handle"
 import { encrypt } from "../utils/passwordFunction";
+import { io } from "../app"; // Importa el objeto de Socket.io
 
 const putAdmin=async(req:Request,res:Response)=>{
     try{
@@ -61,7 +62,6 @@ const deleteAdmin=async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
      }
 }
-
 const compararPass=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
@@ -72,17 +72,26 @@ const compararPass=async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
      }
 }
-
 const fotoPerfilAdminController=async(req:Request,res:Response)=>{
     try {
         const {ruta_imagen}=req.body;
         const {idProfesor}=req.body;
         const {peso_imagen}=req.body
         const fotoPerfilAdmin=await fotoPerfilAdminService(idProfesor,ruta_imagen,peso_imagen)
+        io.emit('actualizar-foto-ferfil-admin',{usuario:idProfesor,idRol:"1"})
         res.send(fotoPerfilAdmin)
     } catch (e) {
         handleHttp(e, req, res);
     }
 }
+const getFotoPerfilActivaAdmin=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const consulta=await getFotoPerfilAdminService(id)
+        res.send(consulta)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
 
-export {fotoPerfilAdminController,putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,compararPass}
+export {getFotoPerfilActivaAdmin,fotoPerfilAdminController,putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,compararPass}

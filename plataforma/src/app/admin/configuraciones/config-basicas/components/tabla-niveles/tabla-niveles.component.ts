@@ -73,7 +73,6 @@ export class TablaNivelesComponent implements OnInit {
 
   // Cambio en la llamada al crear un nivel
   this.socketService.escucharEvento('nuevo-nivel').subscribe((data: any) => {
-    console.log('Se ha creado un nuevo nivel:', data);
     this.toastrService.success(data.mensaje, 'Nivel Creado');
     this.obtenerNiveles();
   });

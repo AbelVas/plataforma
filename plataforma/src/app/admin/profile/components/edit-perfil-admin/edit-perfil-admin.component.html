@@ -1,13 +1,16 @@
 <form [formGroup]="EditarAdminForm" (ngSubmit)="insertAdmin(adminIndividual[0].idProfesor)" autocomplete="off">
-  <div class="row mb-3">
+  <div class="row ">
      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
      <div class="col-md-8 col-lg-9">
-        <img [src]="adminIndividual[0].imagen" alt="Profile">
-        <div class="pt-2">
+      <div class="contenedor-centrado">
+        <div [style.background-image]="'url(' + adminIndividual[0].imagen + ')'" class="imagen-div-perfil text-center"></div><br>
+      </div>
+        <div class="pt-2 text-center">
           <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#importImg"><i class="fa-solid fa-file-arrow-up"></i></button>
           <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-pen-to-square"></i></button>
           <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
         </div>
+        <br>
      </div>
   </div>
 
@@ -70,14 +73,22 @@
               <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
             </div>
 
-          <div class="text-center text-center-visor-imagen">
-            <img *ngIf="vistaPrevia" [src]="vistaPrevia" alt="Vista previa de la imagen" class="img-preview">
+          <div class="text-center contenedor-centrado">
+            <div><br>
+            <div *ngIf="vistaPrevia" class="img-preview" [style.background-image]="'url(' + vistaPrevia + ')'" alt="Vista previa de la imagen"></div>
           </div>
         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+      <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
       </div>
+      <ng-template class="modal-footer" #botonAceptar>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </ng-template>
     </form>
     </div>
   </div>

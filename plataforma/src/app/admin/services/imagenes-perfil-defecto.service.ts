@@ -32,4 +32,11 @@ export class ImagenesPerfilDefectoService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
+  //obtener foto admin
+  getFotoAdmin(id:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/administradores/admin-foto-perfil/${id}`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    )
+  }
 }

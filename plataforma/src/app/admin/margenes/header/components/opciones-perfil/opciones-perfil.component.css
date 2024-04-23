@@ -3,3 +3,10 @@
     display: none;
   }
 }
+.rounded-image {
+  width: 53px; /* Ajusta el tamaño según tus necesidades */
+  height: 53px; /* Ajusta el tamaño según tus necesidades */
+  background-size: cover; /* Ajustar imagen sin distorsionar */
+  background-position: center; /* Centrar la imagen */
+
+}

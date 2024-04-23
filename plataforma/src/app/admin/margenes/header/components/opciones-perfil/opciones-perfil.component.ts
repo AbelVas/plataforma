@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import decode from "jwt-decode"
+import { ToastrService } from 'ngx-toastr';
+import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-admin-opciones-nav-perfil',
@@ -8,6 +11,11 @@ import decode from "jwt-decode"
   styleUrls: ['./opciones-perfil.component.css']
 })
 export class OpcionesPerfilComponent implements OnInit {
+  token: any = localStorage.getItem('Acces-Token');
+  idUsuario: any;
+  idRol: any;
+  imagenActiva:any=[]
+  //datos para el minislide
   Usuario:string='';
   Nombre_profesor:string='';
   Rol:string='';
@@ -15,17 +23,38 @@ export class OpcionesPerfilComponent implements OnInit {
   ImagenOriginal='';
   imagenNueva='';
   Imagen: string | null | undefined;
-  constructor(private router:Router) { }
+  constructor(private router:Router,private socketService:WebSocketService,private toastrService:ToastrService,private imagenesPerfil: ImagenesPerfilDefectoService) { }
   ngOnInit(): void {
-    const token:any = localStorage.getItem('Acces-Token');
-    const {usuario,nombre_profesor,rol,apellido_profesor,imagen}:any=decode(token);
-    this.Usuario=usuario;
-    this.Nombre_profesor=nombre_profesor;
-    this.Rol=rol
-    this.Apellido_profesor=apellido_profesor
-    localStorage.setItem('ImagenPerfil',imagen);
-    this.Imagen=localStorage.getItem('ImagenPerfil')
+    const decodedToken: any = decode(this.token);
+    this.idUsuario = decodedToken.idUsuario;
+    this.idRol = decodedToken.idRol;
+    this.Nombre_profesor=decodedToken.nombre_profesor
+    this.Apellido_profesor=decodedToken.apellido_profesor
+    this.Rol=decodedToken.rol
+    this.getImagenPerfil()
+    // En el componente o servicio del módulo profesor
+    this.socketService.escucharEvento('actualizar-foto-ferfil-admin').subscribe((data: any) => {
+      if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
+        this.getImagenPerfil()
+        console.log("cambio desde socket coso de arriba")
+        }
+      });
   }
+
+  getImagenPerfil() {
+    this.imagenesPerfil.getFotoAdmin(this.idUsuario).subscribe(
+      res=>{
+        this.imagenActiva=res
+        if(this.imagenActiva[0]?.ruta_imagen==undefined){
+          this.imagenActiva[0].ruta_imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
   salir(){
     localStorage.removeItem('Acces-Token');
     this.router.navigate(['login']);

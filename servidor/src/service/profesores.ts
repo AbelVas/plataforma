@@ -7,7 +7,7 @@ const obtenerProfesoresService=async()=>{
     return responseGet;
 }
 const obtenerProfesorService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol,p.correo1,p.correo2,p.imagen FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idRol=2 and p.idProfesor=?',[id]);
+    const responseGet=await conexion.query('SELECT p.idProfesor,c.codigo,p.nombre_profesor,p.apellido_profesor,p.telefono,p.CUI,p.usuario,p.fecha_nacimiento,p.estatus,p.creado,p.permitir_ver_correo,p.idRol,p.correo1,p.correo2 FROM tbProfesor p INNER JOIN tbCodigo c ON p.idCodigo=c.idCodigo WHERE p.idRol=2 and p.idProfesor=?',[id]);
     return responseGet;
 }
 const updateProfesorService=async(data:Request,id:string)=>{

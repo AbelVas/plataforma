@@ -31,3 +31,28 @@
 .img-preview:hover {
   transform: scale(1.05); /* Escala ligeramente la imagen al hacer hover */
 }
+.contenedor-centrado {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+.imagen-div-perfil {
+  width: 350px; /* Ancho del contenedor */
+  height: 350px; /* Alto del contenedor */
+  /*border-radius: 50%;  Forma circular */
+  background-size: cover; /* Ajustar imagen sin distorsionar */
+  background-position: center; /* Centrar la imagen */
+}
+
+.contenedor-centrado {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+.img-preview {
+  width: 400px; /* Ajusta el ancho según tus necesidades */
+  height: 400px; /* Ajusta la altura según tus necesidades */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px; /* Ajusta el radio de borde según tus necesidades para que se vea redondeado */
+}
