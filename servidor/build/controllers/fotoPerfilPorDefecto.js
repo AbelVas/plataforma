@@ -19,7 +19,7 @@ const obtenerImagenCategoria = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(response);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Cursos', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerImagenCategoria = obtenerImagenCategoria;

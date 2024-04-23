@@ -19,7 +19,7 @@ const getAlumnos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoAlumno);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener a los Alumnos');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumnos = getAlumnos;
@@ -30,7 +30,7 @@ const getAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoAlumno);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener al Alumno');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumno = getAlumno;
@@ -41,7 +41,7 @@ const getAlumnosGrado = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoAlumnosGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener a los alumnos del grado');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumnosGrado = getAlumnosGrado;
@@ -61,7 +61,7 @@ const updateAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar al Alumno');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateAlumno = updateAlumno;
@@ -72,7 +72,7 @@ const deleteAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoAlumno);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar al Alumno', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteAlumno = deleteAlumno;
@@ -90,7 +90,7 @@ const insertarAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Insertar al Alumno', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertarAlumno = insertarAlumno;
@@ -102,7 +102,7 @@ const compararPass = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoDelete);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar la contraseña', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.compararPass = compararPass;
@@ -113,7 +113,7 @@ const verNotasAlumnos = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.verNotasAlumnos = verNotasAlumnos;
@@ -123,7 +123,7 @@ const getNotasVer = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getNotasVer = getNotasVer;
@@ -133,7 +133,7 @@ const ObtEstadoAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.ObtEstadoAlumno = ObtEstadoAlumno;
@@ -143,7 +143,7 @@ const ObtEstadoProfesor = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.ObtEstadoProfesor = ObtEstadoProfesor;
@@ -153,7 +153,7 @@ const ObtEstadoTutor = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.ObtEstadoTutor = ObtEstadoTutor;
@@ -164,7 +164,7 @@ const updateEstadoAlumno = (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateEstadoAlumno = updateEstadoAlumno;
@@ -175,7 +175,7 @@ const updateEstadoProfesor = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateEstadoProfesor = updateEstadoProfesor;
@@ -186,7 +186,7 @@ const updateEstadoTutor = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(accion);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar estado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateEstadoTutor = updateEstadoTutor;

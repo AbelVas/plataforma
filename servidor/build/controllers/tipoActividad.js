@@ -18,7 +18,7 @@ const getTipoActividad = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTipoActividad = getTipoActividad;

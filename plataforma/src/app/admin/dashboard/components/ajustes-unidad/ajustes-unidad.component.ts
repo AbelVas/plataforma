@@ -150,8 +150,8 @@ export class AjustesUnidadComponent implements OnInit {
     this.sppinerOn4=true;
     this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
       res=>{
-        this.passDocenteCambiada=res[0].CambioContra
-        this.passDocenteNoCambiada=res[1].CambioContra
+        this.passDocenteCambiada=res[0].sicambio
+        this.passDocenteNoCambiada=res[0].nocambio
         this.sppinerOn4=false;
       },
       err=>{

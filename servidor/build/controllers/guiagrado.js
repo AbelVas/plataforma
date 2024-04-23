@@ -19,7 +19,7 @@ const updateGuiaGrado = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Guia de Grado');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateGuiaGrado = updateGuiaGrado;
@@ -30,7 +30,7 @@ const deleteGuiaGrado = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar  el Guia de Grado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteGuiaGrado = deleteGuiaGrado;
@@ -40,7 +40,7 @@ const insertGuiaGrado = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear  el Guia de Grado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertGuiaGrado = insertGuiaGrado;
@@ -51,7 +51,7 @@ const getGuiaGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGuiaGrado = getGuiaGrado;
@@ -62,7 +62,7 @@ const getGradoGuiaProfesor = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultadoGuia);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener al Grado del Guia', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGradoGuiaProfesor = getGradoGuiaProfesor;

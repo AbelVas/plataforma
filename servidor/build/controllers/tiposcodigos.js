@@ -18,7 +18,7 @@ const getTiposCodigos = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoTiposCodigos);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al obtener los tipos de codigos');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTiposCodigos = getTiposCodigos;
@@ -29,7 +29,7 @@ const getTipoCodigo = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoTipoCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al obtener el tipo de codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTipoCodigo = getTipoCodigo;
@@ -40,7 +40,7 @@ const upadteTipoCodigo = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultadoupTipoCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al actualizar el tipo de codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.upadteTipoCodigo = upadteTipoCodigo;
@@ -51,7 +51,7 @@ const deletetipocodigo = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultadoDeletetipoCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al eliminar tipo de codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deletetipocodigo = deletetipocodigo;
@@ -61,7 +61,7 @@ const insertartipoCodigo = (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.send(resultadoInstipoCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al insertar el tipo de codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertartipoCodigo = insertartipoCodigo;

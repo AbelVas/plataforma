@@ -19,7 +19,7 @@ const getSecciones = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener la Sección');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getSecciones = getSecciones;
@@ -30,7 +30,7 @@ const getSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener la Sección');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getSeccion = getSeccion;
@@ -41,7 +41,7 @@ const updateSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar la Sección');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateSeccion = updateSeccion;
@@ -52,7 +52,7 @@ const deleteSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar Sección');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteSeccion = deleteSeccion;
@@ -62,7 +62,7 @@ const insertSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear la Sección');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertSeccion = insertSeccion;

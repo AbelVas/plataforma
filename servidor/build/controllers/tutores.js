@@ -19,7 +19,7 @@ const getTutores = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoTutores);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener a los Tutores');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTutores = getTutores;
@@ -30,7 +30,7 @@ const getTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoTutores);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener al Tutor');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTutor = getTutor;
@@ -50,7 +50,7 @@ const updateTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Editar Profesor', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateTutor = updateTutor;
@@ -61,7 +61,7 @@ const deleteTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoTutores);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar al Tutor');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteTutor = deleteTutor;
@@ -79,7 +79,7 @@ const insertarTutor = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Insertar al Tutor', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertarTutor = insertarTutor;
@@ -91,7 +91,7 @@ const compararPass = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoDelete);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar la contraseña', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.compararPass = compararPass;
@@ -102,7 +102,7 @@ const getTutorconAlumno = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(resultTutorConAlimn);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener al Tutor');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTutorconAlumno = getTutorconAlumno;
@@ -113,7 +113,7 @@ const getAlumnoporTutor = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(resultAlumnosporTutor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener a los alumnos');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumnoporTutor = getAlumnoporTutor;

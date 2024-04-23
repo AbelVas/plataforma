@@ -1,13 +1,14 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PerfilService } from '../../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
 import { ImagenesPerfilDefectoService } from '../../../services/imagenes-perfil-defecto.service';
-import { FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import decode from "jwt-decode"
 import { ToastrService } from 'ngx-toastr';
-import { SubirImagenPerfilArchivoService } from 'src/app/admin/services/subir-imagen-perfil-archivo.service';
 import { WebSocketService } from 'src/app/web-socket.service';
+import { UploadFotoPerfilService } from './upload-foto-perfil.service';
+import { of, switchMap, take } from 'rxjs';
 
 
 @Component({
@@ -17,9 +18,15 @@ import { WebSocketService } from 'src/app/web-socket.service';
 })
 export class EditPerfilAdminComponent implements OnInit {
   selectedFile: File | undefined;
-  constructor(private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
+  uploadedFilePath: any;
+  uploadProgress: number | undefined;
+  vistaPrevia: any
+  anchoOriginal: number | undefined;
+  altoOriginal: number | undefined;
+  constructor(private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
+
   }
-  archivo:any="";
+
   submitted=false;
   pipe = new DatePipe('en-US');
   token:any=localStorage.getItem('Acces-Token');
@@ -33,11 +40,9 @@ export class EditPerfilAdminComponent implements OnInit {
   permitirVer:any;
   adminIndividual:any=[{
   }];
-
   ImgForm=this.formBuilder.group({
     archivoImagen:new FormControl(null,[Validators.required]),
   })
-
   EditarAdminForm=this.formBuilder.group({
     nombre_profesor:new FormControl('',[Validators.required]),
     apellido_profesor:new FormControl('',[Validators.required]),
@@ -46,14 +51,10 @@ export class EditPerfilAdminComponent implements OnInit {
     fecha_nacimiento:new FormControl('',[Validators.required]),
     permitir_ver_correo:new FormControl(''),
   })
-
   @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
   @ViewChild('cerrarEditarModal') modalCloseEditarImg: any;
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
 
-  @ViewChild('subirImagen', { static: false }) subirImagen!: ElementRef;
-
-  @Output() datosEventoImagen=new EventEmitter<any>();
   ngOnInit(): void {
     this.perfilAdminService.disparadorCopiarData.subscribe(data=>{
     this.adminIndividual=Object.values(data);
@@ -73,39 +74,70 @@ export class EditPerfilAdminComponent implements OnInit {
     this.permitirVer=this.adminIndividual[0].permitir_ver_correo;
     });
   }
-  ejecutarEventoActualizar(data:any){
-    this.datosEventoImagen.emit(data);
-  }
-  actualizarImagenPerfil(idProfesor:string){
-    if(this.imagenPerfilActual!=''){
-      var imagenPerfil:any={
-        imagen:this.imagenPerfilActual
+
+  onSubmit(form: HTMLFormElement) {
+    const { idUsuario }: any = decode(this.token);
+    const { idRol }: any = decode(this.token);
+    const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file: File = fileInput.files[0];
+      // Validar extensión del archivo
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+      const fileExtension: any = file.name.split('.').pop()?.toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.toastrService.error('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '), 'Error', { closeButton: true, timeOut: 0 });
+        return; // Salir de la función si la extensión no es válida
       }
-      this.perfilAdminService.updateAdmin(imagenPerfil,idProfesor).subscribe(
-        res=>{
-          this.ejecutarEventoActualizar(imagenPerfil)
-          this.modalCloseEditar.nativeElement.click()
+      // Validar peso del archivo
+      const maxSizeInBytes: any = 10 * 1024 * 1024; // 10 MB
+      if (file.size > maxSizeInBytes) {
+        this.toastrService.error('El tamaño del archivo supera el límite permitido (10MB).', 'Error', { timeOut: 3000, extendedTimeOut: 10000 });
+        return; // Salir de la función si el tamaño es mayor al límite
+      }
+      // Inicia el seguimiento de progreso de la carga del archivo
+      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol).pipe(
+        switchMap(progress => {
+          // Actualiza el valor de la barra de progreso en la interfaz de usuario
+          this.uploadProgress = progress;
+          // No es necesario volver a cargar el archivo aquí, ya se cargó con el método uploadFileWithProgress
+          return this.imagenPerfilService.subidaDeImagen(idUsuario, this.uploadedFilePath, file.size);
+        }),
+        take(1) // Limitar la suscripción a una emisión
+      ).subscribe(
+        () => {
+          this.toastrService.success('Foto Actualizada correctamente!', 'Éxito!', { timeOut: 3000, extendedTimeOut: 10000 });
         },
-        err=>{
-          console.log(err)
+        error => {
+          this.toastrService.error(error, 'Error', { timeOut: 10000, extendedTimeOut: 10000 });
+          console.error(error);
         }
-      )
+      );
+    } else {
+      // Mostrar un mensaje indicando que no se seleccionó ningún archivo
+      this.toastrService.error('Por favor, selecciona un archivo para subir.', 'Error', { timeOut: 3000 });
     }
   }
-  eliminarFotoPerfil(){
-    var imagenPerfil:any={
-      imagen:this.imagenPerfilDefecto
+
+  mostrarVistaPrevia(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    // Validar extensión del archivo
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          this.vistaPrevia = e.target.result as string;
+        }
+      };
+
+      reader.readAsDataURL(file);
     }
-    console.log(this.adminIndividual[0].idProfesor)
-    this.perfilAdminService.updateAdmin(imagenPerfil,this.adminIndividual[0].idProfesor).subscribe(
-      res=>{
-        console.log(res)
-      },
-      err=>{
-        console.log(err)
-      }
-    )
   }
+
+
+
+
   valueGetImagen(e:any){
     this.imagenPerfilActual=e
     this.adminIndividual[0].imagen=e
@@ -156,56 +188,6 @@ export class EditPerfilAdminComponent implements OnInit {
       }
     )
   }
-//NUEVO CONTROL PARA SUBIR IMAGENES
-  actualizarImgImport(event:Event){
-    if (event!=null) {
-      const imageBlob = this.archivo;
-      const data = new FormData ();
-      data.set('myfile',imageBlob)
-
-      const {idUsuario}:any=decode(this.token);
-        this.imagenPerfilService.subirDocImagenPerfil(idUsuario,data).subscribe(
-          res=>{
-            this.socketService.escucharEvento('ruta-detectada-server').subscribe((data: any) => {
-              console.log('Si Si:', data);
-            });
-            this.ejecutarEventoActualizar(imageBlob)
-            this.modalCloseEditarImg.nativeElement.click()
-            this.modalCloseEditar.nativeElement.click()
-            this.toastrService.success("Completado", "Se ha subido el archivo")
-          },
-          err=>{
-            this.socketService.escucharEvento('ruta-detectada-server').subscribe((data: any) => {
-              console.log('No No No:', data);
-            });
-            this.ejecutarEventoActualizar(imageBlob)
-            this.toastrService.error("Error", "No se ha logrado subir el archivo")
-            console.log(err)
-          }
-        )
-
-    }else{
-      this.toastrService.error("Error", "No se ha logrado subir el archivo")
-    }
-    }
-//Cambio sin nada
-    subirArchivo(event:any) {
-     if(event.target.files.length > 0){
-      const file = event.target.files[0];
-      const formData = new FormData()
-      formData.append('myfile',file);
-      const Doc = formData
-      this.archivo = file;
-      return file;
-     }else{
-      console.log("archivon't")
-     return null;
-     }
-
-
-    }
-
-
     get f() { return this.EditarAdminForm.controls; }
   }
 

@@ -7,7 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ProfesoresService } from '../services/profesores.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder,FormControl,Validators  } from '@angular/forms';
-import { WebSocketService } from 'src/app/web-socket.service';
+import { WebSocketService } from 'src/app/web-socket.service';//servicio que maneja el "Emitir evento" y "Escuchar Evento"
 import decode from 'jwt-decode';
 
 @Component({
@@ -180,7 +180,6 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
         this.gradoGuiaDocenteForm.reset();
       }
     )
-
   }
   get f() { return this.gradoGuiaDocenteForm.controls; }
   get g() { return this.gradoGuiaDocenteFormEditar.controls; }

@@ -21,7 +21,7 @@ const alumnosGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.alumnosGrado = alumnosGrado;
@@ -33,7 +33,7 @@ const alumnoNotasBoleta = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.alumnoNotasBoleta = alumnoNotasBoleta;
@@ -45,7 +45,7 @@ const alumnoNotasBoletaEspecial = (req, res) => __awaiter(void 0, void 0, void 0
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.alumnoNotasBoletaEspecial = alumnoNotasBoletaEspecial;
@@ -57,7 +57,7 @@ const alumnoNotasBoletaPromedioFinal = (req, res) => __awaiter(void 0, void 0, v
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.alumnoNotasBoletaPromedioFinal = alumnoNotasBoletaPromedioFinal;

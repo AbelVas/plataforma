@@ -19,7 +19,7 @@ const getAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Dato');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAdmin = getAdmin;
@@ -29,7 +29,7 @@ const getAdmins = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Dato');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAdmins = getAdmins;
@@ -40,7 +40,7 @@ const getProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Dato');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getProfesor = getProfesor;
@@ -50,7 +50,7 @@ const getProfesores = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Dato');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getProfesores = getProfesores;
@@ -61,7 +61,7 @@ const getAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Dato');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumno = getAlumno;
@@ -71,7 +71,7 @@ const getAlumnos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Dato');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumnos = getAlumnos;

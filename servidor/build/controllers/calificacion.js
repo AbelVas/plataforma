@@ -21,7 +21,7 @@ const getAlumnosCalificacionActividadCursUnidad = (req, res) => __awaiter(void 0
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las Calificaciones de la Actividad', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAlumnosCalificacionActividadCursUnidad = getAlumnosCalificacionActividadCursUnidad;
@@ -34,7 +34,7 @@ const calificarActividad = (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Calificar la Actividad', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.calificarActividad = calificarActividad;
@@ -46,7 +46,7 @@ const getCalificacionesAlumnoActividad = (req, res) => __awaiter(void 0, void 0,
         res.send(resultadoCalificaciones);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener la calificacion');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getCalificacionesAlumnoActividad = getCalificacionesAlumnoActividad;

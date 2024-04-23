@@ -18,7 +18,7 @@ const getCodigos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoCodigos);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Codigos');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getCodigos = getCodigos;
@@ -28,7 +28,7 @@ const getCodigo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getCodigo = getCodigo;
@@ -39,7 +39,7 @@ const updateCodigo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoUpCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al actualizar el Codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateCodigo = updateCodigo;
@@ -50,7 +50,7 @@ const deleteCodigo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resulDeletCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al eliminar el Codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteCodigo = deleteCodigo;
@@ -60,7 +60,7 @@ const insertCodigo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoInsCodigo);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al insertar el Codigo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertCodigo = insertCodigo;

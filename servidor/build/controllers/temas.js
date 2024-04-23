@@ -18,7 +18,7 @@ const getTemas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoTemas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Temas');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTemas = getTemas;
@@ -29,7 +29,7 @@ const getTema = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoTemas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Tema');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTema = getTema;
@@ -40,7 +40,7 @@ const getTemaActivo = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoTemas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Tema Activo');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getTemaActivo = getTemaActivo;
@@ -51,7 +51,7 @@ const updateTema = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoTemas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Tema');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateTema = updateTema;
@@ -62,7 +62,7 @@ const deleteTema = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoTemas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar el Tema');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteTema = deleteTema;
@@ -72,7 +72,7 @@ const insertTema = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoTemas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear el Tema');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertTema = insertTema;

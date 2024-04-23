@@ -18,7 +18,7 @@ const getRecursosWeb = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Recursos Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getRecursosWeb = getRecursosWeb;
@@ -29,7 +29,7 @@ const getRecursoWeb = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getRecursoWeb = getRecursoWeb;
@@ -40,7 +40,7 @@ const updateRecursoWeb = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateRecursoWeb = updateRecursoWeb;
@@ -51,7 +51,7 @@ const deleteRecursoWeb = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteRecursoWeb = deleteRecursoWeb;
@@ -61,7 +61,7 @@ const insertRecursoWeb = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertRecursoWeb = insertRecursoWeb;
@@ -72,7 +72,7 @@ const getRecursoWebGrado = (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getRecursoWebGrado = getRecursoWebGrado;
@@ -84,7 +84,7 @@ const updateRecursoArchivo = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateRecursoArchivo = updateRecursoArchivo;
@@ -95,7 +95,7 @@ const deleteRecursoArchivo = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteRecursoArchivo = deleteRecursoArchivo;
@@ -105,7 +105,7 @@ const insertRecursoArchivo = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertRecursoArchivo = insertRecursoArchivo;
@@ -116,7 +116,7 @@ const getRecursoArchivoGrado = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(resultadoRecursoWeb);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Recurso Web', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getRecursoArchivoGrado = getRecursoArchivoGrado;

@@ -24,8 +24,8 @@ const obtenerGradosSinGuias = () => __awaiter(void 0, void 0, void 0, function* 
     return getGradosSinGuias;
 });
 exports.obtenerGradosSinGuias = obtenerGradosSinGuias;
-const insertarGradoGuia = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const createGradoGuia = yield database_1.default.query("INSERT INTO tbGuiaGrado set ?", [data]);
+const insertarGradoGuia = (idProfesor, idGrado) => __awaiter(void 0, void 0, void 0, function* () {
+    const createGradoGuia = yield database_1.default.query("INSERT INTO tbGuiaGrado set idProfesor=?, idGrado=?", [idProfesor, idGrado]);
     return true;
 });
 exports.insertarGradoGuia = insertarGradoGuia;

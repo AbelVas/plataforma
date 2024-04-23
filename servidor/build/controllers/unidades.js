@@ -18,7 +18,7 @@ const getUnidades = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error Al obtener la Unidad');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getUnidades = getUnidades;
@@ -29,7 +29,7 @@ const getUnidad = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json(resultadoUnidad);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error Al obtener la Unidad');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getUnidad = getUnidad;
@@ -39,7 +39,7 @@ const postUnidad = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(responseUnidad);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Insertar la Unidad', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.postUnidad = postUnidad;
@@ -50,7 +50,7 @@ const updateUnidades = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(responseUpdate);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error Al Actualizar la Unidad');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateUnidades = updateUnidades;
@@ -61,7 +61,7 @@ const deleteUnidad = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(responseDelete);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar la Unidad: ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteUnidad = deleteUnidad;
@@ -71,7 +71,7 @@ const getUnidadActiva = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoUnidades);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error Al obtener la Unidades activas', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getUnidadActiva = getUnidadActiva;

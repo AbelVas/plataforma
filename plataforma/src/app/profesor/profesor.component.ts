@@ -47,7 +47,7 @@ export class ProfesorComponent implements OnInit{
     this.socket.emitirEvento('associateUser', { idUsuario: idUsuario,idRol:idRol,rol:rol })
     // En el componente o servicio del módulo profesor
     this.socketService.escucharEvento('nuevo-grado-guia-asignado').subscribe((data: any) => {
-      if(data.usuario==idUsuario){
+      if(data.usuario==idUsuario&&data.idRol==idRol){
         this.toastrService.success(data.mensaje, 'Atención!');//veamos
       }
     });

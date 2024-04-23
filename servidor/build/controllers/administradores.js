@@ -27,7 +27,7 @@ const putAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error ingresar Administrador', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.putAdmin = putAdmin;
@@ -38,7 +38,7 @@ const getAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Administrador', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAdmin = getAdmin;
@@ -48,7 +48,7 @@ const getAdmins = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Administrador', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAdmins = getAdmins;
@@ -68,7 +68,7 @@ const updateAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Editar Administrador', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateAdmin = updateAdmin;
@@ -79,7 +79,7 @@ const deleteAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoDelete);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error eliminar Administrador', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteAdmin = deleteAdmin;
@@ -91,7 +91,7 @@ const compararPass = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoDelete);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar la contraseña', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.compararPass = compararPass;

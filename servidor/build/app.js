@@ -1,14 +1,26 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.socketsMap = exports.io = void 0;
+exports.socketsTemp = exports.io = void 0;
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const http_1 = require("http"); // Importa createServer de http
 const socket_io_1 = require("socket.io"); // Importa Server y Socket de socket.io
 const routes_1 = require("./routes");
+const socketsTemp_1 = require("./utils/socketsTemp");
+const socketsTemp_2 = require("./utils/socketsTemp");
+Object.defineProperty(exports, "socketsTemp", { enumerable: true, get: function () { return socketsTemp_2.socketsTemp; } });
 const PORT = process.env.PORT || 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -27,34 +39,20 @@ const io = new socket_io_1.Server(server, {
     }
 });
 exports.io = io;
-// Estructura de datos para almacenar sockets de usuarios
-const socketsMap = new Map();
-exports.socketsMap = socketsMap;
-io.on("connection", (socket) => {
-    io.emit("ruta-detectada-server", { mensaje: 'ruta: ' + __dirname + ',  ../assets/img/perfiles/profesores' });
-    // Guardar el socket del usuario en el mapa
-    socket.on("guardar-socket", (data) => {
-        const { idUsuario } = data;
-        socketsMap.set(idUsuario, socket);
-        console.log("Socket guardado para el usuario:", idUsuario);
+io.on("connection", (socket) => __awaiter(void 0, void 0, void 0, function* () {
+    socket.on("associateUser", (data) => {
+        // Guardar temporalmente el socket con su idUsuario asociado
+        (0, socketsTemp_1.guardarSocketTemporal)(socket.id, data.idUsuario, data.idRol, data.rol, socket);
     });
-    //para desconectar y eliminar lo guardadao
     socket.on("disconnect", () => {
-        // Eliminar el socket del usuario al desconectarse
-        console.log("Usuario desconectado:", socket.id);
-        socketsMap.forEach((value, key) => {
-            if (value === socket) {
-                socketsMap.delete(key);
-                console.log("Socket eliminado para el usuario:", key);
-            }
-        });
+        // Eliminar el socket temporalmente guardado al desconectarse
+        const socketData = socketsTemp_2.socketsTemp.get(socket.id);
+        if (socketData) {
+            //eliminarSocketTemporal(socket.id)
+            (0, socketsTemp_1.eliminarSocketTemporal)(socket.id, socketData.idRol);
+        }
     });
-    // Ejemplo de manejo de cambios simultáneos
-    socket.on("cambio", (data) => {
-        // Procesar el cambio y emitir notificaciones a todos los usuarios conectados
-        io.emit("notificacion", { mensaje: "Se ha realizado un cambio en la aplicación." });
-    });
-});
+}));
 server.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });

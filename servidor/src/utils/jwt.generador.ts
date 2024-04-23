@@ -1,7 +1,7 @@
 import {sign, verify} from "jsonwebtoken";
 import { verified } from "./passwordFunction";
 
-const JWT_SECRET=process.env.JWT_SECRET || "fc368f3e3407a7606f3d8d85db76a2f439ead8d0ab7f0c7becc5ad45bf601e16";
+const JWT_SECRET="fc368f3e3407a7606f3d8d85db76a2f439ead8d0ab7f0c7becc5ad45bf601e16";
 
 
 const generateToken=(idUsuario:string,idRol:string,nombre_profesor:string,apellido_profesor:string,usuario:string,rol:string,imagen:string)=>{

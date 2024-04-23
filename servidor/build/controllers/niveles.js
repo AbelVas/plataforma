@@ -19,7 +19,7 @@ const getNiveles = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(responseNivel);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error_Request_GETS ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getNiveles = getNiveles;
@@ -30,7 +30,7 @@ const getNivel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(responseNivel);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error_Request_GET ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getNivel = getNivel;
@@ -45,7 +45,7 @@ const updateNivel = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(responseNivel);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error_Request_UPDATE ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateNivel = updateNivel;
@@ -60,7 +60,7 @@ const deleteNivel = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(responseNivel);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error_Request_DELETE ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteNivel = deleteNivel;
@@ -74,7 +74,7 @@ const insertNivel = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(responseNivel);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error_Request_INSERT ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertNivel = insertNivel;
@@ -85,7 +85,7 @@ const getNivelesporJornada = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(responseNivelporJornada);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error_Request_GetNivelPorJornada ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getNivelesporJornada = getNivelesporJornada;

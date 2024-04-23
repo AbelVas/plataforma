@@ -88,6 +88,8 @@ import { BoletaFinalPromedioCursoComponent } from './boleta-final-promedio-curso
 import { AsignacionGradoGuiaComponent } from './asignacion-grado-guia/asignacion-grado-guia.component';
 import { OpcionesAdminMenuService } from "./services/opciones-admin-menu.service";
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
+//
+import { UploadFotoPerfilService } from "./profile/components/edit-perfil-admin/upload-foto-perfil.service";
 
 @NgModule({
     declarations: [
@@ -167,7 +169,8 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
         CuadroFinalService,
         SubirImagenPerfilArchivoService,
         BoletaEspecialService,
-        OpcionesAdminMenuService
+        OpcionesAdminMenuService,
+        UploadFotoPerfilService
     ],
     imports: [
         AdminRoutingModule,

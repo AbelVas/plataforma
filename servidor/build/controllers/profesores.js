@@ -19,7 +19,7 @@ const getProfesores = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener a los Profesores');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getProfesores = getProfesores;
@@ -30,7 +30,7 @@ const getProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener al Profesor');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getProfesor = getProfesor;
@@ -50,7 +50,7 @@ const updateProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Editar Profesor', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateProfesor = updateProfesor;
@@ -61,7 +61,7 @@ const deleteProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(resultadoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar al Profesor');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteProfesor = deleteProfesor;
@@ -79,7 +79,7 @@ const insertarProfesor = (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Insertar al Profesor', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertarProfesor = insertarProfesor;
@@ -91,7 +91,7 @@ const compararPass = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(resultadoDelete);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar la contraseña', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.compararPass = compararPass;
@@ -102,7 +102,7 @@ const getGradoGuiaProfesor = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultadoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Grado Guia');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGradoGuiaProfesor = getGradoGuiaProfesor;

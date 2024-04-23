@@ -18,7 +18,7 @@ const getSideBarOpcionAdmin = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.send(query);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener a los Profesores');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getSideBarOpcionAdmin = getSideBarOpcionAdmin;

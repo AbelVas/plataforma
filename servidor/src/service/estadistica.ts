@@ -26,7 +26,7 @@ const GetAlumnosMujeres=async()=>{
 
 const GetCodigosEnUso=async()=>{ //Usé esta para contar los códigos activos e inactivos
 
-    const responseGet=await conexion.query('SELECT activo, COUNT(activo) as activo FROM tbCodigo group by activo');
+    const responseGet=await conexion.query('SELECT COUNT(activo) as activo FROM tbCodigo WHERE activo=1 group by activo');
     return responseGet;
 }
 
@@ -37,7 +37,7 @@ const GetCodigosEnDesuso=async()=>{
 }
 
 const GetContrasenaProfesorCambiada=async()=>{  //Usé esta para contar las contraseñas cambiadas y no cambiadas
-    const responseGet=await conexion.query('SELECT valores.cambio_contrasena AS cambio_contrasena, COUNT(tbProfesor.cambio_contrasena) AS CambioContra FROM (SELECT 0 AS cambio_contrasena UNION SELECT 1 AS cambio_contrasena) AS valores LEFT JOIN tbProfesor ON valores.cambio_contrasena = tbProfesor.cambio_contrasena GROUP BY valores.cambio_contrasena ORDER BY cambio_contrasena DESC');
+    const responseGet=await conexion.query('SELECT SUM(CASE WHEN cambio_contrasena = 1 THEN 1 ELSE 0 END) AS sicambio,SUM(CASE WHEN `cambio_contrasena` = 0 THEN 1 ELSE 0 END) AS nocambio FROM tbProfesor');
     return responseGet;
 }
 

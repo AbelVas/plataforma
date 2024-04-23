@@ -19,8 +19,7 @@ const actualizaraPerfilAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(response);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar Foto de Perfil Admin', e);
-        console.log(e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.actualizaraPerfilAdmin = actualizaraPerfilAdmin;
@@ -31,8 +30,7 @@ const actualizaraPerfilTutor = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(response);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar Foto de Perfil Tutor', e);
-        console.log(e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.actualizaraPerfilTutor = actualizaraPerfilTutor;
@@ -43,8 +41,7 @@ const actualizaraPerfilAlumno = (req, res) => __awaiter(void 0, void 0, void 0, 
         res.send(response);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar Foto de Perfil Alumno', e);
-        console.log(e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.actualizaraPerfilAlumno = actualizaraPerfilAlumno;
@@ -55,8 +52,7 @@ const actualizaraPerfilProfesor = (req, res) => __awaiter(void 0, void 0, void 0
         res.send(response);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar Foto de Perfil Docente', e);
-        console.log(e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.actualizaraPerfilProfesor = actualizaraPerfilProfesor;

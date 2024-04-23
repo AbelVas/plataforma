@@ -6,3 +6,28 @@
 .hover-imagen:hover{
   background-color: rgb(179, 179, 179);
 }
+/* Estilo para la barra de progreso verde */
+.progress-bar.bg-success {
+  background-color: #28a745 !important;
+}
+
+/* Estilo para el texto del porcentaje dentro de la barra de progreso */
+.progress-bar {
+  color: #ffffff; /* Color blanco para el texto */
+}
+.text-center-visor-imagen {
+  text-align: center;
+  margin-top: 20px; /* Ajusta el margen según tus preferencias */
+}
+
+.img-preview {
+  max-width: 100%;
+  max-height: 300px; /* Establece la altura máxima según tus preferencias */
+  border-radius: 10px; /* Agrega bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+  transition: transform 0.2s ease-in-out; /* Agrega una transición suave al hacer hover */
+}
+
+.img-preview:hover {
+  transform: scale(1.05); /* Escala ligeramente la imagen al hacer hover */
+}

@@ -19,7 +19,7 @@ const getRutas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoRuta);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al obtener la Ruta', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getRutas = getRutas;

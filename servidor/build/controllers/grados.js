@@ -19,7 +19,7 @@ const getGrados = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGrados = getGrados;
@@ -30,7 +30,7 @@ const getGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Grado');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGrado = getGrado;
@@ -41,7 +41,7 @@ const updateGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Curso');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateGrado = updateGrado;
@@ -52,7 +52,7 @@ const deleteGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar el Curso');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteGrado = deleteGrado;
@@ -62,7 +62,7 @@ const insertarGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoGrado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear el Grado', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertarGrado = insertarGrado;
@@ -73,7 +73,7 @@ const getGradosNivel = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(resultadoGradoNivel);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al buscar el Grado por nivel', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGradosNivel = getGradosNivel;
@@ -84,7 +84,7 @@ const getGradoProfesor = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(resultadoGradoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al buscar al Grado por Profesor', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGradoProfesor = getGradoProfesor;
@@ -95,7 +95,7 @@ const getGradoJornada = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoGradoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al buscar al Grado por Profesor', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGradoJornada = getGradoJornada;
@@ -106,7 +106,7 @@ const GetGradoSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoGradoProfesor);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al buscar el Grado y Sección', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.GetGradoSeccion = GetGradoSeccion;

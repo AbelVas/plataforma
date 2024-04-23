@@ -19,7 +19,7 @@ const notasalumnosCursoFinal = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.notasalumnosCursoFinal = notasalumnosCursoFinal;

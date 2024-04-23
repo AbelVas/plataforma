@@ -18,7 +18,7 @@ const getAnuncios = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoAnuncio);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Anuncios', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAnuncios = getAnuncios;
@@ -29,7 +29,7 @@ const getAnuncio = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoAnuncio);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Anuncio', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAnuncio = getAnuncio;
@@ -40,7 +40,7 @@ const updateAnuncio = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoAnuncio);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar el Anuncio', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateAnuncio = updateAnuncio;
@@ -51,7 +51,7 @@ const deleteAnuncio = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoAnuncio);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar el Anuncio', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteAnuncio = deleteAnuncio;
@@ -61,7 +61,7 @@ const insertAnuncio = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoAnuncio);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Crear el Anuncio', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertAnuncio = insertAnuncio;
@@ -72,7 +72,7 @@ const getAnuncioGrado = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoAnuncio);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Anuncio', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getAnuncioGrado = getAnuncioGrado;

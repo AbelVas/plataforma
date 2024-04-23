@@ -20,7 +20,7 @@ const getCursoBimestreConsolidado = (req, res) => __awaiter(void 0, void 0, void
         res.send(obtenerCursosNotas);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener el Grado y Sección', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getCursoBimestreConsolidado = getCursoBimestreConsolidado;
@@ -32,7 +32,7 @@ const actividadesCursoGrado = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.send(obtenerActividadesCurso);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener Actividades el Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.actividadesCursoGrado = actividadesCursoGrado;
@@ -46,7 +46,7 @@ const notasalumnosFinal = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.notasalumnosFinal = notasalumnosFinal;
@@ -57,7 +57,7 @@ const alumnosGrado = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.alumnosGrado = alumnosGrado;
@@ -68,7 +68,7 @@ const cursosGradoCuadroGuia = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.cursosGradoCuadroGuia = cursosGradoCuadroGuia;
@@ -80,7 +80,7 @@ const notasalumnosCursoFinal = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.notasalumnosCursoFinal = notasalumnosCursoFinal;
@@ -91,7 +91,7 @@ const cursosGradoCuadroFinal = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(prueba);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.cursosGradoCuadroFinal = cursosGradoCuadroFinal;

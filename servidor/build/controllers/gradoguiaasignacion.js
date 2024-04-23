@@ -12,14 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.actualizarGradoGuia = exports.eliminarGradoGuia = exports.insertGradosGuias = exports.getGradosSinGuias = exports.getObtenerGuiasExistentes = void 0;
 const gradoguiaasignacion_1 = require("../service/gradoguiaasignacion");
 const error_handle_1 = require("../utils/error.handle");
-const app_1 = require("../app"); // Importar el mapa de sockets
+const app_1 = require("../app"); // Importa el objeto de Socket.io
+const notificacionesGenerales_1 = require("../service/notificacionesGenerales");
 const getObtenerGuiasExistentes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultadoGrados = yield (0, gradoguiaasignacion_1.obtenerGuiasExistente)();
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getObtenerGuiasExistentes = getObtenerGuiasExistentes;
@@ -29,26 +30,26 @@ const getGradosSinGuias = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getGradosSinGuias = getGradosSinGuias;
 const insertGradosGuias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var idUsuario = req.body.idProfesor;
-        const insert = yield (0, gradoguiaasignacion_1.insertarGradoGuia)(req.body);
-        // Emitir evento de Socket.io solo al usuario con el ID de profesor especificado
-        const userSocket = app_1.socketsMap.get(idUsuario);
-        if (userSocket) {
-            userSocket.emit("notificacion", { mensaje: "Se te ha asignado un nuevo Grado Guía" });
-        }
-        else {
-            res.status(404).send("Socket no encontrado para el usuario.");
+        var idGradoGuia = req.body.idGrado;
+        delete req.body.idProfesor;
+        delete req.body.idGrado;
+        const insert = yield (0, gradoguiaasignacion_1.insertarGradoGuia)(idUsuario, idGradoGuia);
+        if (insert) {
+            const insertNoti = yield (0, notificacionesGenerales_1.insertNotificacion)(req.body);
+            app_1.io.emit("nueva-notificacion-usuario-recibida", { idUsuario: req.body.idUsuarioRecibe, idRol: req.body.idRolRecibe });
         }
         res.send(insert);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Insertar los Grados: ' + e);
+        console.log(e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertGradosGuias = insertGradosGuias;
@@ -59,7 +60,7 @@ const eliminarGradoGuia = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.eliminarGradoGuia = eliminarGradoGuia;
@@ -70,7 +71,7 @@ const actualizarGradoGuia = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.send(insert);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.actualizarGradoGuia = actualizarGradoGuia;

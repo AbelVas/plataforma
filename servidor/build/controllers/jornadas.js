@@ -18,7 +18,7 @@ const getJornadas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.send(resultadoJornada);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las Jornadas');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getJornadas = getJornadas;
@@ -29,7 +29,7 @@ const getJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send(resultadoJornada);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener la Jornada');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getJornada = getJornada;
@@ -40,7 +40,7 @@ const updateJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoJornada);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Actualizar la Jornada');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateJornada = updateJornada;
@@ -51,7 +51,7 @@ const deleteJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoJornada);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar la Jornada');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteJornada = deleteJornada;
@@ -61,7 +61,7 @@ const insertarJornada = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultadoJornada);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar la Jornada');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertarJornada = insertarJornada;

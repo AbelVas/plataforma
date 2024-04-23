@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginController = void 0;
+const express_1 = require("express");
 const auth_1 = require("../service/auth");
 const error_handle_1 = require("../utils/error.handle");
 const loginController = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -25,7 +26,7 @@ const loginController = ({ body }, res) => __awaiter(void 0, void 0, void 0, fun
         }
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error, No existe el Usuario', e);
+        (0, error_handle_1.handleHttp)(e, express_1.request, res);
     }
 });
 exports.loginController = loginController;

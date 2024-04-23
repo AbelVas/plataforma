@@ -18,7 +18,7 @@ const insertarTarea = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al crear la actividad: ', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.insertarTarea = insertarTarea;
@@ -29,7 +29,7 @@ const getActividadesCurso = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesCurso = getActividadesCurso;
@@ -40,7 +40,7 @@ const deleteActividadCurso = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar la actividade del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteActividadCurso = deleteActividadCurso;
@@ -51,7 +51,7 @@ const updateActividad = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Eliminar la actividade del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateActividad = updateActividad;
@@ -62,7 +62,7 @@ const duplicarActividad = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Duplicar la Actividad', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.duplicarActividad = duplicarActividad;

@@ -18,7 +18,7 @@ const obtenerAlumnosTotal = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerAlumnosTotal = obtenerAlumnosTotal;
@@ -28,7 +28,7 @@ const obtenerAlumnosTotalPorGrado = (req, res) => __awaiter(void 0, void 0, void
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerAlumnosTotalPorGrado = obtenerAlumnosTotalPorGrado;
@@ -38,7 +38,7 @@ const obtenerAlumnosHombres = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerAlumnosHombres = obtenerAlumnosHombres;
@@ -48,7 +48,7 @@ const obtenerAlumnosMujeres = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerAlumnosMujeres = obtenerAlumnosMujeres;
@@ -58,7 +58,7 @@ const obtenerCodigosEnUso = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerCodigosEnUso = obtenerCodigosEnUso;
@@ -68,7 +68,7 @@ const obtenerCodigosEnDesuso = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerCodigosEnDesuso = obtenerCodigosEnDesuso;
@@ -78,7 +78,7 @@ const obtenerContrasenaProfesorCambiada = (req, res) => __awaiter(void 0, void 0
         res.send(resultadoGrados);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener los Grados');
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.obtenerContrasenaProfesorCambiada = obtenerContrasenaProfesorCambiada;
@@ -98,7 +98,7 @@ const GetCantidadGrados = (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, "Error al obtener los datos", e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.GetCantidadGrados = GetCantidadGrados;
@@ -108,7 +108,7 @@ const GetCantidadDocentes = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, "Error al obtener los datos", e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.GetCantidadDocentes = GetCantidadDocentes;

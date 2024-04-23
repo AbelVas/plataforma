@@ -8,18 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTutorAlumno = void 0;
-const relaciontutoralumno_1 = require("../service/relaciontutoralumno");
-const error_handle_1 = require("../utils/error.handle");
-const getTutorAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { id } = req.params;
-        const tutoralumno = yield (0, relaciontutoralumno_1.getTutorAlumnoService)(id);
-        res.send(tutoralumno);
-    }
-    catch (e) {
-        (0, error_handle_1.handleHttp)(e, req, res);
-    }
+exports.obtenerSocketDocente = void 0;
+const database_1 = __importDefault(require("../config/database"));
+const obtenerSocketDocente = (idUsuario) => __awaiter(void 0, void 0, void 0, function* () {
+    const getSocketsDocentes = yield database_1.default.query("SELECT socket FROM tbSocketsProfesores WHERE idProfesor=?", [idUsuario]);
+    return getSocketsDocentes;
 });
-exports.getTutorAlumno = getTutorAlumno;
+exports.obtenerSocketDocente = obtenerSocketDocente;

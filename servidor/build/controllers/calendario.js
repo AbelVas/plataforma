@@ -19,7 +19,7 @@ const getActividadesAlumno = (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesAlumno = getActividadesAlumno;
@@ -30,7 +30,7 @@ const getActividadesProfesor = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesProfesor = getActividadesProfesor;
@@ -41,7 +41,7 @@ const getActividadesTutor = (req, res) => __awaiter(void 0, void 0, void 0, func
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesTutor = getActividadesTutor;
@@ -53,7 +53,7 @@ const getActividadesPorExamen = (req, res) => __awaiter(void 0, void 0, void 0, 
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesPorExamen = getActividadesPorExamen;
@@ -65,7 +65,7 @@ const getActividadesPorTarea = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesPorTarea = getActividadesPorTarea;
@@ -77,7 +77,7 @@ const getActividadesPorForo = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesPorForo = getActividadesPorForo;
@@ -89,7 +89,7 @@ const getActividadesCalificacion = (req, res) => __awaiter(void 0, void 0, void 
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesCalificacion = getActividadesCalificacion;
@@ -101,7 +101,7 @@ const getActividadesCalificacionTotal = (req, res) => __awaiter(void 0, void 0, 
         res.send(resultado);
     }
     catch (e) {
-        (0, error_handle_1.handleHttp)(res, 'Error al Obtener las actividades del Curso', e);
+        (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getActividadesCalificacionTotal = getActividadesCalificacionTotal;

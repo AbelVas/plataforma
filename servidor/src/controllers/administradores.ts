@@ -1,5 +1,5 @@
-import { request, Request, Response } from "express";
-import {verifyPassword,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService } from "../service/administradores";
+import {  Request, Response } from "express";
+import { fotoPerfilAdminService,verifyPassword,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService } from "../service/administradores";
 import { handleHttp } from "../utils/error.handle"
 import { encrypt } from "../utils/passwordFunction";
 
@@ -73,5 +73,16 @@ const compararPass=async(req:Request,res:Response)=>{
      }
 }
 
+const fotoPerfilAdminController=async(req:Request,res:Response)=>{
+    try {
+        const {ruta_imagen}=req.body;
+        const {idProfesor}=req.body;
+        const {peso_imagen}=req.body
+        const fotoPerfilAdmin=await fotoPerfilAdminService(idProfesor,ruta_imagen,peso_imagen)
+        res.send(fotoPerfilAdmin)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
 
-export {putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,compararPass}
+export {fotoPerfilAdminController,putAdmin,deleteAdmin,getAdmin,getAdmins,updateAdmin,compararPass}

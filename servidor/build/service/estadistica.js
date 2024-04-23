@@ -35,7 +35,7 @@ const GetAlumnosMujeres = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.GetAlumnosMujeres = GetAlumnosMujeres;
 const GetCodigosEnUso = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT activo, COUNT(activo) as activo FROM tbCodigo group by activo');
+    const responseGet = yield database_1.default.query('SELECT COUNT(activo) as activo FROM tbCodigo WHERE activo=1 group by activo');
     return responseGet;
 });
 exports.GetCodigosEnUso = GetCodigosEnUso;
@@ -45,7 +45,7 @@ const GetCodigosEnDesuso = () => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.GetCodigosEnDesuso = GetCodigosEnDesuso;
 const GetContrasenaProfesorCambiada = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT valores.cambio_contrasena AS cambio_contrasena, COUNT(tbProfesor.cambio_contrasena) AS CambioContra FROM (SELECT 0 AS cambio_contrasena UNION SELECT 1 AS cambio_contrasena) AS valores LEFT JOIN tbProfesor ON valores.cambio_contrasena = tbProfesor.cambio_contrasena GROUP BY valores.cambio_contrasena ORDER BY cambio_contrasena DESC');
+    const responseGet = yield database_1.default.query('SELECT SUM(CASE WHEN cambio_contrasena = 1 THEN 1 ELSE 0 END) AS sicambio,SUM(CASE WHEN `cambio_contrasena` = 0 THEN 1 ELSE 0 END) AS nocambio FROM tbProfesor');
     return responseGet;
 });
 exports.GetContrasenaProfesorCambiada = GetContrasenaProfesorCambiada;

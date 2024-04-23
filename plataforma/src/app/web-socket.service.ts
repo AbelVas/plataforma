@@ -13,7 +13,6 @@ export class WebSocketService {
     constructor() {
         this.socket = io(`${this.URL}`);
     }
-
     // Método para escuchar un evento específico
     escucharEvento(evento: string): Observable<any> {
         return new Observable((observer) => {

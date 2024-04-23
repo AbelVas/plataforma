@@ -36,4 +36,9 @@ const verifyPassword=async(id:string,pass:string)=>{
     if(!isCorrect) return "Error, las contraseñas no coinciden ";
     return '1';
 }
-export {insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService,verifyPassword};
+
+const fotoPerfilAdminService=async(id:string,ruta:string,peso:string)=>{
+    const consulta=await conexion.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_imagen=?',[id,ruta,peso])
+    return consulta
+}
+export {fotoPerfilAdminService,insertarAdminService,getAdminService,getAdminsService,updateAdminService,validarAdminExisteSi,eliminarAdminService,verifyPassword};
