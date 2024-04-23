@@ -3,16 +3,17 @@ import conexion from "../config/database";
 import * as path from 'path';
 
 var rutapadre:any;
-var rutahijo = `/../../../plataforma/src/assets/img/perfiles/profesores/`;
+var rutahijo = `../../../brincoteca-app.orquiholic.com/src/assets/img/perfiles/profesores/`;
 var rutalive = `assets/img/perfiles/profesores/`;
 var rutaimagen:any;
 
 const storage = diskStorage({
     destination:function (req, file, cb){
-        rutapadre = `${__dirname}`;
-        const rutafinal = rutapadre+rutahijo;
+        //rutapadre = `${__dirname}`;
+        const destinationPath = path.join(__dirname, rutahijo);
+        //const rutafinal = rutapadre+rutahijo;
         
-        cb(null, rutafinal);
+        cb(null, destinationPath);
     },
     filename: function (req, file, cb){
         const {nombre} = req.params;
