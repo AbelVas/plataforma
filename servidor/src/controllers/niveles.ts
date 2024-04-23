@@ -8,7 +8,7 @@ const getNiveles=async(req:Request,res:Response)=>{
         const responseNivel=await obtenerNivelesService();
         res.send(responseNivel);
     }catch(e){
-        handleHttp(res,'Error_Request_GETS ', e)
+        handleHttp(e, req, res);
     }
 }
 const getNivel=async(req:Request,res:Response)=>{
@@ -17,7 +17,7 @@ const getNivel=async(req:Request,res:Response)=>{
         const responseNivel=await obtenerNivelService(id);
         res.send(responseNivel);
     }catch(e){
-        handleHttp(res,'Error_Request_GET ', e)
+        handleHttp(e, req, res);
     }
 }
 const updateNivel=async(req:Request,res:Response)=>{
@@ -30,7 +30,7 @@ const updateNivel=async(req:Request,res:Response)=>{
         io.emit("Actualizar-nivel", {mensaje:'El usuario "'+nombre+'" Actualizó un Nivel'});
         res.send(responseNivel);
     }catch(e){
-        handleHttp(res,'Error_Request_UPDATE ', e)
+        handleHttp(e, req, res);
     }
 }
 const deleteNivel=async(req:Request,res:Response)=>{ 
@@ -43,7 +43,7 @@ const deleteNivel=async(req:Request,res:Response)=>{
         io.emit("Eliminar-nivel", {mensaje:'El usuario "'+nombre+'" eliminó un Nivel'});
         res.send(responseNivel);
     }catch(e){
-        handleHttp(res,'Error_Request_DELETE ', e)
+        handleHttp(e, req, res);
     }
 }
 const insertNivel=async(req:Request,res:Response)=>{
@@ -55,7 +55,7 @@ const insertNivel=async(req:Request,res:Response)=>{
         io.emit("nuevo-nivel", {mensaje:'El usuario "'+nombre+'" eliminó un Nivel'});
         res.send(responseNivel);
     }catch(e){
-        handleHttp(res,'Error_Request_INSERT ',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -65,7 +65,7 @@ const getNivelesporJornada =async(req:Request, res:Response)=>{
         const responseNivelporJornada=await getNivelesporJornadaService(id);
         res.send(responseNivelporJornada);
     }catch(e){
-        handleHttp(res,'Error_Request_GetNivelPorJornada ',e)
+        handleHttp(e, req, res);
     }
 }
 

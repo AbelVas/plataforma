@@ -7,7 +7,7 @@ const getTipoActividad=async(req:Request,res:Response)=>{
         const resultado=await getTipoActividadService();
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados',e)
+        handleHttp(e, req, res);
     }
 }
 

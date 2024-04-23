@@ -8,7 +8,7 @@ const getAdmin=async(req:Request,res:Response)=>{
         const resultadoUnidades=await obtenerAdminService(id);
         res.send(resultadoUnidades);
      }catch(e){
-         handleHttp(res,'Error al Obtener Dato')
+        handleHttp(e, req, res);
      }
 }
 const getAdmins=async(req:Request,res:Response)=>{
@@ -16,7 +16,7 @@ const getAdmins=async(req:Request,res:Response)=>{
         const resultadoUnidades=await obtenerAdminsService();
         res.send(resultadoUnidades);
      }catch(e){
-         handleHttp(res,'Error al Obtener Dato')
+        handleHttp(e, req, res);
      }
 }
 
@@ -26,7 +26,7 @@ const getProfesor=async(req:Request,res:Response)=>{
         const resultadoUnidades=await obtenerProfesorService(id);
         res.send(resultadoUnidades);
      }catch(e){
-         handleHttp(res,'Error al Obtener Dato')
+        handleHttp(e, req, res);
      }
 }
 const getProfesores=async(req:Request,res:Response)=>{
@@ -34,7 +34,7 @@ const getProfesores=async(req:Request,res:Response)=>{
         const resultadoUnidades=await obtenerProfesoresService();
         res.send(resultadoUnidades);
      }catch(e){
-         handleHttp(res,'Error al Obtener Dato')
+        handleHttp(e, req, res);
      }
 }
 
@@ -44,7 +44,7 @@ const getAlumno=async(req:Request,res:Response)=>{
         const resultadoUnidades=await obtenerAlumnoService(id);
         res.send(resultadoUnidades);
      }catch(e){
-         handleHttp(res,'Error al Obtener Dato')
+        handleHttp(e, req, res);
      }
 }
 const getAlumnos=async(req:Request,res:Response)=>{
@@ -52,7 +52,7 @@ const getAlumnos=async(req:Request,res:Response)=>{
         const resultadoUnidades=await obtenerAlumnosService();
         res.send(resultadoUnidades);
      }catch(e){
-         handleHttp(res,'Error al Obtener Dato')
+        handleHttp(e, req, res);
      }
 }
 export {getAdmin,getAdmins,getProfesor,getProfesores,getAlumno,getAlumnos}

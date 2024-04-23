@@ -10,7 +10,7 @@ const updateGuiaGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await updateGraGuiaService(req.body,id);
         res.send(resultadoGrado);
     } catch (e) {
-        handleHttp(res,'Error al Actualizar el Guia de Grado' )
+        handleHttp(e, req, res);
     }
 
 }
@@ -22,7 +22,7 @@ const deleteGuiaGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await deleteGraGuiaService(id);
         res.send(resultadoGrado);
     } catch (e) {
-        handleHttp(res,'Error al Eliminar  el Guia de Grado',e)
+        handleHttp(e, req, res);
     }
 
 }
@@ -33,7 +33,7 @@ const insertGuiaGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await insertGraGuiaService(req.body);
         res.send(resultadoGrado);
     } catch (e) {
-        handleHttp(res,'Error al Crear  el Guia de Grado',e)
+        handleHttp(e, req, res);
     }
 
 }
@@ -44,7 +44,7 @@ const getGuiaGrado=async(req:Request,res:Response)=>{
         const resultadoGrados=await getGraGuiaService();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+        handleHttp(e, req, res);
     }
 
 
@@ -56,7 +56,7 @@ const getGradoGuiaProfesor=async(req:Request,res:Response)=>{
         const resultadoGuia=await getGuiaPorGuia(id);
         res.send(resultadoGuia);
     } catch (e) {
-        handleHttp(res,'Error al Obtener al Grado del Guia',e)
+        handleHttp(e, req, res);
     }
 
 

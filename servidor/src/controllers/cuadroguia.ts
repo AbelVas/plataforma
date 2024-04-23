@@ -9,7 +9,7 @@ const getCursoBimestreConsolidado = async (req:Request, res:Response)=>{
         const obtenerCursosNotas=await GradoCursoSeccionService(idGrado,idCurso)
         res.send(obtenerCursosNotas); 
     }catch(e){
-        handleHttp(res,'Error al Obtener el Grado y Sección',e)
+handleHttp(e, req, res);
     }
 }
 const actividadesCursoGrado=async(req:Request,res:Response)=>{
@@ -19,7 +19,7 @@ const actividadesCursoGrado=async(req:Request,res:Response)=>{
         const obtenerActividadesCurso=await actividadesCursoGradoService(idCurso,idUnidad)
         res.send(obtenerActividadesCurso)
     } catch (e) {
-        handleHttp(res,'Error al Obtener Actividades el Curso',e)
+handleHttp(e, req, res);
     }
 }
 const notasalumnosFinal=async(req:Request,res:Response)=>{
@@ -31,7 +31,7 @@ const notasalumnosFinal=async(req:Request,res:Response)=>{
         const prueba=await notasalumnosFinalService(idCurso,idUnidad,idGrado);
         res.send(prueba)
     }catch(e){
-        handleHttp(res,'Error',e)
+handleHttp(e, req, res);
     }
 }
 const alumnosGrado=async(req:Request,res:Response)=>{
@@ -40,7 +40,7 @@ const alumnosGrado=async(req:Request,res:Response)=>{
         const prueba=await alumnosGradoService(idGrado);
         res.send(prueba)
     }catch(e){
-        handleHttp(res,'Error',e)
+handleHttp(e, req, res);
     }
 }
 const cursosGradoCuadroGuia=async(req:Request,res:Response)=>{
@@ -49,7 +49,7 @@ const cursosGradoCuadroGuia=async(req:Request,res:Response)=>{
         const prueba=await cursosGradoCuadroGuiaService(idGrado);
         res.send(prueba)
     }catch(e){
-        handleHttp(res,'Error',e)
+handleHttp(e, req, res);
     }
 }
 const notasalumnosCursoFinal=async(req:Request,res:Response)=>{
@@ -59,7 +59,7 @@ const notasalumnosCursoFinal=async(req:Request,res:Response)=>{
         const prueba=await notasalumnosCursoFinalService(idGrado,idUnidad);
         res.send(prueba)
     }catch(e){
-        handleHttp(res,'Error',e)
+handleHttp(e, req, res);
     }
 }
 const cursosGradoCuadroFinal=async(req:Request,res:Response)=>{
@@ -69,7 +69,7 @@ const cursosGradoCuadroFinal=async(req:Request,res:Response)=>{
         res.send(prueba)
         
     } catch (e) {
-        handleHttp(res,'Error',e)
+handleHttp(e, req, res);
     }
 }
 

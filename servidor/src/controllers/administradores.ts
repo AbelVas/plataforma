@@ -15,7 +15,7 @@ const putAdmin=async(req:Request,res:Response)=>{
             res.send(resultadoAdminInsert);
         }
      }catch(e){
-         handleHttp(res,'Error ingresar Administrador',e)
+        handleHttp(e, req, res);
      }
 }
 const getAdmin=async(req:Request,res:Response)=>{
@@ -24,7 +24,7 @@ const getAdmin=async(req:Request,res:Response)=>{
         const resultado=await getAdminService(id);
         res.send(resultado);
     }catch(e){
-        handleHttp(res,'Error al Obtener Administrador',e)
+        handleHttp(e, req, res);
     }
 }
 const getAdmins=async(req:Request,res:Response)=>{
@@ -32,7 +32,7 @@ const getAdmins=async(req:Request,res:Response)=>{
         const resultado=await getAdminsService();
         res.send(resultado);
     } catch (e) {
-        handleHttp(res,'Error al Obtener Administrador',e)
+        handleHttp(e, req, res);
     }
 }
 const updateAdmin=async(req:Request,res:Response)=>{
@@ -49,7 +49,7 @@ const updateAdmin=async(req:Request,res:Response)=>{
             res.send(resultado);
         }
     } catch (e) {
-        handleHttp(res,'Error al Editar Administrador',e)
+        handleHttp(e, req, res);
     }
 }
 const deleteAdmin=async(req:Request,res:Response)=>{
@@ -58,7 +58,7 @@ const deleteAdmin=async(req:Request,res:Response)=>{
         const resultadoDelete=await eliminarAdminService(id);
         res.send(resultadoDelete);
      }catch(e){
-         handleHttp(res,'Error eliminar Administrador',e)
+        handleHttp(e, req, res);
      }
 }
 
@@ -69,7 +69,7 @@ const compararPass=async(req:Request,res:Response)=>{
         const resultadoDelete=await verifyPassword(id,pass);
         res.send(resultadoDelete);
      }catch(e){
-         handleHttp(res,'Error al Actualizar la contraseña',e)
+        handleHttp(e, req, res);
      }
 }
 

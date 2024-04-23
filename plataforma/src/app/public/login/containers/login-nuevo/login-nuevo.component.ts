@@ -7,6 +7,8 @@ import { CodigosService } from "src/app/admin/services/codigos.service";
 import { GradosService } from "src/app/admin/services/grados-admin.service";
 import { AlumnosService } from "src/app/admin/services/alumnos.service";
 import { ToastrService } from 'ngx-toastr';
+import { WebSocketService } from "src/app/web-socket.service";
+
 
 //para cambiar el titulo en cada sección
 import { Title } from '@angular/platform-browser';
@@ -66,14 +68,13 @@ export class LoginNuevoComponent implements OnInit {
   isCorrectCodigo:boolean=false
 
 
-  constructor(private titleService: Title,private router:Router,private loginService:LoginService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradosService:GradosService, private alumnoService:AlumnosService, private toastrService:ToastrService) {
+  constructor(private socket:WebSocketService,private titleService: Title,private router:Router,private loginService:LoginService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradosService:GradosService, private alumnoService:AlumnosService, private toastrService:ToastrService) {
     //Aquí irian cosas de activación temprana como identificar rutas en tiempo real y demás, o no sé, yo para eso lo usé una vez
   }
 
   ngOnInit(): void {
     //Aquí iniciamos los metodos que usamos de primeras si o sí
     this.titleService.setTitle('Login | Bienvenidos');
-    this.getGrados();
   }
 
   //Aqui coloco las funciones que usaremos en nuestro ngOnInit
@@ -176,6 +177,7 @@ export class LoginNuevoComponent implements OnInit {
     var loginData:any={}
     loginData=Object.assign(this.loginForm.value)
     this.loginService.login(loginData).subscribe((res:any)=>{
+
         this.toastrService.success(`Inicio de sesion aceptado`,'Bienvenido')
         localStorage.setItem('Acces-Token',res.token);
         const {idRol}:any=decode(res.token);

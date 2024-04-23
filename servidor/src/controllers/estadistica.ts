@@ -7,7 +7,7 @@ const obtenerAlumnosTotal=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetAlumnosTotal();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 const obtenerAlumnosTotalPorGrado=async(req:Request,res:Response)=>{
@@ -15,7 +15,7 @@ const obtenerAlumnosTotalPorGrado=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetAlumnosTotalPorGrado();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 const obtenerAlumnosHombres=async(req:Request,res:Response)=>{
@@ -23,7 +23,7 @@ const obtenerAlumnosHombres=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetAlumnosHombres();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 const obtenerAlumnosMujeres=async(req:Request,res:Response)=>{
@@ -31,7 +31,7 @@ const obtenerAlumnosMujeres=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetAlumnosMujeres();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 const obtenerCodigosEnUso=async(req:Request,res:Response)=>{
@@ -39,7 +39,7 @@ const obtenerCodigosEnUso=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetCodigosEnUso();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 const obtenerCodigosEnDesuso=async(req:Request,res:Response)=>{
@@ -47,7 +47,7 @@ const obtenerCodigosEnDesuso=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetCodigosEnDesuso();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 const obtenerContrasenaProfesorCambiada=async(req:Request,res:Response)=>{
@@ -55,7 +55,7 @@ const obtenerContrasenaProfesorCambiada=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetContrasenaProfesorCambiada();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 
@@ -75,7 +75,7 @@ const GetCantidadGrados=async(req:Request,res:Response)=>{
         const resultado=await GetCantidadGradosService()
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,"Error al obtener los datos",e)
+handleHttp(e, req, res);
     }
 }
 const GetCantidadDocentes=async(req:Request,res:Response)=>{
@@ -83,7 +83,7 @@ const GetCantidadDocentes=async(req:Request,res:Response)=>{
         const resultado=await GetCantidadDocentesService()
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,"Error al obtener los datos",e)
+handleHttp(e, req, res);
     }
 }
 

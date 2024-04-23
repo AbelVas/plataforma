@@ -8,7 +8,7 @@ const notasalumnosCursoFinal=async(req:Request,res:Response)=>{
         const prueba=await notasalumnosFinalService(idGrado);
         res.send(prueba)
     }catch(e){
-        handleHttp(res,'Error',e)
+        handleHttp(e, req, res);
     }
 }
 

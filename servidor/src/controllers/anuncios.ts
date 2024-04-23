@@ -9,7 +9,7 @@ const getAnuncios=async(req:Request,res:Response)=>{
         const resultadoAnuncio=await GetAnunciosService();
         res.send(resultadoAnuncio);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Anuncios',e)
+        handleHttp(e, req, res);
     }
 
 
@@ -22,7 +22,7 @@ const getAnuncio=async(req:Request,res:Response)=>{
         const resultadoAnuncio=await GetAnuncioService(id);
         res.send(resultadoAnuncio)
     } catch (e) {
-        handleHttp(res,'Error al Obtener el Anuncio',e)
+        handleHttp(e, req, res);
     }
 
 
@@ -35,7 +35,7 @@ const updateAnuncio=async(req:Request,res:Response)=>{
         const resultadoAnuncio=await updateAnuncioService(req.body,id);
         res.send(resultadoAnuncio);
     } catch (e) {
-        handleHttp(res,'Error al Actualizar el Anuncio' ,e)
+        handleHttp(e, req, res);
     }
 
 
@@ -48,7 +48,7 @@ const deleteAnuncio=async(req:Request,res:Response)=>{
         const resultadoAnuncio=await deleteAnuncioService(id);
         res.send(resultadoAnuncio);
     } catch (e) {
-        handleHttp(res,'Error al Eliminar el Anuncio',e)
+        handleHttp(e, req, res);
     }
 
 
@@ -60,7 +60,7 @@ const insertAnuncio=async(req:Request,res:Response)=>{
         const resultadoAnuncio=await insertAnuncioService(req.body);
         res.send(resultadoAnuncio);
     } catch (e) {
-        handleHttp(res,'Error al Crear el Anuncio',e)
+        handleHttp(e, req, res);
     }
 
 
@@ -73,7 +73,7 @@ const getAnuncioGrado=async(req:Request,res:Response)=>{
         const resultadoAnuncio=await GetAnuncioServiceGrado(id);
         res.send(resultadoAnuncio)
     } catch (e) {
-        handleHttp(res,'Error al Obtener el Anuncio',e)
+        handleHttp(e, req, res);
     }
 
 

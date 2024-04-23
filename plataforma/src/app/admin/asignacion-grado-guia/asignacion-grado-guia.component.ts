@@ -7,6 +7,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ProfesoresService } from '../services/profesores.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder,FormControl,Validators  } from '@angular/forms';
+import { WebSocketService } from 'src/app/web-socket.service';
+import decode from 'jwt-decode';
 
 @Component({
   selector: 'app-asignacion-grado-guia',
@@ -47,11 +49,17 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
 
   submitted=false;
   gradoGuiaDocenteAsignado:any=[]
-  constructor(private gradoServiceGuia:GradosService, private profesoresService:ProfesoresService,private toastrService:ToastrService,private formBuilder:FormBuilder) {
+  constructor(private socketService:WebSocketService,private gradoServiceGuia:GradosService, private profesoresService:ProfesoresService,private toastrService:ToastrService,private formBuilder:FormBuilder) {
 
    }
-
+  //obtener el ID del usuario
+   token:any = localStorage.getItem('Acces-Token');
+   idUsuarioConectado:any
+   idRolUsuarioConectado:any
   ngAfterViewInit(): void {
+    const decodedToken: any = decode(this.token);
+    this.idUsuarioConectado = decodedToken.idUsuario;
+    this.idRolUsuarioConectado=decodedToken.idRol;
     this.getGradosConDocente();
     this.getGradosSinDocente();
     this.getProfesores();
@@ -147,7 +155,16 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
     }
     var gradoGuiaInsert:any={}
     gradoGuiaInsert=Object.assign(this.gradoGuiaDocenteForm.value)
-    gradoGuiaInsert.idGrado=this.GradoGuiaIndividualSinGuia.idGrado,
+    gradoGuiaInsert.idUsuarioRecibe=this.gradoGuiaDocenteForm.controls['idProfesor'].value;
+    gradoGuiaInsert.idUsuarioEnvia=this.idUsuarioConectado;
+    gradoGuiaInsert.idRolEnvia=this.idRolUsuarioConectado;
+    gradoGuiaInsert.idRolRecibe="2"
+    gradoGuiaInsert.titulo_notificacion="Asignación de grado."
+    gradoGuiaInsert.mensaje="Se le asignó un nuevo grado Guía: "+this.GradoGuiaIndividualSinGuia.Grado
+    gradoGuiaInsert.visto_recibe="0"
+    gradoGuiaInsert.visto_envia="1"
+    gradoGuiaInsert.idGrado=this.GradoGuiaIndividualSinGuia.idGrado
+
     this.gradoServiceGuia.crearGradoGuiaDocenteRelacion(gradoGuiaInsert).subscribe(
       res=>{
         this.toastrService.success(`Docente asignado a Grado Guía`,'Realizado')
@@ -163,6 +180,7 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
         this.gradoGuiaDocenteForm.reset();
       }
     )
+
   }
   get f() { return this.gradoGuiaDocenteForm.controls; }
   get g() { return this.gradoGuiaDocenteFormEditar.controls; }
@@ -172,6 +190,7 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
       res=>{
         this.modalCloseEliminar.nativeElement.click();
         this.getGradosConDocente();
+        this.getGradosSinDocente();
         this.toastrService.success(`Docente Guia Eliminado`,'Realizado')
       },
       err=>{

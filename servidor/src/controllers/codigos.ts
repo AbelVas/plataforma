@@ -7,7 +7,7 @@ const getCodigos = async (req:Request, res:Response)=>{
         const resultadoCodigos=await obtenerCodigosService();
         res.send (resultadoCodigos);
     }catch(e){
-        handleHttp(res,'Error al Obtener los Codigos')
+handleHttp(e, req, res);
     }
 }
 
@@ -17,7 +17,7 @@ const getCodigo = async (req:Request, res:Response) =>{
         const resultadoCodigo=await obtenerCodigoService(req.body.codigo,req.body.idTipoCodigo);
         res.send(resultadoCodigo);
     }catch(e){
-        handleHttp(res,'Error al Obtener el Codigo')
+handleHttp(e, req, res);
     }
 } 
 
@@ -27,7 +27,7 @@ const updateCodigo = async (req:Request, res:Response)=>{
         const resultadoUpCodigo = await updateCodigoService (req.body, id)
         res.send(resultadoUpCodigo);
     }catch(e){
-        handleHttp(res,'Error al actualizar el Codigo')
+handleHttp(e, req, res);
     }
 }
 
@@ -37,7 +37,7 @@ const deleteCodigo = async (req:Request, res:Response)=>{
         const resulDeletCodigo = await deleteCodigoService(id)
         res.send(resulDeletCodigo)
     }catch(e){
-        handleHttp(res,'Error al eliminar el Codigo')
+handleHttp(e, req, res);
     }
 }
 
@@ -46,7 +46,7 @@ const insertCodigo = async (req:Request, res:Response)=>{
         const resultadoInsCodigo = await insertCodigoService(req.body);
         res.send(resultadoInsCodigo)
     }catch(e){
-        handleHttp(res,'Error al insertar el Codigo')
+handleHttp(e, req, res);
     }
 }
 

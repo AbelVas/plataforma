@@ -9,7 +9,7 @@ const getGrados=async(req:Request,res:Response)=>{
         const resultadoGrados=await GetGradosService();
         res.send(resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
+        handleHttp(e, req, res);
     }
 }
 const getGrado=async(req:Request,res:Response)=>{
@@ -18,7 +18,7 @@ const getGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await GetGradoService(id);
         res.send(resultadoGrado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener el Grado')
+        handleHttp(e, req, res);
     }
 }
 const updateGrado=async(req:Request,res:Response)=>{
@@ -27,7 +27,7 @@ const updateGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await updateGradoService(req.body,id);
         res.send(resultadoGrado);
     } catch (e) {
-        handleHttp(res,'Error al Actualizar el Curso' )
+        handleHttp(e, req, res);
     }
 }
 const deleteGrado=async(req:Request,res:Response)=>{
@@ -36,7 +36,7 @@ const deleteGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await deleteGradoService(id);
         res.send(resultadoGrado);
     } catch (e) {
-        handleHttp(res,'Error al Eliminar el Curso')
+        handleHttp(e, req, res);
     }
 }
 const insertarGrado=async(req:Request,res:Response)=>{
@@ -44,7 +44,7 @@ const insertarGrado=async(req:Request,res:Response)=>{
         const resultadoGrado=await insertGradoService(req.body);
         res.send(resultadoGrado);
     } catch (e) {
-        handleHttp(res,'Error al Crear el Grado',e)
+        handleHttp(e, req, res);
     }
 }
 const getGradosNivel=async(req:Request, res:Response)=>{
@@ -53,7 +53,7 @@ const getGradosNivel=async(req:Request, res:Response)=>{
         const resultadoGradoNivel=await getGradoNivelService(id);
         res.send(resultadoGradoNivel)
     }catch(e){
-        handleHttp(res,'Error al buscar el Grado por nivel',e)
+        handleHttp(e, req, res);
     }
 }
 const getGradoProfesor=async(req:Request, res:Response)=>{
@@ -62,7 +62,7 @@ const getGradoProfesor=async(req:Request, res:Response)=>{
         const resultadoGradoProfesor=await getGradoProfesorService(id);
         res.send(resultadoGradoProfesor)
     }catch(e){
-        handleHttp(res,'Error al buscar al Grado por Profesor',e)
+        handleHttp(e, req, res);
     }
 }
 const getGradoJornada=async(req:Request, res:Response)=>{
@@ -71,7 +71,7 @@ const getGradoJornada=async(req:Request, res:Response)=>{
         const resultadoGradoProfesor=await getGradoxJornada(id);
         res.send(resultadoGradoProfesor)
     }catch(e){
-        handleHttp(res,'Error al buscar al Grado por Profesor',e)
+        handleHttp(e, req, res);
     }
 }
 const GetGradoSeccion=async(req:Request, res:Response)=>{
@@ -80,7 +80,7 @@ const GetGradoSeccion=async(req:Request, res:Response)=>{
         const resultadoGradoProfesor=await GetGradoSeccionService(id);
         res.send(resultadoGradoProfesor)
     }catch(e){
-        handleHttp(res,'Error al buscar el Grado y Sección',e)
+        handleHttp(e, req, res);
     }
 }
 

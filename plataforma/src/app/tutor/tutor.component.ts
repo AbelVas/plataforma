@@ -1,5 +1,8 @@
 import { Component,OnInit } from "@angular/core";
 import { TematutoresService } from "./service/tematutores.service";
+import { WebSocketService } from "../web-socket.service";
+import decode from 'jwt-decode';
+
 
 @Component({
   selector:'app-tutor',
@@ -33,11 +36,15 @@ export class TutorComponent implements OnInit{
   ctexto2:string='';
   cfondo1:string='';
 
-  constructor( private tematutoresService:TematutoresService ){}
-
+  constructor( private tematutoresService:TematutoresService,private socket:WebSocketService){}
+  token:any = localStorage.getItem('Acces-Token');
   ngOnInit(){
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
+    const {idUsuario}:any=decode(this.token);
+    const {idRol}:any=decode(this.token);
+    const {rol}:any=decode(this.token);
+    this.socket.emitirEvento('associateUser', { idUsuario: idUsuario,idRol:idRol,rol:rol })
   }
 
   obtenerDatosTema(){

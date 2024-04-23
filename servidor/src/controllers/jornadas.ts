@@ -7,7 +7,7 @@ const getJornadas= async(req:Request,res:Response)=>{
        const resultadoJornada=await obtenerJornadasService();
        res.send(resultadoJornada);
     }catch(e){
-        handleHttp(res,'Error al Obtener las Jornadas')
+        handleHttp(e, req, res);
     }
 }
 const getJornada= async(req:Request,res:Response)=>{
@@ -16,7 +16,7 @@ const getJornada= async(req:Request,res:Response)=>{
        const resultadoJornada=await obtenerJornadaService(id);
        res.send(resultadoJornada);
     }catch(e){
-        handleHttp(res,'Error al Obtener la Jornada')
+        handleHttp(e, req, res);
     }
 }
 const updateJornada= async(req:Request,res:Response)=>{
@@ -25,7 +25,7 @@ const updateJornada= async(req:Request,res:Response)=>{
        const resultadoJornada=await updateJornadaService(req.body,id);
        res.send(resultadoJornada);
     }catch(e){
-        handleHttp(res,'Error al Actualizar la Jornada')
+        handleHttp(e, req, res);
     }
 }
 const deleteJornada= async(req:Request,res:Response)=>{
@@ -34,7 +34,7 @@ const deleteJornada= async(req:Request,res:Response)=>{
        const resultadoJornada=await deleteJornadaService(id);
        res.send(resultadoJornada);
     }catch(e){
-        handleHttp(res,'Error al Eliminar la Jornada')
+        handleHttp(e, req, res);
     }
 }
 const insertarJornada= async(req:Request,res:Response)=>{
@@ -42,7 +42,7 @@ const insertarJornada= async(req:Request,res:Response)=>{
        const resultadoJornada=await insertJornadaService(req.body);
        res.send(resultadoJornada);
     }catch(e){
-        handleHttp(res,'Error al Eliminar la Jornada')
+        handleHttp(e, req, res);
     }
 }
 

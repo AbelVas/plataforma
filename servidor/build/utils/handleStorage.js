@@ -38,15 +38,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadMiddleware = void 0;
 const multer_1 = __importStar(require("multer"));
 const database_1 = __importDefault(require("../config/database"));
-const path = __importStar(require("path"));
 var rutapadre;
-var rutahijo = `/../../../servidor/src/assets/img/perfiles/profesores/`;
+var rutahijo = `/../../../plataforma/src/assets/img/perfiles/profesores/`;
+var rutalive = `assets/img/perfiles/profesores/`;
 var rutaimagen;
 const storage = (0, multer_1.diskStorage)({
     destination: function (req, file, cb) {
         rutapadre = `${__dirname}`;
         const rutafinal = rutapadre + rutahijo;
-        cb(null, path.join(__dirname, 'archivos'));
+        cb(null, rutafinal);
     },
     filename: function (req, file, cb) {
         const { nombre } = req.params;
@@ -55,7 +55,7 @@ const storage = (0, multer_1.diskStorage)({
         const imagenperfil = (rutabd) => __awaiter(this, void 0, void 0, function* () {
             const update = yield database_1.default.query("UPDATE tbProfesor set imagen = ? WHERE idProfesor = ?", [rutabd, nombre]);
         });
-        const ruta = rutahijo + filename;
+        const ruta = rutalive + filename;
         imagenperfil(ruta);
         cb(null, filename);
     }

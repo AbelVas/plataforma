@@ -8,7 +8,7 @@ const obtenerCursosPorProfesorGradoSeccion=async(req:Request, res:Response)=>{
         const response=await obtenerCursosPorProfesorGradoSeccionService(id,req.body);
         res.send(response)
     } catch (e) {
-        handleHttp(res,'Error al Obtener los Cursos',e)
+handleHttp(e, req, res);
     }
 }
 const getCursos = async (req:Request, res:Response)=>{
@@ -16,7 +16,7 @@ const getCursos = async (req:Request, res:Response)=>{
         const resultadoGrados=await obtenerCursosService();
         res.send (resultadoGrados);
     }catch(e){
-        handleHttp(res,'Error al Obtener los Grados')
+handleHttp(e, req, res);
     }
 }
 
@@ -26,7 +26,7 @@ const getCurso = async (req:Request, res:Response)=>{
         const resultadoGrado=await obtenerCursoService(id)
         res.send(resultadoGrado);
     }catch(e){
-        handleHttp(res,'Error al Obtener el Grado')
+handleHttp(e, req, res);
     }
 }
 const updateCurso = async (req:Request, res:Response)=>{
@@ -35,7 +35,7 @@ const updateCurso = async (req:Request, res:Response)=>{
         const resultadoUpGrado=await updateCursosService(req.body, id)
         res.send(resultadoUpGrado);
     }catch(e){
-        handleHttp(res,'Error al Actualizar el grado', e)
+handleHttp(e, req, res);
     }
 }
 const deleteCurso = async (req:Request, res:Response)=>{
@@ -44,7 +44,7 @@ const deleteCurso = async (req:Request, res:Response)=>{
         const resultadoDeletGrado=await deleteCursosService(id)
         res.send(resultadoDeletGrado)
     }catch(e){
-        handleHttp(res,'Error al Eliminar el grado')
+handleHttp(e, req, res);
     }
 }
 const insertCurso = async (req:Request, res:Response)=>{
@@ -52,7 +52,7 @@ const insertCurso = async (req:Request, res:Response)=>{
         const resultadoInsGrado = await insertCursosService(req.body);
         res.send(resultadoInsGrado)
     }catch(e){
-        handleHttp(res,'Error al insertar Grado')
+handleHttp(e, req, res);
     }
 }
 
@@ -62,7 +62,7 @@ const getCursoporGrado = async (req:Request, res:Response)=>{
         const resultadoGrado=await obtenerCursosPorGradoService(id)
         res.send(resultadoGrado);
     }catch(e){
-        handleHttp(res,'Error al Obtener el grado')
+handleHttp(e, req, res);
     }
 }
 
@@ -72,7 +72,7 @@ const getCursoporProfesor = async (req:Request, res:Response)=>{
         const resultadoProfesor=await obtenerCursosPorProfesorService(id)
         res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Obtener el Profesor')    
+handleHttp(e, req, res); 
     }
 }
 const getCursoporGradoProfesor=async (req:Request, res:Response)=>{
@@ -81,7 +81,7 @@ const getCursoporGradoProfesor=async (req:Request, res:Response)=>{
         const resultadoProfesor=await obtenerCursosPorGradoProfesorService(id)
         res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Obtener curso/grado/docente')    
+handleHttp(e, req, res);
     }
 }
 const getCursosPorAlumno=async (req:Request, res:Response)=>{
@@ -90,7 +90,7 @@ const getCursosPorAlumno=async (req:Request, res:Response)=>{
         const resultadoAlumno=await obtenerCursosPorAlumnoService(id)
         res.send(resultadoAlumno);
     }catch(e){
-        handleHttp(res,'Error al Obtener curso/grado/alumno',e)
+handleHttp(e, req, res);
     }
 }
 const getProfeCurso = async (req:Request, res:Response)=>{
@@ -99,7 +99,7 @@ const getProfeCurso = async (req:Request, res:Response)=>{
         const resultadoGrado=await obtenerProfePorCurso(id)
         res.send(resultadoGrado);
     }catch(e){
-        handleHttp(res,'Error al Obtener el Grado')
+handleHttp(e, req, res);
     }
 }
 const getCursoporGradoProfesorAdmin=async (req:Request, res:Response)=>{
@@ -108,7 +108,7 @@ const getCursoporGradoProfesorAdmin=async (req:Request, res:Response)=>{
         const resultadoProfesor=await obtenerCursosPorGradoProfesorAdminService(id)
         res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Obtener curso/grado/docente')    
+handleHttp(e, req, res); 
     }
 }
 const obtenerCursodeProfesorIndividual=async (req:Request, res:Response)=>{
@@ -117,7 +117,7 @@ const obtenerCursodeProfesorIndividual=async (req:Request, res:Response)=>{
         const resultadoProfesor=await obtenerCursodeProfesor(id)
         res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Obtener curso y Docente')    
+handleHttp(e, req, res);
     }
 }
 

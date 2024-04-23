@@ -8,7 +8,7 @@ const getActividadesAlumno=async(req:Request,res:Response)=>{
         const resultado=await getActividadesPorAlumno(id)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -18,7 +18,7 @@ const getActividadesProfesor=async(req:Request,res:Response)=>{
         const resultado=await getActividadesPorProfesor(id)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -28,7 +28,7 @@ const getActividadesTutor=async(req:Request,res:Response)=>{
         const resultado=await getActividadesPorTutor(id)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -39,7 +39,7 @@ const getActividadesPorExamen=async(req:Request,res:Response)=>{
         const resultado=await getActividadesPorTipoExamen(id,al)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -50,7 +50,7 @@ const getActividadesPorTarea=async(req:Request,res:Response)=>{
         const resultado=await getActividadesPorTipoTarea(id,al)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -61,7 +61,7 @@ const getActividadesPorForo=async(req:Request,res:Response)=>{
         const resultado=await getActividadesPorTipoForo(id,al)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 const getActividadesCalificacion=async(req:Request,res:Response)=>{
@@ -71,7 +71,7 @@ const getActividadesCalificacion=async(req:Request,res:Response)=>{
         const resultado=await getActividadesCalificacionAlumno(id,al)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -82,7 +82,7 @@ const getActividadesCalificacionTotal=async(req:Request,res:Response)=>{
         const resultado=await getActividadesCalificacionAlumnoTotal(id,al)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 export{getActividadesAlumno,getActividadesTutor,getActividadesProfesor,getActividadesPorExamen,getActividadesPorTarea,getActividadesPorForo,getActividadesCalificacion,getActividadesCalificacionTotal}

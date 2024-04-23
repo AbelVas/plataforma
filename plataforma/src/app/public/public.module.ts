@@ -18,7 +18,8 @@ import { GradosService } from "../admin/services/grados-admin.service";
 import { AlumnosService } from "../admin/services/alumnos.service";
 import { LoaderConsolComponent } from './loader-consol/loader-consol.component';
 import { LoginNuevoComponent } from './login/containers/login-nuevo/login-nuevo.component';
-
+import { WebSocketService } from "../web-socket.service";
+import { Socket } from "socket.io-client";
 @NgModule({
   imports:[
     PublicRoutingModule,
@@ -47,7 +48,8 @@ import { LoginNuevoComponent } from './login/containers/login-nuevo/login-nuevo.
     CalendarioService,
     CodigosService,
     GradosService,
-    AlumnosService
+    AlumnosService,
+    WebSocketService,
   ]
 })
 

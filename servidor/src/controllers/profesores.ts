@@ -8,7 +8,7 @@ const getProfesores=async(req:Request,res:Response)=>{
         const resultadoProfesor=await obtenerProfesoresService();
         res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Obtener a los Profesores')
+        handleHttp(e, req, res);
     }
 }
 const getProfesor= async(req:Request,res:Response)=>{
@@ -17,7 +17,7 @@ const getProfesor= async(req:Request,res:Response)=>{
        const resultadoProfesor=await obtenerProfesorService(id);
        res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Obtener al Profesor')
+        handleHttp(e, req, res);
     }
 }
 const updateProfesor= async(req:Request,res:Response)=>{
@@ -34,7 +34,7 @@ const updateProfesor= async(req:Request,res:Response)=>{
             res.send(resultado);
         }
     } catch (e) {
-        handleHttp(res,'Error al Editar Profesor',e)
+        handleHttp(e, req, res);
     }
 }
 const deleteProfesor= async(req:Request,res:Response)=>{
@@ -43,7 +43,7 @@ const deleteProfesor= async(req:Request,res:Response)=>{
        const resultadoProfesor=await deleteProfesorService(id);
        res.send(resultadoProfesor);
     }catch(e){
-        handleHttp(res,'Error al Eliminar al Profesor')
+        handleHttp(e, req, res);
     }
 }
 const insertarProfesor= async(req:Request,res:Response)=>{
@@ -58,7 +58,7 @@ const insertarProfesor= async(req:Request,res:Response)=>{
             res.send(resultadoProfesor);
         }
     }catch(e){
-        handleHttp(res,'Error al Insertar al Profesor',e)
+        handleHttp(e, req, res);
     }
 }
 const compararPass=async(req:Request,res:Response)=>{
@@ -68,7 +68,7 @@ const compararPass=async(req:Request,res:Response)=>{
         const resultadoDelete=await verifyPassword(id,pass);
         res.send(resultadoDelete);
      }catch(e){
-         handleHttp(res,'Error al Actualizar la contraseña',e)
+        handleHttp(e, req, res);
      }
 }
 
@@ -78,7 +78,7 @@ const getGradoGuiaProfesor=async(req:Request,res:Response)=>{
         const resultadoProfesor=await getGradoGuiaProfesorService(id);
         res.send(resultadoProfesor);
      }catch(e){
-         handleHttp(res,'Error al Grado Guia')
+        handleHttp(e, req, res);
      }
 }
 

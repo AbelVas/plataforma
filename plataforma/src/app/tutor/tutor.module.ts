@@ -38,6 +38,7 @@ import { FullCalendarModule } from "@fullcalendar/angular";
 import { TematutoresService } from "./service/tematutores.service";
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { PagosComponent } from './pagos/pagos.component';
+import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 @NgModule({
   imports:[
     TutorRoutingModule,
@@ -69,6 +70,7 @@ import { PagosComponent } from './pagos/pagos.component';
     CalificacionesVistaEstudianteComponent,
     TutorialComponent,
     PagosComponent,
+    ErroresComponent,
   ],
   exports:[
   ],

@@ -7,6 +7,7 @@ import { FormBuilder, FormControl,FormGroup,Validators } from '@angular/forms';
 import decode from "jwt-decode"
 import { ToastrService } from 'ngx-toastr';
 import { SubirImagenPerfilArchivoService } from 'src/app/admin/services/subir-imagen-perfil-archivo.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { SubirImagenPerfilArchivoService } from 'src/app/admin/services/subir-im
 })
 export class EditPerfilAdminComponent implements OnInit {
   selectedFile: File | undefined;
-  constructor(private fileUploadService: SubirImagenPerfilArchivoService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
+  constructor(private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
   }
   archivo:any="";
   submitted=false;
@@ -156,42 +157,27 @@ export class EditPerfilAdminComponent implements OnInit {
     )
   }
 //NUEVO CONTROL PARA SUBIR IMAGENES
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile)
-  }
-  uploadFile(event: Event) {
-    event.preventDefault();
-
-    if (this.selectedFile) {
-      this.fileUploadService.uploadFile(this.selectedFile).subscribe(
-        response => {
-          console.log('Archivo subido exitosamente', response);
-        },
-        error => {
-          console.error('Error al subir el archivo', error);
-        }
-      );
-    }
-  }
-
   actualizarImgImport(event:Event){
     if (event!=null) {
       const imageBlob = this.archivo;
       const data = new FormData ();
       data.set('myfile',imageBlob)
 
-      console.log(data)
-      console.log(imageBlob)
       const {idUsuario}:any=decode(this.token);
         this.imagenPerfilService.subirDocImagenPerfil(idUsuario,data).subscribe(
           res=>{
+            this.socketService.escucharEvento('ruta-detectada-server').subscribe((data: any) => {
+              console.log('Si Si:', data);
+            });
             this.ejecutarEventoActualizar(imageBlob)
             this.modalCloseEditarImg.nativeElement.click()
             this.modalCloseEditar.nativeElement.click()
             this.toastrService.success("Completado", "Se ha subido el archivo")
           },
           err=>{
+            this.socketService.escucharEvento('ruta-detectada-server').subscribe((data: any) => {
+              console.log('No No No:', data);
+            });
             this.ejecutarEventoActualizar(imageBlob)
             this.toastrService.error("Error", "No se ha logrado subir el archivo")
             console.log(err)
@@ -205,7 +191,6 @@ export class EditPerfilAdminComponent implements OnInit {
 //Cambio sin nada
     subirArchivo(event:any) {
      if(event.target.files.length > 0){
-      console.log("archivo")
       const file = event.target.files[0];
       const formData = new FormData()
       formData.append('myfile',file);
@@ -216,7 +201,7 @@ export class EditPerfilAdminComponent implements OnInit {
       console.log("archivon't")
      return null;
      }
-     
+
 
     }
 

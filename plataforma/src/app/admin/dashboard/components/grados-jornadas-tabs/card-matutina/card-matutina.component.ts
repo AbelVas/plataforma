@@ -84,7 +84,7 @@ export class CardMatutinaComponent implements OnInit {
         this.errorServicio='no'
       },
       err=>{
-        this.errorServicio=err;
+        this.toastrService.error(err, 'Error', { timeOut: 10000, extendedTimeOut: 10000, closeButton: true });
         this.sppinerOn=false;
       }
     )

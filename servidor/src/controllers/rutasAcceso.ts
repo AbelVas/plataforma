@@ -8,7 +8,7 @@ const getRutas=async(req:Request,res:Response)=>{
         const resultadoRuta=await getRutasService(id);
         res.send(resultadoRuta);
     } catch (e) {
-        handleHttp(res,'Error al obtener la Ruta',e);
+        handleHttp(e, req, res);
     }
 }
 

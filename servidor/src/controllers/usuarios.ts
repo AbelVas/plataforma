@@ -9,7 +9,7 @@ const getAlumnos=async(req:Request,res:Response)=>{
         const resultadoAlumno=await obtenerAlumnosService();
         res.send(resultadoAlumno);
     }catch(e){
-        handleHttp(res,'Error al Obtener a los Alumnos')
+        handleHttp(e, req, res);
     }
 }
 const getAlumno= async(req:Request,res:Response)=>{
@@ -18,7 +18,7 @@ const getAlumno= async(req:Request,res:Response)=>{
        const resultadoAlumno=await obtenerAlumnoService(id);
        res.send(resultadoAlumno);
     }catch(e){
-        handleHttp(res,'Error al Obtener al Alumno')
+        handleHttp(e, req, res);
     }
 }
 const getAlumnosGrado= async(req:Request,res:Response)=>{
@@ -27,7 +27,7 @@ const getAlumnosGrado= async(req:Request,res:Response)=>{
        const resultadoAlumnosGrado=await obtenerAlumnosGradoService(id);
        res.send(resultadoAlumnosGrado);
     }catch(e){
-        handleHttp(res,'Error al Obtener a los alumnos del grado')
+        handleHttp(e, req, res);
     }
 }
 
@@ -45,7 +45,7 @@ const updateAlumno= async(req:Request,res:Response)=>{
             res.send(resultadoAlumno);
         }
     }catch(e){
-        handleHttp(res,'Error al Actualizar al Alumno')
+        handleHttp(e, req, res);
     }
 }
 const deleteAlumno= async(req:Request,res:Response)=>{
@@ -54,7 +54,7 @@ const deleteAlumno= async(req:Request,res:Response)=>{
        const resultadoAlumno=await deleteAlumnoService(id);
        res.send(resultadoAlumno);
     }catch(e){
-        handleHttp(res,'Error al Eliminar al Alumno',e)
+        handleHttp(e, req, res);
     }
 }
 const insertarAlumno= async(req:Request,res:Response)=>{
@@ -69,7 +69,7 @@ const insertarAlumno= async(req:Request,res:Response)=>{
             res.send(resultadoAlumno);
         }
     }catch(e){
-        handleHttp(res,'Error al Insertar al Alumno',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -80,7 +80,7 @@ const compararPass=async(req:Request,res:Response)=>{
         const resultadoDelete=await verifyPassword(id,pass);
         res.send(resultadoDelete);
      }catch(e){
-         handleHttp(res,'Error al Actualizar la contraseña',e)
+        handleHttp(e, req, res);
      }
 }
 const verNotasAlumnos=async(req:Request,res:Response)=>{
@@ -89,7 +89,7 @@ const verNotasAlumnos=async(req:Request,res:Response)=>{
         const accion=await verNotasAlumnosService(id);
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar estado',e)
+        handleHttp(e, req, res);
     }
 }
 const getNotasVer=async(req:Request,res:Response)=>{
@@ -97,7 +97,7 @@ const getNotasVer=async(req:Request,res:Response)=>{
         const accion=await getNotasVerService();
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Obtener Estado',e)
+        handleHttp(e, req, res);
     }
 
 }
@@ -106,7 +106,7 @@ const ObtEstadoAlumno=async(req:Request,res:Response)=>{
         const accion=await getEstadoAlumno();
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Obtener Estado',e)
+        handleHttp(e, req, res);
     }
 
 }
@@ -115,7 +115,7 @@ const ObtEstadoProfesor=async(req:Request,res:Response)=>{
         const accion=await getEstadoProfesor();
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Obtener Estado',e)
+        handleHttp(e, req, res);
     }
 
 }
@@ -124,7 +124,7 @@ const ObtEstadoTutor=async(req:Request,res:Response)=>{
         const accion=await getEstadoTutor();
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Obtener Estado',e)
+        handleHttp(e, req, res);
     }
 
 }
@@ -135,7 +135,7 @@ const updateEstadoAlumno=async(req:Request,res:Response)=>{
         const accion=await UpdateStatusAlumnos(id);
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar estado',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -145,7 +145,7 @@ const updateEstadoProfesor=async(req:Request,res:Response)=>{
         const accion=await UpdateStatusProfesor(id);
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar estado',e)
+        handleHttp(e, req, res);
     }
 }
 
@@ -155,7 +155,7 @@ const updateEstadoTutor=async(req:Request,res:Response)=>{
         const accion=await UpdateStatusTutores(id);
         res.send(accion)
     } catch (e) {
-        handleHttp(res,'Error al Actualizar estado',e)
+        handleHttp(e, req, res);
     }
 }
 

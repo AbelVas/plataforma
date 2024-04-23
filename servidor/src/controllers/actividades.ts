@@ -6,7 +6,7 @@ const insertarTarea=async (req:Request,res:Response)=>{
         const resultadoGrados=await crearTareaService(req.body);
         res.send (resultadoGrados);
     } catch (e) {
-        handleHttp(res,'Error al crear la actividad: ',e)
+        handleHttp(e, req, res);
     }
 }
 const getActividadesCurso=async(req:Request,res:Response)=>{
@@ -15,7 +15,7 @@ const getActividadesCurso=async(req:Request,res:Response)=>{
         const resultado=await getActividadesCursoService(id)
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Obtener las actividades del Curso',e)
+        handleHttp(e, req, res);
     }
 }
 const deleteActividadCurso=async(req:Request,res:Response)=>{
@@ -24,7 +24,7 @@ const deleteActividadCurso=async(req:Request,res:Response)=>{
         const resultado=await deleteTareaService(id);
         res.send(resultado);
     } catch (e) {
-        handleHttp(res,'Error al Eliminar la actividade del Curso',e) 
+        handleHttp(e, req, res);
     }
 }
 const updateActividad=async(req:Request,res:Response)=>{
@@ -33,7 +33,7 @@ const updateActividad=async(req:Request,res:Response)=>{
         const resultado=await updateActividadService(req.body,id);
         res.send(resultado);
     } catch (e) {
-        handleHttp(res,'Error al Eliminar la actividade del Curso',e) 
+        handleHttp(e, req, res);
     }
 }
 const duplicarActividad=async(req:Request,res:Response)=>{
@@ -42,7 +42,7 @@ const duplicarActividad=async(req:Request,res:Response)=>{
         const resultado=await duplicarActividades(req.body,id);
         res.send(resultado)
     } catch (e) {
-        handleHttp(res,'Error al Duplicar la Actividad',e) 
+        handleHttp(e, req, res);
     }
 }
 export {insertarTarea,getActividadesCurso,deleteActividadCurso,updateActividad,duplicarActividad}

@@ -1,5 +1,7 @@
 import { Component,OnInit } from "@angular/core";
 import { TemaEstudianteService } from "./services/tema-estudiante.service";
+import { WebSocketService } from "../web-socket.service";
+import decode from 'jwt-decode';
 
 @Component({
   selector:'app-alumno',
@@ -33,11 +35,16 @@ export class StudentComponent implements OnInit{
   ctexto2:string='';
   cfondo1:string='';
 
-  constructor( private temaEstudianteService:TemaEstudianteService ){}
+  token:any = localStorage.getItem('Acces-Token');
+  constructor( private temaEstudianteService:TemaEstudianteService,private socket:WebSocketService){}
 
   ngOnInit(){
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
+    const {idUsuario}:any=decode(this.token);
+    const {idRol}:any=decode(this.token);
+    const {rol}:any=decode(this.token);
+    this.socket.emitirEvento('associateUser', { idUsuario: idUsuario,idRol:idRol,rol:rol })
   }
 
   obtenerDatosTema(){
