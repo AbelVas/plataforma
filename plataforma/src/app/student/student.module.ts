@@ -48,6 +48,7 @@ import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-m
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
+import { NotificacionesStudentService } from "./services/notificaciones-student.service";
 
 @NgModule({
   imports:[
@@ -55,7 +56,7 @@ import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notif
     SharedModule,
     PublicModule,
     FullCalendarModule,
-    CKEditorModule
+    CKEditorModule,
   ],
   declarations:[
     StudentComponent,
@@ -90,7 +91,7 @@ import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notif
     ListaActividadesCursoComponent,
     CalendarioVistaMesComponent,
     ErroresComponent,
-    NotificacionesMensajesComponent
+    NotificacionesMensajesComponent,
   ],
   exports:[
   ],
@@ -104,7 +105,9 @@ import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notif
     CalificacionesStudentService,
     TemaEstudianteService,
     OpcionesMenuService,
-    UploadFotoPerfilService
+    UploadFotoPerfilService,
+    NotificacionesStudentService
+
   ]
 })
 
