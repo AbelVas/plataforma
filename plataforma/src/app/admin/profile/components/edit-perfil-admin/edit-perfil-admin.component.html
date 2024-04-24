@@ -70,7 +70,7 @@
             <label for="subirImagen" class="form-label">Suba su imagen</label>
             <input #fileInput class="form-control" type="file" name="file" id="subirImagen" (change)="mostrarVistaPrevia($event)">
             <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
-              <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
             </div>
 
           <div class="text-center contenedor-centrado">
@@ -81,7 +81,7 @@
         </div>
 
       <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
       </div>
       <ng-template class="modal-footer" #botonAceptar>
         <div class="modal-footer">

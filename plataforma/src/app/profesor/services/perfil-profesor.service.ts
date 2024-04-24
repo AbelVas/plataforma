@@ -45,4 +45,17 @@ export class PerfilProfesorService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
+    getFotoPROFE(id:string){
+      const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+      return this.http.get(`${this.URL}/profesores/profesor-foto-perfil/${id}`,httpOptions).pipe(
+        catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+      )
+    }
+  subidaDeImagen(idAdmin:string,ruta:string,peso:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/profesores/profesor-foto-perfil/`,{ruta_imagen:ruta,idProfesor:idAdmin,peso_archivo:peso},httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    )
+  }
+
 }

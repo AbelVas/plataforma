@@ -46,7 +46,7 @@ import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-
 import { CalendarioVistaMesComponent } from './calendario-vista-mes/calendario-vista-mes.component';
 import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-menu.service";
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
-//
+import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 
 
 @NgModule({
@@ -102,7 +102,8 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
     PerfilAlumnoService,
     CalificacionesStudentService,
     TemaEstudianteService,
-    OpcionesMenuService
+    OpcionesMenuService,
+    UploadFotoPerfilService
   ]
 })
 

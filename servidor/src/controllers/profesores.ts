@@ -1,7 +1,8 @@
-import { request, Request,Response } from "express";
-import { obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService,verifyPassword,getGradoGuiaProfesorService } from "../service/profesores";
+import { Request,Response } from "express";
+import { fotoPerfilProfesorService,getFotoPerfilProfesorService,obtenerProfesoresService,validarAdminExisteSi,obtenerProfesorService,insertProfesorService,updateProfesorService,deleteProfesorService,verifyPassword,getGradoGuiaProfesorService } from "../service/profesores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
+import { io } from "../app"; // Importa el objeto de Socket.io
 
 const getProfesores=async(req:Request,res:Response)=>{
     try{
@@ -82,4 +83,27 @@ const getGradoGuiaProfesor=async(req:Request,res:Response)=>{
      }
 }
 
-export {getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass,getGradoGuiaProfesor}
+const fotoPerfilProfeController=async(req:Request,res:Response)=>{
+    try {
+        const {ruta_imagen}=req.body;
+        const {idProfesor}=req.body;
+        const {peso_imagen}=req.body
+        const fotoPerfilProfesor=await fotoPerfilProfesorService(idProfesor,ruta_imagen,peso_imagen)
+        io.emit('actualizar-foto-ferfil-profesor',{usuario:idProfesor,idRol:"2"})
+        res.send(fotoPerfilProfesor)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+
+const getFotoPerfilActivaProfesor=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const consulta=await getFotoPerfilProfesorService(id)
+        res.send(consulta)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+
+export {fotoPerfilProfeController,getFotoPerfilActivaProfesor,getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass,getGradoGuiaProfesor}

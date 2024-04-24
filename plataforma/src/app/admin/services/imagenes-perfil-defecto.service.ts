@@ -28,7 +28,7 @@ export class ImagenesPerfilDefectoService {
 //para almacenar la foto de perfil del usuario
   subidaDeImagen(idAdmin:string,ruta:string,peso:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/administradores/admin-foto-perfil/`,{ruta_imagen:ruta,idProfesor:idAdmin,peso_imagen:peso},httpOptions).pipe(
+    return this.http.put(`${this.URL}/administradores/admin-foto-perfil/`,{ruta_imagen:ruta,idProfesor:idAdmin,peso_archivo:peso},httpOptions).pipe(
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }

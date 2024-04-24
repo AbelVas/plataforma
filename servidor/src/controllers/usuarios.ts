@@ -1,8 +1,9 @@
 import { Request,Response } from "express";
-import {getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
+import {getFotoPerfilAlumnoService,fotoPerfilAlumnoService,getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
     UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor} from "../service/usuarios";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
+import { io } from "../app"; // Importa el objeto de Socket.io
 
 const getAlumnos=async(req:Request,res:Response)=>{
     try{
@@ -159,6 +160,28 @@ const updateEstadoTutor=async(req:Request,res:Response)=>{
     }
 }
 
+const fotoPerfilAlumnoController=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const {ruta_imagen}=req.body;
+        const {idAlumno}=req.body;
+        const {peso_imagen}=req.body
+        const fotoPerfilAlumno=await fotoPerfilAlumnoService(idAlumno,ruta_imagen,peso_imagen)
+        io.emit('actualizar-foto-ferfil-alumno',{usuario:idAlumno,idRol:"4"})
+        res.send(fotoPerfilAlumno)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+const getFotoPerfilActivaAlumno=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const consulta=await getFotoPerfilAlumnoService(id)
+        res.send(consulta)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
 
-export {getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer,
+export {getFotoPerfilActivaAlumno,fotoPerfilAlumnoController,getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer,
     ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor}

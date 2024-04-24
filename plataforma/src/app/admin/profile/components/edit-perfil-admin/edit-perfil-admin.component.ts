@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PerfilService } from '../../../services/perfil.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import decode from "jwt-decode"
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from 'src/app/web-socket.service';
-import { UploadFotoPerfilService } from '../../../services/upload-foto-perfil.service';
+import { UploadFotoPerfilService } from '../../../../upload-foto-perfil.service';
 
 
 @Component({
@@ -23,8 +23,7 @@ export class EditPerfilAdminComponent implements OnInit {
   uploadedFilePath: any;
   uploadProgress: number | undefined;
   vistaPrevia: any
-  anchoOriginal: number | undefined;
-  altoOriginal: number | undefined;
+
   constructor(private imagenesPerfil: ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
   }
 
@@ -54,17 +53,13 @@ export class EditPerfilAdminComponent implements OnInit {
   @ViewChild('cerrarEliminarModal') modalCloseEliminar: any;
   @ViewChild('cerrarEditarModal') modalCloseEditarImg: any;
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
-
+  @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
   ngOnInit(): void {
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.perfilAdminService.disparadorCopiarData.subscribe(data=>{
     this.adminIndividual=Object.values(data);
-    const fecha_nacimiento=this.adminIndividual[0].fecha_nacimiento
-    const split=fecha_nacimiento.split('/');
-    const day=split[0];
-    const mes=split[1];
-    const ano=split[2];
+
     if(this.adminIndividual[0].estatus==1){
       this.classBadgeActive='badge bg-success';
       this.estado="Activo"
@@ -72,7 +67,6 @@ export class EditPerfilAdminComponent implements OnInit {
       this.classBadgeActive='badge bg-danger';
       this.estado="Inactivo"
     }
-    this.adminIndividual[0].fecha_nacimiento=ano+'-'+mes+'-'+day;
     this.permitirVer=this.adminIndividual[0].permitir_ver_correo;
     });
     this.getImagenPerfil(this.idUsuario);
@@ -80,7 +74,6 @@ export class EditPerfilAdminComponent implements OnInit {
      this.socketService.escucharEvento('actualizar-foto-ferfil-admin').subscribe((data: any) => {
       if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
         this.getImagenPerfil(this.idUsuario);
-        console.log("cambio desde socket coso de arriba")
         }
       });
   }
@@ -98,6 +91,17 @@ export class EditPerfilAdminComponent implements OnInit {
         console.log(err)
       }
     )
+  }
+  reiniciarModal() {
+    if (this.uploadForm) {
+      // Obtener el formulario y restablecer sus valores
+      const form: any = this.uploadForm.nativeElement;
+      form.reset();
+      this.vistaPrevia = ''; // Limpiar la vista previa de la imagen si la tienes
+      this.uploadProgress = undefined; // Reiniciar el progreso de la barra
+    } else {
+      console.error('Error: uploadForm is undefined.'); // Opcional: Mostrar un mensaje de error si uploadForm es undefined
+    }
   }
   onSubmit(form: HTMLFormElement) {
     const { idUsuario }: any = decode(this.token);
@@ -132,14 +136,15 @@ export class EditPerfilAdminComponent implements OnInit {
 
       this.imagenPerfilService.subidaDeImagen(idUsuario,filePathFinal,file.size).subscribe(
         res=>{
-          console.log(res)
+          this.adminIndividual[0].imagen=filePathFinal
         },
         err=>{
           console.log(err)
         }
       )
       // Realiza acciones adicionales con la respuesta del servidor si es necesario
-      this.toastrService.success('El archivo:'+ file.name +'se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
+      this.toastrService.success('El archivo: "'+ file.name +'" se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
+      this.getImagenPerfil(idUsuario)
     }
   },
   error => { // Maneja los errores de la carga

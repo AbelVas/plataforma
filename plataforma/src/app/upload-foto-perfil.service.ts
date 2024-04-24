@@ -9,8 +9,8 @@ import { ManejoDeErroresService } from 'src/app/manejo-de-errores.service';
 })
 export class UploadFotoPerfilService {
 
-  //private apiUrl = 'http://localhost/backendimagenes/foto-perfil.php';
-    private apiUrl = 'serverimages/foto-perfil.php';
+      private apiUrl = 'http://localhost/backendimagenes/foto-perfil.php';  //<- pruebas en local
+    //private apiUrl = 'serverimages/foto-perfil.php'; //<-en producción
 
   constructor(private http: HttpClient,private errorHandler: ManejoDeErroresService) { }
 

@@ -1,0 +1,6 @@
+.rounded-image {
+  width: 51px; /* Ajusta el tamaño según tus necesidades */
+  height: 51px; /* Ajusta el tamaño según tus necesidades */
+  background-size: cover; /* Ajustar imagen sin distorsionar */
+  background-position: center; /* Centrar la imagen */
+}

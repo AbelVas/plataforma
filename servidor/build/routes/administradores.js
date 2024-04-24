@@ -13,3 +13,5 @@ router.get("/admin", session_1.checkJwt, administradores_1.getAdmins);
 router.put("/admin/:id", session_1.checkJwt, administradores_1.updateAdmin);
 router.delete("/admin/:id", session_1.checkJwt, administradores_1.deleteAdmin);
 router.post("/admin/pass/:id", session_1.checkJwt, administradores_1.compararPass);
+router.put("/admin-foto-perfil", session_1.checkJwt, administradores_1.fotoPerfilAdminController);
+router.get("/admin-foto-perfil/:id", session_1.checkJwt, administradores_1.getFotoPerfilActivaAdmin);

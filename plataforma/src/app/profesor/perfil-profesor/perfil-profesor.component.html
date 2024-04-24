@@ -13,9 +13,11 @@
         <div class="col-xl-4">
            <div class="card">
               <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                <img [src]="profesorIndividual.imagen" alt="Profile" class="rounded-circle">
-                  <h2>{{p.nombre_profesor}} {{p.apellido_profesor}}</h2>
-                 <h3>Profesor</h3>
+                <div class="contenedor-centrado">
+                  <div [style.background-image]="'url(' + imagenActiva[0]?.ruta_imagen + ')'" class="imagen-div-perfil text-center"></div><br>
+                </div>
+                 <h2 class="text-center">{{ imagenActiva[0]?.profesor }}</h2>
+                 <h3>{{rol}}</h3>
               </div>
            </div>
         </div>
@@ -33,7 +35,7 @@
                     <app-overview-perfil-profesor (datosEvento)="getEvent($event)"></app-overview-perfil-profesor>
                   </div>
                   <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                    <app-edit-perfil-profesor (datosEventoImagen)="getEvent2($event)"></app-edit-perfil-profesor>
+                    <app-edit-perfil-profesor></app-edit-perfil-profesor>
                   </div>
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <app-password-perfil-profesores></app-password-perfil-profesores>

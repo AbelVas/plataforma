@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import { PerfilAlumnoService } from '../services/perfil-alumno.service';
 import { TemaEstudianteService } from '../services/tema-estudiante.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-perfil-student',
@@ -10,7 +11,12 @@ import { TemaEstudianteService } from '../services/tema-estudiante.service';
 })
 export class PerfilStudentComponent implements OnInit {
 
-  token:any=localStorage.getItem('Acces-Token');
+  token: any = localStorage.getItem('Acces-Token');
+  idUsuario: any;
+  idRol: any;
+  rol:any
+  imagenActiva:any=[]
+
   errorServicio:any=[];
   estado:any;
   classBadgeActive:any;
@@ -40,20 +46,42 @@ export class PerfilStudentComponent implements OnInit {
   cfondo1:string='';
   ctexto1:string='';
 
-  constructor( private perfilAlumnosService:PerfilAlumnoService, private temaEstudianteService:TemaEstudianteService) { }
+  constructor(private socketService:WebSocketService,private perfilAlumnosService:PerfilAlumnoService, private temaEstudianteService:TemaEstudianteService) { }
 
   ngOnInit(): void {
+    const decodedToken: any = decode(this.token);
+    this.idUsuario = decodedToken.idUsuario;
+    this.idRol = decodedToken.idRol;
+    this.rol=decodedToken.rol
     this.obtenerDatosAlumno();
     this.alumnoIndividual=this.alumnoGet;
     this.perfilAlumnosService.disparadorCopiarData.emit(this.alumnoIndividual);
 
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
+    this.getImagenPerfil()
+    // En el componente o servicio del módulo profesor
+    this.socketService.escucharEvento('actualizar-foto-ferfil-alumno').subscribe((data: any) => {
+    if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
+      this.getImagenPerfil()
+      }
+    });
   }
-
+  getImagenPerfil() {
+    this.perfilAlumnosService.getFotoALUMNO(this.idUsuario).subscribe(
+      res=>{
+        this.imagenActiva=res
+        if(this.imagenActiva[0]?.ruta_imagen==undefined){
+          this.imagenActiva[0].ruta_imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
   obtenerDatosAlumno(){
-    const {idUsuario}:any=decode(this.token);
-    this.perfilAlumnosService.getAlumno(idUsuario).subscribe(
+    this.perfilAlumnosService.getAlumno(this.idUsuario).subscribe(
       response=>{
         this.alumnoGet=response;
         this.perfilAlumnosService.disparadorCopiarData.emit({

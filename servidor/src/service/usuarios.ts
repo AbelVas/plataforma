@@ -121,7 +121,17 @@ const UpdateStatusTutores=async(id:string)=>{
     return update;
 }
 
+const fotoPerfilAlumnoService=async(id:string,ruta:string,peso:string)=>{
+    const consultaprev=await conexion.query("UPDATE tbImagenPerfilAlumno SET activa=0 WHERE idAlumno=?",[id]);
+    const consulta=await conexion.query('INSERT INTO tbImagenPerfilAlumno SET idAlumno=?, ruta_imagen=?, peso_archivo=?, activa=1',[id,ruta,peso])
+    return consulta
+}
+
+const getFotoPerfilAlumnoService=async(id:string)=>{
+    const getFoto=await conexion.query("SELECT CASE WHEN img.activa = 1 THEN img.ruta_imagen WHEN img.activa IS NULL THEN NULL ELSE 'null' END AS ruta_imagen, CONCAT(a.nombres_alumno, ' ', a.apellidos_alumno) AS alumno FROM tbImagenPerfilAlumno img RIGHT JOIN tbAlumno a ON a.idAlumno = img.idAlumno WHERE a.idAlumno = ? AND (img.activa = 1 OR img.activa IS NULL);",[id])
+    return getFoto
+}
 
 
-export{getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
+export{getFotoPerfilAlumnoService,fotoPerfilAlumnoService,getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
     UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor}

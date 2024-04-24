@@ -1,7 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import { PerfilProfesorService } from '../services/perfil-profesor.service';
 import { TemaProfesorService } from '../services/tema-profesor.service';
+import { WebSocketService } from 'src/app/web-socket.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-perfil-profesor',
@@ -10,7 +12,12 @@ import { TemaProfesorService } from '../services/tema-profesor.service';
 })
 export class PerfilProfesorComponent implements OnInit {
 
-  token:any=localStorage.getItem('Acces-Token');
+  token: any = localStorage.getItem('Acces-Token');
+  idUsuario: any;
+  idRol: any;
+  rol:any
+  imagenActiva:any=[]
+
   errorServicio:any=[];
   estado:any;
   classBadgeActive:any;
@@ -43,15 +50,40 @@ export class PerfilProfesorComponent implements OnInit {
   cfondo2:string='';
   ctexto1:string='';
 
-  constructor(private perfilProfesoresService:PerfilProfesorService, private temaProfesorService:TemaProfesorService ) {}
+  constructor(private socketService:WebSocketService,private perfilProfesoresService:PerfilProfesorService, private temaProfesorService:TemaProfesorService ) {}
 
   ngOnInit(): void {
+    const decodedToken: any = decode(this.token);
+    this.idUsuario = decodedToken.idUsuario;
+    this.idRol = decodedToken.idRol;
+    this.rol=decodedToken.rol
     this.obtenerDatosProfesor();
     this.profesorIndividual=this.profesorGet
     this.perfilProfesoresService.disparadorCopiarData.emit(this.profesorIndividual);
-
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
+
+    this.getImagenPerfil()
+        // En el componente o servicio del módulo profesor
+    this.socketService.escucharEvento('actualizar-foto-ferfil-profesor').subscribe((data: any) => {
+      if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
+        this.getImagenPerfil()
+        }
+      });
+  }
+
+  getImagenPerfil() {
+    this.perfilProfesoresService.getFotoPROFE(this.idUsuario).subscribe(
+      res=>{
+        this.imagenActiva=res
+        if(this.imagenActiva[0]?.ruta_imagen==undefined){
+          this.imagenActiva[0].ruta_imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
 
   obtenerDatosProfesor(){
@@ -89,13 +121,6 @@ export class PerfilProfesorComponent implements OnInit {
   getEvent(e:any){
     this.profesorIndividual.nombre_profesor=e[0].nombre_profesor
     this.profesorIndividual.apellido_profesor=e[0].apellido_profesor
-    this.profesorIndividual.imagen=e[0].imagen
-  }
-  getEvent2(e:any){
-    this.profesorIndividual.imagen=e.imagen
-  }
-  getEvent3(e:any){
-    console.log('asdasd')
   }
 
 }

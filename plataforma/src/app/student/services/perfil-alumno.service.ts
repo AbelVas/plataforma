@@ -35,4 +35,17 @@ export class PerfilAlumnoService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
+
+  getFotoALUMNO(id:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/alumno-foto-perfil/${id}`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    )
+  }
+  subidaDeImagen(idAlumno:string,ruta:string,peso:any){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.put(`${this.URL}/usuarios/alumno-foto-perfil-update/${idAlumno}`,{ruta_imagen:ruta,idAlumno:idAlumno,peso_archivo:peso},httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    )
+  }
 }

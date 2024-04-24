@@ -2,10 +2,13 @@
   <div class="row mb-3">
     <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
     <div class="col-md-8 col-lg-9">
-       <img [src]="profesorIndividual[0].imagen" alt="Profile">
-       <div class="pt-2">
+      <div class="contenedor-centrado">
+        <div [style.background-image]="'url(' + profesorIndividual[0].imagen + ')'" class="imagen-div-perfil text-center"></div><br>
+      </div>
+       <div class="pt-2 text-center">
+        <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#importImg"><i class="fa-solid fa-file-arrow-up"></i></button>
          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-pen-to-square"></i></button>
-         <button class="btn btn-danger" (click)="eliminarFotoPerfil()"><i class="fa-solid fa-trash-can"></i></button>
+         <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
        </div>
     </div>
  </div>
@@ -51,7 +54,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="actualizarImagenPerfil(profesorIndividual[0].idProfesor)">Guardar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
@@ -95,13 +98,7 @@
   <div class="col-md-8 col-lg-9">
     <input formControlName="correo2" type="email" class="form-control" [(ngModel)]="profesorIndividual[0].correo2" [ngClass]="{'is-invalid': submitted&&f.correo2.invalid}"></div>
 </div>
-  <!--
-  <div class="row mb-3">
-    <label class="col-md-4 col-lg-3 col-form-label">Usuario</label>
-    <div class="col-md-8 col-lg-9">
-      <input formControlName="usuario" type="email" class="form-control" [(ngModel)]="profesorIndividual[0].usuario" [ngClass]="{'is-invalid': submitted&&f.usuario.invalid}"></div>
-  </div>
-  -->
+
   <div class="row mb-3">
     <label class="col-md-4 col-lg-3 col-form-label">Estado</label>
     <div class="col-md-8 col-lg-9"><span [class]="classBadgeActive">{{estado}}</span></div>
@@ -114,3 +111,40 @@
   <hr>
   <div class="text-center"> <button type="submit" class="btn btn-primary">Actualizar Datos</button></div>
 </form>
+
+<!-- Modal subir imagen-->
+<div class="modal fade" id="importImg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Subir imagen de perfil</h1>
+        <button type="button"  #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm)" autocomplete="off">
+        <div class="modal-body">
+            <label for="subirImagen" class="form-label">Suba su imagen</label>
+            <input #fileInput class="form-control" type="file" name="file" id="subirImagen" (change)="mostrarVistaPrevia($event)">
+            <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+            </div>
+
+          <div class="text-center contenedor-centrado">
+            <div><br>
+            <div *ngIf="vistaPrevia" class="img-preview" [style.background-image]="'url(' + vistaPrevia + ')'" alt="Vista previa de la imagen"></div>
+          </div>
+        </div>
+        </div>
+
+      <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
+      </div>
+      <ng-template class="modal-footer" #botonAceptar>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </ng-template>
+    </form>
+    </div>
+  </div>
+</div>

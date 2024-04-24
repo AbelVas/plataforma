@@ -36,7 +36,6 @@ export class OpcionesPerfilComponent implements OnInit {
     this.socketService.escucharEvento('actualizar-foto-ferfil-admin').subscribe((data: any) => {
       if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
         this.getImagenPerfil()
-        console.log("cambio desde socket coso de arriba")
         }
       });
   }

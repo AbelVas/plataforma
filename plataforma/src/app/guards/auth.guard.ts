@@ -29,13 +29,5 @@ export class AuthGuard implements CanActivate,CanActivateChild{
     }
     return true;
   }
-  /*
-  canDeactivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-  canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
 
-  */
 }

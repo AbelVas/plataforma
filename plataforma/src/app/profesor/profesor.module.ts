@@ -64,6 +64,7 @@ import { SonidosService } from "../sonidos.service";
 import { NotificacionesDocenteService } from "./services/notificaciones-docente.service";
 import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notificaciones-mensajes.component';
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
+import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 
 
 @NgModule({
@@ -133,7 +134,8 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
     CuadroFinalService,
     CuadroGuiaService,
     SonidosService,
-    NotificacionesDocenteService
+    NotificacionesDocenteService,
+    UploadFotoPerfilService
   ]
 })
 

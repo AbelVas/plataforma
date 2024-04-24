@@ -12,6 +12,7 @@ import { SonidosService } from './sonidos.service';
 import { ManejoDeErroresService } from './manejo-de-errores.service';
 import { ErrorInterceptor } from './error.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UploadFotoPerfilService } from './upload-foto-perfil.service';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     SonidosService,
     ManejoDeErroresService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    UploadFotoPerfilService
   ],
   bootstrap: [AppComponent]
 })

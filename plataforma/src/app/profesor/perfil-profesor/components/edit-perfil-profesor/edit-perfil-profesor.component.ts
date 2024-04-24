@@ -1,9 +1,12 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { PerfilProfesorService } from '../../../services/perfil-profesor.service';
 import  {DatePipe} from "@angular/common"
 import { Router } from "@angular/router";
-import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
+import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import decode from "jwt-decode"
+import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-edit-perfil-profesor',
@@ -11,7 +14,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edit-perfil-profesor.component.css']
 })
 export class EditPerfilProfesorComponent implements OnInit {
-  constructor(private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
+  token: any = localStorage.getItem('Acces-Token');
+  idUsuario: any;
+  idRol: any;
+  selectedFile: File | undefined;
+  uploadedFilePath: any;
+  uploadProgress: number | undefined;
+  vistaPrevia: any
+  imagenActiva:any
+  constructor(private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
   submitted=false;
   pipe = new DatePipe('en-US');
   classBadgeActive:any;
@@ -32,7 +43,6 @@ export class EditPerfilProfesorComponent implements OnInit {
   })
 
   //imagen de este coso de cambiar imagen de perfil
-  imagenPerfilDefecto:any='assets/img/blank_profile.png'
   listaImagenes:any=[]
   imagenPerfilActual:any=''
   imagenPerfilNueva:any=''
@@ -40,8 +50,12 @@ export class EditPerfilProfesorComponent implements OnInit {
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
   @Output() datosEventoImagen=new EventEmitter<any>();
   //----------------------------------------
-
+  @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
   ngOnInit(): void {
+    const decodedToken: any = decode(this.token);
+    this.idUsuario = decodedToken.idUsuario;
+    this.idRol=decodedToken.idRol
+    //fin saco la data del token
     this.perfilProfesorService.disparadorCopiarData.subscribe(data=>{
       this.profesorIndividual=Object.values(data);
       const fecha_nacimiento=this.profesorIndividual[0].fecha_nacimiento
@@ -59,6 +73,108 @@ export class EditPerfilProfesorComponent implements OnInit {
       this.profesorIndividual[0].fecha_nacimiento=ano+'-'+mes+'-'+day;
       this.permitirVer=this.profesorIndividual[0].permitir_ver_correo;
     });
+    this.getImagenPerfil(this.idUsuario);
+    //coso de socket
+    this.socketService.escucharEvento('actualizar-foto-ferfil-profesor').subscribe((data: any) => {
+      if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
+        this.getImagenPerfil(this.idUsuario);
+        }
+    });
+  }
+  reiniciarModal() {
+    if (this.uploadForm) {
+      // Obtener el formulario y restablecer sus valores
+      const form: any = this.uploadForm.nativeElement;
+      form.reset();
+      this.vistaPrevia = ''; // Limpiar la vista previa de la imagen si la tienes
+      this.uploadProgress = undefined; // Reiniciar el progreso de la barra
+    } else {
+      console.error('Error: uploadForm is undefined.'); // Opcional: Mostrar un mensaje de error si uploadForm es undefined
+    }
+  }
+  onSubmit(form: HTMLFormElement) {
+    const { idUsuario }: any = decode(this.token);
+    const { idRol }: any = decode(this.token);
+    const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file: File = fileInput.files[0];
+      // Validar extensión del archivo
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+      const fileExtension: any = file.name.split('.').pop()?.toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.toastrService.error('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '), 'Error', { closeButton: true, timeOut: 0 });
+        return; // Salir de la función si la extensión no es válida
+      }
+      // Validar peso del archivo
+      const maxSizeInBytes: any = 10 * 1024 * 1024; // 10 MB
+      if (file.size > maxSizeInBytes) {
+        this.toastrService.error('El tamaño del archivo supera el límite permitido (10MB).', 'Error', { timeOut: 3000, extendedTimeOut: 10000 });
+        return; // Salir de la función si el tamaño es mayor al límite
+      }
+
+ // Inicia el proceso de carga
+ this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol).subscribe(
+  response => { // Maneja la respuesta del servidor
+
+    if (typeof response === 'number'){
+      if (response >= 0 && response <= 100) {
+        this.uploadProgress = response;
+      }
+    }else if(typeof response === 'object' && response.filePath){
+      const filePathFinal:any=response.filePath;
+
+      this.perfilProfesorService.subidaDeImagen(idUsuario,filePathFinal,file.size).subscribe(
+        res=>{
+          this.profesorIndividual[0].imagen=filePathFinal
+          console.log(res)
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+      // Realiza acciones adicionales con la respuesta del servidor si es necesario
+      this.toastrService.success('El archivo: "'+ file.name +'" se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
+    }
+  },
+  error => { // Maneja los errores de la carga
+    this.toastrService.error('Error al subir el archivo: '+error, 'Error', { timeOut: 3000 });
+  }
+);
+    } else {
+      // Mostrar un mensaje indicando que no se seleccionó ningún archivo
+      this.toastrService.error('Por favor, selecciona un archivo para subir.', 'Error', { timeOut: 3000 });
+    }
+  }
+  getImagenPerfil(idAdmin:string) {
+    this.perfilProfesorService.getFotoPROFE(idAdmin).subscribe(
+      res=>{
+        this.imagenActiva=res
+        if(this.imagenActiva[0]?.ruta_imagen==undefined){
+          this.profesorIndividual[0].imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+        }else{
+          this.profesorIndividual[0].imagen=this.imagenActiva[0]?.ruta_imagen
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  mostrarVistaPrevia(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    // Validar extensión del archivo
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target) {
+          this.vistaPrevia = e.target.result as string;
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
   selectedCheck(e:any){
     if(e.target.checked){
@@ -93,46 +209,10 @@ export class EditPerfilProfesorComponent implements OnInit {
       }
     )
   }
-
-  //imagen de este coso de cambiar imagen de perfil
-  ejecutarEventoActualizar(data:any){
-    this.datosEventoImagen.emit(data);
-  }
-  actualizarImagenPerfil(idProfesor:string){
-    if(this.imagenPerfilActual!=''){
-      var imagenPerfil:any={
-        imagen:this.imagenPerfilActual
-      }
-      this.perfilProfesorService.updateProfesor(imagenPerfil,idProfesor).subscribe(
-        res=>{
-          this.ejecutarEventoActualizar(imagenPerfil)
-          this.modalCloseEditar.nativeElement.click()
-        },
-        err=>{
-          console.log(err)
-        }
-      )
-    }
-  }
-  eliminarFotoPerfil(){
-    var imagenPerfil:any={
-      imagen:this.imagenPerfilDefecto
-    }
-    console.log(this.profesorIndividual[0].idProfesor)
-    this.perfilProfesorService.updateProfesor(imagenPerfil,this.profesorIndividual[0].idProfesor).subscribe(
-      res=>{
-        console.log(res)
-      },
-      err=>{
-        console.log(err)
-      }
-    )
-  }
   valueGetImagen(e:any){
     this.imagenPerfilActual=e
     this.profesorIndividual[0].imagen=e
   }
-
   getImagenesPerfil(idCategoria:string){
     this.perfilProfesorService.getImagenCategoria(idCategoria).subscribe(
       res=>{
@@ -147,9 +227,8 @@ export class EditPerfilProfesorComponent implements OnInit {
     this.idCategoriaImagen=e.target.value
     this.getImagenesPerfil(e.target.value);
   }
-//------------------------------------------
-
 //esto es para validar que un campo no se vaya vacio si es importante
 get f() { return this.EditarProfesorForm.controls; }
 
 }
+

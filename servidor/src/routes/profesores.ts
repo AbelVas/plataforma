@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass,getGradoGuiaProfesor } from "../controllers/profesores";
+import { fotoPerfilProfeController,getFotoPerfilActivaProfesor,getProfesores,getProfesor,updateProfesor,deleteProfesor,insertarProfesor,compararPass,getGradoGuiaProfesor } from "../controllers/profesores";
 import { logMiddleware } from "../middleware/log";
 import { checkJwt } from "../middleware/session";
 
@@ -12,6 +12,8 @@ router.post("/profesor/",logMiddleware,insertarProfesor);
 router.put("/profesor/:id",checkJwt,updateProfesor);
 router.delete("/profesor/:id",checkJwt,deleteProfesor);
 router.post("/profesor/pass/:id",checkJwt,compararPass);
+router.get("/profesor-foto-perfil/:id",checkJwt,getFotoPerfilActivaProfesor)
+router.put("/profesor-foto-perfil",checkJwt,fotoPerfilProfeController)
 
 
 export {router};

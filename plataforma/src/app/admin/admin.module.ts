@@ -89,7 +89,7 @@ import { AsignacionGradoGuiaComponent } from './asignacion-grado-guia/asignacion
 import { OpcionesAdminMenuService } from "./services/opciones-admin-menu.service";
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 //
-import { UploadFotoPerfilService } from "./services/upload-foto-perfil.service";
+import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 
 @NgModule({
     declarations: [

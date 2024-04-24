@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compararPass = exports.updateAdmin = exports.getAdmins = exports.getAdmin = exports.deleteAdmin = exports.putAdmin = void 0;
+exports.compararPass = exports.updateAdmin = exports.getAdmins = exports.getAdmin = exports.deleteAdmin = exports.putAdmin = exports.fotoPerfilAdminController = exports.getFotoPerfilActivaAdmin = void 0;
 const administradores_1 = require("../service/administradores");
 const error_handle_1 = require("../utils/error.handle");
 const passwordFunction_1 = require("../utils/passwordFunction");
+const app_1 = require("../app"); // Importa el objeto de Socket.io
 const putAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const validar = yield (0, administradores_1.validarAdminExisteSi)(req.body.usuario, req.body.CUI);
@@ -95,3 +96,28 @@ const compararPass = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.compararPass = compararPass;
+const fotoPerfilAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { ruta_imagen } = req.body;
+        const { idProfesor } = req.body;
+        const { peso_imagen } = req.body;
+        const fotoPerfilAdmin = yield (0, administradores_1.fotoPerfilAdminService)(idProfesor, ruta_imagen, peso_imagen);
+        app_1.io.emit('actualizar-foto-ferfil-admin', { usuario: idProfesor, idRol: "1" });
+        res.send(fotoPerfilAdmin);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.fotoPerfilAdminController = fotoPerfilAdminController;
+const getFotoPerfilActivaAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const consulta = yield (0, administradores_1.getFotoPerfilAdminService)(id);
+        res.send(consulta);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getFotoPerfilActivaAdmin = getFotoPerfilActivaAdmin;
