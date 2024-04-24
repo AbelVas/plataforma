@@ -16,6 +16,7 @@ import { PerfilStudentComponent } from "./perfil-student/perfil-student.componen
 import { StudentComponent } from "./student.component";
 import { TutorialComponent } from "./tutorial/tutorial.component";
 import { CalendarioVistaMesComponent } from "./calendario-vista-mes/calendario-vista-mes.component";
+import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
 
 const routes:Routes=[
   {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component: StudentComponent,children:
@@ -32,6 +33,7 @@ const routes:Routes=[
     {path:'actividad',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ActividadCursoStudentComponent},
     {path:'examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '4' },component:ExamenCursoStudentComponent},
     {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
+    {path:'notificaciones',canActivate:[AuthGuard,RolesGuard],data:{expectedRole:'4'},component:NotificacionesMensajesComponent},
   ]
   },
 ]

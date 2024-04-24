@@ -46,6 +46,8 @@ import { ListaActividadesCursoComponent } from './lista-actividades-curso/lista-
 import { CalendarioVistaMesComponent } from './calendario-vista-mes/calendario-vista-mes.component';
 import { OpcionesMenuService } from "./margenes/sidebar/opciones-menu/opciones-menu.service";
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
+import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notificaciones-mensajes.component';
+import { NotificacionesStudentService } from "./services/notificaciones-student.service";
 //
 
 
@@ -55,7 +57,7 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
     SharedModule,
     PublicModule,
     FullCalendarModule,
-    CKEditorModule
+    CKEditorModule,
   ],
   declarations:[
     StudentComponent,
@@ -89,7 +91,8 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
     ListaActividadesComponent,
     ListaActividadesCursoComponent,
     CalendarioVistaMesComponent,
-    ErroresComponent
+    ErroresComponent,
+    NotificacionesMensajesComponent
   ],
   exports:[
   ],
@@ -102,7 +105,8 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
     PerfilAlumnoService,
     CalificacionesStudentService,
     TemaEstudianteService,
-    OpcionesMenuService
+    OpcionesMenuService,
+    NotificacionesStudentService
   ]
 })
 

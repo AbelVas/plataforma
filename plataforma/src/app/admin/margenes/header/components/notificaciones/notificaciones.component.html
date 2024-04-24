@@ -1,21 +1,13 @@
-
 <li class="nav-item dropdown">
-  <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> <i class="fa-solid fa-bell"></i> <span class="badge bg-primary badge-number">4</span> </a>
-  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-     <li class="dropdown-header"> Tienes 4 notificaciones <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver Todas</span></a></li>
-     <li>
-        <hr class="dropdown-divider">
-     </li>
-     <li class="notification-item">
-        <i class="bi bi-info-circle text-primary"></i>
-        <div>
-           <h4>Ejemplo</h4>
-           <p>Quae dolorem earum veritatis oditseno</p>
-           <p class="text-end"><b>Hace 4 hrs</b></p>
-        </div>
-     </li>
-     <li>
-      <hr class="dropdown-divider">
-   </li>
-  </ul>
-</li>
+   <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> <i class="fa-solid fa-bell"></i>
+     <span class="badge bg-primary badge-number">{{notificacionesNoVistas}}</span>
+   </a>
+   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+      <li class="dropdown-header"> Tienes {{notificacionesNoVistas}} notificaciones nuevas<a routerLink="notificaciones"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver Todas</span></a></li>
+     <ng-container *ngIf="notificacionesNoVistas!='0'">
+       <li>
+         <hr class="dropdown-divider">
+      </li>
+     </ng-container>
+   </ul>
+ </li>
