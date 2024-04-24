@@ -37,7 +37,7 @@ export class StudentComponent implements OnInit{
   cfondo1:string='';
 
   token:any = localStorage.getItem('Acces-Token');
-  constructor( private temaEstudianteService:TemaEstudianteService,private socket:WebSocketService){}
+  constructor( private temaEstudianteService:TemaEstudianteService,private socket:WebSocketService,private socketService:WebSocketService,private toastrService:ToastrService){}
 
   ngOnInit(){
     this.obtenerDatosTema();
@@ -45,7 +45,16 @@ export class StudentComponent implements OnInit{
     const {idUsuario}:any=decode(this.token);
     const {idRol}:any=decode(this.token);
     const {rol}:any=decode(this.token);
+    console.log(idUsuario)
+    console.log(idRol)
+    console.log(rol)
     this.socket.emitirEvento('associateUser', { idUsuario: idUsuario,idRol:idRol,rol:rol })
+    // En el componente o servicio del módulo profesor
+    this.socketService.escucharEvento('nueva-notificacion-usuario-recibida').subscribe((data: any) => {
+      if(data.usuario==idUsuario&&data.idRol==idRol){
+        this.toastrService.success(data.mensaje, 'Atención!');//veamos
+      }
+    });
   }
 
   obtenerDatosTema(){

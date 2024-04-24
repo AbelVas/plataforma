@@ -7,6 +7,8 @@ import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/activ
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+import { WebSocketService } from 'src/app/web-socket.service';//servicio que maneja el "Emitir evento" y "Escuchar Evento"
+
 @Component({
   selector: 'app-opciones-curso',
   templateUrl: './opciones-curso.component.html',
@@ -170,14 +172,25 @@ export class OpcionesCursoComponent implements OnInit {
     this.getAlumnoCalificacionActividad(idActividad,idUnidad);
   }
 
-  calificarActividad(Calificacaion:any,idActividad:string,idAlumno:string){
+  calificarActividad(Calificacaion:any,idActividad:string,idAlumno:string,ver_nota:string){
     const elemto=Calificacaion.currentTarget as HTMLInputElement //para acceder al valor de los select en el HTML
     const value=elemto.value
     if(value!=''){
       var nota:any={
         idAlumno:idAlumno,
-        calificacion:value
+        calificacion:value,
+        idRolEnvia:"2",
+        idUsuarioEnvia:this.idProfesor,
+        idRolRecibe:"4",
+        idUsuarioRecibe:idAlumno,
+        titulo_notificacion:"Calificacion Actividad",
+        mensaje:"Calificacion de Actividad: "+ this.ActividadIndividual.nombre_actividad,
+        visto_recibe:"0",
+        visto_envia:"1",
+        verNota:ver_nota,
+        disponible:this.ActividadIndividual.disponible,
       }
+      console.log(nota)
       this.actividadesOpcionesCursoService.calificarActividad(idActividad,nota).subscribe(
         res=>{
           this.toastrService.success(`Calificaciones Guardadas`,'Realizado')
@@ -197,6 +210,7 @@ export class OpcionesCursoComponent implements OnInit {
     this.actividadesOpcionesCursoService.getAlumnoCalificacionActividad(this.idCurso,this.datosCalificar).subscribe(
       res=>{
         this.listaCalificacionAlumno=res;
+        console.log(res)
       },
       err=>{
         console.log(err)
