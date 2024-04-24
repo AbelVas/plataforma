@@ -27,6 +27,7 @@
 
                     <div class="tab-pane fade show active" id="tab1">
                       <!-- Contenido de la pestaña de correos recibidos -->
+                      <div style="overflow-x: scroll;">
                       <table class="table table-responsive">
                            <tbody>
                             <ng-container *ngIf="correosPaginados.length!=0 else logoNoHay">
@@ -53,6 +54,7 @@
                           </ng-template>
                            </tbody>
                     </table>
+                    </div>
                       <!-- Agregar la paginación manual -->
                       <div class="">
                         <div class="pagination alinear-derecha-paginador">

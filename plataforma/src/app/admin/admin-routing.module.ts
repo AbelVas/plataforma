@@ -22,6 +22,7 @@ import { CuadroFinalComponent } from "./cuadro-final/cuadro-final.component";
 import { BoletaEspecialComponent } from "./boleta-especial/boleta-especial.component";
 import { BoletaFinalPromedioCursoComponent } from "./boleta-final-promedio-curso/boleta-final-promedio-curso.component";
 import { AsignacionGradoGuiaComponent } from "./asignacion-grado-guia/asignacion-grado-guia.component";
+import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
 
 
 const routes:Routes=[
@@ -50,6 +51,7 @@ const routes:Routes=[
     {path:'boletas/:idGrado/:idAlumno',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletasComponent},
     {path:'boleta-especial/:idGrado/:idAlumno',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletaEspecialComponent},
     {path:'boleta-especial-final/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletaFinalPromedioCursoComponent},
+    {path:'notificaciones',canActivate:[AuthGuard,RolesGuard],data:{expectedRole:'1'},component:NotificacionesMensajesComponent},
   ]
   },
 ]

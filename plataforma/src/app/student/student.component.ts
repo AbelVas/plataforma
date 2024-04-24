@@ -1,6 +1,7 @@
 import { Component,OnInit } from "@angular/core";
 import { TemaEstudianteService } from "./services/tema-estudiante.service";
 import { WebSocketService } from "../web-socket.service";
+import { ToastrService } from 'ngx-toastr';
 import decode from 'jwt-decode';
 
 @Component({
