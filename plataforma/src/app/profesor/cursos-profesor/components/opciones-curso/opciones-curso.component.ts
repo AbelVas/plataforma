@@ -184,7 +184,7 @@ export class OpcionesCursoComponent implements OnInit {
         idRolRecibe:"4",
         idUsuarioRecibe:idAlumno,
         titulo_notificacion:"Calificacion Actividad",
-        mensaje:"Calificacion de Actividad: "+ this.ActividadIndividual.nombre_actividad,
+        mensaje:"Se ha calificado la siguiente actividad: "+ this.ActividadIndividual.nombre_actividad,
         visto_recibe:"0",
         visto_envia:"1",
         verNota:ver_nota,
