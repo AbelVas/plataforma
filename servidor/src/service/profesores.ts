@@ -54,9 +54,9 @@ const getFotoPerfilProfesorService=async(id:string)=>{
     return getFoto
 }
 
-const fotoPerfilProfesorService=async(id:string,ruta:string,peso:string)=>{
+const fotoPerfilProfesorService=async(id:string,ruta:string,peso:string,subida:string)=>{
     const consultaprev=await conexion.query("UPDATE tbImagenPerfilProfesor SET activa=0 WHERE idProfesor=?",[id]);
-    const consulta=await conexion.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_archivo=?, activa=1',[id,ruta,peso])
+    const consulta=await conexion.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?',[id,ruta,peso,subida])
     return consulta
 }
 

@@ -77,8 +77,14 @@ const fotoPerfilAdminController=async(req:Request,res:Response)=>{
         const {ruta_imagen}=req.body;
         const {idProfesor}=req.body;
         const {peso_archivo}=req.body
-        const fotoPerfilAdmin=await fotoPerfilAdminService(idProfesor,ruta_imagen,peso_archivo)
-        io.emit('actualizar-foto-ferfil-admin',{usuario:idProfesor,idRol:"1"})
+        const {subida}=req.body
+        const {idRol}=req.body
+        const fotoPerfilAdmin=await fotoPerfilAdminService(idProfesor,ruta_imagen,peso_archivo,subida)
+        if(idRol==1){
+            io.emit('actualizar-foto-ferfil-admin',{usuario:idProfesor,idRol:idRol})
+        }else if(idRol==2){
+            io.emit('actualizar-foto-ferfil-docente',{usuario:idProfesor,idRol:idRol})
+        }
         res.send(fotoPerfilAdmin)
     } catch (e) {
         handleHttp(e, req, res);

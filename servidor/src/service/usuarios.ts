@@ -121,9 +121,9 @@ const UpdateStatusTutores=async(id:string)=>{
     return update;
 }
 
-const fotoPerfilAlumnoService=async(id:string,ruta:string,peso:string)=>{
+const fotoPerfilAlumnoService=async(id:string,ruta:string,peso:string,subida:string)=>{
     const consultaprev=await conexion.query("UPDATE tbImagenPerfilAlumno SET activa=0 WHERE idAlumno=?",[id]);
-    const consulta=await conexion.query('INSERT INTO tbImagenPerfilAlumno SET idAlumno=?, ruta_imagen=?, peso_archivo=?, activa=1',[id,ruta,peso])
+    const consulta=await conexion.query('INSERT INTO tbImagenPerfilAlumno SET idAlumno=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?',[id,ruta,peso,subida])
     return consulta
 }
 

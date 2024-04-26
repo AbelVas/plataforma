@@ -22,7 +22,7 @@
 
 .img-preview {
   max-width: 100%;
-  max-height: 300px; /* Establece la altura máxima según tus preferencias */
+  max-height: 100%; /* Establece la altura máxima según tus preferencias */
   border-radius: 10px; /* Agrega bordes redondeados */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
   transition: transform 0.2s ease-in-out; /* Agrega una transición suave al hacer hover */

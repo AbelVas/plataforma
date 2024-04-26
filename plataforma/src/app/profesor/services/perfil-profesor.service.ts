@@ -39,6 +39,12 @@ export class PerfilProfesorService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
+  getCategoriasImagenes():Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/fotoPerfilPorDefecto/`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    )
+  }
   actualizarImagenPerfil(idUsuario:string,data:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.put(`${this.URL}/fotoPerfilPorDefecto/${idUsuario}`,data,httpOptions).pipe(
@@ -51,9 +57,9 @@ export class PerfilProfesorService {
         catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
       )
     }
-  subidaDeImagen(idAdmin:string,ruta:string,peso:any){
+  subidaDeImagen(idAdmin:string,ruta:string,peso:any,rol:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/profesores/profesor-foto-perfil/`,{ruta_imagen:ruta,idProfesor:idAdmin,peso_archivo:peso},httpOptions).pipe(
+    return this.http.put(`${this.URL}/profesores/profesor-foto-perfil/`,{ruta_imagen:ruta,idProfesor:idAdmin,peso_archivo:peso,subida:"1",idRol:rol},httpOptions).pipe(
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }

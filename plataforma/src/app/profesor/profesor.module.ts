@@ -65,6 +65,7 @@ import { NotificacionesDocenteService } from "./services/notificaciones-docente.
 import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notificaciones-mensajes.component';
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
+import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-defecto.service";
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
     CuadroGuiaService,
     SonidosService,
     NotificacionesDocenteService,
-    UploadFotoPerfilService
+    UploadFotoPerfilService,
+    ImagenesPerfilDefectoService
   ]
 })
 

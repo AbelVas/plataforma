@@ -24,6 +24,8 @@ export class EditPerfilAdminComponent implements OnInit {
   uploadProgress: number | undefined;
   vistaPrevia: any
 
+  categoriaImagen:any=[]
+  imagenSubidaUsuario:any=[]
   constructor(private imagenesPerfil: ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
   }
 
@@ -55,6 +57,7 @@ export class EditPerfilAdminComponent implements OnInit {
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
   ngOnInit(): void {
+    this.getCategoriasDeImagenesDePerfil();
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.perfilAdminService.disparadorCopiarData.subscribe(data=>{
@@ -122,35 +125,34 @@ export class EditPerfilAdminComponent implements OnInit {
         this.toastrService.error('El tamaño del archivo supera el límite permitido (10MB).', 'Error', { timeOut: 3000, extendedTimeOut: 10000 });
         return; // Salir de la función si el tamaño es mayor al límite
       }
+      // Inicia el proceso de carga
+      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol).subscribe(
+        response => { // Maneja la respuesta del servidor
 
- // Inicia el proceso de carga
- this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol).subscribe(
-  response => { // Maneja la respuesta del servidor
+          if (typeof response === 'number'){
+            if (response >= 0 && response <= 100) {
+              this.uploadProgress = response;
+            }
+          }else if(typeof response === 'object' && response.filePath){
+            const filePathFinal:any=response.filePath;
 
-    if (typeof response === 'number'){
-      if (response >= 0 && response <= 100) {
-        this.uploadProgress = response;
-      }
-    }else if(typeof response === 'object' && response.filePath){
-      const filePathFinal:any=response.filePath;
-
-      this.imagenPerfilService.subidaDeImagen(idUsuario,filePathFinal,file.size).subscribe(
-        res=>{
-          this.adminIndividual[0].imagen=filePathFinal
+            this.imagenPerfilService.subidaDeImagen(idUsuario,filePathFinal,file.size,this.idRol).subscribe(
+              res=>{
+                this.adminIndividual[0].imagen=filePathFinal
+              },
+              err=>{
+                console.log(err)
+              }
+            )
+            // Realiza acciones adicionales con la respuesta del servidor si es necesario
+            this.toastrService.success('El archivo: "'+ file.name +'" se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
+            this.getImagenPerfil(idUsuario)
+          }
         },
-        err=>{
-          console.log(err)
+        error => { // Maneja los errores de la carga
+          this.toastrService.error('Error al subir el archivo: '+error, 'Error', { timeOut: 3000 });
         }
-      )
-      // Realiza acciones adicionales con la respuesta del servidor si es necesario
-      this.toastrService.success('El archivo: "'+ file.name +'" se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
-      this.getImagenPerfil(idUsuario)
-    }
-  },
-  error => { // Maneja los errores de la carga
-    this.toastrService.error('Error al subir el archivo: '+error, 'Error', { timeOut: 3000 });
-  }
-);
+      );
     } else {
       // Mostrar un mensaje indicando que no se seleccionó ningún archivo
       this.toastrService.error('Por favor, selecciona un archivo para subir.', 'Error', { timeOut: 3000 });
@@ -172,16 +174,21 @@ export class EditPerfilAdminComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  valueGetImagen(e:any){
-    this.imagenPerfilActual=e
-    this.adminIndividual[0].imagen=e
-  }
   selectedCheck(e:any){
    if(e.target.checked){
     this.permitirVer='1';
    }else{
     this.permitirVer='0';
    }
+  }
+  getCategoriasDeImagenesDePerfil(){
+    this.imagenesPerfil.getCategoriasImagenes().subscribe(
+      res=>{
+        this.categoriaImagen=res
+      },err=>{
+        console.log(err)
+      }
+    )
   }
   getImagenesPerfilCategoriaDefecto(idCategoria:string){
     this.imagenPerfilService.getImagenCategoria(idCategoria).subscribe(
@@ -193,9 +200,47 @@ export class EditPerfilAdminComponent implements OnInit {
       }
     )
   }
+  valueGetImagen(e:any){
+    this.imagenPerfilActual=e
+    //this.adminIndividual[0].imagen=e <- OJO ACA, ES PARAA LA IMAGEN POR DEFECTO
+  }
   selectValue(e:any){
     this.idCategoriaImagen=e.target.value
-    this.getImagenesPerfilCategoriaDefecto(e.target.value);
+    if(this.idCategoriaImagen=='1'){
+      this.imagenesPerfil.getImagenesSubidasPorUsuarioProfesor(this.idUsuario).subscribe(
+        res=>{
+          this.imagenSubidaUsuario=res
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else{
+      this.getImagenesPerfilCategoriaDefecto(e.target.value);
+    }
+  }
+  actualizarImagenPerfilSeleccionada(){
+    const ruta_imagen=this.imagenPerfilActual
+    var idCategoria=this.idCategoriaImagen
+    if(idCategoria!=1){
+      this.imagenesPerfil.actualizarImagenPerfilProfesor(this.idUsuario,ruta_imagen,"0",this.idRol).subscribe(
+        res=>{
+          this.adminIndividual[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else if(idCategoria==1){
+      this.imagenesPerfil.actualizarImagenPerfilProfesor(this.idUsuario,ruta_imagen,"1",this.idRol).subscribe(
+        res=>{
+          this.adminIndividual[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
   }
   insertAdmin(idAdmin:string){
     this.submitted=true;

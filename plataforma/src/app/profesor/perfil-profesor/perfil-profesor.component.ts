@@ -65,7 +65,7 @@ export class PerfilProfesorComponent implements OnInit {
 
     this.getImagenPerfil()
         // En el componente o servicio del módulo profesor
-    this.socketService.escucharEvento('actualizar-foto-ferfil-profesor').subscribe((data: any) => {
+    this.socketService.escucharEvento('actualizar-foto-ferfil-docente').subscribe((data: any) => {
       if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
         this.getImagenPerfil()
         }

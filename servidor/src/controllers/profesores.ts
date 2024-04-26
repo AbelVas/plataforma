@@ -88,7 +88,8 @@ const fotoPerfilProfeController=async(req:Request,res:Response)=>{
         const {ruta_imagen}=req.body;
         const {idProfesor}=req.body;
         const {peso_archivo}=req.body
-        const fotoPerfilProfesor=await fotoPerfilProfesorService(idProfesor,ruta_imagen,peso_archivo)
+        const {subida}=req.body
+        const fotoPerfilProfesor=await fotoPerfilProfesorService(idProfesor,ruta_imagen,peso_archivo,subida)
         io.emit('actualizar-foto-ferfil-profesor',{usuario:idProfesor,idRol:"2"})
         res.send(fotoPerfilProfesor)
     } catch (e) {

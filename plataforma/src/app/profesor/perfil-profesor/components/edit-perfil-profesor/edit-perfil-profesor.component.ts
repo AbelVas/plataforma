@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import decode from "jwt-decode"
 import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
 import { WebSocketService } from 'src/app/web-socket.service';
-
+import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
 @Component({
   selector: 'app-edit-perfil-profesor',
   templateUrl: './edit-perfil-profesor.component.html',
@@ -22,7 +22,9 @@ export class EditPerfilProfesorComponent implements OnInit {
   uploadProgress: number | undefined;
   vistaPrevia: any
   imagenActiva:any
-  constructor(private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
+  categoriaImagen:any=[]
+  imagenSubidaUsuario:any=[]
+  constructor(private perfildesdeadmin:ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
   submitted=false;
   pipe = new DatePipe('en-US');
   classBadgeActive:any;
@@ -52,6 +54,7 @@ export class EditPerfilProfesorComponent implements OnInit {
   //----------------------------------------
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
   ngOnInit(): void {
+    this.getCategoriasDeImagenesDePerfil()
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.idRol=decodedToken.idRol
@@ -75,7 +78,7 @@ export class EditPerfilProfesorComponent implements OnInit {
     });
     this.getImagenPerfil(this.idUsuario);
     //coso de socket
-    this.socketService.escucharEvento('actualizar-foto-ferfil-profesor').subscribe((data: any) => {
+    this.socketService.escucharEvento('actualizar-foto-ferfil-docente').subscribe((data: any) => {
       if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
         this.getImagenPerfil(this.idUsuario);
         }
@@ -123,7 +126,7 @@ export class EditPerfilProfesorComponent implements OnInit {
     }else if(typeof response === 'object' && response.filePath){
       const filePathFinal:any=response.filePath;
 
-      this.perfilProfesorService.subidaDeImagen(idUsuario,filePathFinal,file.size).subscribe(
+      this.perfilProfesorService.subidaDeImagen(idUsuario,filePathFinal,file.size,this.idRol).subscribe(
         res=>{
           this.profesorIndividual[0].imagen=filePathFinal
           console.log(res)
@@ -211,7 +214,15 @@ export class EditPerfilProfesorComponent implements OnInit {
   }
   valueGetImagen(e:any){
     this.imagenPerfilActual=e
-    this.profesorIndividual[0].imagen=e
+  }
+  getCategoriasDeImagenesDePerfil(){
+    this.perfilProfesorService.getCategoriasImagenes().subscribe(
+      res=>{
+        this.categoriaImagen=res
+      },err=>{
+        console.log(err)
+      }
+    )
   }
   getImagenesPerfil(idCategoria:string){
     this.perfilProfesorService.getImagenCategoria(idCategoria).subscribe(
@@ -225,7 +236,41 @@ export class EditPerfilProfesorComponent implements OnInit {
   }
   selectValue(e:any){
     this.idCategoriaImagen=e.target.value
-    this.getImagenesPerfil(e.target.value);
+    if(this.idCategoriaImagen=='1'){
+      this.perfildesdeadmin.getImagenesSubidasPorUsuarioProfesor(this.idUsuario).subscribe(
+        res=>{
+          this.imagenSubidaUsuario=res
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else{
+      this.getImagenesPerfil(e.target.value);
+    }
+  }
+  actualizarImagenPerfilSeleccionada(){
+    const ruta_imagen=this.imagenPerfilActual
+    var idCategoria=this.idCategoriaImagen
+    if(idCategoria!=1){
+      this.perfildesdeadmin.actualizarImagenPerfilProfesor(this.idUsuario,ruta_imagen,"0",this.idRol).subscribe(
+        res=>{
+          this.profesorIndividual[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else if(idCategoria==1){
+      this.perfildesdeadmin.actualizarImagenPerfilProfesor(this.idUsuario,ruta_imagen,"1",this.idRol).subscribe(
+        res=>{
+          this.profesorIndividual[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
   }
 //esto es para validar que un campo no se vaya vacio si es importante
 get f() { return this.EditarProfesorForm.controls; }
