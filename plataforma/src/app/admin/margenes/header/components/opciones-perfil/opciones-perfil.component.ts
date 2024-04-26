@@ -33,7 +33,7 @@ export class OpcionesPerfilComponent implements OnInit {
     this.Rol=decodedToken.rol
     this.getImagenPerfil()
     // En el componente o servicio del módulo profesor
-    this.socketService.escucharEvento('actualizar-foto-ferfil-admin').subscribe((data: any) => {
+    this.socketService.escucharEvento('actualizar-foto-perfil-admin').subscribe((data: any) => {
       if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
         this.getImagenPerfil()
         }

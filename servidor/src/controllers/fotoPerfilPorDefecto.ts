@@ -45,9 +45,9 @@ const actualizarPefilProfesorController=async(req:Request,res:Response)=>{
         const {subida}=req.body
         const {idRol}=req.body
         const response=await ActualizarImagenPerfilProfesor(id,ruta_imagen,subida);
-        if(idRol==1){
-            io.emit('actualizar-foto-ferfil-admin',{usuario:id,idRol:idRol})
-        }else if(idRol==2){
+        if(idRol=="1"){
+            io.emit('actualizar-foto-perfil-admin',{usuario:id,idRol:idRol})
+        }else if(idRol=="2"){
             io.emit('actualizar-foto-ferfil-docente',{usuario:id,idRol:idRol})
         }
         res.send(response)

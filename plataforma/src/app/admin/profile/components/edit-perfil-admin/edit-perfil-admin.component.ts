@@ -60,6 +60,7 @@ export class EditPerfilAdminComponent implements OnInit {
     this.getCategoriasDeImagenesDePerfil();
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
+    this.idRol = decodedToken.idRol;
     this.perfilAdminService.disparadorCopiarData.subscribe(data=>{
     this.adminIndividual=Object.values(data);
 
@@ -74,7 +75,7 @@ export class EditPerfilAdminComponent implements OnInit {
     });
     this.getImagenPerfil(this.idUsuario);
      // En el componente o servicio del módulo profesor
-     this.socketService.escucharEvento('actualizar-foto-ferfil-admin').subscribe((data: any) => {
+     this.socketService.escucharEvento('actualizar-foto-perfil-admin').subscribe((data: any) => {
       if(data.usuario==this.idUsuario&&data.idRol==this.idRol){
         this.getImagenPerfil(this.idUsuario);
         }
