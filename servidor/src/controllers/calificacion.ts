@@ -31,7 +31,7 @@ const calificarActividad=async(req:Request,res:Response)=>{
         if(resultado){
             if(nota == "1" && disponible == "1"){
                 const insertNoti=await insertNotificacion(req.body)
-                io.emit("nueva-notificacion-usuario-recibida", {idUsuario:req.body.idUsuarioRecibe,idRol:req.body.idRolRecibe});
+                io.emit("nueva-notificacion-usuario-recibida", {idUsuario:req.body.idUsuarioRecibe,idRol:req.body.idRolRecibe,mensaje:req.body.mensaje,titulo_notificacion:req.body.titulo_notificacion});
             }
         }
         res.send(resultado);

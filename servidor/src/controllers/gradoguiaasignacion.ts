@@ -33,7 +33,7 @@ const insertGradosGuias=async(req:Request, res:Response)=>{
         const insert=await insertarGradoGuia(idUsuario,idGradoGuia)
         if(insert){
             const insertNoti=await insertNotificacion(req.body)
-            io.emit("nueva-notificacion-usuario-recibida", {idUsuario:req.body.idUsuarioRecibe,idRol:req.body.idRolRecibe});
+            io.emit("nueva-notificacion-usuario-recibida", {idUsuario:req.body.idUsuarioRecibe,idRol:req.body.idRolRecibe,mensaje:req.body.mensaje,titulo_notificacion:req.body.titulo_notificacion});
         }
         res.send(insert)
     } catch (e) {
