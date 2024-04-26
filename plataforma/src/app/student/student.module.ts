@@ -49,6 +49,7 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
 import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
 import { NotificacionesStudentService } from "./services/notificaciones-student.service";
+import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-defecto.service";
 
 @NgModule({
   imports:[
@@ -106,8 +107,8 @@ import { NotificacionesStudentService } from "./services/notificaciones-student.
     TemaEstudianteService,
     OpcionesMenuService,
     UploadFotoPerfilService,
-    NotificacionesStudentService
-
+    NotificacionesStudentService,
+    ImagenesPerfilDefectoService
   ]
 })
 

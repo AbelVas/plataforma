@@ -25,9 +25,9 @@ export class ImagenesPerfilDefectoService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
-  actualizarImagenPerfilAlumno(idAdmin:string,ruta:any,subida:string){
+  actualizarImagenPerfilAlumno(idAdmin:string,ruta:any,subida:string,rol:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/fotoPerfilPorDefecto/alumno/${idAdmin}`,{ruta_imagen:ruta,subida:subida},httpOptions).pipe(
+    return this.http.put(`${this.URL}/fotoPerfilPorDefecto/alumno/${idAdmin}`,{ruta_imagen:ruta,subida:subida,idRol:rol},httpOptions).pipe(
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }

@@ -60,7 +60,9 @@ const actualizarPefilAlumnoController=async(req:Request,res:Response)=>{
         const {id}=req.params
         const {ruta_imagen}=req.body
         const {subida}=req.body
+        const {idRol}=req.body
         const response=await ActualizarImagenPerfilAlumno(id,ruta_imagen,subida);
+        io.emit('actualizar-foto-ferfil-alumno',{usuario:id,idRol:idRol})
         res.send(response)
     } catch (e) {
         handleHttp(e, req, res);        

@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import decode from "jwt-decode"
 import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
 import { WebSocketService } from 'src/app/web-socket.service';
+import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
 
 @Component({
   selector: 'app-edit-perfil-alumno',
@@ -21,8 +22,14 @@ export class EditPerfilAlumnoComponent implements OnInit {
   uploadProgress: number | undefined;
   vistaPrevia: any
   imagenActiva:any
+  //SSSS
+  imagenPerfilActual:any=''
+  idCategoriaImagen:any
+  listaImagenes:any=[]
+  categoriaImagen:any=[]
+  imagenSubidaUsuario:any=[]
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
-  constructor(private socketService:WebSocketService,private uploadFotoService:UploadFotoPerfilService,private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService, private formBuilder:FormBuilder) { }
+  constructor(private imagenPerfilService:ImagenesPerfilDefectoService,private socketService:WebSocketService,private uploadFotoService:UploadFotoPerfilService,private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService, private formBuilder:FormBuilder) { }
   submitted=false;
   classBadgeActive:any;
   estado:any;
@@ -50,6 +57,7 @@ export class EditPerfilAlumnoComponent implements OnInit {
       }
       this.alumnoIndividual[0];
     });
+    this.getCategoriasDeImagenesDePerfil()
     this.getImagenPerfil(this.idUsuario);
     //coso de socket
     this.socketService.escucharEvento('actualizar-foto-ferfil-alumno').subscribe((data: any) => {
@@ -101,7 +109,6 @@ export class EditPerfilAlumnoComponent implements OnInit {
       this.perfilAlumnosService.subidaDeImagen(this.idUsuario,filePathFinal,file.size).subscribe(
         res=>{
           this.alumnoIndividual[0].imagen=filePathFinal
-          console.log(res)
         },
         err=>{
           console.log(err)
@@ -150,6 +157,68 @@ export class EditPerfilAlumnoComponent implements OnInit {
         console.log(err)
       }
     )
+  }
+  valueGetImagen(e:any){
+    this.imagenPerfilActual=e
+    //this.adminIndividual[0].imagen=e <- OJO ACA, ES PARAA LA IMAGEN POR DEFECTO
+  }
+  getImagenesPerfilCategoriaDefecto(idCategoria:string){
+    this.imagenPerfilService.getImagenCategoria(idCategoria).subscribe(
+      res=>{
+        this.listaImagenes=res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  selectValue(e:any){
+    this.idCategoriaImagen=e.target.value
+    if(this.idCategoriaImagen=='1'){
+      this.imagenPerfilService.getImagenesSubidasPorUsuarioAlumno(this.idUsuario).subscribe(
+        res=>{
+          console.log(res)
+          this.imagenSubidaUsuario=res
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else{
+      this.getImagenesPerfilCategoriaDefecto(e.target.value);
+    }
+  }
+  getCategoriasDeImagenesDePerfil(){
+    this.imagenPerfilService.getCategoriasImagenes().subscribe(
+      res=>{
+        this.categoriaImagen=res
+      },err=>{
+        console.log(err)
+      }
+    )
+  }
+  actualizarImagenPerfilSeleccionada(){
+    const ruta_imagen=this.imagenPerfilActual
+    var idCategoria=this.idCategoriaImagen
+    if(idCategoria!=1){
+      this.imagenPerfilService.actualizarImagenPerfilAlumno(this.idUsuario,ruta_imagen,"0",this.idRol).subscribe(
+        res=>{
+          this.alumnoIndividual[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else if(idCategoria==1){
+      this.imagenPerfilService.actualizarImagenPerfilAlumno(this.idUsuario,ruta_imagen,"1",this.idRol).subscribe(
+        res=>{
+          this.alumnoIndividual[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
   }
   //esto es para validar que un campo no se vaya vacio si es importante
   get f() { return this.EditarAlumnoForm.controls; }

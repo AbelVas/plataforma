@@ -44,7 +44,7 @@ export class PerfilAlumnoService {
   }
   subidaDeImagen(idAlumno:string,ruta:string,peso:any){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/usuarios/alumno-foto-perfil-update/${idAlumno}`,{ruta_imagen:ruta,idAlumno:idAlumno,peso_archivo:peso},httpOptions).pipe(
+    return this.http.put(`${this.URL}/usuarios/alumno-foto-perfil-update/${idAlumno}`,{ruta_imagen:ruta,idAlumno:idAlumno,peso_archivo:peso,subida:"1"},httpOptions).pipe(
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
