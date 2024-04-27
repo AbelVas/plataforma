@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 import conexion from "../config/database";
 
 const getTemaService=async(id:string)=>{
-    const  response=await conexion.query("SELECT idTema, idIconoAdmin, idIconoTutor, idIconoProfesor, idIconoEstudiante, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE idTema=?",[id]);
+    const  response=await conexion.query("SELECT idTema, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE idTema=?",[id]);
     return response;
 }
 
 const getTemaActivoService=async(activo:string)=>{
-    const  response=await conexion.query("SELECT idTema, idIconoAdmin, idIconoTutor, idIconoProfesor, idIconoEstudiante, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE estado=?",[activo]);
+    const  response=await conexion.query("SELECT idTema, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE estado=?",[activo]);
     return response;
 }
 const getTemasService=async()=>{

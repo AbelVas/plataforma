@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { handleHttp } from "../utils/error.handle"
 import { io } from "../app"; // Importa el objeto de Socket.io
-import {getNotificaciones,editarVistaRecibeDocente} from "../service/notificacionesGenerales"
+import {getNotificaciones,editarVistaRecibeDocente,getNotificacionesEnviadas} from "../service/notificacionesGenerales"
 
 const vistoNotificacionesDocente=async(req:Request,res:Response)=>{
     try {
@@ -26,6 +26,17 @@ const getNotificacionesVistasDocentes=async(req:Request,res:Response)=>{
     }
 }
 
+const getNotificacionesVistasDocentesEnviadas=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const {idRol}=req.params
+        const responseNotificaciones=await getNotificacionesEnviadas(id,idRol);
+        res.send(responseNotificaciones);       
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+
 const insertNotificaciones=async(req:Request,res:Response)=>{
     try{
 
@@ -34,4 +45,4 @@ const insertNotificaciones=async(req:Request,res:Response)=>{
     }
 }
 
-export {getNotificacionesVistasDocentes,vistoNotificacionesDocente}
+export {getNotificacionesVistasDocentes,vistoNotificacionesDocente,getNotificacionesVistasDocentesEnviadas}

@@ -60,4 +60,15 @@ const fotoPerfilProfesorService=async(id:string,ruta:string,peso:string,subida:s
     return consulta
 }
 
-export{fotoPerfilProfesorService,getFotoPerfilProfesorService,obtenerProfesoresService,obtenerProfesorService,updateProfesorService,deleteProfesorService,insertProfesorService,validarAdminExisteSi,verifyPassword,getGradoGuiaProfesorService}
+const fotoCursoProfesorService=async(id:string,ruta:string,peso:string,subida:string)=>{
+    const consultaprev=await conexion.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?",[id]);
+    const consulta=await conexion.query('INSERT INTO tbImagenCurso SET idCurso=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?',[id,ruta,peso,subida])
+    return consulta
+}
+
+const getFotoCursoProfesorService=async(id:string)=>{
+    const getFoto=await conexion.query("SELECT CASE WHEN img.activa = 1 THEN img.ruta_imagen WHEN img.activa IS NULL THEN NULL ELSE 'null' END AS ruta_imagen FROM tbImagenCurso img RIGHT JOIN tbCurso p ON p.idCurso = img.idCurso WHERE p.idCurso = ? AND (img.activa = 1 OR img.activa IS NULL);",[id])
+    return getFoto
+}
+
+export{fotoPerfilProfesorService,getFotoPerfilProfesorService,obtenerProfesoresService,obtenerProfesorService,updateProfesorService,deleteProfesorService,insertProfesorService,validarAdminExisteSi,verifyPassword,getGradoGuiaProfesorService,fotoCursoProfesorService,getFotoCursoProfesorService}

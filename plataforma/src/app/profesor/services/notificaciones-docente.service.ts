@@ -17,6 +17,12 @@ export class NotificacionesDocenteService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     );
   }
+  notificacionesEnviadas(idProfesorEnvia:string,idRolEnvia:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/notificacionesGenerales/notificaciones-Enviadas/${idProfesorEnvia}/${idRolEnvia}`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    );
+  }
   marcarComoVistasNotificacionesDocentes(idProfesorRecibe:string,idRolRecibe:string,idNotificacionVista:string){
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.post(`${this.URL}/notificacionesGenerales/notificaciones-docente-vistas/${idProfesorRecibe}/${idRolRecibe}/${idNotificacionVista}`,httpOptions).pipe(

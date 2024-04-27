@@ -40,11 +40,16 @@ export class NotificacionesMensajesComponent implements OnInit {
   ctexto1:string='';
   //coso para configurar el apartado de notificaciones
   correos: any[] = [];
-  fechaYYYYMMDD:any=[]
+  correosEnviados:any[] = [];
   notificaciones:any=[];
+  notificacionesEnviadas:any=[];
   correosPaginados: any[] = [];
+  correosPaginadosEnviados: any[] = [];
   itemsPerPage: number = 10;
+  itemsPerPageEnviadas: number = 10;
   currentPage: number = 1;
+  currentPageEnviadas: number = 1;
+  fechaYYYYMMDD:any=[]
   correoSeleccionado: any; // Variable para almacenar el correo seleccionado
   @ViewChild('emailDetailsModal') emailDetailsModal: any; // Referencia al modal
   //fin del coso para configurar notificaciones
@@ -54,15 +59,19 @@ export class NotificacionesMensajesComponent implements OnInit {
   ngOnInit() {
     const {idUsuario}:any=decode(this.token);
     const {idRol}:any=decode(this.token);
-    this.obtenerDatosTema()
+    //this.obtenerDatosTema()
+    this.getNotificacionesEnviadas(idUsuario,idRol);
     this.getNotificaciones(idUsuario,idRol);
     this.actualizarCorreosPaginados()
+    this.actualizarCorreosPaginadosEnviados()
         //socket para actualizar el estado de las notificaciones
         this.socketService.escucharEvento('nueva-notificacion-usuario-recibida').subscribe((data: any) => {
           if(data.idUsuario==idUsuario&&data.idRol==idRol){
             //this.toastrService.success(data.mensaje, 'Atención!');//veamos
             this.correos.splice(0, this.correos.length);
+            this.correosEnviados.splice(0, this.correosEnviados.length);
             this.getNotificaciones(idUsuario,idRol);
+            this.getNotificacionesEnviadas(idUsuario,idRol);
           }
         });
   }
@@ -72,6 +81,9 @@ export class NotificacionesMensajesComponent implements OnInit {
   }
   totalPaginas(): number {
     return Math.ceil(this.correos.length / this.itemsPerPage);
+  }
+  totalPaginasEnviados(): number {
+    return Math.ceil(this.correosEnviados.length / this.itemsPerPageEnviadas);
   }
   //dejo de calcular cosas en el paginador
   //abrir el modal con el correo
@@ -118,6 +130,32 @@ export class NotificacionesMensajesComponent implements OnInit {
       }
     )
   }
+
+  getNotificacionesEnviadas(idUsuarioRecibe:string,idRolRecibe:string){
+    this.notificacionesService.notificacionesEnviadas(idUsuarioRecibe,idRolRecibe).subscribe(
+      res=>{
+        this.notificacionesEnviadas=res
+          for (let i = 0; i < this.notificacionesEnviadas.length; i++) {
+              const fechaCentralAmerica = this.convertToCentralAmericaTime(this.notificacionesEnviadas[i].fecha_creacion);
+              this.fechaYYYYMMDD.push(fechaCentralAmerica);
+              this.correosEnviados.push({
+              destinatario: this.notificacionesEnviadas[i].UsuarioRecibe,
+              asunto: this.notificacionesEnviadas[i].titulo_notificacion,
+              mensaje: this.notificacionesEnviadas[i].mensaje,
+              fecha: this.fechaYYYYMMDD[i],
+              visto: this.notificacionesEnviadas[i].visto_envia,
+              RolRecibe: this.notificacionesEnviadas[i].RolRecibe,
+              idNotificacion:this.notificacionesEnviadas[i].idNotificacion
+              });
+          }
+          this.actualizarCorreosPaginadosEnviados()
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
   verNotificaciones(idNotificacionVista:any){
     const {idUsuario}:any=decode(this.token);
     const {idRol}:any=decode(this.token);
@@ -143,6 +181,18 @@ export class NotificacionesMensajesComponent implements OnInit {
     this.currentPage = pagina;
     this.actualizarCorreosPaginados();
   }
+
+  actualizarCorreosPaginadosEnviados() {
+    const startIndex = (this.currentPageEnviadas - 1) * this.itemsPerPageEnviadas;
+    const endIndex = startIndex + this.itemsPerPageEnviadas;
+    this.correosPaginadosEnviados = this.correosEnviados.slice(startIndex, endIndex);
+  }
+  cambiarPaginaEnviados(pagina: number) {
+    this.currentPageEnviadas = pagina;
+    this.actualizarCorreosPaginadosEnviados();
+  }
+
+
   obtenerDatosTema(){
     this.temaProfesorService.getTemaActivo(this.temaactivo).subscribe(
       response=>{
