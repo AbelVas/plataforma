@@ -42,7 +42,7 @@ export class DocentesResumenComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   dataTable: any;
   dataSource:any;
-  docentesPorPagina=5;
+  docentesPorPagina=10;
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,7 +50,7 @@ export class DocentesResumenComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  displayedColumns: string[] = ['no','docente','usuario','estado','acciones'];
+  displayedColumns: string[] = ['no','docente','usuario','estado','antecedentes','policiacos','renas','acciones'];
   docenteForm=this.formBuilder.group({
     nombre_profesor:new FormControl('',[Validators.required]),
     apellido_profesor:new FormControl('',[Validators.required]),

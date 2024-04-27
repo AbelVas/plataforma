@@ -42,18 +42,43 @@
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <span class="badge bg-success" *ngIf="p.estatus=='1';else activoInactivo">Activo</span>
-              <ng-template #activoInactivo>
-                <span class="badge bg-danger">Inactivo</span>
-              </ng-template>
+              <i class="fa-solid" [ngClass]="{'fa-user-check': p.estatus == 1, 'fa-user-xmark': p.estatus === 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
             </td>
           </ng-container>
+
+          <ng-container matColumnDef="antecedentes">
+            <th mat-header-cell *matHeaderCellDef class="text-center">A. Penales</th>
+            <td mat-cell *matCellDef="let p" class="text-center">
+              <a href="../../../../../assets/img/perfiles/espacio/tierra2.svg" download>
+                <i class="fa-solid" [ngClass]="{'fa-file-circle-check': p.estatus == 1, 'fa-file-circle-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="policiacos">
+            <th mat-header-cell *matHeaderCellDef class="text-center">A. Policiacos</th>
+            <td mat-cell *matCellDef="let p" class="text-center">
+              <a href="../../../../../assets/img/perfiles/espacio/tierra2.svg" download>
+                <i class="fa-solid" [ngClass]="{'fa-file-circle-check': p.estatus == 1, 'fa-file-circle-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="renas">
+            <th mat-header-cell *matHeaderCellDef class="text-center">RENAS</th>
+            <td mat-cell *matCellDef="let p" class="text-center">
+              <a href="../../../../../assets/img/perfiles/espacio/tierra2.svg" download>
+                <i class="fa-solid" [ngClass]="{'fa-file-circle-check': p.estatus == 1, 'fa-file-circle-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              </a>
+            </td>
+          </ng-container>
+
 
           <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
             <td mat-cell *matCellDef="let p" class="text-center">
               <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditProfesorModal"  (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorModal" (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorModal" (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-trash"></i></button>
             </td>
           </ng-container>
 

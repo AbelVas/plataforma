@@ -53,6 +53,10 @@ const GetCantidadDocentesService=async()=>{
     return responseGet;
 }
 
+const getAlmacenamientoGigasService=async()=>{
+    const data=await conexion.query('SELECT SUM(peso_archivo) AS almacenamiento_ocupado FROM (SELECT peso_archivo FROM tbImagenPerfilProfesor UNION ALL SELECT peso_archivo FROM tbImagenPerfilAlumno UNION ALL SELECT peso_archivo FROM tbImagenCurso) AS subquery;')
+    return data
+}
 
 
-export{GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetCantidadGradosService,GetCantidadDocentesService}
+export{getAlmacenamientoGigasService,GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetCantidadGradosService,GetCantidadDocentesService}
