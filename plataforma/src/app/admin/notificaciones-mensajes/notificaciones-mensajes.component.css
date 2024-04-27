@@ -1,0 +1,86 @@
+
+.email-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    cursor: pointer;
+    overflow: hidden; /* Oculta el texto excedente */
+    white-space: nowrap; /* Evita que el texto se desplace a una nueva línea */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos (...) si el texto excede */
+  }
+  .email-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .email-item .email-body {
+    max-width: 600px; /* Altura máxima del texto antes de agregar puntos suspensivos */
+    overflow: hidden; /* Oculta el texto excedente */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos (...) si el texto excede la altura máxima */
+  }
+  
+  .email-item .email-sender {
+    font-weight: bold;
+  }
+  
+  .email-item .email-subject {
+    color: #353535;
+  }
+  
+  .email-item .email-body {
+    color: #555;
+  }
+  
+  .email-item.unread td {
+    background-color: #e9f5f7;
+    font-weight: bold;
+  }
+  
+  .email-item.unread .email-sender td {
+    color: #333;
+  }
+  
+  .email-buttons {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    margin-top: 10px; /* Espacio superior entre el texto y los botones */
+  }
+  
+  .email-buttons button {
+    margin-left: 5px; /* Espacio entre los botones */
+  }
+  
+  .alinear-derecha-paginador {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    margin-top: 10px; /* Espacio superior entre el texto y los botones */
+  }
+  
+  
+  @media (max-width: 768px) {
+    .email-buttons {
+        flex-wrap: wrap; /* Envuelve los botones en varias líneas en dispositivos pequeños */
+    }
+  
+    .email-buttons button {
+        margin-top: 5px; /* Espacio entre los botones en dispositivos pequeños */
+        margin-left: 0; /* Elimina el espacio entre los botones en dispositivos pequeños */
+    }
+  
+  }
+  .email-item.unread tr{
+    /* Estilos para correos no vistos */
+    background-color: green;
+  }
+  
+  .email-item.read tr{
+    /* Estilos para correos vistos */
+    background:rgb(255, 255, 255);
+  }
+  
+  .fa-envelope-open-text{
+    color:rgb(108, 199, 113)
+  }
+  .fa-envelope{
+    color: #333;
+  }
+  
+  
