@@ -12,7 +12,7 @@
           <div class="card" [style]="{'background-color': cfondo2}">
             <div class="card-body">
                 <div class="activity">
-  
+
                   <div class="container">
                     <h1 class="mb-4">Bandeja de entrada</h1>
                     <ul class="nav nav-tabs mb-4">
@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-  
+
                       <div class="tab-pane fade show active" id="tab1">
                         <!-- Contenido de la pestaña de correos recibidos -->
                         <div style="overflow-x: scroll;overflow-y: scroll;">
@@ -64,7 +64,7 @@
                           </div>
                       </div>
                       </div>
-  
+
                       <div class="tab-pane fade" id="tab2">
                         <!-- Contenido de la pestaña de correos enviados -->
                         <!-- Ejemplo de un correo enviado -->
@@ -80,7 +80,7 @@
                                   <td class="text-end" width="30px" data-bs-toggle="modal" data-bs-target="#emailDetailsModal" (click)="abrirModal(correo)" (click)="verNotificaciones(correoSeleccionado?.idNotificacion)"><div class="email-subject text-end">{{"Fecha y Hora: "+correo.fecha | date: "dd/MM/yy , h:mm a"  }}</div></td>
                                   <td class="align-middle" class="text-end">
                                     <div class="email-buttons text-center">
-                                      <i class="fa-solid" [class.fa-envelope]="correo.visto == 0" [class.fa-envelope-open-text]="correo.visto == 1"></i>
+                                      <i class="fa-solid" [class.fa-reply-all]="correo.visto == 1"></i>
                                     </div>
                                   </td>
                                 </tr>
@@ -113,10 +113,10 @@
           </div>
         </div>
       </div>
-  
+
     </section>
   </main>
-  
+
       <!-- Modal para detalles del correo -->
       <div class="modal fade" id="emailDetailsModal" #emailDetailsModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -143,5 +143,5 @@
             </div>
         </div>
       </div>
-  
+
 
