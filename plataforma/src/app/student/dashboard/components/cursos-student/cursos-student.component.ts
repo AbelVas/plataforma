@@ -27,9 +27,15 @@ export class CursosStudentComponent implements OnInit {
   getCursosAlumno(){
     const token:any = localStorage.getItem('Acces-Token');
     const {idUsuario}:any=decode(token);
-    this.cardClasesAlumnos. getCursoparaAlumno( idUsuario).subscribe(
+    this.cardClasesAlumnos.getCursoparaAlumno( idUsuario).subscribe(
       res=>{
-        this.CursosLista=res;
+        this.CursosLista = res.map((curso: any) => {
+          // Verificar si ruta_imagen es nula y asignar un valor manual si es necesario
+          if (!curso.ruta_imagen) {
+            curso.ruta_imagen = 'assets/img/cursos/not-found/not-found-image.jpg';
+          }
+          return curso;
+        });
         this.sppinerOn=false;
       },
       err=>{
@@ -38,5 +44,4 @@ export class CursosStudentComponent implements OnInit {
       }
     )
   }
-
 }

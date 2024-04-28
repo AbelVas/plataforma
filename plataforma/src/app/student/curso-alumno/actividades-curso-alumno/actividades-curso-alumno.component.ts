@@ -166,7 +166,7 @@ export class ActividadesCursoAlumnoComponent implements OnInit {
             this.letraFinal='B - Bueno'
           }else{
             if(this.suma==81 || (this.suma>81 && this.suma<91)){
-              this.colorprogress='gold';
+              this.colorprogress='blue';
               this.letraFinal='MB - Muy bueno'
             }else{
               if(this.suma>90){
