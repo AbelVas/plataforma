@@ -82,7 +82,6 @@ const getGradoGuiaProfesor=async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
      }
 }
-
 const fotoPerfilProfeController=async(req:Request,res:Response)=>{
     try {
         const {ruta_imagen}=req.body;
@@ -96,7 +95,6 @@ const fotoPerfilProfeController=async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
     }
 }
-
 const getFotoPerfilActivaProfesor=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params
@@ -106,24 +104,23 @@ const getFotoPerfilActivaProfesor=async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
     }
 }
-
-
 //Curso Subida de Archivo
 const fotoCursoProfeController=async(req:Request,res:Response)=>{
     try {
         const {ruta_imagen}=req.body;
         const {idCurso}=req.body;
+        console.log(req.body)
         const {peso_archivo}=req.body
         const {subida}=req.body
         const {idProfesor}=req.body;
         const fotoPerfilProfesor=await fotoCursoProfesorService(idCurso,ruta_imagen,peso_archivo,subida)
-        io.emit('actualizar-foto-ferfil-profesor',{usuario:idProfesor,idRol:"2"})
+        io.emit('cambio-curso-foto',{usuario:idProfesor,idRol:"2"})
         res.send(fotoPerfilProfesor)
     } catch (e) {
         handleHttp(e, req, res);
     }
 }
-
+//obtener archivo curso foto
 const getFotoCursoActivaProfesor=async(req:Request,res:Response)=>{
     try {
         const {id}=req.params

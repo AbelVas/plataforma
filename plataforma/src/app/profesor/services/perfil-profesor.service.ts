@@ -64,10 +64,9 @@ export class PerfilProfesorService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
-
-
   //CURSOS DE PROFESOR
   subidaDeImagenCurso(idCurso:string,ruta:string,peso:any,idProfesor:string){
+    console.log({ruta_imagen:ruta,idCurso:idCurso,peso_archivo:peso,subida:"1",idProfesor:idProfesor})
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.put(`${this.URL}/profesores/profesor-foto-curso/`,{ruta_imagen:ruta,idCurso:idCurso,peso_archivo:peso,subida:"1",idProfesor:idProfesor},httpOptions).pipe(
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))

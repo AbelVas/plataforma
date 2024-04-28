@@ -1,5 +1,5 @@
 import { Router} from "express";
-import {getCurso, getCursos, updateCurso,deleteCurso, insertCurso, getCursoporGrado, getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno,getProfeCurso,getCursoporGradoProfesorAdmin,obtenerCursodeProfesorIndividual} from "../controllers/cursos"
+import {obtenerImagenSubidCursosProfesorController,getCurso, getCursos, updateCurso,deleteCurso, insertCurso, getCursoporGrado, getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno,getProfeCurso,getCursoporGradoProfesorAdmin,obtenerCursodeProfesorIndividual} from "../controllers/cursos"
 import { logMiddleware } from "../middleware/log";
 import { checkRol } from "../middleware/rolCheck";
 import { checkJwt } from "../middleware/session";
@@ -18,6 +18,7 @@ router.post("/curso-grado-seccion/:id",checkJwt,obtenerCursosPorProfesorGradoSec
 router.get("/curso-alumno/:id",checkJwt,getCursosPorAlumno);
 router.get("/profe-curso/:id", checkJwt,getProfeCurso);
 router.get("/curso-profesor-grado-admin/:id",checkJwt,getCursoporGradoProfesorAdmin);
-router.get("/curso-profesor-individual/:id",checkJwt,obtenerCursodeProfesorIndividual)
+router.get("/curso-profesor-individual/:id",checkJwt,obtenerCursodeProfesorIndividual);
+router.put("/foto-portada-curso/:id",checkJwt,obtenerImagenSubidCursosProfesorController)
 
 export {router}

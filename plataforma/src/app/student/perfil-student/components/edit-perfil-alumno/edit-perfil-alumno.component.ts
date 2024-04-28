@@ -81,39 +81,26 @@ export class EditPerfilAlumnoComponent implements OnInit {
     const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
-      // Validar extensión del archivo
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-      const fileExtension: any = file.name.split('.').pop()?.toLowerCase();
-      if (!allowedExtensions.includes(fileExtension)) {
-        this.toastrService.error('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '), 'Error', { closeButton: true, timeOut: 0 });
-        return; // Salir de la función si la extensión no es válida
-      }
-      // Validar peso del archivo
-      const maxSizeInBytes: any = 10 * 1024 * 1024; // 10 MB
-      if (file.size > maxSizeInBytes) {
-        this.toastrService.error('El tamaño del archivo supera el límite permitido (10MB).', 'Error', { timeOut: 3000, extendedTimeOut: 10000 });
-        return; // Salir de la función si el tamaño es mayor al límite
-      }
 
- // Inicia el proceso de carga
- this.uploadFotoService.uploadFileWithProgress(file, this.idUsuario, this.idRol).subscribe(
-  response => { // Maneja la respuesta del servidor
+    // Inicia el proceso de carga
+    this.uploadFotoService.uploadFileWithProgress(file, this.idUsuario, this.idRol,'foto-perfil-usuario').subscribe(
+      response => { // Maneja la respuesta del servidor
 
-    if (typeof response === 'number'){
-      if (response >= 0 && response <= 100) {
-        this.uploadProgress = response;
-      }
-    }else if(typeof response === 'object' && response.filePath){
-      const filePathFinal:any=response.filePath;
+        if (typeof response === 'number'){
+          if (response >= 0 && response <= 100) {
+            this.uploadProgress = response;
+          }
+        }else if(typeof response === 'object' && response.filePath){
+          const filePathFinal:any=response.filePath;
 
-      this.perfilAlumnosService.subidaDeImagen(this.idUsuario,filePathFinal,file.size).subscribe(
-        res=>{
-          this.alumnoIndividual[0].imagen=filePathFinal
-        },
-        err=>{
-          console.log(err)
-        }
-      )
+          this.perfilAlumnosService.subidaDeImagen(this.idUsuario,filePathFinal,file.size).subscribe(
+            res=>{
+              this.alumnoIndividual[0].imagen=filePathFinal
+            },
+            err=>{
+              console.log(err)
+            }
+          )
       // Realiza acciones adicionales con la respuesta del servidor si es necesario
       this.toastrService.success('El archivo: "'+ file.name +'" se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
     }

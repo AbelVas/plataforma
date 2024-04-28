@@ -2,7 +2,7 @@
   <div class="row">
     <div class="pagetitle col-md-9">
       <h1 [style]="{'color': ctexto1}">
-        <img [src]="c.ruta_imagen" alt="profileImage" height="15%" width="25%">
+        <img [src]="c.ruta_imagen" alt="profileImage" height="75" width="75">
         {{c.nombre_curso}}</h1>
       <nav>
         <ol class="breadcrumb">
@@ -28,7 +28,7 @@
 
                   <div class="mb-3">
                     <label for="exampleColorInput" class="form-label">Color de curso</label>
-                    <input formControlName="color_curso" type="color" class="form-control form-control-color" value="{{cursosIndividual.color_curso}}" title="Seleccione el Color">
+                    <input formControlName="color_curso" type="color" class="form-control form-control-color" value="{{cursosGet.color_curso}}" title="Seleccione el Color">
                   </div>
                   <hr>
                   <div class="mb-3">
@@ -41,7 +41,7 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <button type="submit" class="btn btn-primary">Editar</button>
-                  
+
                 </div>
               </form>
             </div>
@@ -76,73 +76,85 @@
           </div>
           <div class="modal-body">
             <div class="text-center">
-              <div> <!--Aquí va un ngif para la imagen de defecto-->
-                <img [src]="c.ruta_imagen" height="40%" width="40%">
+              <div *ngIf="imagenPerfilActual!='';else imagenDefecto" class="text-center contenedor-centrado">
+                <div class="img-preview" [style.background-image]="'url(' + imagenPerfilActual + ')'" alt="Vista previa de la imagen"></div>
               </div>
               <ng-template #imagenDefecto>
-                <div>
-                  <img [src]="cursosIndividual.ruta_imagen">
-                  <h5>Sin imagen aún...</h5>
+                <div class="text-center contenedor-centrado">
+                  <div class="img-preview" [style.background-image]="'url(' + cursosGet[0]?.ruta_imagen + ')'" alt="Vista previa de la imagen"></div>
                 </div>
               </ng-template>
             </div>
             <hr>
-            <h4>Escoja su imagen</h4>
-            <div class="text-center">
-            <img src="{{cursosIndividual.ruta_imagen}}" height="20%" width="20%" alt="Imagen seleccionada">
-            </div>
-            <div>
+            <select class="form-select" (change)="selectValue($event)">
+              <option selected>Categoría...</option>
+              <option *ngFor="let imgC of categoriaImagen" value="{{imgC.idCategoriaImagenPerfil}}">{{imgC.categoria}}</option>
+            </select>
+            <br>
+            <div *ngIf="idCategoriaImagen!='1';">
               <div class="row">
                 <div class="col-md-2" *ngFor="let i of listaImagenes">
                   <img [src]="i.ruta" class="hover-imagen" (click)="valueGetImagen(i.ruta)">
                 </div>
               </div>
           </div>
+          <div *ngIf="idCategoriaImagen=='1';">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let su of imagenSubidaUsuario">
+                <img [src]="su.ruta_imagen" class="hover-imagen" (click)="valueGetImagen(su.ruta_imagen)">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="idCategoriaImagen=='';">
+            <div class="alert alert-warning" role="alert">
+              Sin Categoría seleccionada...
+            </div>
+          </div>
 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="actualizarImagenPredisenada()">Guardar</button>
+            <button type="button" class="btn btn-primary" (click)="actualizarImagenPerfilSeleccionada()">Guardar</button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Modal subir imagen-->
-<div class="modal fade" id="importImg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Subir imagen de perfil</h1>
-        <button type="button"  #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm)" autocomplete="off">
-        <div class="modal-body">
-            <label for="subirImagen" class="form-label">Suba su imagen</label>
-            <input #fileInput class="form-control" type="file" name="file" id="subirImagen" (change)="mostrarVistaPrevia($event)">
-            <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+    <div class="modal fade" id="importImg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Subir imagen de perfil</h1>
+            <button type="button"  #cerrarEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm)" autocomplete="off">
+            <div class="modal-body">
+                <label for="subirImagen" class="form-label">Suba su imagen</label>
+                <input #fileInput class="form-control" type="file" name="file" id="subirImagen" (change)="mostrarVistaPrevia($event)">
+                <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+                </div>
+
+                <div class="text-center contenedor-centrado">
+                  <div><br>
+                  <div *ngIf="vistaPrevia" class="img-preview" [style.background-image]="'url(' + vistaPrevia + ')'" alt="Vista previa de la imagen"></div>
+                </div>
+            </div>
             </div>
 
-          <div class="text-center contenedor-centrado">
-            <div><br>
-            <div *ngIf="vistaPrevia" class="img-preview" [style.background-image]="'url(' + vistaPrevia + ')'" alt="Vista previa de la imagen"></div>
+          <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
           </div>
+          <ng-template class="modal-footer" #botonAceptar>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </ng-template>
+        </form>
         </div>
-        </div>
-
-      <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
       </div>
-      <ng-template class="modal-footer" #botonAceptar>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </ng-template>
-    </form>
     </div>
-  </div>
-</div>
 
 </main>

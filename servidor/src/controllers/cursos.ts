@@ -1,6 +1,7 @@
 import { Request,Response } from "express"
-import { obtenerCursodeProfesor,obtenerCursosPorGradoProfesorAdminService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorGradoProfesorService,obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService, obtenerCursosPorGradoService, obtenerCursosPorProfesorService,obtenerCursosPorAlumnoService,obtenerProfePorCurso} from "../service/cursos"
+import { obtenerImagenSubidCursosProfesor,obtenerCursodeProfesor,obtenerCursosPorGradoProfesorAdminService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorGradoProfesorService,obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService, obtenerCursosPorGradoService, obtenerCursosPorProfesorService,obtenerCursosPorAlumnoService,obtenerProfePorCurso} from "../service/cursos"
 import { handleHttp } from "../utils/error.handle"
+import { io } from "../app"; // Importa el objeto de Socket.io
 
 const obtenerCursosPorProfesorGradoSeccion=async(req:Request, res:Response)=>{
     try {
@@ -117,8 +118,23 @@ const obtenerCursodeProfesorIndividual=async (req:Request, res:Response)=>{
         const resultadoProfesor=await obtenerCursodeProfesor(id)
         res.send(resultadoProfesor);
     }catch(e){
-handleHttp(e, req, res);
+        handleHttp(e, req, res);
     }
 }
 
-export {obtenerCursodeProfesorIndividual,getCursoporGradoProfesorAdmin,getCurso, getCursos, updateCurso,deleteCurso, insertCurso,getCursoporGrado,getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno, getProfeCurso}
+const obtenerImagenSubidCursosProfesorController=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const {ruta_imagen}=req.body
+        const {subida}=req.body
+        const {idRol}=req.body
+        const {idProfesor}=req.body
+        const resultado=await obtenerImagenSubidCursosProfesor(id,ruta_imagen,subida)
+        io.emit('actualizar-foto-curso',{usuario:idProfesor,idRol:idRol})
+        res.send(resultado)
+    } catch (e) {
+        handleHttp(e, req, res);   
+    }
+}
+
+export {obtenerImagenSubidCursosProfesorController,obtenerCursodeProfesorIndividual,getCursoporGradoProfesorAdmin,getCurso, getCursos, updateCurso,deleteCurso, insertCurso,getCursoporGrado,getCursoporProfesor,getCursoporGradoProfesor,obtenerCursosPorProfesorGradoSeccion,getCursosPorAlumno, getProfeCurso}

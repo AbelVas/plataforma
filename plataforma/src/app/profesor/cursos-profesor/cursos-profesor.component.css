@@ -6,3 +6,54 @@
 .hover-imagen:hover{
   background-color: rgb(179, 179, 179);
 }
+
+/* Estilo para la barra de progreso verde */
+.progress-bar.bg-success {
+  background-color: #28a745 !important;
+}
+
+/* Estilo para el texto del porcentaje dentro de la barra de progreso */
+.progress-bar {
+  color: #ffffff; /* Color blanco para el texto */
+}
+.text-center-visor-imagen {
+  text-align: center;
+  margin-top: 20px; /* Ajusta el margen según tus preferencias */
+}
+
+.img-preview {
+  max-width: 100%;
+  max-height: 100%; /* Establece la altura máxima según tus preferencias */
+  border-radius: 10px; /* Agrega bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+  transition: transform 0.2s ease-in-out; /* Agrega una transición suave al hacer hover */
+}
+
+.img-preview:hover {
+  transform: scale(1.05); /* Escala ligeramente la imagen al hacer hover */
+}
+.contenedor-centrado {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+.imagen-div-perfil {
+  width: 350px; /* Ancho del contenedor */
+  height: 350px; /* Alto del contenedor */
+  /*border-radius: 50%;  Forma circular */
+  background-size: cover; /* Ajustar imagen sin distorsionar */
+  background-position: center; /* Centrar la imagen */
+}
+
+.contenedor-centrado {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+.img-preview {
+  width: 400px; /* Ajusta el ancho según tus necesidades */
+  height: 400px; /* Ajusta la altura según tus necesidades */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px; /* Ajusta el radio de borde según tus necesidades para que se vea redondeado */
+}

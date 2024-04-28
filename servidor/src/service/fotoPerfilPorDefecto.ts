@@ -53,5 +53,9 @@ const ActualizarImagenPerfilProfesor=async(id:string,ruta:any,subida:string)=>{
         return consulta
     }
 }
+const getImagenesSubidasPorProfesorCursoService=async(idCurso:string)=>{
+    const consulta=await conexion.query('SELECT ruta_imagen FROM tbImagenCurso WHERE idCurso=? and subida=1',[idCurso])
+    return consulta
+}
 
-export {ActualizarImagenPerfilProfesor,ActualizarImagenPerfilAlumno,obtenerImagenSubidUsuarioProfesor,obtenerImagenSubidUsuarioAlumno,obtenerImagenCategoriaService,obtenerCatecoriaImagenService}
+export {getImagenesSubidasPorProfesorCursoService,ActualizarImagenPerfilProfesor,ActualizarImagenPerfilAlumno,obtenerImagenSubidUsuarioProfesor,obtenerImagenSubidUsuarioAlumno,obtenerImagenCategoriaService,obtenerCatecoriaImagenService}

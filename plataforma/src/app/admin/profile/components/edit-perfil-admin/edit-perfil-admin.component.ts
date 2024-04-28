@@ -113,21 +113,8 @@ export class EditPerfilAdminComponent implements OnInit {
     const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
-      // Validar extensión del archivo
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-      const fileExtension: any = file.name.split('.').pop()?.toLowerCase();
-      if (!allowedExtensions.includes(fileExtension)) {
-        this.toastrService.error('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '), 'Error', { closeButton: true, timeOut: 0 });
-        return; // Salir de la función si la extensión no es válida
-      }
-      // Validar peso del archivo
-      const maxSizeInBytes: any = 10 * 1024 * 1024; // 10 MB
-      if (file.size > maxSizeInBytes) {
-        this.toastrService.error('El tamaño del archivo supera el límite permitido (10MB).', 'Error', { timeOut: 3000, extendedTimeOut: 10000 });
-        return; // Salir de la función si el tamaño es mayor al límite
-      }
       // Inicia el proceso de carga
-      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol).subscribe(
+      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol,'foto-perfil-usuario').subscribe(
         response => { // Maneja la respuesta del servidor
 
           if (typeof response === 'number'){

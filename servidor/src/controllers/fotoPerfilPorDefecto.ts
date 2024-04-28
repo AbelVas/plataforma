@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { ActualizarImagenPerfilProfesor,ActualizarImagenPerfilAlumno,obtenerImagenSubidUsuarioProfesor,obtenerImagenSubidUsuarioAlumno,obtenerImagenCategoriaService,obtenerCatecoriaImagenService } from "../service/fotoPerfilPorDefecto"
+import { getImagenesSubidasPorProfesorCursoService,ActualizarImagenPerfilProfesor,ActualizarImagenPerfilAlumno,obtenerImagenSubidUsuarioProfesor,obtenerImagenSubidUsuarioAlumno,obtenerImagenCategoriaService,obtenerCatecoriaImagenService } from "../service/fotoPerfilPorDefecto"
 import { handleHttp } from "../utils/error.handle"
 import { io } from "../app"; // Importa el objeto de Socket.io
 
@@ -69,4 +69,14 @@ const actualizarPefilAlumnoController=async(req:Request,res:Response)=>{
     }
 }
 
-export {actualizarPefilProfesorController,actualizarPefilAlumnoController,obtenerImagenSubidUsuarioAlumnoController,obtenerImagenSubidUsuarioProfesorController,obtenerImagenCategoria,obtenerCategoriaImagen}
+const getImagenesSubidasPorProfesorCursoController=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const respuesta=await getImagenesSubidasPorProfesorCursoService(id)
+        res.send(respuesta)
+    } catch (e) {
+        handleHttp(e, req, res);        
+    }
+}
+
+export {getImagenesSubidasPorProfesorCursoController,actualizarPefilProfesorController,actualizarPefilAlumnoController,obtenerImagenSubidUsuarioAlumnoController,obtenerImagenSubidUsuarioProfesorController,obtenerImagenCategoria,obtenerCategoriaImagen}

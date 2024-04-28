@@ -62,4 +62,24 @@ const obtenerCursodeProfesor=async(idCurso:string)=>{
     const response=await conexion.query("SELECT c.nombre_curso,CONCAT(p.apellido_profesor,' ',p.nombre_profesor) as profesor FROM tbCurso c INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor WHERE c.idCurso=?",[idCurso]);
     return response
 }
-export {obtenerCursosPorGradoProfesorAdminService,obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService,obtenerProfePorCurso,obtenerCursodeProfesor}
+
+const obtenerImagenSubidCursosProfesor=async(idCurso:string,ruta:any,subida:string)=>{
+    const verificar=await conexion.query("SELECT ruta_imagen,subida FROM tbImagenCurso WHERE idCurso=? and subida=? ",[idCurso,subida])
+    if(verificar!=''){
+        if(subida!='1'){
+            const update=await conexion.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?",[idCurso])
+            const update2=await conexion.query("UPDATE tbImagenCurso SET activa=1, peso_archivo=0, subida=0, ruta_imagen=? WHERE idCurso=? and subida=0",[ruta,idCurso])
+            return update2
+        }else{
+            const update=await conexion.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?",[idCurso])
+            const update2=await conexion.query("UPDATE tbImagenCurso SET activa=1 WHERE idCurso=? and subida=1 and ruta_imagen=?",[idCurso,ruta])
+            return update2
+        }
+    }else{
+        const update=await conexion.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?",[idCurso])
+        const consulta=await conexion.query("INSERT INTO tbImagenCurso(idCurso,ruta_imagen,peso_archivo,activa,subida) values(?,?,0,1,0)",[idCurso,ruta])
+        return consulta
+    }
+}
+
+export {obtenerImagenSubidCursosProfesor,obtenerCursosPorGradoProfesorAdminService,obtenerCursosService, obtenerCursoService, updateCursosService, deleteCursosService, insertCursosService,obtenerCursosPorGradoService,obtenerCursosPorProfesorService,obtenerCursosPorGradoProfesorService,obtenerCursosPorProfesorGradoSeccionService,obtenerCursosPorAlumnoService,obtenerProfePorCurso,obtenerCursodeProfesor}

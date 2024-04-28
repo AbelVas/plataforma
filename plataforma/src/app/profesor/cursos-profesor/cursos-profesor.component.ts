@@ -9,6 +9,7 @@ import decode from "jwt-decode"
 import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
 import { PerfilProfesorService } from '../services/perfil-profesor.service';
 import { WebSocketService } from 'src/app/web-socket.service';
+import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
 
 @Component({
   selector: 'app-cursos-profesor',
@@ -24,6 +25,8 @@ export class CursosProfesorComponent implements OnInit {
   uploadedFilePath: any;
   uploadProgress: number | undefined;
   vistaPrevia: any
+  imagenPerfilActual:any=''
+  idCategoriaImagen:any
 
   categoriaImagen:any=[]
   imagenSubidaUsuario:any=[]
@@ -32,9 +35,6 @@ export class CursosProfesorComponent implements OnInit {
   listaImagenes:any=[]
   idClase:string='';
   cursosGet:any=[];
-  cursosIndividual:any={
-    ruta_imagen:''
-  };
   idGradoCurso:string='';
   alumnosGet:any=[];
   alumnosIndividual:any={
@@ -43,9 +43,7 @@ export class CursosProfesorComponent implements OnInit {
     usuario:'',
     activo:''
   }
-
   temaactivo:string='1';
-
   temaGet:any=[];
   temaIndividual:any={
     idTema: '',
@@ -59,7 +57,6 @@ export class CursosProfesorComponent implements OnInit {
     texto1: '',
     estado: ''
   }
-
   intervalo:any
   cursoForm:any
   @ViewChild('cerrarEditarModal') modalCloseEditar: any;
@@ -70,16 +67,20 @@ export class CursosProfesorComponent implements OnInit {
   cfondo2:string='';
   ctexto1:string='';
 
-  constructor( public cardResumenService:CardResumenService, private imagenPerfilService:PerfilProfesorService,private activedRoute:ActivatedRoute, private temaProfesorService:TemaProfesorService, private router:Router, private formBuilder:FormBuilder, private toastrService:ToastrService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService) { }
+  constructor( private imagenesPerfil: ImagenesPerfilDefectoService,public cardResumenService:CardResumenService, private imagenPerfilService:PerfilProfesorService,private activedRoute:ActivatedRoute, private temaProfesorService:TemaProfesorService, private router:Router, private formBuilder:FormBuilder, private toastrService:ToastrService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
+    const decodedToken: any = decode(this.token);
+    this.idUsuario = decodedToken.idUsuario;
+    this.idRol = decodedToken.idRol;
     this.idClase=params['idCurso'];
-    this.idGradoCurso=params['idGrado'];
     this.obtenerDatosCursos();
+    this.idGradoCurso=params['idGrado'];
+    this.getCategoriasDeImagenesDePerfil()
     this.obtenerAlumnosCursos();
-    this.getImagenesPerfil(2);
-    this.getImagenPerfil(this.idGradoCurso);
+    this.getImagenesPerfil(2); //IMAGENES POR DEFECTO TENGO QUE ARREGLAR ACÁ
+    this.getImagenPerfil(this.idClase);
 
     this.cursoForm=this.formBuilder.group({
       color_curso:new FormControl('',[Validators.required]),
@@ -96,7 +97,6 @@ export class CursosProfesorComponent implements OnInit {
       });
 
   }
-
   obtenerDatosCursos(idCurso=this.idClase){
     this.cardResumenService.getCurso(idCurso).subscribe(
       response=>{
@@ -107,7 +107,6 @@ export class CursosProfesorComponent implements OnInit {
       }
     )
   }
-
   obtenerAlumnosCursos(idGradoAl=this.idGradoCurso){
     this.cardResumenService.getAlumnosGrado(idGradoAl).subscribe(
       response=>{
@@ -116,7 +115,6 @@ export class CursosProfesorComponent implements OnInit {
     )
 
   }
-
   obtenerDatosTema(){
     this.temaProfesorService.getTemaActivo(this.temaactivo).subscribe(
       response=>{
@@ -133,7 +131,6 @@ export class CursosProfesorComponent implements OnInit {
       }
     )
   }
-
   updateCurso(idCurso=this.idClase){
     var DataModificada:any={}
     if(this.f.color_curso.value!=''){
@@ -154,15 +151,33 @@ export class CursosProfesorComponent implements OnInit {
       )
     }else{
       this.modalCloseEditar.nativeElement.click();
-      //Aquí va el mensajito flotante de no se realizaron cambios
     }
   }
-  //IMAGENES POR DEFECTO
+
+  //IMAGENES POR DEFECTO TENGO QUE ARREGLAR ACÁ
   getImagenesPerfil(idCategoria:any){
     this.cardResumenService.getImagenCategoria(idCategoria).subscribe(
       res=>{
         this.listaImagenes=res
-        console.log(this.listaImagenes)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+  getCategoriasDeImagenesDePerfil(){
+    this.imagenesPerfil.getCategoriasImagenes().subscribe(
+      res=>{
+        this.categoriaImagen=res
+      },err=>{
+        console.log(err)
+      }
+    )
+  }
+  getImagenesPerfilCategoriaDefecto(idCategoria:string){
+    this.imagenPerfilService.getImagenCategoria(idCategoria).subscribe(
+      res=>{
+        this.listaImagenes=res
       },
       err=>{
         console.log(err)
@@ -170,51 +185,57 @@ export class CursosProfesorComponent implements OnInit {
     )
   }
   valueGetImagen(e:any){
-    this.cursosIndividual.ruta_imagen=e
-    console.log(this.cursosIndividual.ruta_imagen)
+    this.imagenPerfilActual=e
+    //this.adminIndividual[0].imagen=e <- OJO ACA, ES PARAA LA IMAGEN POR DEFECTO
   }
-
-  actualizarImagenPredisenada(idCurso=this.idClase){
-    this.cardResumenService.updateCurso(idCurso,this.cursosIndividual).subscribe(
-      res=>{
-        this.obtenerDatosCursos()
-        this.CerrarModal.nativeElement.click();
-        this.toastrService.success(`Curso Actualizado`,'Realizado')
-      },
-      err=>{
-        this.CerrarModal.nativeElement.click();
-        this.toastrService.error(`Error al Actulizar`,'Error')
-        console.log(err)
-      }
-    )
+  selectValue(e:any){
+    this.idCategoriaImagen=e.target.value
+    if(this.idCategoriaImagen=='1'){
+      this.imagenesPerfil.getImagenesSubidasPorProfesorCurso(this.idClase).subscribe(
+        res=>{
+          this.imagenSubidaUsuario=res
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else{
+      this.getImagenesPerfilCategoriaDefecto(e.target.value);
+    }
   }
-
+  actualizarImagenPerfilSeleccionada(){
+    const ruta_imagen=this.imagenPerfilActual
+    var idCategoria=this.idCategoriaImagen
+    if(idCategoria!=1){
+      this.imagenesPerfil.ActualizarImagenPerfilCurso(this.idClase,ruta_imagen,"0",this.idUsuario,this.idRol).subscribe(
+        res=>{
+          this.cursosGet[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }else if(idCategoria==1){
+      this.imagenesPerfil.ActualizarImagenPerfilCurso(this.idClase,ruta_imagen,"1",this.idUsuario,this.idRol).subscribe(
+        res=>{
+          this.cursosGet[0].imagen=ruta_imagen
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
+  }
+  //FIN IMAGEN PREDISEÑADA Y CATEGORÍAS
   get f() { return this.cursoForm.controls; }
-
   //Subida de imagenes
   onSubmit(form: HTMLFormElement) {
-    const { idUsuario }: any = decode(this.token);
-    const { idRol }: any = decode(this.token);
     const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
-      // Validar extensión del archivo
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-      const fileExtension: any = file.name.split('.').pop()?.toLowerCase();
-      if (!allowedExtensions.includes(fileExtension)) {
-        this.toastrService.error('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '), 'Error', { closeButton: true, timeOut: 0 });
-        return; // Salir de la función si la extensión no es válida
-      }
-      // Validar peso del archivo
-      const maxSizeInBytes: any = 10 * 1024 * 1024; // 10 MB
-      if (file.size > maxSizeInBytes) {
-        this.toastrService.error('El tamaño del archivo supera el límite permitido (10MB).', 'Error', { timeOut: 3000, extendedTimeOut: 10000 });
-        return; // Salir de la función si el tamaño es mayor al límite
-      }
       // Inicia el proceso de carga
-      this.uploadFotoService.uploadFileWithProgressCurso(file,parseInt(this.idGradoCurso), idRol).subscribe(
+      this.uploadFotoService.uploadFileWithProgress(file,this.idUsuario, this.idRol,'foto-curso',this.idClase).subscribe(
         response => { // Maneja la respuesta del servidor
-          console.log("Sii entre aqui")
           if (typeof response === 'number'){
             if (response >= 0 && response <= 100) {
               this.uploadProgress = response;
@@ -222,9 +243,9 @@ export class CursosProfesorComponent implements OnInit {
           }else if(typeof response === 'object' && response.filePath){
             const filePathFinal:any=response.filePath;
             //ME FALTA COLOCAR BIEN LA INFO AQUI ASÍ BIEN INFORMATIVA
-            this.imagenPerfilService.subidaDeImagenCurso(this.idGradoCurso,filePathFinal,file.size,this.idUsuario).subscribe(
+            this.imagenPerfilService.subidaDeImagenCurso(this.idClase,filePathFinal,file.size,this.idUsuario).subscribe(
               res=>{
-                this.cursosIndividual[0].imagen=filePathFinal
+                this.cursosGet[0].ruta_imagen=filePathFinal
               },
               err=>{
                 console.log(err)
@@ -232,27 +253,26 @@ export class CursosProfesorComponent implements OnInit {
             )
             // Realiza acciones adicionales con la respuesta del servidor si es necesario
             this.toastrService.success('El archivo: "'+ file.name +'" se ha subido correctamente.', 'Éxito', { timeOut: 3000 });
-            this.getImagenPerfil(this.idGradoCurso)
+            this.getImagenPerfil(this.idClase)
           }
         },
         error => { // Maneja los errores de la carga
           this.toastrService.error('Error al subir el archivo: '+error, 'Error', { timeOut: 3000 });
-        }
-      );
+        });
     } else {
       // Mostrar un mensaje indicando que no se seleccionó ningún archivo
       this.toastrService.error('Por favor, selecciona un archivo para subir.', 'Error', { timeOut: 3000 });
     }
   }
-
-  getImagenPerfil(idAdmin:string) {
-    this.imagenPerfilService.getFotoCurso(idAdmin).subscribe(
+  getImagenPerfil(idCurso:string) {
+    this.imagenPerfilService.getFotoCurso(idCurso).subscribe(
       res=>{
         this.imagenActiva=res
         if(this.imagenActiva[0]?.ruta_imagen==undefined){
-          this.cursosIndividual[0].imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+          this.cursosGet[0].ruta_imagen='assets/img/perfiles/sinfoto/blank_profile.png'
         }else{
-          this.cursosIndividual[0].imagen=this.imagenActiva[0]?.ruta_imagen
+          console.log(this.imagenActiva[0]?.ruta_imagen)
+          this.cursosGet[0].ruta_imagen=this.imagenActiva[0]?.ruta_imagen
         }
       },
       err=>{
@@ -277,7 +297,6 @@ export class CursosProfesorComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
   reiniciarModal() {
     if (this.uploadForm) {
       // Obtener el formulario y restablecer sus valores
@@ -289,5 +308,4 @@ export class CursosProfesorComponent implements OnInit {
       console.error('Error: uploadForm is undefined.'); // Opcional: Mostrar un mensaje de error si uploadForm es undefined
     }
   }
-
 }
