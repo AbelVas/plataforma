@@ -47,12 +47,21 @@ export class CardClasesJornadasComponent implements OnInit {
         for(let i = 0; i<cantidad; i++){
           if(this.cursosGet[i].idJornada=='1'){
             this.matutina[AuxMatutina]=this.cursosGet[i]
-            AuxMatutina++;
+          // Verificar si ruta_imagen es nula y asignar un valor manual si es necesario
+          if (!this.matutina[AuxMatutina].ruta_imagen) {
+            this.matutina[AuxMatutina].ruta_imagen = 'assets/img/cursos/not-found/not-found-image.jpg';
+          }
+          AuxMatutina++;
           }else{
             this.vespertina[AuxVespertina]=this.cursosGet[i]
+            // Verificar si ruta_imagen es nula y asignar un valor manual si es necesario
+            if (!this.vespertina[AuxVespertina].ruta_imagen) {
+              this.vespertina[AuxVespertina].ruta_imagen = 'assets/img/cursos/not-found/not-found-image.jpg';
+            }
             AuxVespertina++;
           }
         }
+        console.log(this.cursosGet)
       },
       error=>{
         console.log('Error: '+error);
