@@ -66,70 +66,56 @@ export class ListaActividadesComponent implements OnInit {
     switch(dif){
       case 1:
          this.Enero.push(this.EventsDatos[i])
-         //console.log(this.Enero)
          break;
 
       case 2:
          this.Febrero.push(this.EventsDatos[i])
-         //console.log(this.Febrero)
          break;
 
       case 3:
          this.Marzo.push(this.EventsDatos[i])
-         console.log(this.Marzo)
          break;
 
       case 4:
          this.Abril.push(this.EventsDatos[i])
-         //console.log(this.Abril)
          break;
 
       case 5:
          this.Mayo.push(this.EventsDatos[i])
-         //console.log(this.Mayo)
          break;
 
       case 6:
          this.Junio.push(this.EventsDatos[i])
-         //console.log(this.Junio)
          break;
 
       case 7:
          this.Julio.push(this.EventsDatos[i])
-         //console.log(this.Julio)
          break;
 
       case 8:
          this.Agosto.push(this.EventsDatos[i])
-         //console.log(this.Agosto)
          break;
 
       case 9:
          this.Septiembre.push(this.EventsDatos[i])
-         //console.log(this.Septiembre)
          break;
 
       case 10:
          this.Octubre.push(this.EventsDatos[i])
-         //console.log(this.Octubre)
          break;
 
       case 11:
          this.Noviembre.push(this.EventsDatos[i])
-         //console.log(this.Noviembre)
          break;
 
       case 12:
          this.Diciembre.push(this.EventsDatos[i])
-         //console.log(this.Diciembre)
          break;
 
       default:
-        //console.log("No such day exists!");
         break;
     }
     }
-    console.log(this.Marzo)
   }
 
 

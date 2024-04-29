@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import { DahboardService } from '../services/dahboard.service';
 import { TemaEstudianteService } from '../services/tema-estudiante.service';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -33,9 +33,10 @@ export class DashboardComponent implements OnInit {
   cfondo2:string='';
   ctexto1:string='';
 
-  constructor(public AlumnoNombreDash:DahboardService, private temaEstudianteService:TemaEstudianteService) { }
+  constructor(public AlumnoNombreDash:DahboardService, private temaEstudianteService:TemaEstudianteService,private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Dashboard');
     const token:any = localStorage.getItem('Acces-Token');
     const {nombre_profesor}:any=decode(token);
     const {apellido_profesor}: any=decode(token);

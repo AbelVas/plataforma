@@ -43,8 +43,6 @@ CantidadActividades:any=[];
       response=>{
         this.ListaActividadesEventos=response
         },
-        //console.log(this.EventsDatos[4].date='2023-01-21');
-        //this.EventsDatos[4].date='2023-01-03
       error=>{
         console.log('Error: '+error);
       }

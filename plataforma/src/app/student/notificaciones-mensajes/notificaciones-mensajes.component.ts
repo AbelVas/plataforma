@@ -3,6 +3,7 @@ import { TemaEstudianteService } from '../services/tema-estudiante.service';
 import { NotificacionesStudentService } from '../services/notificaciones-student.service';
 import { WebSocketService } from 'src/app/web-socket.service';
 import decode from 'jwt-decode';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notificaciones-mensajes',
@@ -11,7 +12,7 @@ import decode from 'jwt-decode';
 })
 export class NotificacionesMensajesComponent implements OnInit {
 
-  constructor(private temaStudentService:TemaEstudianteService,private notificacionesService:NotificacionesStudentService,private socketService:WebSocketService) { }
+  constructor(private temaStudentService:TemaEstudianteService,private titleService: Title,private notificacionesService:NotificacionesStudentService,private socketService:WebSocketService) { }
 
   temaactivo:string='1';
   temaGet:any=[];
@@ -45,6 +46,7 @@ export class NotificacionesMensajesComponent implements OnInit {
   token:any = localStorage.getItem('Acces-Token');
 
   ngOnInit() {
+    this.titleService.setTitle('Bandeja de Entrada');
     const {idUsuario}:any=decode(this.token);
     const {idRol}:any=decode(this.token);
     this.obtenerDatosTema()

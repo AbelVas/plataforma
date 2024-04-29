@@ -11,18 +11,58 @@
   </div>
   <section class="section dashboard">
     <div class="row">
-      <div class="col-12">
+      <div class="col-lg-8 col-md-8 col-sm-12">
         <div class="card">
-           <div class="card-body">
+          <div class="card-body">
             <div class="d-flex">
-              <h5 class="card-title">Calendario de Actividades</h5>
+              <h5 class="card-title">Actividades del mes</h5>
             </div>
             <div class="tab-content pt-2" id="myTabjustifiedContent">
               <div class="activity">
-                <app-calendariogeneral></app-calendariogeneral>
+                <app-calendario></app-calendario>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card info-card customers-card">
+          <div class="card-body">
+            <h5 class="card-title">Colores de actividad por curso</h5>
+
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div class="accordion-item">
+                <h3 class="accordion-header" id="flush-headingOne"> <button class="accordion-button collapsed"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                    aria-controls="flush-collapseOne">Listado de cursos</button></h3>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+
+                    <div *ngIf="cantidadcursos!='';else tablaVaciaC">
+                      <div class="row">
+                        <table class="table table-hover .table-borderless">
+                          <tbody>
+                            <tr *ngFor="let c of cantidadcursos; let i=index" style="vertical-align:middle;">
+                              <th scope="row" [ngStyle]="{'font-size.px': '40'}" [style.color]="c.color_curso">•</th>
+                              <td>{{c.nombre_curso}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <ng-template #tablaVaciaC>
+                      <div class="alert alert-warning" role="alert">
+                        Sin registros, no tiene ningún curso asignado aún...
+                      </div>
+                    </ng-template>
+
+                  </div>
+                </div>
+              </div>
             </div>
-           </div>
+          </div>
         </div>
       </div>
     </div>
