@@ -74,7 +74,7 @@
               <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" [ngClass]="{'bg-success': porcentajeAlmacenamiento < 26&&porcentajeAlmacenamiento>0,'bg-info':porcentajeAlmacenamiento< 51&&porcentajeAlmacenamiento> 25,'bg-warning':porcentajeAlmacenamiento<80&&porcentajeAlmacenamiento>50,'bg-danger': porcentajeAlmacenamiento < 100&&porcentajeAlmacenamiento>80}"  [style.width]="porcentajeAlmacenamiento + '%'">{{porcentajeAlmacenamiento+"%"}}</div>
               </div>
-              <h6>{{almacenamientoEnGigas+'/60Gb'}}</h6>
+              <h6 style="font-size: 22px;">{{almacenamientoEnGigas+'/60Gb'}}</h6>
               </ng-template>
            </div>
         </div>

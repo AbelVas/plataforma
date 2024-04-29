@@ -14,11 +14,20 @@ export class UploadFotoPerfilService {
   constructor(private http: HttpClient,private errorHandler: ManejoDeErroresService) { }
 
   uploadFileWithProgress(file: File, userId: any, userRole: string,tipoSubida:any,parametroExtraParaCarpeta?:string): Observable<any> {
-      // Validar extensión del archivo
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-      const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
-      if (!allowedExtensions.includes(fileExtension)) {
-        return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
+
+      //vamos a validar el tipo de subida:
+      if(tipoSubida=='foto-perfil-usuario'||tipoSubida=='foto-curso'){
+        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
+        }
+      }else if(tipoSubida=='renas'||tipoSubida=='policiacos'||tipoSubida=='penales'){
+        const allowedExtensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
+        const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
+        }
       }
       // Validar peso del archivo
       const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB

@@ -63,7 +63,7 @@ export class CardsBimestreComponent implements OnInit {
       res=>{
         var gigas=1e9
         this.almacenamientoEnBytes=res[0].almacenamiento_ocupado
-        this.almacenamientoEnGigas=parseFloat((this.almacenamientoEnBytes/gigas).toFixed(0))
+        this.almacenamientoEnGigas=parseFloat((this.almacenamientoEnBytes/gigas).toFixed(3))
          // Verifica si almacenamientoEnGigas es igual a 60
          if (this.almacenamientoEnGigas === 60) {
           // Si es igual a 60, muestra el porcentaje del 100%

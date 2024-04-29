@@ -9,17 +9,22 @@
           </div>
           <div class="text-center">
             <div *ngIf="RENAS==null;else siRenas">
-              <img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
-              <h4 class="text-danger">No se encuentran archivos!</h4>
+              <a ruta_archivo></a><img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
+              <h4 class="text-danger">No se detecta!</h4>
+              <br>
+              <div class="text-center">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RENAS"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
+              </div>
             </div>
             <ng-template #siRenas>
-              <img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
-              <h4 class="text-success">Descargar</h4>
+              <a [href]="RENAS[0]?.ruta_archivo" download><img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
+                <h4 class="text-success">Se Puede Descargar</h4>
+              </a>
+              <br>
+              <div class="text-center">
+                <button class="btn btn-success" (click)="actualizarRenas('renas',RENAS[0]?.ruta_archivo)" data-bs-toggle="modal" data-bs-target="#RENAS"><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+              </div>
             </ng-template>
-          </div>
-          <br>
-          <div class="text-center">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RENAS"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
           </div>
         </div>
       </div>
@@ -31,19 +36,24 @@
             <h5 class="card-title">Antecedentes Penales</h5>
           </div>
           <div class="text-center">
-            <div *ngIf="antecedentesPenales==null;else siRenas">
+            <div *ngIf="antecedentesPenales==null;else siPenales">
               <img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
-              <h4 class="text-danger">No se encuentran archivos!</h4>
+              <h4 class="text-danger">No se detecta!</h4>
+              <div class="text-center">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#penales"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
+              </div>
             </div>
-            <ng-template #siRenas>
-              <img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
-              <h4 class="text-success">Descargar</h4>
+            <ng-template #siPenales>
+              <a [href]="antecedentesPenales[0]?.ruta_archivo" download><img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
+                <h4 class="text-success">Se Puede Descargar</h4>
+              </a>
+              <br>
+              <div class="text-center">
+                <button class="btn btn-success" data-bs-toggle="modal" (click)="actualizarPenales('renas',antecedentesPenales[0]?.ruta_archivo)"  data-bs-target="#penales"><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+              </div>
             </ng-template>
           </div>
           <br>
-          <div class="text-center">
-            <button class="btn btn-primary"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
-          </div>
         </div>
       </div>
     </div>
@@ -54,19 +64,24 @@
             <h5 class="card-title">Antecedentes Policiacos</h5>
           </div>
           <div class="text-center">
-            <div *ngIf="antecedentesPoliciacos==null;else siRenas">
+            <div *ngIf="antecedentesPoliciacos==null;else siPoliciacos">
               <img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
-              <h4 class="text-danger">No se encuentran archivos!</h4>
+              <h4 class="text-danger">No se detecta!</h4>
+              <div class="text-center">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#policiacos"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
+              </div>
             </div>
-            <ng-template #siRenas>
-              <img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
-              <h4 class="text-success">Descargar</h4>
+            <ng-template #siPoliciacos>
+              <a [href]="antecedentesPoliciacos[0]?.ruta_archivo" download><img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
+                <h4 class="text-success">Se Puede Descargar</h4>
+              </a>
+              <br>
+              <div class="text-center">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#policiacos" (click)="actualizarPenales('renas',antecedentesPoliciacos[0]?.ruta_archivo)" ><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+              </div>
             </ng-template>
           </div>
           <br>
-          <div class="text-center">
-            <button class="btn btn-primary"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
-          </div>
         </div>
       </div>
     </div>
@@ -74,8 +89,6 @@
   </div>
   <hr>
 </div>
-
-
 
 
 <!-- Modal RENAS -->
@@ -86,36 +99,84 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Archivo RENAS</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Seleccionar archivo:</label>
-          <input class="form-control" type="file" id="formFile">
+      <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm,'renas')" autocomplete="off">
+        <div class="modal-body">
+          <label for="subirImagen" class="form-label">Suba su imagen</label>
+          <input #fileInput class="form-control" type="file" name="file" id="subirArchivo">
+          <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+          </div>
         </div>
+        <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
+        </div>
+        <ng-template class="modal-footer" #botonAceptar>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </ng-template>
+    </form>
+    </div>
+  </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Modal PENALES -->
+<div class="modal fade" id="penales" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Archivo Penales</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+      <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm,'penales')" autocomplete="off">
+        <div class="modal-body">
+          <label for="subirPenales" class="form-label">Suba su imagen</label>
+          <input #uploadFormPenales class="form-control" type="file" name="file" id="subirPenales">
+          <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+          </div>
+        </div>
+        <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
+        </div>
+        <ng-template class="modal-footer" #botonAceptar>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </ng-template>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal POLICIACOS -->
+<div class="modal fade" id="policiacos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Archivo Policiacos</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm,'policiacos')" autocomplete="off">
+        <div class="modal-body">
+          <label for="subirImagen" class="form-label">Suba su imagen</label>
+          <input #uploadFormPoliciacos class="form-control" type="file" name="file" id="subirPoliciacos">
+          <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+          </div>
+        </div>
+        <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
+        </div>
+        <ng-template class="modal-footer" #botonAceptar>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </ng-template>
+    </form>
     </div>
   </div>
 </div>

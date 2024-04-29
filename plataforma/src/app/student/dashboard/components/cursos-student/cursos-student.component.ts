@@ -32,7 +32,7 @@ export class CursosStudentComponent implements OnInit {
         this.CursosLista = res.map((curso: any) => {
           // Verificar si ruta_imagen es nula y asignar un valor manual si es necesario
           if (!curso.ruta_imagen) {
-            curso.ruta_imagen = 'assets/img/cursos/not-found/not-found-image.jpg';
+            curso.ruta_imagen = 'assets/img/cursos/not-found/not-found-image.svg';
           }
           return curso;
         });

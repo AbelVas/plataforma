@@ -66,6 +66,7 @@ import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notif
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-defecto.service";
+import { RenasApeApoService } from "./services/renas-ape-apo.service";
 
 
 @NgModule({
@@ -137,7 +138,8 @@ import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-
     SonidosService,
     NotificacionesDocenteService,
     UploadFotoPerfilService,
-    ImagenesPerfilDefectoService
+    ImagenesPerfilDefectoService,
+    RenasApeApoService
   ]
 })
 

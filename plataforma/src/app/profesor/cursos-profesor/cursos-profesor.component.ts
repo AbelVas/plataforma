@@ -269,7 +269,7 @@ export class CursosProfesorComponent implements OnInit {
       res=>{
         this.imagenActiva=res
         if(this.imagenActiva[0]?.ruta_imagen==undefined){
-          this.cursosGet[0].ruta_imagen='assets/img/perfiles/sinfoto/blank_profile.png'
+          this.cursosGet[0].ruta_imagen='assets/img/cursos/not-found/not-found-image.svg'
         }else{
           console.log(this.imagenActiva[0]?.ruta_imagen)
           this.cursosGet[0].ruta_imagen=this.imagenActiva[0]?.ruta_imagen

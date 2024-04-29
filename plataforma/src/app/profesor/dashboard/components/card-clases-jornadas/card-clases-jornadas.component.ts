@@ -49,14 +49,14 @@ export class CardClasesJornadasComponent implements OnInit {
             this.matutina[AuxMatutina]=this.cursosGet[i]
           // Verificar si ruta_imagen es nula y asignar un valor manual si es necesario
           if (!this.matutina[AuxMatutina].ruta_imagen) {
-            this.matutina[AuxMatutina].ruta_imagen = 'assets/img/cursos/not-found/not-found-image.jpg';
+            this.matutina[AuxMatutina].ruta_imagen = 'assets/img/cursos/not-found/not-found-image.svg';
           }
           AuxMatutina++;
           }else{
             this.vespertina[AuxVespertina]=this.cursosGet[i]
             // Verificar si ruta_imagen es nula y asignar un valor manual si es necesario
             if (!this.vespertina[AuxVespertina].ruta_imagen) {
-              this.vespertina[AuxVespertina].ruta_imagen = 'assets/img/cursos/not-found/not-found-image.jpg';
+              this.vespertina[AuxVespertina].ruta_imagen = 'assets/img/cursos/not-found/not-found-image.svg';
             }
             AuxVespertina++;
           }

@@ -54,7 +54,7 @@ const GetCantidadDocentesService=async()=>{
 }
 
 const getAlmacenamientoGigasService=async()=>{
-    const data=await conexion.query('SELECT SUM(peso_archivo) AS almacenamiento_ocupado FROM (SELECT peso_archivo FROM tbImagenPerfilProfesor UNION ALL SELECT peso_archivo FROM tbImagenPerfilAlumno UNION ALL SELECT peso_archivo FROM tbImagenCurso) AS subquery;')
+    const data=await conexion.query('SELECT SUM(peso_archivo) AS almacenamiento_ocupado FROM (SELECT peso_archivo FROM tbImagenPerfilProfesor UNION ALL SELECT peso_archivo FROM tbImagenPerfilAlumno UNION ALL SELECT peso_archivo FROM tbImagenCurso UNION ALL SELECT peso_archivo FROM tbRenasPenalesPoliciales) AS subquery;')
     return data
 }
 
