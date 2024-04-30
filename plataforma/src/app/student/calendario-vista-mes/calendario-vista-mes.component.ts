@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TemaEstudianteService } from '../services/tema-estudiante.service';
 import decode from 'jwt-decode';
 import { DahboardService } from '../services/dahboard.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-calendario-vista-mes',
@@ -31,10 +32,10 @@ export class CalendarioVistaMesComponent implements OnInit {
   cfondo1:string='';
   ctexto1:string='';
 
-  constructor(private temaEstudianteService:TemaEstudianteService, public cardResumenStudent:DahboardService) { }
+  constructor(private titleService: Title,private temaEstudianteService:TemaEstudianteService, public cardResumenStudent:DahboardService) { }
 
   ngOnInit(): void {
-
+    this.titleService.setTitle('Calendario');
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
     this.obtenerDatosCursos();

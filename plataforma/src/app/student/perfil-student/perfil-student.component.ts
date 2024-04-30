@@ -3,6 +3,7 @@ import decode from 'jwt-decode';
 import { PerfilAlumnoService } from '../services/perfil-alumno.service';
 import { TemaEstudianteService } from '../services/tema-estudiante.service';
 import { WebSocketService } from 'src/app/web-socket.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-perfil-student',
@@ -46,9 +47,10 @@ export class PerfilStudentComponent implements OnInit {
   cfondo1:string='';
   ctexto1:string='';
 
-  constructor(private socketService:WebSocketService,private perfilAlumnosService:PerfilAlumnoService, private temaEstudianteService:TemaEstudianteService) { }
+  constructor(private titleService: Title,private socketService:WebSocketService,private perfilAlumnosService:PerfilAlumnoService, private temaEstudianteService:TemaEstudianteService) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Perfil');
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.idRol = decodedToken.idRol;

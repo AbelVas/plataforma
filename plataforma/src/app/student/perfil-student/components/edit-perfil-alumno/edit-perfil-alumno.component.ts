@@ -164,7 +164,7 @@ export class EditPerfilAlumnoComponent implements OnInit {
     if(this.idCategoriaImagen=='1'){
       this.imagenPerfilService.getImagenesSubidasPorUsuarioAlumno(this.idUsuario).subscribe(
         res=>{
-          console.log(res)
+          
           this.imagenSubidaUsuario=res
         },
         err=>{

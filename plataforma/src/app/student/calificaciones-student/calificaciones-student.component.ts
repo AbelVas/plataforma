@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import { CalificacionesStudentService } from '../services/calificaciones-student.service';
 import { TemaEstudianteService } from '../services/tema-estudiante.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-calificaciones-student',
   templateUrl: './calificaciones-student.component.html',
@@ -34,9 +35,11 @@ export class CalificacionesStudentComponent implements OnInit {
   cfondo1:string='';
   ctexto1:string='';
 
-  constructor(public calificaser:CalificacionesStudentService, private temaEstudianteService:TemaEstudianteService) { }
+  constructor(public calificaser:CalificacionesStudentService, private temaEstudianteService:TemaEstudianteService,private titleService: Title
+  ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Calificaciones');
     const token:any = localStorage.getItem('Acces-Token');
     const {nombre_profesor}:any=decode(token);
     const {apellido_profesor}: any=decode(token);

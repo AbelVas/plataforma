@@ -56,7 +56,6 @@ export class CalendarioResumenCursoComponent implements OnInit {
     this.DahSer.getActividadesCurso( idUsuario).subscribe(
       res=>{
         this.ActividadesInfo=res;
-        console.log(res)
         for(let i =0; i<this.ActividadesInfo.length; i++){
           this.EventsDatos[i]={
             title:this.ActividadesInfo[i].nombre_actividad,

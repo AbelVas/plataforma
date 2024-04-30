@@ -27,9 +27,6 @@ Calendario2:any
     }else{
       this.Hola='curso'
     }
-
-    const String = this.Hola
-    console.log(String)
     this.Calendario1="0"
     this.Calendario2="1"
   }

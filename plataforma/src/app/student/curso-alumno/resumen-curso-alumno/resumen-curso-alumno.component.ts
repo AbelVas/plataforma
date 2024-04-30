@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DahboardService } from '../../services/dahboard.service';
 import { TemaEstudianteService } from '../../services/tema-estudiante.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-resumen-curso-alumno',
@@ -10,6 +11,7 @@ import { TemaEstudianteService } from '../../services/tema-estudiante.service';
 })
 export class ResumenCursoAlumnoComponent implements OnInit {
 CursoInfo:any=[];
+NombreCurso:any="nya";
 NombreProfe:any=[];
 idCurso:any;
 errorServicio:any={};
@@ -38,7 +40,7 @@ temaactivo:string='1';
   cfondo2:string='';
   ctexto1:string='';
 
-  constructor(public ruta:ActivatedRoute, public DahSer:DahboardService, private temaEstudianteService:TemaEstudianteService) { }
+  constructor(public ruta:ActivatedRoute, public DahSer:DahboardService, private temaEstudianteService:TemaEstudianteService,private titleService: Title) { }
 
   ngOnInit(): void {
     this.getCursoSingular()
@@ -51,13 +53,16 @@ temaactivo:string='1';
     this.DahSer.getCursoEspecifico( idUsuario).subscribe(
       res=>{
         this.CursoInfo=res;
-        console.log(res)
       },
       err=>{
         this.errorServicio=err;
       }
     )
-
+    if(this.CursoInfo.nombre_curso!=undefined){
+      this.titleService.setTitle('Curso - '+this.CursoInfo.nombre_curso);
+    }else{
+      this.titleService.setTitle("Curso - Resumen");
+    }
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
   }
@@ -68,7 +73,7 @@ temaactivo:string='1';
     this.DahSer.getProfeCurso( idUsuario).subscribe(
       res=>{
         this.NombreProfe=res;
-        console.log(res)
+        
       },
       err=>{
         this.errorServicio=err;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import decode from "jwt-decode"
 import { TemaProfesorService } from '../services/tema-profesor.service';
-
+import { CalendarioProfesorService } from '../services/calendario-profesor.service';
 @Component({
   selector: 'app-calendario-profesor',
   templateUrl: './calendario-profesor.component.html',
@@ -14,7 +14,7 @@ export class CalendarioProfesorComponent implements OnInit {
   Nombre_profesor:string='';
   Rol:string='';
   Apellido_profesor:string='';
-
+  cantidadcursos:any=[];
   temaactivo:string='1';
 
   temaGet:any=[];
@@ -34,9 +34,10 @@ export class CalendarioProfesorComponent implements OnInit {
   cfondo1:string='';
   ctexto1:string='';
 
-  constructor( private temaProfesorService:TemaProfesorService ) { }
+  constructor( private temaProfesorService:TemaProfesorService,public cardResumenProfesor:CalendarioProfesorService ) { }
 
   ngOnInit(): void {
+    this.obtenerDatosCursos()
     const token:any = localStorage.getItem('Acces-Token');
     const {usuario,nombre_profesor,rol,apellido_profesor}:any=decode(token);
     this.Usuario=usuario;
@@ -46,6 +47,7 @@ export class CalendarioProfesorComponent implements OnInit {
 
     this.obtenerDatosTema();
     this.temaIndividual=this.temaGet
+    
   }
 
   obtenerDatosTema(){
@@ -57,6 +59,19 @@ export class CalendarioProfesorComponent implements OnInit {
           this.cfondo1=this.temaGet[i].fondo1;
           this.ctexto1=this.temaGet[i].texto1;
         }
+      },
+      error=>{
+        console.log('Error: '+error);
+      }
+    )
+  }
+
+  obtenerDatosCursos(){
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario}:any=decode(token);
+    this.cardResumenProfesor.getCursoporProfesor(idUsuario).subscribe(
+      response=>{
+        this.cantidadcursos=response
       },
       error=>{
         console.log('Error: '+error);
