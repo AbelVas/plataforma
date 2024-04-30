@@ -50,4 +50,10 @@ export class RenasApeApoService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     )
   }
+  deleteArchivo(idProfesor:string,tipoArchivo:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.delete(`${this.URL}/RenasPolicialesPenales/eliminararchivo/${idProfesor}/${tipoArchivo}`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    )
+  }
 }

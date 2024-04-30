@@ -8,13 +8,12 @@ import { ManejoDeErroresService } from 'src/app/manejo-de-errores.service';
 })
 export class UploadFotoPerfilService {
 
-      private apiUrl = 'http://localhost/backendimagenes/subida-archivos.php';
+      private apiUrl = 'http://localhost/backendimagenes/manejo-archivos.php';
     //private apiUrl = 'server/subida-archivos.php'; //<-en producción
 
   constructor(private http: HttpClient,private errorHandler: ManejoDeErroresService) { }
 
-  uploadFileWithProgress(file: File, userId: any, userRole: string,tipoSubida:any,parametroExtraParaCarpeta?:string): Observable<any> {
-
+    uploadFileWithProgress(file: File, userId: any, userRole: string,tipoSubida:any,parametroExtraParaCarpeta?:string): Observable<any> {
       //vamos a validar el tipo de subida:
       if(tipoSubida=='foto-perfil-usuario'||tipoSubida=='foto-curso'){
         const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -70,5 +69,14 @@ export class UploadFotoPerfilService {
           catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))// Propagar errores al observador
         );});
   }
-
+  deleteFile(fileUrl: string,tipoSubida:string): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.delete<any>(`${this.apiUrl}?ruta=${encodeURIComponent(fileUrl)}&renaspoliciacospenales=${tipoSubida}`, {
+      headers: headers,
+      responseType: 'json'
+    }).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    );
+  }
 }

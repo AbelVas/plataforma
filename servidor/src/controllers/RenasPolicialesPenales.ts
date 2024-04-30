@@ -1,5 +1,5 @@
-import { Request,Response } from "express";
-import {obtenerRenasService,obtenerAntecedentesPenalesService,obtenerAntecedentesPoliciacosService,insertarAPenalesService,insertarAPoliciacosService,insertarRenasService} from '../service/RenasPolicialesPenales'
+import { Request,Response, query } from "express";
+import { eliminarArchivo,obtenerRenasService,obtenerAntecedentesPenalesService,obtenerAntecedentesPoliciacosService,insertarAPenalesService,insertarAPoliciacosService,insertarRenasService} from '../service/RenasPolicialesPenales'
 import { handleHttp } from "../utils/error.handle";
 
 const obtenerRenasController=async(req:Request,res:Response)=>{
@@ -65,5 +65,15 @@ const insertarRenasController=async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
     }
 }
+const EliminarArchivoVontroller=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const {tipoArchivo}=req.params
+        const query=await eliminarArchivo(id,tipoArchivo)
+        res.send(query)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
 
-export {insertarAPenalesController,insertarAPoliciacosController, insertarRenasController,obtenerRenasController,obtenerAntecedentesPenalesController,obtenerAntecedentesPoliciacosController}
+export {EliminarArchivoVontroller,insertarAPenalesController,insertarAPoliciacosController, insertarRenasController,obtenerRenasController,obtenerAntecedentesPenalesController,obtenerAntecedentesPoliciacosController}

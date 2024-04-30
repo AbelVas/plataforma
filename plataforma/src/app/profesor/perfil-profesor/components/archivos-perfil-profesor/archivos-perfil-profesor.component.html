@@ -11,7 +11,6 @@
             <div *ngIf="RENAS==null;else siRenas">
               <a ruta_archivo></a><img class="icono-file" src="assets/img/iconos/file-icons/file-error.svg">
               <h4 class="text-danger">No se detecta!</h4>
-              <br>
               <div class="text-center">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RENAS"><i class="fa-solid fa-file-arrow-up"></i> Cargar</button>
               </div>
@@ -20,9 +19,8 @@
               <a [href]="RENAS[0]?.ruta_archivo" download><img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
                 <h4 class="text-success">Se Puede Descargar</h4>
               </a>
-              <br>
               <div class="text-center">
-                <button class="btn btn-success" (click)="actualizarRenas('renas',RENAS[0]?.ruta_archivo)" data-bs-toggle="modal" data-bs-target="#RENAS"><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarmodalRPP" (click)="asignarValaoresParaEliminar('renas',RENAS[0]?.ruta_archivo)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
               </div>
             </ng-template>
           </div>
@@ -47,9 +45,8 @@
               <a [href]="antecedentesPenales[0]?.ruta_archivo" download><img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
                 <h4 class="text-success">Se Puede Descargar</h4>
               </a>
-              <br>
               <div class="text-center">
-                <button class="btn btn-success" data-bs-toggle="modal" (click)="actualizarPenales('renas',antecedentesPenales[0]?.ruta_archivo)"  data-bs-target="#penales"><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarmodalRPP" (click)="asignarValaoresParaEliminar('penales',antecedentesPenales[0]?.ruta_archivo)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
               </div>
             </ng-template>
           </div>
@@ -75,9 +72,8 @@
               <a [href]="antecedentesPoliciacos[0]?.ruta_archivo" download><img class="icono-file" src="assets/img/iconos/file-icons/file-exist.svg">
                 <h4 class="text-success">Se Puede Descargar</h4>
               </a>
-              <br>
               <div class="text-center">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#policiacos" (click)="actualizarPenales('renas',antecedentesPoliciacos[0]?.ruta_archivo)" ><i class="fa-solid fa-file-pen"></i> Actualizar</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarmodalRPP" (click)="asignarValaoresParaEliminar('policiacos',antecedentesPoliciacos[0]?.ruta_archivo)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
               </div>
             </ng-template>
           </div>
@@ -90,6 +86,50 @@
   <hr>
 </div>
 
+<!-- Modal Eliminar-->
+<div class="modal fade" id="eliminarmodalRPP" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Archivo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="reiniciarValaoresParaEliminar()"></button>
+      </div>
+      <div *ngIf="eliminadoRenas=='1'">
+        <div class="modal-body">
+          <div class="alert alert-danger" role="alert">
+            Esta acción no se puede Deshacer!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reiniciarValaoresParaEliminar()">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarRenasPenalesPoliciacos('renas')">Eliminar</button>
+        </div>
+      </div>
+      <div *ngIf="eliminadoPenales=='1'">
+        <div class="modal-body">
+          <div class="alert alert-danger" role="alert">
+            Esta acción no se puede Deshacer!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reiniciarValaoresParaEliminar()">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarRenasPenalesPoliciacos('penales')">Eliminar</button>
+        </div>
+      </div>
+      <div *ngIf="eliminadoPoliciacos=='1'">
+        <div class="modal-body">
+          <div class="alert alert-danger" role="alert">
+            Esta acción no se puede Deshacer!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reiniciarValaoresParaEliminar()">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminarRenasPenalesPoliciacos('policiacos')">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal RENAS -->
 <div class="modal fade" id="RENAS" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -99,24 +139,26 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Archivo RENAS</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm,'renas')" autocomplete="off">
-        <div class="modal-body">
-          <label for="subirImagen" class="form-label">Suba su imagen</label>
-          <input #fileInput class="form-control" type="file" name="file" id="subirArchivo">
-          <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+      <div class="contenedor-para-cargar">
+        <form #uploadForm enctype="multipart/form-data" (ngSubmit)="onSubmit(uploadForm,'renas')" autocomplete="off">
+          <div class="modal-body">
+            <label for="subirImagen" class="form-label">Suba su imagen</label>
+            <input #fileInput class="form-control" type="file" name="file" id="subirArchivo">
+            <div class="progress mb-3" *ngIf="uploadProgress !== undefined">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngClass]="{'bg-primary': uploadProgress < 100, 'bg-success': uploadProgress === 100}" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
-        </div>
-        <ng-template class="modal-footer" #botonAceptar>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+          <div class="modal-footer" *ngIf="uploadProgress==100&&uploadProgress!=undefined; else botonAceptar">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="reiniciarModal()">Aceptar</button>
           </div>
-        </ng-template>
-    </form>
+          <ng-template class="modal-footer" #botonAceptar>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </ng-template>
+        </form>
+      </div>
     </div>
   </div>
 </div>

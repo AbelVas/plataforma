@@ -20,6 +20,11 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
 
   token: any = localStorage.getItem('Acces-Token');
   idUsuario: any;
+
+  rutaEliminar:string=''
+  eliminadoRenas:string="0"
+  eliminadoPenales:string="0"
+  eliminadoPoliciacos:string="0"
   //subir archivos dependencias plugin
   uploadProgress: number | undefined;
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined; //para reiniciar el formulario.
@@ -42,6 +47,7 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
         if(this.RENAS && this.RENAS.length > 0){
           this.RENAS.ruta_archivo=res.ruta_archivo
           this.nuevoArchivoSubidaRenas="1"
+          this.eliminadoRenas="0"
         }else{
           this.RENAS=null
         }
@@ -58,6 +64,7 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
       if(this.antecedentesPenales && this.antecedentesPenales.length > 0){
         this.antecedentesPenales.ruta_archivo=res.ruta_archivo
         this.nuevoArchivoSubidaAPenales="1"
+        this.eliminadoPenales="0"
       }else{
         this.antecedentesPenales=null
       }
@@ -74,6 +81,7 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
       if(this.antecedentesPoliciacos && this.antecedentesPoliciacos.length > 0){
         this.antecedentesPoliciacos.ruta_archivo=res.ruta_archivo
         this.nuevoArchivoSubidaAPoliciacos="1"
+        this.eliminadoPoliciacos="0"
       }else{
         this.antecedentesPoliciacos=null
       }
@@ -165,22 +173,57 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
       }
     )
   }
-  actualizarRenas(tipoSubida:any,rutaArchivo:string){
-    console.log("Tipo subida: "+tipoSubida+", Ruta: "+rutaArchivo)
+  asignarValaoresParaEliminar(aquienva:string,ruta:string){
+    if(aquienva=='renas'){
+      this.eliminadoRenas="1"
+    }else if(aquienva=='penales'){
+      this.eliminadoPenales="1"
+    }else if(aquienva=='policiacos'){
+      this.eliminadoPoliciacos="1"
+    }
+    this.rutaEliminar=ruta;
   }
-  actualizarPolicicos(tipoSubida:any,rutaArchivo:string){
-    console.log("Tipo subida: "+tipoSubida+", Ruta: "+rutaArchivo)
+  reiniciarValaoresParaEliminar(){
+      this.eliminadoRenas="0"
+      this.eliminadoPenales="0"
+      this.eliminadoPoliciacos="0"
+      this.rutaEliminar=''
   }
-  actualizarPenales(tipoSubida:any,rutaArchivo:string){
-    console.log("Tipo subida: "+tipoSubida+", Ruta: "+rutaArchivo)
-  }
-  eliminarRenas(){
-
-  }
-  eliminarPolicicos(){
-
-  }
-  eliminarPenales(){
-
+  eliminarRenasPenalesPoliciacos(tipoSubida:any){
+    this.subirArchivo.deleteFile(this.rutaEliminar,tipoSubida).subscribe(
+      res=>{
+        if(tipoSubida=="renas"){
+          this.renasApeApo.deleteArchivo(this.idUsuario,tipoSubida).subscribe(
+            res=>{
+              this.eliminadoRenas="1"
+              this.renasGet();
+            },
+            err=>{
+              console.log(err)
+          })
+        }else if(tipoSubida=="penales"){
+          this.renasApeApo.deleteArchivo(this.idUsuario,tipoSubida).subscribe(
+            res=>{
+              this.eliminadoPenales="1"
+              this.penalesGet();
+            },
+            err=>{
+              console.log(err)
+          })
+        }else if(tipoSubida=="policiacos"){
+          this.renasApeApo.deleteArchivo(this.idUsuario,tipoSubida).subscribe(
+            res=>{
+              this.eliminadoPoliciacos="1"
+              this.policialesGet()
+            },
+            err=>{
+              console.log(err)
+          })
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
 }
