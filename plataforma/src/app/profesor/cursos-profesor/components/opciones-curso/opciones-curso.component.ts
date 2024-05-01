@@ -515,7 +515,6 @@ export class OpcionesCursoComponent implements OnInit {
     )
     //this.modalCloseEditar.nativeElement.click();
   }
-
   crearRecurso(){
     this.submitted = true;
         // stop here if form is invalid

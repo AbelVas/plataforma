@@ -135,9 +135,7 @@ export class AlumnosCursoComponent implements OnInit {
         this.alumnosGet=response;
         this.sppinerOn=false;
         console.log(this.alumnosGet)
-
-        }
-
+      }
     )
   }
 
@@ -152,13 +150,11 @@ export class AlumnosCursoComponent implements OnInit {
       }
     )
   }
-
   buscarActividadArray(idAnuncio:string){
     this.AnuncioIndividual=this.listaAnuncioCurso.find((x:any)=>x.idAnuncio===idAnuncio)
     this.AnuncioIndividualEdit=this.listaAnuncioCurso.find((x:any)=>x.idAnuncio===idAnuncio)
 
   }
-
   eliminarActividad(idAnuncio:string){
     this.actividadesOpcionesCursoService.deleteAnuncio(idAnuncio).subscribe(
       res=>{
@@ -196,7 +192,6 @@ export class AlumnosCursoComponent implements OnInit {
     )
     //this.modalCloseEditar.nativeElement.click();
   }
-
   getUnidadesActivas(){
     this.actividadesOpcionesCursoService.getUnidadesActivas().subscribe(
       res=>{
@@ -207,7 +202,6 @@ export class AlumnosCursoComponent implements OnInit {
       }
     )
   }
-
   //para los forms siempre debemos traer los validadores
   get f() { return this.crearTareaForm.controls; }
 
