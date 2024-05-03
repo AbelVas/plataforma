@@ -68,7 +68,8 @@ import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-defecto.service";
 import { RenasApeApoService } from "./services/renas-ape-apo.service";
 
-
+//foros
+import { ForosService } from "./services/foros.service";
 @NgModule({
   imports:[
     ProfesorRoutingModule,
@@ -139,7 +140,8 @@ import { RenasApeApoService } from "./services/renas-ape-apo.service";
     NotificacionesDocenteService,
     UploadFotoPerfilService,
     ImagenesPerfilDefectoService,
-    RenasApeApoService
+    RenasApeApoService,
+    ForosService
   ]
 })
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ActividadesOpcionesCursoService } from 'src/app/profesor/services/actividades-opciones-curso.service';
-
+import { ForosService } from 'src/app/profesor/services/foros.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -62,6 +62,52 @@ export class OpcionesCursoComponent implements OnInit {
   listaAlumnos:any=[]
   listaCalificacionAlumno:any=[]
   listaAnuncioCurso:any=[]
+  //Cosas Foros
+  Foros:any=[];
+  propiedadForo:any={
+    idForo:'',
+    idUnidad:'',
+    idCurso:'',
+    tema:'',
+    descripcion:'',
+    enlace:'',
+    ruta_archivo:'',
+    peso_archivo:'',
+    fecha_limite:'',
+    fecha_creacion:'',
+    activo:'1',
+    editado:'0',
+  }
+  ForoIndividual:any={
+    idForo:'',
+    idUnidad:'',
+    idCurso:'',
+    tema:'',
+    descripcion:'',
+    enlace:'',
+    ruta_archivo:'',
+    peso_archivo:'',
+    fecha_limite:'',
+    fecha_creacion:'',
+    activo:'',
+    editado:'',
+  }
+  ForoIndividualEdit:any={
+    idForo:'',
+    idUnidad:'',
+    idCurso:'',
+    tema:'',
+    descripcion:'',
+    enlace:'',
+    ruta_archivo:'',
+    peso_archivo:'',
+    fecha_limite:'',
+    fecha_creacion:'',
+    activo:'',
+    editado:'',
+  }
+
+
   //Crear Actividad
   propiedadActividad:any={
     idTipoActividad:'',
@@ -135,6 +181,18 @@ export class OpcionesCursoComponent implements OnInit {
     entrega_fuera_fecha: new FormControl(''),
     disponible: new FormControl('')
   })
+  //Formulario Foros
+  crearForoForm=this.formBuilder.group({
+    idUnidad:new FormControl('',[Validators.required]),
+    tema:new FormControl('',[Validators.required]),
+    descripcion:new FormControl('',[Validators.required]),
+    fecha_limite:new FormControl('',[Validators.required]),
+    enlace:new FormControl(''),
+    idCurso:new FormControl(''),
+    fecha_creacion:new FormControl(''),
+    activo:new FormControl(''),
+    editado:new FormControl(''),
+  })
   //Formulario recurosweb
   crearRecursoForm=this.formBuilder.group({
     idUnidad:new FormControl('',[Validators.required]),
@@ -144,6 +202,7 @@ export class OpcionesCursoComponent implements OnInit {
   })
 
   tareaCreadaObj:any=[];
+  ForoCreadaObj:any=[];
   submitted=false;
   //fecha para hoy
   hoy:any=new Date();
@@ -153,7 +212,7 @@ export class OpcionesCursoComponent implements OnInit {
   @Input() cfondo2:string='';
   @Input() ctexto1:string='';
 
-  constructor( private actividadesOpcionesCursoService:ActividadesOpcionesCursoService, private activedRoute:ActivatedRoute, private formBuilder:FormBuilder, private toastrService:ToastrService ) { }
+  constructor( private actividadesOpcionesCursoService:ActividadesOpcionesCursoService, private activedRoute:ActivatedRoute, private formBuilder:FormBuilder, private toastrService:ToastrService, private foroService:ForosService) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -165,7 +224,8 @@ export class OpcionesCursoComponent implements OnInit {
     this.getTareas()
     this.getCursosDocente()
     this.getAlumnos();
-    this.getRecursosPorGrado()
+    this.getRecursosPorGrado();
+    this.getForo()
   }
 
   validarCalificacionRefresh(idActividad:string,idUnidad:string){
@@ -320,22 +380,32 @@ export class OpcionesCursoComponent implements OnInit {
       }
     )
   }
+  getForo(){
+    this.foroService.getForosCurso(this.idCurso).subscribe(
+      res=>{
+        this.Foros = res
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
   crearForo(){
     this.submitted=true;
-    if (this.crearTareaForm.invalid) {
+    if (this.crearForoForm.invalid) {
       return;
     }
-    this.tareaCreadaObj=this.crearTareaForm.value
-    this.tareaCreadaObj.idCurso=this.idCurso
-    this.tareaCreadaObj.idTipoActividad='2'
-    this.tareaCreadaObj.creada=this.fecha
-    this.tareaCreadaObj.disponible='1'
-    this.actividadesOpcionesCursoService.crearTarea(this.tareaCreadaObj).subscribe(
+    this.ForoCreadaObj=this.crearForoForm.value
+    this.ForoCreadaObj.idCurso=this.idCurso
+    this.ForoCreadaObj.fecha_creacion=this.fecha
+    this.ForoCreadaObj.activo='1'
+    this.ForoCreadaObj.editado='0'
+    this.foroService.PostForos(this.ForoCreadaObj).subscribe(
       res=>{
           this.modalCloseCrear.nativeElement.click();
           this.submitted = false;
-          this.crearTareaForm.reset();
-          this.getTareas()
+          this.crearForoForm.reset();
+          this.getForo()
           this.toastrService.success(`Foro Creado`,'Realizado')
       },
       err=>{
@@ -344,6 +414,9 @@ export class OpcionesCursoComponent implements OnInit {
       }
     )
   }
+  //Controladores de foro
+  get F() { return this.crearForoForm.controls; }
+
   crearTarea(){
     this.submitted = true;
         // stop here if form is invalid
