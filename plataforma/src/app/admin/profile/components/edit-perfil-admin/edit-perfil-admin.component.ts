@@ -8,6 +8,7 @@ import decode from "jwt-decode"
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from 'src/app/web-socket.service';
 import { UploadFotoPerfilService } from '../../../../upload-foto-perfil.service';
+import { ConfiguracionesSistemaService } from 'src/app/configuraciones-sistema.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class EditPerfilAdminComponent implements OnInit {
 
   categoriaImagen:any=[]
   imagenSubidaUsuario:any=[]
-  constructor(private imagenesPerfil: ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
+  constructor(private configuracionesSistema:ConfiguracionesSistemaService,private imagenesPerfil: ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilAdminService:PerfilService,private router:Router,private imagenPerfilService:ImagenesPerfilDefectoService,private formBuilder:FormBuilder, private toastrService:ToastrService) {
   }
 
   submitted=false;
@@ -56,8 +57,11 @@ export class EditPerfilAdminComponent implements OnInit {
   @ViewChild('cerrarEditarModal') modalCloseEditarImg: any;
   @ViewChild('cerrarEditarModalPerfil') modalCloseEditar: any;
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
+  extensiones_imagenes:any
+  tamano_maximo_foto_perfil_usuario:any
   ngOnInit(): void {
     this.getCategoriasDeImagenesDePerfil();
+    this.configutacionPlataformaAcademica()
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.idRol = decodedToken.idRol;
@@ -80,6 +84,26 @@ export class EditPerfilAdminComponent implements OnInit {
         this.getImagenPerfil(this.idUsuario);
         }
       });
+  }
+  configutacionPlataformaAcademica(){
+    this.configuracionesSistema.getConfiguracionesPlataforma().subscribe(
+      res=>{
+        if (res) {
+          const {
+            extensiones_imagenes,
+            tamano_maximo_foto_perfil_usuario,
+          } = res[0];
+          // Verifica que los campos existan antes de asignarlos a las variables
+          this.extensiones_imagenes = extensiones_imagenes ? extensiones_imagenes.split(',') : [];
+          this.tamano_maximo_foto_perfil_usuario=tamano_maximo_foto_perfil_usuario
+        } else {
+          console.error('La respuesta del servidor es nula o está vacía.');
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
   getImagenPerfil(idAdmin:string) {
     this.imagenesPerfil.getFotoAdmin(idAdmin).subscribe(
@@ -114,7 +138,7 @@ export class EditPerfilAdminComponent implements OnInit {
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
       // Inicia el proceso de carga
-      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol,'foto-perfil-usuario').subscribe(
+      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol,'foto-perfil-usuario',this.extensiones_imagenes,this.tamano_maximo_foto_perfil_usuario).subscribe(
         response => { // Maneja la respuesta del servidor
 
           if (typeof response === 'number'){

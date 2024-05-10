@@ -3,6 +3,7 @@ import { RenasApeApoService } from 'src/app/profesor/services/renas-ape-apo.serv
 import decode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
+import { ConfiguracionesSistemaService } from 'src/app/configuraciones-sistema.service';
 
 @Component({
   selector: 'app-archivos-perfil-profesor',
@@ -31,9 +32,16 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
   @ViewChild('fileInput') subirArchivoInput: ElementRef | undefined;
   @ViewChild('uploadFormPenales') subirArchivoInputPenales: ElementRef | undefined;
   @ViewChild('uploadFormPoliciacos') subirArchivoInputPoliciacos: ElementRef | undefined;
-  constructor(private renasApeApo:RenasApeApoService,private toastrService:ToastrService, private subirArchivo:UploadFotoPerfilService){}
+  constructor(private configuracionesSistema:ConfiguracionesSistemaService,private renasApeApo:RenasApeApoService,private toastrService:ToastrService, private subirArchivo:UploadFotoPerfilService){}
+  configLoaded = false;
+  plan:string | undefined
+  //configuracionees
+  extensionesDocumentos:any
+  tamanoMaximoSubidaRenasPenalesPoliciacos:any
 
+  //fin configuraciones
   ngOnInit(): void {
+    this.configutacionPlataformaAcademica()
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.renasGet();
@@ -56,6 +64,26 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  configutacionPlataformaAcademica(){
+    this.configuracionesSistema.getConfiguracionesPlataforma().subscribe(
+      res=>{
+        if (res) {
+          const {
+            extensiones_documentos,
+            tamano_maximo_foto_perfil_usuario,
+          } = res[0];
+          // Verifica que los campos existan antes de asignarlos a las variables
+          this.extensionesDocumentos = extensiones_documentos ? extensiones_documentos.split(',') : [];
+          this.tamanoMaximoSubidaRenasPenalesPoliciacos=tamano_maximo_foto_perfil_usuario
+        } else {
+          console.error('La respuesta del servidor es nula o está vacía.');
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
   penalesGet(){
     this.renasApeApo.getPenales(this.idUsuario).subscribe(
@@ -130,7 +158,7 @@ export class ArchivosPerfilProfesorComponent implements OnInit {
     }
   }
   subirArchivoService(file:any,tipoSubida:any){
-    this.subirArchivo.uploadFileWithProgress(file, this.idUsuario,tipoSubida,tipoSubida).subscribe(
+    this.subirArchivo.uploadFileWithProgress(file, this.idUsuario,tipoSubida,tipoSubida,this.extensionesDocumentos,this.tamanoMaximoSubidaRenasPenalesPoliciacos).subscribe(
       response=>{
         if (typeof response === 'number'){
           if (response >= 0 && response <= 100) {

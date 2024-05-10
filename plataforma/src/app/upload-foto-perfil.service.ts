@@ -13,26 +13,37 @@ export class UploadFotoPerfilService {
 
   constructor(private http: HttpClient,private errorHandler: ManejoDeErroresService) { }
 
-    uploadFileWithProgress(file: File, userId: any, userRole: string,tipoSubida:any,parametroExtraParaCarpeta?:string): Observable<any> {
+
+  convertirTamanoABytes(tamano: string): number {
+    const unidades:any = { B: 1, KB: 1024, MB: 1024 * 1024, GB: 1024 * 1024 * 1024 };
+    const matches = tamano.match(/(\d+)\s*(B|KB|MB|GB)/);
+    if (matches && matches.length === 3) {
+      const valor = parseInt(matches[1], 10);
+      const unidad = matches[2];
+      return valor * unidades[unidad];
+    }
+    return 0; // Retornar 0 si el formato es incorrecto o no se puede convertir
+  }
+
+  uploadFileWithProgress(file: File, userId: any, userRole: string,tipoSubida:any,allowedExtensions:string[],tamanoMaximo:any,parametroExtraParaCarpeta?:string): Observable<any> {
       //vamos a validar el tipo de subida:
       if(tipoSubida=='foto-perfil-usuario'||tipoSubida=='foto-curso'){
-        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
         const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
           return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
         }
       }else if(tipoSubida=='renas'||tipoSubida=='policiacos'||tipoSubida=='penales'){
-        const allowedExtensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
         const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
           return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
         }
       }
-      // Validar peso del archivo
-      const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB
+
+      const maxSizeInBytes = this.convertirTamanoABytes(tamanoMaximo);
       if (file.size > maxSizeInBytes) {
-        return throwError('El tamaño del archivo supera el límite permitido (10MB).');
+        return throwError('El tamaño del archivo supera el límite permitido de:'+(tamanoMaximo)+'.');
       }
+
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
       formData.append('userId', userId);

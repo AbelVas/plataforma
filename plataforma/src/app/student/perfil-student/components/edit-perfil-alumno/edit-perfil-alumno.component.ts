@@ -7,6 +7,7 @@ import decode from "jwt-decode"
 import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
 import { WebSocketService } from 'src/app/web-socket.service';
 import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
+import { ConfiguracionesSistemaService } from 'src/app/configuraciones-sistema.service';
 
 @Component({
   selector: 'app-edit-perfil-alumno',
@@ -29,7 +30,7 @@ export class EditPerfilAlumnoComponent implements OnInit {
   categoriaImagen:any=[]
   imagenSubidaUsuario:any=[]
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
-  constructor(private imagenPerfilService:ImagenesPerfilDefectoService,private socketService:WebSocketService,private uploadFotoService:UploadFotoPerfilService,private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService, private formBuilder:FormBuilder) { }
+  constructor(private configuracionesSistema:ConfiguracionesSistemaService,private imagenPerfilService:ImagenesPerfilDefectoService,private socketService:WebSocketService,private uploadFotoService:UploadFotoPerfilService,private perfilAlumnosService:PerfilAlumnoService, private router:Router, private toastrService:ToastrService, private formBuilder:FormBuilder) { }
   submitted=false;
   classBadgeActive:any;
   estado:any;
@@ -41,8 +42,10 @@ export class EditPerfilAlumnoComponent implements OnInit {
         nombres_alumno:new FormControl('',[Validators.required]),
         apellidos_alumno:new FormControl('',[Validators.required]),
       })
-
+      extensiones_imagenes:any
+      tamano_maximo_foto_perfil_usuario:any
   ngOnInit(): void {
+    this.configutacionPlataformaAcademica()
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.idRol=decodedToken.idRol
@@ -77,13 +80,36 @@ export class EditPerfilAlumnoComponent implements OnInit {
       console.error('Error: uploadForm is undefined.'); // Opcional: Mostrar un mensaje de error si uploadForm es undefined
     }
   }
+  configutacionPlataformaAcademica(){
+    this.configuracionesSistema.getConfiguracionesPlataforma().subscribe(
+      res=>{
+        if (res) {
+          const {
+            extensiones_imagenes,
+            tamano_maximo_renas_penales_policiacos,
+          } = res[0];
+          // Verifica que los campos existan antes de asignarlos a las variables
+          this.extensiones_imagenes = extensiones_imagenes ? extensiones_imagenes.split(',') : [];
+          this.tamano_maximo_foto_perfil_usuario=tamano_maximo_renas_penales_policiacos
+
+          // Puedes realizar más acciones con los datos aquí, como actualizar la interfaz de usuario
+          console.log(this.extensiones_imagenes)
+        } else {
+          console.error('La respuesta del servidor es nula o está vacía.');
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
   onSubmit(form: HTMLFormElement) {
     const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
 
     // Inicia el proceso de carga
-    this.uploadFotoService.uploadFileWithProgress(file, this.idUsuario, this.idRol,'foto-perfil-usuario').subscribe(
+    this.uploadFotoService.uploadFileWithProgress(file, this.idUsuario, this.idRol,'foto-perfil-usuario',this.extensiones_imagenes,this.tamano_maximo_foto_perfil_usuario).subscribe(
       response => { // Maneja la respuesta del servidor
 
         if (typeof response === 'number'){
@@ -164,7 +190,7 @@ export class EditPerfilAlumnoComponent implements OnInit {
     if(this.idCategoriaImagen=='1'){
       this.imagenPerfilService.getImagenesSubidasPorUsuarioAlumno(this.idUsuario).subscribe(
         res=>{
-          
+
           this.imagenSubidaUsuario=res
         },
         err=>{

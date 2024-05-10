@@ -1,0 +1,7 @@
+import conexion from "../config/database";
+
+const getConfiguracionesService=async()=>{
+    const query=await conexion.query("SELECT p.plan,p.descripcion,desp.tamano_maximo_foto_perfil_usuario,desp.tamano_maximo_foto_curso,desp.tamano_maximo_archivo_actividadaes,desp.tamano_maximo_archivo_recurso,desp.tamano_maximo_subida_alumno,desp.tamano_maximo_subida_rubrica_actividad,desp.tamano_maximo_subida_descripcion_actividad,desp.tamano_maximo_renas_penales_policiacos,GROUP_CONCAT(DISTINCT eimg.extension SEPARATOR ',') AS extensiones_imagenes,GROUP_CONCAT(DISTINCT ea.extension SEPARATOR ',') AS extensiones_documentos,GROUP_CONCAT(DISTINCT eoa.extension SEPARATOR ',') AS extensiones_otros FROM tbPlan p INNER JOIN tbPlanAdquirido plad ON p.idPlan = plad.idPlan INNER JOIN tbDesplieguePlataforma desp ON desp.idConfiguracionesPlataforma = plad.idConfiguracionesPlataforma INNER JOIN tbExtensionesPermitidasImagenes eimg ON eimg.idConfiguracionesPlataforma = desp.idConfiguracionesPlataforma INNER JOIN tbExtensionesPermitidasArchivos ea ON ea.idConfiguracionesPlataforma=desp.idConfiguracionesPlataforma INNER JOIN tbExtensionArchivoOtra eoa ON eoa.idConfiguracionesPlataforma=desp.idConfiguracionesPlataforma WHERE p.activo = 1 GROUP BY p.plan, p.descripcion;")
+    return query
+}
+export {getConfiguracionesService}

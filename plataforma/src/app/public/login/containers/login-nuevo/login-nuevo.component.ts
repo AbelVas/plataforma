@@ -101,8 +101,6 @@ export class LoginNuevoComponent implements OnInit {
           console.log("No entro xd")
         }else{
           this.isCorrectCodigo=true;
-          console.log("Si entro xddd")
-          console.log(res[0].idCodigo)
           this.AlumnoPropiedadesCrear.idCodigo=res[0].idCodigo
 
           //Esta es la funcion de registro metida aquí para que a puro huevo pase la info

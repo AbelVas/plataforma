@@ -67,6 +67,7 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
 import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-defecto.service";
 import { RenasApeApoService } from "./services/renas-ape-apo.service";
+import { ConfiguracionesSistemaService } from "../configuraciones-sistema.service";
 
 //foros
 import { ForosService } from "./services/foros.service";
@@ -141,7 +142,8 @@ import { ForosService } from "./services/foros.service";
     UploadFotoPerfilService,
     ImagenesPerfilDefectoService,
     RenasApeApoService,
-    ForosService
+    ForosService,
+    ConfiguracionesSistemaService
   ]
 })
 

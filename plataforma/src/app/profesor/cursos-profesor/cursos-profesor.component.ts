@@ -10,6 +10,7 @@ import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
 import { PerfilProfesorService } from '../services/perfil-profesor.service';
 import { WebSocketService } from 'src/app/web-socket.service';
 import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
+import { ConfiguracionesSistemaService } from 'src/app/configuraciones-sistema.service';
 
 @Component({
   selector: 'app-cursos-profesor',
@@ -66,8 +67,9 @@ export class CursosProfesorComponent implements OnInit {
   cfondo1:string='';
   cfondo2:string='';
   ctexto1:string='';
-
-  constructor( private imagenesPerfil: ImagenesPerfilDefectoService,public cardResumenService:CardResumenService, private imagenPerfilService:PerfilProfesorService,private activedRoute:ActivatedRoute, private temaProfesorService:TemaProfesorService, private router:Router, private formBuilder:FormBuilder, private toastrService:ToastrService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService) { }
+  extensiones_imagenes:any
+  tamano_maximo_foto_curso:any
+  constructor( private configuracionesSistema:ConfiguracionesSistemaService,private imagenesPerfil: ImagenesPerfilDefectoService,public cardResumenService:CardResumenService, private imagenPerfilService:PerfilProfesorService,private activedRoute:ActivatedRoute, private temaProfesorService:TemaProfesorService, private router:Router, private formBuilder:FormBuilder, private toastrService:ToastrService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService) { }
 
   ngOnInit(): void {
     const params=this.activedRoute.snapshot.params;
@@ -81,7 +83,7 @@ export class CursosProfesorComponent implements OnInit {
     this.obtenerAlumnosCursos();
     this.getImagenesPerfil(2); //IMAGENES POR DEFECTO TENGO QUE ARREGLAR ACÁ
     this.getImagenPerfil(this.idClase);
-
+    this.configutacionPlataformaAcademica()
     this.cursoForm=this.formBuilder.group({
       color_curso:new FormControl('',[Validators.required]),
     })
@@ -228,13 +230,35 @@ export class CursosProfesorComponent implements OnInit {
   }
   //FIN IMAGEN PREDISEÑADA Y CATEGORÍAS
   get f() { return this.cursoForm.controls; }
+  //configuraciones para el tamaño y tipo de imagen:
+  configutacionPlataformaAcademica(){
+    this.configuracionesSistema.getConfiguracionesPlataforma().subscribe(
+      res=>{
+        if (res) {
+          const {
+            extensiones_imagenes,
+            tamano_maximo_foto_curso,
+          } = res[0];
+          // Verifica que los campos existan antes de asignarlos a las variables
+          this.extensiones_imagenes = extensiones_imagenes ? extensiones_imagenes.split(',') : [];
+          this.tamano_maximo_foto_curso=tamano_maximo_foto_curso
+        } else {
+          console.error('La respuesta del servidor es nula o está vacía.');
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
   //Subida de imagenes
   onSubmit(form: HTMLFormElement) {
     const fileInput: HTMLInputElement | null = form.querySelector('#subirImagen');
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
       // Inicia el proceso de carga
-      this.uploadFotoService.uploadFileWithProgress(file,this.idUsuario, this.idRol,'foto-curso',this.idClase).subscribe(
+      this.uploadFotoService.uploadFileWithProgress(file,this.idUsuario, this.idRol,'foto-curso',this.extensiones_imagenes,this.tamano_maximo_foto_curso,this.idClase).subscribe(
         response => { // Maneja la respuesta del servidor
           if (typeof response === 'number'){
             if (response >= 0 && response <= 100) {

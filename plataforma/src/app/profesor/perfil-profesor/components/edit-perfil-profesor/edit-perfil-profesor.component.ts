@@ -8,6 +8,7 @@ import decode from "jwt-decode"
 import { UploadFotoPerfilService } from 'src/app/upload-foto-perfil.service';
 import { WebSocketService } from 'src/app/web-socket.service';
 import { ImagenesPerfilDefectoService } from 'src/app/admin/services/imagenes-perfil-defecto.service';
+import { ConfiguracionesSistemaService } from 'src/app/configuraciones-sistema.service';
 @Component({
   selector: 'app-edit-perfil-profesor',
   templateUrl: './edit-perfil-profesor.component.html',
@@ -24,7 +25,7 @@ export class EditPerfilProfesorComponent implements OnInit {
   imagenActiva:any
   categoriaImagen:any=[]
   imagenSubidaUsuario:any=[]
-  constructor(private perfildesdeadmin:ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
+  constructor(private configuracionesSistema:ConfiguracionesSistemaService,private perfildesdeadmin:ImagenesPerfilDefectoService,private uploadFotoService:UploadFotoPerfilService,private socketService:WebSocketService,private perfilProfesorService:PerfilProfesorService, private router:Router,private formBuilder:FormBuilder, private toastrService:ToastrService) { }
   submitted=false;
   pipe = new DatePipe('en-US');
   classBadgeActive:any;
@@ -53,8 +54,11 @@ export class EditPerfilProfesorComponent implements OnInit {
   @Output() datosEventoImagen=new EventEmitter<any>();
   //----------------------------------------
   @ViewChild('uploadForm') uploadForm: ElementRef | undefined;
+  extensiones_imagenes:any
+  tamano_maximo_foto_perfil_usuario:any
   ngOnInit(): void {
     this.getCategoriasDeImagenesDePerfil()
+    this.configutacionPlataformaAcademica()
     const decodedToken: any = decode(this.token);
     this.idUsuario = decodedToken.idUsuario;
     this.idRol=decodedToken.idRol
@@ -95,6 +99,28 @@ export class EditPerfilProfesorComponent implements OnInit {
       console.error('Error: uploadForm is undefined.'); // Opcional: Mostrar un mensaje de error si uploadForm es undefined
     }
   }
+  configutacionPlataformaAcademica(){
+    this.configuracionesSistema.getConfiguracionesPlataforma().subscribe(
+      res=>{
+        if (res) {
+          const {
+            extensiones_imagenes,
+            tamano_maximo_foto_perfil_usuario,
+          } = res[0];
+          // Verifica que los campos existan antes de asignarlos a las variables
+          this.extensiones_imagenes = extensiones_imagenes ? extensiones_imagenes.split(',') : [];
+          this.tamano_maximo_foto_perfil_usuario=tamano_maximo_foto_perfil_usuario
+          // Puedes realizar más acciones con los datos aquí, como actualizar la interfaz de usuario
+          console.log(this.extensiones_imagenes)
+        } else {
+          console.error('La respuesta del servidor es nula o está vacía.');
+        }
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
   onSubmit(form: HTMLFormElement) {
     const { idUsuario }: any = decode(this.token);
     const { idRol }: any = decode(this.token);
@@ -102,7 +128,7 @@ export class EditPerfilProfesorComponent implements OnInit {
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
       // Inicia el proceso de carga
-      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol,'foto-perfil-usuario').subscribe(
+      this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol,'foto-perfil-usuario',this.extensiones_imagenes,this.tamano_maximo_foto_perfil_usuario).subscribe(
         response => { // Maneja la respuesta del servidor
 
           if (typeof response === 'number'){
