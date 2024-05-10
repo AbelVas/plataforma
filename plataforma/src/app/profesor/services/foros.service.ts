@@ -32,9 +32,9 @@ export class ForosService {
     );
   }
 
-  UpdateForo(idForo:any):Observable<any>{
+  UpdateForo(idForo:any,data:any):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
-    return this.http.put(`${this.URL}/foros/editar-foro/${idForo}`,httpOptions).pipe(
+    return this.http.put(`${this.URL}/foros/editar-foro/${idForo}`,data,httpOptions).pipe(
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     );
   }

@@ -231,11 +231,10 @@
                         <!--<div><span>Tipo de Actividad: {{a.tipoActividad}}</span></div>-->
                         <hr>
                         <!--AQUI MERO HAY QUE CREAR OTROS MODALES XDDDD-->
-                        <button class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#VerActividadCompleta" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-eye"></i></button>
-                        <button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#DuplicarActividad" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></button>
-                        <button class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#EditarTarea" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#CalificarTarea" (click)="buscarActividadArray(a.idDetalleActividad);getAlumnoCalificacionActividad(a.idDetalleActividad,a.idUnidad)"><i class="fa-solid fa-award"></i></button>
-                        <button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#EliminarActividad" (click)="buscarActividadArray(a.idDetalleActividad)"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#VerForoCompleto" (click)="buscarForo(a.idForo)"><i class="fa-solid fa-eye"></i></button>
+                        <button class="btn btn-warning m-1" routerLink="../../../foro/{{a.idForo}}"><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></button>
+                        <button class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#EditarForo" (click)="buscarForo(a.idForo)"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#EliminarForo" (click)="buscarForo(a.idForo)"><i class="fa-solid fa-trash-can"></i></button>
                       </h5>
                     </div>
                 </div>
@@ -599,6 +598,7 @@
             </div>
           </div>
           <!--Modal para Editar Actividad-->
+          
           <div class="modal fade" id="EditarTarea" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -830,6 +830,123 @@
             </div>
           </div>
           <!--FIN OPCIONES DE ACTIVIDADES-->
+          <!--INICIO OPCINES DE FOROS-->
+          <div class="modal fade" id="EditarForo" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Editar {{ForoIndividualEdit.tema}}</h1>
+                  <button type="button" class="btn-close" #editarActividadCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form [formGroup]="crearForoForm" (ngSubmit)="editarForo(ForoIndividualEdit.idForo)"  autocomplete="off"> <!--Aquí me quede 18/05/2023 22:40 horas-->
+                <div class="modal-body">
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Bimestre:</b></label>
+                    <select formControlName="idUnidad" class="form-select" [(ngModel)]="ForoIndividualEdit.idUnidad" aria-label="Default select example">
+                      <option *ngFor="let u of unidadesModal" value="{{u.idUnidad}}">{{u.unidad}}</option>
+                    </select>
+                    <p class="text-primary">Actual: {{ForoIndividual.unidad}}</p>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Tema</b></label>
+                    <input formControlName="tema" type="text" class="form-control" [(ngModel)]="ForoIndividualEdit.tema" [ngClass]="{'is-invalid': submitted&&F.tema.invalid}">
+                    <p class="text-primary">Actual: {{ForoIndividual.tema}}</p>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Fecha limite:</b></label>
+                    <input formControlName="fecha_limite" type="date" class="form-control" [(ngModel)]="ForoIndividualEdit.fecha_limite" [ngClass]="{'is-invalid': submitted&&F.fecha_limite.invalid}">
+                    <p class="text-primary">Actual: {{ForoIndividual.fecha_limite | date:'dd/MM/yyyy'}}</p>
+                  </div>
+
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Descripción:</b></label>
+                    <ckeditor [editor]="AreaCkeditor" formControlName="descripcion" [(ngModel)]="ForoIndividualEdit.descripcion" class="form" ></ckeditor>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Editar Actividad</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+          <!--Modal Ver Actividad Completa       CKEDITOR       -->
+          <div class="modal fade" id="VerForoCompleto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Ver Foro</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Tema Foro:</b></label>
+                    <br>
+                    <label class="form-label">{{ForoIndividual.tema}}</label>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Fecha de Entrega:</b></label>
+                    <br>
+                    <label class="form-label">{{ForoIndividual.fecha_limite | date:'dd/MM/yyyy'}}</label>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Fecha de Creación:</b></label>
+                    <br>
+                    <label class="form-label">{{ForoIndividual.fecha_creacion | date:'dd/MM/yyyy'}}</label>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Unidad:</b></label>
+                    <br>
+                    <label class="form-label">{{ForoIndividual.unidad}}</label>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"><b>Detalle:</b></label>
+                    <br>
+                    <label *ngIf="ForoIndividual.descripcion!='';else noDetalle" class="form-control">
+                      <div [innerHTML]="ForoIndividual.descripcion"></div>
+                    </label>
+                    <ng-template #noDetalle>
+                      <label class="form-label">*** No ingresado ***</label>
+                    </ng-template>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--ModalEliminar-->
+          <div class="modal fade" id="EliminarForo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Foro</h1>
+                  <button type="button" class="btn-close" #eliminarTareaModalCerrar data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="alert alert-danger" role="alert">Si se elimina el foro, se eliminará todo lo relacionado a él. <br><b>Esa acción de concretarse no se puede deshacer</b></div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-danger" (click)="eliminarForo(ForoIndividual.idForo)">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
        </div>
     </div>

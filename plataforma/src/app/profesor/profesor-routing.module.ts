@@ -30,7 +30,7 @@ const routes:Routes=[
     {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:PerfilProfesorComponent},
     {path:'curso/:idProfesor/:idCurso/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:CursosProfesorComponent},
     {path:'grado-guia/:idGrado',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' }, component:GradoGuiaIndividualComponent},
-    {path:'curso/foro',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoCursoProfesorComponent},
+    {path:'curso/foro/:idForo',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ForoCursoProfesorComponent},
     {path:'curso/examen',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:ExamenCursoProfesorComponent},
     {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
     {path:'curso/notas/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '2' },component:CuadrosCursoComponent},

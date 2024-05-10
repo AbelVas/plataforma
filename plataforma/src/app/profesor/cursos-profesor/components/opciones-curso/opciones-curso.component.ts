@@ -188,7 +188,6 @@ export class OpcionesCursoComponent implements OnInit {
     descripcion:new FormControl('',[Validators.required]),
     fecha_limite:new FormControl('',[Validators.required]),
     enlace:new FormControl(''),
-    idCurso:new FormControl(''),
     fecha_creacion:new FormControl(''),
     activo:new FormControl(''),
     editado:new FormControl(''),
@@ -411,9 +410,50 @@ export class OpcionesCursoComponent implements OnInit {
       err=>{
         console.log(err)
         this.toastrService.error(`Foro no Creado`,'Error')
+        this.crearForoForm.reset()
       }
     )
   }
+
+  editarForo(idForo:string){
+    this.submitted=true;
+    if (this.crearForoForm.invalid) {
+      this.toastrService.warning(`Completar información restante`,'Advertencia')
+      return;
+    }
+    this.crearForoForm.value.editado="1";
+    this.foroService.UpdateForo(idForo,this.crearForoForm.value).subscribe(
+      res=>{
+        this.modalCloseEditar.nativeElement.click();
+        this.getForo()
+        this.toastrService.success(`Foro Editado`,'Realizado')
+        this.crearForoForm.reset()
+      },
+      err=>{
+        console.log(err)
+        this.toastrService.error(`Foro no Editado`,'Error')
+      }
+    )
+    //this.modalCloseEditar.nativeElement.click();
+  }
+
+  eliminarForo(idForo:string){
+    this.foroService.DelForo(idForo).subscribe(
+      res=>{
+        this.toastrService.success(`Foro Eliminado`,'Realizado')
+      },
+      err=>{
+        this.toastrService.error(`Error al eliminar Foro`,'Error')
+      }
+    )
+
+  }
+
+  buscarForo(idForo:string){
+    this.ForoIndividual=this.Foros.find((x:any)=>x.idForo===idForo)
+    this.ForoIndividualEdit=this.Foros.find((x:any)=>x.idForo===idForo)
+  }
+
   //Controladores de foro
   get F() { return this.crearForoForm.controls; }
 
