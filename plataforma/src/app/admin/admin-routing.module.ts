@@ -23,6 +23,7 @@ import { BoletaEspecialComponent } from "./boleta-especial/boleta-especial.compo
 import { BoletaFinalPromedioCursoComponent } from "./boleta-final-promedio-curso/boleta-final-promedio-curso.component";
 import { AsignacionGradoGuiaComponent } from "./asignacion-grado-guia/asignacion-grado-guia.component";
 import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
+import { AspectosTecnicosComponent } from "./aspectos-tecnicos-plan/aspectos-tecnicos/aspectos-tecnicos.component";
 
 
 const routes:Routes=[
@@ -52,6 +53,7 @@ const routes:Routes=[
     {path:'boleta-especial/:idGrado/:idAlumno',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletaEspecialComponent},
     {path:'boleta-especial-final/:idGrado/:idCurso/:idProfesor',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:BoletaFinalPromedioCursoComponent},
     {path:'notificaciones',canActivate:[AuthGuard,RolesGuard],data:{expectedRole:'1'},component:NotificacionesMensajesComponent},
+    {path:'detalles-tecnicos',canActivate:[AuthGuard,RolesGuard],data:{expectedRole:'1'},component:AspectosTecnicosComponent}
   ]
   },
 ]

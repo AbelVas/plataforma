@@ -92,6 +92,8 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
 import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { NotificacionesAdminService } from "./services/notificaciones-admin.service";
 import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
+import { AspectosTecnicosComponent } from './aspectos-tecnicos-plan/aspectos-tecnicos/aspectos-tecnicos.component';
+import { ConfiguracionesSistemaService } from "../configuraciones-sistema.service";
 
 @NgModule({
     declarations: [
@@ -143,7 +145,8 @@ import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notif
         BoletaFinalPromedioCursoComponent,
         AsignacionGradoGuiaComponent,
         ErroresComponent,
-        NotificacionesMensajesComponent
+        NotificacionesMensajesComponent,
+        AspectosTecnicosComponent
     ],
     exports: [],
     providers: [
@@ -175,7 +178,8 @@ import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notif
         OpcionesAdminMenuService,
         UploadFotoPerfilService,
         SeccionesService,
-        NotificacionesAdminService
+        NotificacionesAdminService,
+        ConfiguracionesSistemaService
     ],
     imports: [
         AdminRoutingModule,

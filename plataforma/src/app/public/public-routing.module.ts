@@ -11,7 +11,7 @@ const routes:Routes=[
   {path:'',component: PublicComponent,children:
   [
     {path:'',redirectTo:'login',pathMatch:'full'},
-    {path:'login',component:LoginNuevoComponent},
+    {path:'login',component:LoginComponent},
   ]
   }
 ]
