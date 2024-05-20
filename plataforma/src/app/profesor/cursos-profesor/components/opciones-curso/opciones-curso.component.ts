@@ -528,8 +528,8 @@ export class OpcionesCursoComponent implements OnInit {
                 this.uploadProgress = response;
               }
             }else if(typeof response === 'object' && response.filePath){
-              this.tareaCreadaObj.ruta_archivo = response.filePath;
-              this.tareaCreadaObj.peso_archivo = this.fileTarea?.size;
+              this.tareaCreadaObj.ruta_recurso = response.filePath;
+              this.tareaCreadaObj.peso_recurso = this.fileTarea?.size;
             this.actividadesOpcionesCursoService.crearTarea(this.tareaCreadaObj).subscribe(
               res => {
                 this.modalCloseCrear.nativeElement.click();
