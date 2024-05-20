@@ -7,3 +7,9 @@
   font-size: 14px;
   width: 100%;
 }
+
+.disabled-link {
+  color: grey;
+  text-decoration: none;
+  cursor: not-allowed;
+}

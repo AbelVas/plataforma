@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //url: 'http://localhost:3002'
-  url:'https://serververapaz.nebel-tech.com'
+  url: 'http://localhost:3002'
+  //url:'https://serververapaz.nebel-tech.com'
   //url:'https://brincoteca-server.orquiholic.com/app'
 };
 

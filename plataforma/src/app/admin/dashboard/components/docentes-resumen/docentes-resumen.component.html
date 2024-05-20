@@ -42,15 +42,20 @@
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <i class="fa-solid" [ngClass]="{'fa-user-check': p.estatus == 1, 'fa-user-xmark': p.estatus === 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              <i class="fa-solid " [ngClass]="{'fa-user-check': p.estatus == 1, 'fa-user-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="antecedentes">
             <th mat-header-cell *matHeaderCellDef class="text-center">A. Penales</th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <a href="../../../../../assets/img/perfiles/espacio/tierra2.svg" download>
-                <i class="fa-solid" [ngClass]="{'fa-file-circle-check': p.estatus == 1, 'fa-file-circle-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              <a [href]="p.ruta_penales || '#'"
+                 [attr.download]="p.ruta_penales ? '' : null"
+                 [ngClass]="{'disabled-link': !p.ruta_penales}"
+                 [ngStyle]="{'pointer-events': p.ruta_penales ? 'auto' : 'none'}">
+                <i class="fa-solid"
+                   [ngClass]="{'fa-file-circle-check': p.ruta_penales != '', 'fa-file-circle-xmark': p.ruta_penales == ''}"
+                   [ngStyle]="{'color': p.ruta_penales != '' ? 'green' : 'red'}"></i>
               </a>
             </td>
           </ng-container>
@@ -58,8 +63,13 @@
           <ng-container matColumnDef="policiacos">
             <th mat-header-cell *matHeaderCellDef class="text-center">A. Policiacos</th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <a href="../../../../../assets/img/perfiles/espacio/tierra2.svg" download>
-                <i class="fa-solid" [ngClass]="{'fa-file-circle-check': p.estatus == 1, 'fa-file-circle-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              <a [href]="p.ruta_policiacos || '#'"
+                 [attr.download]="p.ruta_policiacos ? '' : null"
+                 [ngClass]="{'disabled-link': !p.ruta_policiacos}"
+                 [ngStyle]="{'pointer-events': p.ruta_policiacos ? 'auto' : 'none'}">
+                <i class="fa-solid"
+                   [ngClass]="{'fa-file-circle-check': p.ruta_policiacos != '', 'fa-file-circle-xmark': p.ruta_policiacos == ''}"
+                   [ngStyle]="{'color': p.ruta_policiacos != '' ? 'green' : 'red'}"></i>
               </a>
             </td>
           </ng-container>
@@ -67,8 +77,13 @@
           <ng-container matColumnDef="renas">
             <th mat-header-cell *matHeaderCellDef class="text-center">RENAS</th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <a href="../../../../../assets/img/perfiles/espacio/tierra2.svg" download>
-                <i class="fa-solid" [ngClass]="{'fa-file-circle-check': p.estatus == 1, 'fa-file-circle-xmark': p.estatus == 0}" [ngStyle]="{'color': p.estatus == 1 ? 'green' : 'red'}"></i>
+              <a [href]="p.ruta_renas || '#'"
+                 [attr.download]="p.ruta_renas ? '' : null"
+                 [ngClass]="{'disabled-link': !p.ruta_renas}"
+                 [ngStyle]="{'pointer-events': p.ruta_renas ? 'auto' : 'none'}">
+                <i class="fa-solid"
+                   [ngClass]="{'fa-file-circle-check': p.ruta_renas != '', 'fa-file-circle-xmark': p.ruta_renas == ''}"
+                   [ngStyle]="{'color': p.ruta_renas != '' ? 'green' : 'red'}"></i>
               </a>
             </td>
           </ng-container>

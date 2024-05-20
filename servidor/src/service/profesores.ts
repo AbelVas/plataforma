@@ -3,7 +3,7 @@ import conexion from "../config/database";
 import { encrypt,verified } from "../utils/passwordFunction";
 
 const obtenerProfesoresService=async()=>{
-    const responseGet=await conexion.query('SELECT `idProfesor`, `idCodigo`, `nombre_profesor`, `apellido_profesor`, `telefono`, `CUI`, `usuario`, `fecha_nacimiento`, `estatus`, `creado`, `permitir_ver_correo`, `idRol` FROM `tbProfesor` WHERE idRol=2 order by apellido_profesor asc');
+    const responseGet=await conexion.query('SELECT p.`idProfesor`, p.`idCodigo`, p.`nombre_profesor`, p.`apellido_profesor`, p.`telefono`, p.`CUI`, p.`usuario`, p.`fecha_nacimiento`,  p.`estatus`, p.`creado`, p.`permitir_ver_correo`, p.`idRol`, COALESCE(rp_renas.`ruta_archivo`, "") AS ruta_renas, COALESCE(rp_penales.`ruta_archivo`, "") AS ruta_penales, COALESCE(rp_policiacos.`ruta_archivo`, "") AS ruta_policiacos FROM `tbProfesor` p LEFT JOIN (SELECT * FROM `tbRenasPenalesPoliciales` WHERE `nombre` ="renas") rp_renas ON p.`idProfesor` = rp_renas.`idProfesor` LEFT JOIN (SELECT * FROM `tbRenasPenalesPoliciales` WHERE `nombre` = "penales") rp_penales ON p.`idProfesor` = rp_penales.`idProfesor`LEFT JOIN (SELECT * FROM `tbRenasPenalesPoliciales` WHERE `nombre` = "policiacos") rp_policiacos ON p.`idProfesor` = rp_policiacos.`idProfesor`WHERE p.`idRol` = 2 ORDER BY  p.`apellido_profesor` ASC;');
     return responseGet;
 }
 const obtenerProfesorService=async(id:string)=>{
