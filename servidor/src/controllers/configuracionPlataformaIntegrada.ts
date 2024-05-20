@@ -3,7 +3,6 @@ import { getConfiguracionesService,getExtensionesImagenesService,getExtensionesD
 import { handleHttp } from "../utils/error.handle";
 
 const getConfiguracionesController=async (req:Request, res:Response)=>{
-    console.log("Entré acá")
     try {
         const resultado=await getConfiguracionesService();
         res.send(resultado)

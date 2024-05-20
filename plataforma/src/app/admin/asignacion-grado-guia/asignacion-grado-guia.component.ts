@@ -145,8 +145,8 @@ export class AsignacionGradoGuiaComponent implements AfterViewInit {
   buscarGradoGuiasArrayTabla1(idGuias:string){
     this.GradoGuiaIndividualConGuia=this.listaGradosConGuia.find((x:any)=>x.idGuias===idGuias)
   }
-  buscarGradoGuiasArrayTabla2(idGuias:string){
-    this.GradoGuiaIndividualSinGuia=this.listaGradosSinGuia.find((x:any)=>x.idGuias===idGuias)
+  buscarGradoGuiasArrayTabla2(idGrado:string){
+    this.GradoGuiaIndividualSinGuia=this.listaGradosSinGuia.find((x:any)=>x.idGrado===idGrado)
   }
   crearGuiasGrado(){
     this.submitted = true;
