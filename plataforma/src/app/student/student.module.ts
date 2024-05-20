@@ -50,6 +50,7 @@ import { UploadFotoPerfilService } from "../upload-foto-perfil.service";
 import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
 import { NotificacionesStudentService } from "./services/notificaciones-student.service";
 import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-defecto.service";
+import { ConfiguracionesSistemaService } from "../configuraciones-sistema.service";
 
 @NgModule({
   imports:[
@@ -108,7 +109,8 @@ import { ImagenesPerfilDefectoService } from "../admin/services/imagenes-perfil-
     OpcionesMenuService,
     UploadFotoPerfilService,
     NotificacionesStudentService,
-    ImagenesPerfilDefectoService
+    ImagenesPerfilDefectoService,
+    ConfiguracionesSistemaService
   ]
 })
 

@@ -39,6 +39,11 @@ export class UploadFotoPerfilService {
         if (!allowedExtensions.includes(fileExtension)) {
           return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
         }
+      }else if(tipoSubida=='recurso' || tipoSubida=='anuncio'||tipoSubida=='tarea'){
+        const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          return throwError('La extensión del archivo no es válida, únicamente se admiten: ' + allowedExtensions.join(', '));
+        }
       }
 
       const maxSizeInBytes = this.convertirTamanoABytes(tamanoMaximo);
