@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerContrasenaProfesorCambiada = exports.obtenerCodigosEnDesuso = exports.obtenerCodigosEnUso = exports.obtenerAlumnosMujeres = exports.obtenerAlumnosHombres = exports.obtenerAlumnosTotalPorGrado = exports.obtenerAlumnosTotal = exports.GetCantidadDocentes = exports.GetCantidadGrados = void 0;
+exports.obtenerContrasenaProfesorCambiada = exports.obtenerCodigosEnDesuso = exports.obtenerCodigosEnUso = exports.obtenerAlumnosMujeres = exports.obtenerAlumnosHombres = exports.obtenerAlumnosTotalPorGrado = exports.obtenerAlumnosTotal = exports.GetCantidadDocentes = exports.GetCantidadGrados = exports.getAlmacenamientoPlataformaController = void 0;
 const error_handle_1 = require("../utils/error.handle");
 const estadistica_1 = require("../service/estadistica");
 const obtenerAlumnosTotal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -82,16 +82,6 @@ const obtenerContrasenaProfesorCambiada = (req, res) => __awaiter(void 0, void 0
     }
 });
 exports.obtenerContrasenaProfesorCambiada = obtenerContrasenaProfesorCambiada;
-/*
-const obtenerContrasenaProfesorNoCambiada=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetContrasenaProfesorNoCambiada();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(res,'Error al Obtener los Grados')
-    }
-}
-*/
 const GetCantidadGrados = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultado = yield (0, estadistica_1.GetCantidadGradosService)();
@@ -112,3 +102,13 @@ const GetCantidadDocentes = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.GetCantidadDocentes = GetCantidadDocentes;
+const getAlmacenamientoPlataformaController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const resultado = yield (0, estadistica_1.getAlmacenamientoGigasService)();
+        res.send(resultado);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getAlmacenamientoPlataformaController = getAlmacenamientoPlataformaController;

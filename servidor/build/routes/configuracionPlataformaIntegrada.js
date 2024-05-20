@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const configuracionPlataformaIntegrada_1 = require("../controllers/configuracionPlataformaIntegrada");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/", configuracionPlataformaIntegrada_1.getConfiguracionesController);
+router.get("/ext-imagenes", configuracionPlataformaIntegrada_1.getExtensionesImagenes);
+router.get("/ext-docs", configuracionPlataformaIntegrada_1.getExtensionesDocumentos);

@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstadoTutor = exports.updateEstadoProfesor = exports.updateEstadoAlumno = exports.ObtEstadoTutor = exports.ObtEstadoProfesor = exports.ObtEstadoAlumno = exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = void 0;
+exports.updateEstadoTutor = exports.updateEstadoProfesor = exports.updateEstadoAlumno = exports.ObtEstadoTutor = exports.ObtEstadoProfesor = exports.ObtEstadoAlumno = exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = exports.fotoPerfilAlumnoController = exports.getFotoPerfilActivaAlumno = void 0;
 const usuarios_1 = require("../service/usuarios");
 const error_handle_1 = require("../utils/error.handle");
 const passwordFunction_1 = require("../utils/passwordFunction");
+const app_1 = require("../app"); // Importa el objeto de Socket.io
 const getAlumnos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultadoAlumno = yield (0, usuarios_1.obtenerAlumnosService)();
@@ -190,3 +191,31 @@ const updateEstadoTutor = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.updateEstadoTutor = updateEstadoTutor;
+const fotoPerfilAlumnoController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { ruta_imagen } = req.body;
+        const { idAlumno } = req.body;
+        const { peso_archivo } = req.body;
+        const { subida } = req.body;
+        const { idRol } = req.body;
+        const fotoPerfilAlumno = yield (0, usuarios_1.fotoPerfilAlumnoService)(idAlumno, ruta_imagen, peso_archivo, subida);
+        app_1.io.emit('actualizar-foto-ferfil-alumno', { usuario: idAlumno, idRol: idRol });
+        res.send(fotoPerfilAlumno);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.fotoPerfilAlumnoController = fotoPerfilAlumnoController;
+const getFotoPerfilActivaAlumno = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const consulta = yield (0, usuarios_1.getFotoPerfilAlumnoService)(id);
+        res.send(consulta);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getFotoPerfilActivaAlumno = getFotoPerfilActivaAlumno;

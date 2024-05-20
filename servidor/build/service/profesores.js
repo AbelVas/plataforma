@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGradoGuiaProfesorService = exports.verifyPassword = exports.validarAdminExisteSi = exports.insertProfesorService = exports.deleteProfesorService = exports.updateProfesorService = exports.obtenerProfesorService = exports.obtenerProfesoresService = void 0;
+exports.getFotoCursoProfesorService = exports.fotoCursoProfesorService = exports.getGradoGuiaProfesorService = exports.verifyPassword = exports.validarAdminExisteSi = exports.insertProfesorService = exports.deleteProfesorService = exports.updateProfesorService = exports.obtenerProfesorService = exports.obtenerProfesoresService = exports.getFotoPerfilProfesorService = exports.fotoPerfilProfesorService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const passwordFunction_1 = require("../utils/passwordFunction");
 const obtenerProfesoresService = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -72,3 +72,25 @@ const getGradoGuiaProfesorService = (id) => __awaiter(void 0, void 0, void 0, fu
     return data;
 });
 exports.getGradoGuiaProfesorService = getGradoGuiaProfesorService;
+const getFotoPerfilProfesorService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const getFoto = yield database_1.default.query("SELECT CASE WHEN img.activa = 1 THEN img.ruta_imagen WHEN img.activa IS NULL THEN NULL ELSE 'null' END AS ruta_imagen, CONCAT(p.nombre_profesor, ' ', p.apellido_profesor) AS profesor FROM tbImagenPerfilProfesor img RIGHT JOIN tbProfesor p ON p.idProfesor = img.idProfesor WHERE p.idProfesor = ? AND (img.activa = 1 OR img.activa IS NULL);", [id]);
+    return getFoto;
+});
+exports.getFotoPerfilProfesorService = getFotoPerfilProfesorService;
+const fotoPerfilProfesorService = (id, ruta, peso, subida) => __awaiter(void 0, void 0, void 0, function* () {
+    const consultaprev = yield database_1.default.query("UPDATE tbImagenPerfilProfesor SET activa=0 WHERE idProfesor=?", [id]);
+    const consulta = yield database_1.default.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?', [id, ruta, peso, subida]);
+    return consulta;
+});
+exports.fotoPerfilProfesorService = fotoPerfilProfesorService;
+const fotoCursoProfesorService = (id, ruta, peso, subida) => __awaiter(void 0, void 0, void 0, function* () {
+    const consultaprev = yield database_1.default.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?", [id]);
+    const consulta = yield database_1.default.query('INSERT INTO tbImagenCurso SET idCurso=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?', [id, ruta, peso, subida]);
+    return consulta;
+});
+exports.fotoCursoProfesorService = fotoCursoProfesorService;
+const getFotoCursoProfesorService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const getFoto = yield database_1.default.query("SELECT CASE WHEN img.activa = 1 THEN img.ruta_imagen WHEN img.activa IS NULL THEN NULL ELSE 'null' END AS ruta_imagen FROM tbImagenCurso img RIGHT JOIN tbCurso p ON p.idCurso = img.idCurso WHERE p.idCurso = ? AND (img.activa = 1 OR img.activa IS NULL);", [id]);
+    return getFoto;
+});
+exports.getFotoCursoProfesorService = getFotoCursoProfesorService;

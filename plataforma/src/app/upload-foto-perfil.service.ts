@@ -8,8 +8,8 @@ import { ManejoDeErroresService } from 'src/app/manejo-de-errores.service';
 })
 export class UploadFotoPerfilService {
 
-      private apiUrl = 'http://localhost/backendimagenes/manejo-archivos.php';
-    //private apiUrl = 'server/subida-archivos.php'; //<-en producción
+    private apiUrl = 'http://localhost/backendimagenes/manejo-archivos.php';
+    //private apiUrl = 'assetsdedicado/manejo-archivos.php'; //<-en producción
 
   constructor(private http: HttpClient,private errorHandler: ManejoDeErroresService) { }
 
@@ -26,7 +26,9 @@ export class UploadFotoPerfilService {
   }
 
   uploadFileWithProgress(file: File, userId: any, userRole: string,tipoSubida:any,allowedExtensions:string[],tamanoMaximo:any,parametroExtraParaCarpeta?:string): Observable<any> {
-      //vamos a validar el tipo de subida:
+
+    console.log(allowedExtensions)
+    //vamos a validar el tipo de subida:
       if(tipoSubida=='foto-perfil-usuario'||tipoSubida=='foto-curso'){
         const fileExtension:any = file.name.split('.').pop()?.toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {

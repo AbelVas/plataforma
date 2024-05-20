@@ -100,9 +100,16 @@ const fotoPerfilAdminController = (req, res) => __awaiter(void 0, void 0, void 0
     try {
         const { ruta_imagen } = req.body;
         const { idProfesor } = req.body;
-        const { peso_imagen } = req.body;
-        const fotoPerfilAdmin = yield (0, administradores_1.fotoPerfilAdminService)(idProfesor, ruta_imagen, peso_imagen);
-        app_1.io.emit('actualizar-foto-ferfil-admin', { usuario: idProfesor, idRol: "1" });
+        const { peso_archivo } = req.body;
+        const { subida } = req.body;
+        const { idRol } = req.body;
+        const fotoPerfilAdmin = yield (0, administradores_1.fotoPerfilAdminService)(idProfesor, ruta_imagen, peso_archivo, subida);
+        if (idRol == 1) {
+            app_1.io.emit('actualizar-foto-perfil-admin', { usuario: idProfesor, idRol: idRol });
+        }
+        else if (idRol == 2) {
+            app_1.io.emit('actualizar-foto-ferfil-docente', { usuario: idProfesor, idRol: idRol });
+        }
         res.send(fotoPerfilAdmin);
     }
     catch (e) {

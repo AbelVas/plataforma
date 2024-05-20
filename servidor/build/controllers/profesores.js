@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGradoGuiaProfesor = exports.compararPass = exports.insertarProfesor = exports.deleteProfesor = exports.updateProfesor = exports.getProfesor = exports.getProfesores = void 0;
+exports.getFotoCursoActivaProfesor = exports.fotoCursoProfeController = exports.getGradoGuiaProfesor = exports.compararPass = exports.insertarProfesor = exports.deleteProfesor = exports.updateProfesor = exports.getProfesor = exports.getProfesores = exports.getFotoPerfilActivaProfesor = exports.fotoPerfilProfeController = void 0;
 const profesores_1 = require("../service/profesores");
 const error_handle_1 = require("../utils/error.handle");
 const passwordFunction_1 = require("../utils/passwordFunction");
+const app_1 = require("../app"); // Importa el objeto de Socket.io
 const getProfesores = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultadoProfesor = yield (0, profesores_1.obtenerProfesoresService)();
@@ -106,3 +107,59 @@ const getGradoGuiaProfesor = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getGradoGuiaProfesor = getGradoGuiaProfesor;
+const fotoPerfilProfeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { ruta_imagen } = req.body;
+        const { idProfesor } = req.body;
+        const { peso_archivo } = req.body;
+        const { subida } = req.body;
+        const fotoPerfilProfesor = yield (0, profesores_1.fotoPerfilProfesorService)(idProfesor, ruta_imagen, peso_archivo, subida);
+        app_1.io.emit('actualizar-foto-ferfil-profesor', { usuario: idProfesor, idRol: "2" });
+        res.send(fotoPerfilProfesor);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.fotoPerfilProfeController = fotoPerfilProfeController;
+const getFotoPerfilActivaProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const consulta = yield (0, profesores_1.getFotoPerfilProfesorService)(id);
+        res.send(consulta);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getFotoPerfilActivaProfesor = getFotoPerfilActivaProfesor;
+//Curso Subida de Archivo
+const fotoCursoProfeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { ruta_imagen } = req.body;
+        const { idCurso } = req.body;
+        console.log(req.body);
+        const { peso_archivo } = req.body;
+        const { subida } = req.body;
+        const { idProfesor } = req.body;
+        const fotoPerfilProfesor = yield (0, profesores_1.fotoCursoProfesorService)(idCurso, ruta_imagen, peso_archivo, subida);
+        app_1.io.emit('cambio-curso-foto', { usuario: idProfesor, idRol: "2" });
+        res.send(fotoPerfilProfesor);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.fotoCursoProfeController = fotoCursoProfeController;
+//obtener archivo curso foto
+const getFotoCursoActivaProfesor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const consulta = yield (0, profesores_1.getFotoCursoProfesorService)(id);
+        res.send(consulta);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getFotoCursoActivaProfesor = getFotoCursoActivaProfesor;

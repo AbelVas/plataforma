@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.vistoNotificacionesDocente = exports.getNotificacionesVistasDocentes = void 0;
+exports.getNotificacionesVistasDocentesEnviadas = exports.vistoNotificacionesDocente = exports.getNotificacionesVistasDocentes = void 0;
 const error_handle_1 = require("../utils/error.handle");
 const app_1 = require("../app"); // Importa el objeto de Socket.io
 const notificacionesGenerales_1 = require("../service/notificacionesGenerales");
@@ -39,6 +39,18 @@ const getNotificacionesVistasDocentes = (req, res) => __awaiter(void 0, void 0, 
     }
 });
 exports.getNotificacionesVistasDocentes = getNotificacionesVistasDocentes;
+const getNotificacionesVistasDocentesEnviadas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { idRol } = req.params;
+        const responseNotificaciones = yield (0, notificacionesGenerales_1.getNotificacionesEnviadas)(id, idRol);
+        res.send(responseNotificaciones);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getNotificacionesVistasDocentesEnviadas = getNotificacionesVistasDocentesEnviadas;
 const insertNotificaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
     }

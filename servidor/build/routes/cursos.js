@@ -19,3 +19,4 @@ router.get("/curso-alumno/:id", session_1.checkJwt, cursos_1.getCursosPorAlumno)
 router.get("/profe-curso/:id", session_1.checkJwt, cursos_1.getProfeCurso);
 router.get("/curso-profesor-grado-admin/:id", session_1.checkJwt, cursos_1.getCursoporGradoProfesorAdmin);
 router.get("/curso-profesor-individual/:id", session_1.checkJwt, cursos_1.obtenerCursodeProfesorIndividual);
+router.put("/foto-portada-curso/:id", session_1.checkJwt, cursos_1.obtenerImagenSubidCursosProfesorController);

@@ -43,7 +43,7 @@ const insertGradosGuias = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const insert = yield (0, gradoguiaasignacion_1.insertarGradoGuia)(idUsuario, idGradoGuia);
         if (insert) {
             const insertNoti = yield (0, notificacionesGenerales_1.insertNotificacion)(req.body);
-            app_1.io.emit("nueva-notificacion-usuario-recibida", { idUsuario: req.body.idUsuarioRecibe, idRol: req.body.idRolRecibe });
+            app_1.io.emit("nueva-notificacion-usuario-recibida", { idUsuario: req.body.idUsuarioRecibe, idRol: req.body.idRolRecibe, mensaje: req.body.mensaje, titulo_notificacion: req.body.titulo_notificacion });
         }
         res.send(insert);
     }

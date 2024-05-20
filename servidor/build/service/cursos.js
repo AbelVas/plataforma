@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerCursodeProfesor = exports.obtenerProfePorCurso = exports.obtenerCursosPorAlumnoService = exports.obtenerCursosPorProfesorGradoSeccionService = exports.obtenerCursosPorGradoProfesorService = exports.obtenerCursosPorProfesorService = exports.obtenerCursosPorGradoService = exports.insertCursosService = exports.deleteCursosService = exports.updateCursosService = exports.obtenerCursoService = exports.obtenerCursosService = exports.obtenerCursosPorGradoProfesorAdminService = void 0;
+exports.obtenerCursodeProfesor = exports.obtenerProfePorCurso = exports.obtenerCursosPorAlumnoService = exports.obtenerCursosPorProfesorGradoSeccionService = exports.obtenerCursosPorGradoProfesorService = exports.obtenerCursosPorProfesorService = exports.obtenerCursosPorGradoService = exports.insertCursosService = exports.deleteCursosService = exports.updateCursosService = exports.obtenerCursoService = exports.obtenerCursosService = exports.obtenerCursosPorGradoProfesorAdminService = exports.obtenerImagenSubidCursosProfesor = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const obtenerCursosService = () => __awaiter(void 0, void 0, void 0, function* () {
     const responseGet = yield database_1.default.query('SELECT `idCurso`, `nombre_curso`, `abreviatura`, `creado`, `consolidado_bimestre`, `consolidado_anual`, `boletas`  FROM tbCurso');
@@ -20,7 +20,7 @@ const obtenerCursosService = () => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.obtenerCursosService = obtenerCursosService;
 const obtenerCursoService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, g.idGrado, c.nombre_curso, c.color_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, s.seccion, p.nombre_profesor, p.apellido_profesor, p.idProfesor, n.idNivel, c.ruta_imagen FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbProfesor p ON c.idProfesor=p.idProfesor INNER JOIN tbNivel n ON g.idNivel=n.idNivel WHERE idCurso=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, g.idGrado, c.nombre_curso, c.color_curso, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, s.seccion, p.nombre_profesor, p.apellido_profesor, p.idProfesor, n.idNivel FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbProfesor p ON c.idProfesor=p.idProfesor INNER JOIN tbNivel n ON g.idNivel=n.idNivel WHERE idCurso=?', [id]);
     return responseGet;
 });
 exports.obtenerCursoService = obtenerCursoService;
@@ -45,7 +45,7 @@ const obtenerCursosPorGradoService = (idGrado) => __awaiter(void 0, void 0, void
 });
 exports.obtenerCursosPorGradoService = obtenerCursosPorGradoService;
 const obtenerCursosPorProfesorService = (idProfesor) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.idProfesor, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, c.color_curso, c.ruta_imagen FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbJornada j ON n.idJornada=j.idJornada WHERE idProfesor=?', idProfesor);
+    const responseGet = yield database_1.default.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.idProfesor, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, c.color_curso,CASE WHEN imgc.activa = 1 THEN imgc.ruta_imagen ELSE NULL END AS ruta_imagen FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbJornada j ON n.idJornada=j.idJornada LEFT JOIN tbImagenCurso imgc ON imgc.idCurso=c.idCurso WHERE c.idProfesor=?', idProfesor);
     return responseGet;
 });
 exports.obtenerCursosPorProfesorService = obtenerCursosPorProfesorService;
@@ -59,8 +59,9 @@ const obtenerCursosPorProfesorGradoSeccionService = (idProfesor, idCurso) => __a
     return response;
 });
 exports.obtenerCursosPorProfesorGradoSeccionService = obtenerCursosPorProfesorGradoSeccionService;
+//acaaaaaaaaaaaaaaaaaaaaaa
 const obtenerCursosPorAlumnoService = (idAlumno) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT c.idCurso,g.idGrado,p.idProfesor,c.nombre_curso,al.idAlumno,CONCAT(g.nombre_grado,", ",s.seccion) AS grado, CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor, c.color_curso, c.ruta_imagen FROM (((tbGrado g INNER JOIN tbCurso c ON c.idGrado=g.idGrado)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor WHERE al.idAlumno=?', [idAlumno]);
+    const response = yield database_1.default.query('SELECT c.idCurso,g.idGrado,p.idProfesor,c.nombre_curso,al.idAlumno,CONCAT(g.nombre_grado,", ",s.seccion) AS grado, CONCAT(p.nombre_profesor," ",p.apellido_profesor) as profesor, c.color_curso,CASE WHEN imgc.activa = 1 THEN imgc.ruta_imagen ELSE NULL END AS ruta_imagen FROM (((tbGrado g INNER JOIN tbCurso c ON c.idGrado=g.idGrado)INNER JOIN tbAlumno al ON al.idGrado=g.idGrado)INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion)INNER JOIN tbProfesor p ON p.idProfesor=c.idProfesor LEFT JOIN tbImagenCurso imgc ON imgc.idCurso=c.idCurso WHERE al.idAlumno=?', [idAlumno]);
     return response;
 });
 exports.obtenerCursosPorAlumnoService = obtenerCursosPorAlumnoService;
@@ -79,3 +80,24 @@ const obtenerCursodeProfesor = (idCurso) => __awaiter(void 0, void 0, void 0, fu
     return response;
 });
 exports.obtenerCursodeProfesor = obtenerCursodeProfesor;
+const obtenerImagenSubidCursosProfesor = (idCurso, ruta, subida) => __awaiter(void 0, void 0, void 0, function* () {
+    const verificar = yield database_1.default.query("SELECT ruta_imagen,subida FROM tbImagenCurso WHERE idCurso=? and subida=? ", [idCurso, subida]);
+    if (verificar != '') {
+        if (subida != '1') {
+            const update = yield database_1.default.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?", [idCurso]);
+            const update2 = yield database_1.default.query("UPDATE tbImagenCurso SET activa=1, peso_archivo=0, subida=0, ruta_imagen=? WHERE idCurso=? and subida=0", [ruta, idCurso]);
+            return update2;
+        }
+        else {
+            const update = yield database_1.default.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?", [idCurso]);
+            const update2 = yield database_1.default.query("UPDATE tbImagenCurso SET activa=1 WHERE idCurso=? and subida=1 and ruta_imagen=?", [idCurso, ruta]);
+            return update2;
+        }
+    }
+    else {
+        const update = yield database_1.default.query("UPDATE tbImagenCurso SET activa=0 WHERE idCurso=?", [idCurso]);
+        const consulta = yield database_1.default.query("INSERT INTO tbImagenCurso(idCurso,ruta_imagen,peso_archivo,activa,subida) values(?,?,0,1,0)", [idCurso, ruta]);
+        return consulta;
+    }
+});
+exports.obtenerImagenSubidCursosProfesor = obtenerImagenSubidCursosProfesor;

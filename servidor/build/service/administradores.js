@@ -59,9 +59,9 @@ const verifyPassword = (id, pass) => __awaiter(void 0, void 0, void 0, function*
     return '1';
 });
 exports.verifyPassword = verifyPassword;
-const fotoPerfilAdminService = (id, ruta, peso) => __awaiter(void 0, void 0, void 0, function* () {
+const fotoPerfilAdminService = (id, ruta, peso, subida) => __awaiter(void 0, void 0, void 0, function* () {
     const consultaprev = yield database_1.default.query("UPDATE tbImagenPerfilProfesor SET activa=0 WHERE idProfesor=?", [id]);
-    const consulta = yield database_1.default.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_imagen=?, activa=1', [id, ruta, peso]);
+    const consulta = yield database_1.default.query('INSERT INTO tbImagenPerfilProfesor SET idProfesor=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?', [id, ruta, peso, subida]);
     return consulta;
 });
 exports.fotoPerfilAdminService = fotoPerfilAdminService;

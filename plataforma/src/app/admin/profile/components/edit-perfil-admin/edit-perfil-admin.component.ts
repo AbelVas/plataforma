@@ -88,6 +88,7 @@ export class EditPerfilAdminComponent implements OnInit {
   configutacionPlataformaAcademica(){
     this.configuracionesSistema.getConfiguracionesPlataforma().subscribe(
       res=>{
+        console.log(res)
         if (res) {
           const {
             extensiones_imagenes,
@@ -138,6 +139,7 @@ export class EditPerfilAdminComponent implements OnInit {
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file: File = fileInput.files[0];
       // Inicia el proceso de carga
+      console.log("Desde TS: "+this.extensiones_imagenes)
       this.uploadFotoService.uploadFileWithProgress(file, idUsuario, idRol,'foto-perfil-usuario',this.extensiones_imagenes,this.tamano_maximo_foto_perfil_usuario).subscribe(
         response => { // Maneja la respuesta del servidor
 

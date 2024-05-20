@@ -14,3 +14,7 @@ router.post("/profesor/", log_1.logMiddleware, profesores_1.insertarProfesor);
 router.put("/profesor/:id", session_1.checkJwt, profesores_1.updateProfesor);
 router.delete("/profesor/:id", session_1.checkJwt, profesores_1.deleteProfesor);
 router.post("/profesor/pass/:id", session_1.checkJwt, profesores_1.compararPass);
+router.get("/profesor-foto-perfil/:id", session_1.checkJwt, profesores_1.getFotoPerfilActivaProfesor);
+router.put("/profesor-foto-perfil", session_1.checkJwt, profesores_1.fotoPerfilProfeController);
+router.put("/profesor-foto-curso", session_1.checkJwt, profesores_1.fotoCursoProfeController);
+router.get("/profesor-foto-curso/:id", session_1.checkJwt, profesores_1.getFotoCursoActivaProfesor);

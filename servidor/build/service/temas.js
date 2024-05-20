@@ -15,12 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTemaService = exports.updateTemaService = exports.insertarTemaService = exports.getTemaActivoService = exports.getTemasService = exports.getTemaService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const getTemaService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query("SELECT idTema, idIconoAdmin, idIconoTutor, idIconoProfesor, idIconoEstudiante, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE idTema=?", [id]);
+    const response = yield database_1.default.query("SELECT idTema, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE idTema=?", [id]);
     return response;
 });
 exports.getTemaService = getTemaService;
 const getTemaActivoService = (activo) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query("SELECT idTema, idIconoAdmin, idIconoTutor, idIconoProfesor, idIconoEstudiante, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE estado=?", [activo]);
+    const response = yield database_1.default.query("SELECT idTema, nombre_tema, navbar1, navbar2, fondo1, fondo2, texto1, texto2, estado FROM tbTema WHERE estado=?", [activo]);
     return response;
 });
 exports.getTemaActivoService = getTemaActivoService;

@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfeCurso = exports.getCursosPorAlumno = exports.obtenerCursosPorProfesorGradoSeccion = exports.getCursoporGradoProfesor = exports.getCursoporProfesor = exports.getCursoporGrado = exports.insertCurso = exports.deleteCurso = exports.updateCurso = exports.getCursos = exports.getCurso = exports.getCursoporGradoProfesorAdmin = exports.obtenerCursodeProfesorIndividual = void 0;
+exports.getProfeCurso = exports.getCursosPorAlumno = exports.obtenerCursosPorProfesorGradoSeccion = exports.getCursoporGradoProfesor = exports.getCursoporProfesor = exports.getCursoporGrado = exports.insertCurso = exports.deleteCurso = exports.updateCurso = exports.getCursos = exports.getCurso = exports.getCursoporGradoProfesorAdmin = exports.obtenerCursodeProfesorIndividual = exports.obtenerImagenSubidCursosProfesorController = void 0;
 const cursos_1 = require("../service/cursos");
 const error_handle_1 = require("../utils/error.handle");
+const app_1 = require("../app"); // Importa el objeto de Socket.io
 const obtenerCursosPorProfesorGradoSeccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
@@ -153,3 +154,19 @@ const obtenerCursodeProfesorIndividual = (req, res) => __awaiter(void 0, void 0,
     }
 });
 exports.obtenerCursodeProfesorIndividual = obtenerCursodeProfesorIndividual;
+const obtenerImagenSubidCursosProfesorController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { ruta_imagen } = req.body;
+        const { subida } = req.body;
+        const { idRol } = req.body;
+        const { idProfesor } = req.body;
+        const resultado = yield (0, cursos_1.obtenerImagenSubidCursosProfesor)(id, ruta_imagen, subida);
+        app_1.io.emit('actualizar-foto-curso', { usuario: idProfesor, idRol: idRol });
+        res.send(resultado);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.obtenerImagenSubidCursosProfesorController = obtenerImagenSubidCursosProfesorController;

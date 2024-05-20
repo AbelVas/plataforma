@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEstadoTutor = exports.getEstadoProfesor = exports.getEstadoAlumno = exports.UpdateStatusTutores = exports.UpdateStatusProfesor = exports.UpdateStatusAlumnos = exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = void 0;
+exports.getEstadoTutor = exports.getEstadoProfesor = exports.getEstadoAlumno = exports.UpdateStatusTutores = exports.UpdateStatusProfesor = exports.UpdateStatusAlumnos = exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = exports.fotoPerfilAlumnoService = exports.getFotoPerfilAlumnoService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const passwordFunction_1 = require("../utils/passwordFunction");
 //CRUD
@@ -140,3 +140,14 @@ const UpdateStatusTutores = (id) => __awaiter(void 0, void 0, void 0, function* 
     return update;
 });
 exports.UpdateStatusTutores = UpdateStatusTutores;
+const fotoPerfilAlumnoService = (id, ruta, peso, subida) => __awaiter(void 0, void 0, void 0, function* () {
+    const consultaprev = yield database_1.default.query("UPDATE tbImagenPerfilAlumno SET activa=0 WHERE idAlumno=?", [id]);
+    const consulta = yield database_1.default.query('INSERT INTO tbImagenPerfilAlumno SET idAlumno=?, ruta_imagen=?, peso_archivo=?, activa=1, subida=?', [id, ruta, peso, subida]);
+    return consulta;
+});
+exports.fotoPerfilAlumnoService = fotoPerfilAlumnoService;
+const getFotoPerfilAlumnoService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const getFoto = yield database_1.default.query("SELECT CASE WHEN img.activa = 1 THEN img.ruta_imagen WHEN img.activa IS NULL THEN NULL ELSE 'null' END AS ruta_imagen, CONCAT(a.nombres_alumno, ' ', a.apellidos_alumno) AS alumno FROM tbImagenPerfilAlumno img RIGHT JOIN tbAlumno a ON a.idAlumno = img.idAlumno WHERE a.idAlumno = ? AND (img.activa = 1 OR img.activa IS NULL);", [id]);
+    return getFoto;
+});
+exports.getFotoPerfilAlumnoService = getFotoPerfilAlumnoService;

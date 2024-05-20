@@ -15,3 +15,4 @@ router.get("/Codigos-desuso", session_1.checkJwt, estadistica_1.obtenerCodigosEn
 router.get("/Profesor-Contrasena/Cambiada/", session_1.checkJwt, estadistica_1.obtenerContrasenaProfesorCambiada);
 router.get("/CantidadGrados", session_1.checkJwt, estadistica_1.GetCantidadGrados);
 router.get("/Cantidad-docentes", session_1.checkJwt, estadistica_1.GetCantidadDocentes);
+router.get("/almacenamiento", session_1.checkJwt, estadistica_1.getAlmacenamientoPlataformaController);

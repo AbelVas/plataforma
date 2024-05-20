@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetCantidadDocentesService = exports.GetCantidadGradosService = exports.GetContrasenaProfesorCambiada = exports.GetCodigosEnDesuso = exports.GetCodigosEnUso = exports.GetAlumnosMujeres = exports.GetAlumnosHombres = exports.GetAlumnosTotalPorGrado = exports.GetAlumnosTotal = void 0;
+exports.GetCantidadDocentesService = exports.GetCantidadGradosService = exports.GetContrasenaProfesorCambiada = exports.GetCodigosEnDesuso = exports.GetCodigosEnUso = exports.GetAlumnosMujeres = exports.GetAlumnosHombres = exports.GetAlumnosTotalPorGrado = exports.GetAlumnosTotal = exports.getAlmacenamientoGigasService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const GetAlumnosTotal = () => __awaiter(void 0, void 0, void 0, function* () {
     const responseGet = yield database_1.default.query('SELECT COUNT(idAlumno) AS CantidadAlumnos FROM tbAlumno');
@@ -59,3 +59,8 @@ const GetCantidadDocentesService = () => __awaiter(void 0, void 0, void 0, funct
     return responseGet;
 });
 exports.GetCantidadDocentesService = GetCantidadDocentesService;
+const getAlmacenamientoGigasService = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield database_1.default.query('SELECT SUM(peso_archivo) AS almacenamiento_ocupado FROM (SELECT peso_archivo FROM tbImagenPerfilProfesor UNION ALL SELECT peso_archivo FROM tbImagenPerfilAlumno UNION ALL SELECT peso_archivo FROM tbImagenCurso UNION ALL SELECT peso_archivo FROM tbRenasPenalesPoliciales) AS subquery;');
+    return data;
+});
+exports.getAlmacenamientoGigasService = getAlmacenamientoGigasService;
