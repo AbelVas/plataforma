@@ -2,7 +2,7 @@ import conexion from "../config/database";
 
 //traigo las tareas por curso (tanto foros, examenes, etc...)
 const getActividadesCursoService=async(idCurso:string)=>{
-    const response=await conexion.query('SELECT ac.idDetalleActividad,ac.nombre_actividad,ac.detalle,ac.cotejo,DATE_FORMAT(ac.fecha_entrega, "%Y-%m-%d") as fecha_entrega,ac.valor,ac.recurso,ac.ruta_recurso,DATE_FORMAT(ac.creada, "%Y-%m-%d") as creada,ac.disponible,ac.entrega_fuera_fecha,ta.tipoActividad,u.idUnidad,u.unidad,ac.ultima_modificacion, tc.color_curso FROM ((tbDetalleActividad ac INNER JOIN tbTipoActividad ta ON ta.idTipoActividad=ac.idTipoActividad)INNER JOIN tbCurso tc ON tc.idCurso=ac.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=ac.idUnidad WHERE ac.idCurso=? and u.estado=1 ORDER BY ac.fecha_entrega DESC',[idCurso])
+    const response=await conexion.query('SELECT ac.idDetalleActividad,ac.nombre_actividad,ac.detalle,ac.cotejo,ac.ruta_archivo,DATE_FORMAT(ac.fecha_entrega, "%Y-%m-%d") as fecha_entrega,ac.valor,ac.recurso,ac.ruta_recurso,DATE_FORMAT(ac.creada, "%Y-%m-%d") as creada,ac.disponible,ac.entrega_fuera_fecha,ta.tipoActividad,u.idUnidad,u.unidad,ac.ultima_modificacion, tc.color_curso FROM ((tbDetalleActividad ac INNER JOIN tbTipoActividad ta ON ta.idTipoActividad=ac.idTipoActividad)INNER JOIN tbCurso tc ON tc.idCurso=ac.idCurso)INNER JOIN tbUnidad u ON u.idUnidad=ac.idUnidad WHERE ac.idCurso=? and u.estado=1 ORDER BY ac.fecha_entrega DESC',[idCurso])
     return response;
 }
 const crearTareaService=async(dataActividad:any)=>{
@@ -32,8 +32,6 @@ const crearTareaService=async(dataActividad:any)=>{
 const deleteTareaService=async(idActividad:string)=>{
     const deleteNotas=await conexion.query('DELETE FROM tbCalificacion WHERE idDetalleActividad=?',[idActividad]);
     const deletetbTarea=await conexion.query('DELETE FROM tbTarea WHERE idDetalleActividad=?',[idActividad]);
-    const deletetbForo=await conexion.query('DELETE FROM tbForo WHERE idDetalleActividad=?',[idActividad]);
-    const deletetbExamen=await conexion.query('DELETE FROM tbExamen WHERE idDetalleActividad=?',[idActividad]);
     const response= conexion.query('DELETE FROM tbDetalleActividad WHERE idDetalleActividad=?',[idActividad]);
     return response;
 
