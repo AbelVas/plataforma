@@ -13,7 +13,6 @@ exports.getExtensionesDocumentos = exports.getExtensionesImagenes = exports.getC
 const configuracionPlataformaIntegrada_1 = require("../service/configuracionPlataformaIntegrada");
 const error_handle_1 = require("../utils/error.handle");
 const getConfiguracionesController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Entré acá");
     try {
         const resultado = yield (0, configuracionPlataformaIntegrada_1.getConfiguracionesService)();
         res.send(resultado);
