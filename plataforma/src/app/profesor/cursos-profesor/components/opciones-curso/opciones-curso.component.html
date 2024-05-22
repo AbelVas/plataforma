@@ -1259,10 +1259,10 @@
                   </div>
 
                   <hr>
-                  <div *ngIf="ActividadIndividual.ruta_archivo!=null && ActividadIndividual.ruta_archivo!='';else noArchivo">
+                  <div *ngIf="ActividadIndividual.ruta_recurso!=null && ActividadIndividual.ruta_recurso!='';else noArchivo">
                     <label class="form-label"><b>Información Tarea:</b></label>
                     <div class="mb-3 text-center">
-                      <a [href]="ActividadIndividual.ruta_archivo" download><img height="100px" class="icono-file" 
+                      <a [href]="ActividadIndividual.ruta_recurso" download><img height="100px" class="icono-file" 
                           src="assets/img/iconos/file-icons/file-exist.svg">
                         <h4 class="text-success">Descargue el archivo</h4>
                       </a>

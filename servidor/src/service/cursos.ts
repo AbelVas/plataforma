@@ -32,7 +32,7 @@ const obtenerCursosPorGradoService = async(idGrado:string)=>{
 }
 
 const obtenerCursosPorProfesorService = async (idProfesor:string)=>{
-    const responseGet=await conexion.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.idProfesor, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, c.color_curso,CASE WHEN imgc.activa = 1 THEN imgc.ruta_imagen ELSE NULL END AS ruta_imagen FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado=g.idGrado INNER JOIN tbNivel n ON g.idNivel=n.idNivel INNER JOIN tbSeccion s ON g.idSeccion=s.idSeccion INNER JOIN tbJornada j ON n.idJornada=j.idJornada LEFT JOIN tbImagenCurso imgc ON imgc.idCurso=c.idCurso WHERE c.idProfesor=?',idProfesor);
+    const responseGet=await conexion.query('SELECT c.idCurso, g.nombre_grado, n.nivel, n.idJornada, s.seccion, j.jornada, c.nombre_curso, c.idProfesor, c.abreviatura, c.creado, c.consolidado_bimestre, c.consolidado_anual, c.boletas, c.idGrado, c.color_curso,imgc.ruta_imagen FROM tbCurso c INNER JOIN tbGrado g ON c.idGrado = g.idGrado INNER JOIN tbNivel n ON g.idNivel = n.idNivel INNER JOIN tbSeccion s ON g.idSeccion = s.idSeccion INNER JOIN tbJornada j ON n.idJornada = j.idJornada LEFT JOIN tbImagenCurso imgc ON imgc.idCurso = c.idCurso AND imgc.activa = 1 WHERE c.idProfesor = ?',idProfesor);
     return responseGet;
 }
 const obtenerCursosPorGradoProfesorService = async(idGrado:string)=>{

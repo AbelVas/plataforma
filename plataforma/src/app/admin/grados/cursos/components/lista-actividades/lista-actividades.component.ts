@@ -241,6 +241,7 @@ export class ListaActividadesComponent implements OnInit {
     this.actividadService.getTareasCurso(this.idCurso).subscribe(
       res=>{
         this.listaActividades=res
+        console.log(this.listaActividades)
       },
       err=>{
         console.log(err)
