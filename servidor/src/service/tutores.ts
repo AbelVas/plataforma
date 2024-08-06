@@ -15,6 +15,12 @@ const obtenerTutorService=async(id:string)=>{
     const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `telefono_casa`, `direccion`, `usuario`, `fecha_nacimiento`, `estado`, `correo1`, `correo2` FROM tbTutor WHERE idTutor=?',[id]);
     return responseGet;
 }
+
+const obtenerTutorNotasService=async(id:string)=>{
+    const responseGet=await conexion.query('SELECT ver_notas FROM tbTutor WHERE idTutor=?',[id]);
+    return responseGet;
+}
+
 const updateTutorService=async(data:Request,id:string)=>{
     const responseUpdate=await conexion.query('UPDATE tbTutor SET ? WHERE idTutor=?',[data,id]);
     return responseUpdate;
@@ -49,4 +55,4 @@ const getAlumnoporTutorService=async(idTutor:string)=>{
     return responseGetAlumnoporTutor
 }
 
-export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService}
+export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService,obtenerTutorNotasService}

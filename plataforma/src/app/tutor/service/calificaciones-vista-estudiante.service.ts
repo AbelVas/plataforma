@@ -21,6 +21,13 @@ export class CalificacionesVistaEstudianteService {
     );
   }
 
+  getVisibilidadNotasTutor(idTutor:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/tutores/notas/${idTutor}`,httpOptions).pipe(
+      catchError((error:HttpErrorResponse)=>this.errorHandler.handleHttpError(error))
+    );
+  }
+
   getCursoporAlumno(idAlumno:string):Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/cursos/curso-alumno/${idAlumno}`,httpOptions).pipe(

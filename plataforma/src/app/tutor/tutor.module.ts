@@ -39,6 +39,7 @@ import { TematutoresService } from "./service/tematutores.service";
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
+import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notificaciones-mensajes.component';
 @NgModule({
   imports:[
     TutorRoutingModule,
@@ -71,6 +72,7 @@ import { ErroresComponent } from './margenes/header/components/errores/errores.c
     TutorialComponent,
     PagosComponent,
     ErroresComponent,
+    NotificacionesMensajesComponent,
   ],
   exports:[
   ],

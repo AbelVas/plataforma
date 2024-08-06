@@ -12,6 +12,7 @@ import { CalificacionesVistaEstudianteService } from '../../service/calificacion
   styleUrls: ['./actividades-curso-alumno-tutor.component.css']
 })
 export class ActividadesCursoAlumnoTutorComponent implements OnInit {
+  absolvencia:any;
   sppinerOn:boolean=true;
   idEstudiante:string='';
   calificacionesGet:any=[];
@@ -68,6 +69,7 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
   @Input() idCursoCurso:any=''
 
   ngOnInit(): void {
+    this.VisibilidadNotasDireccion();
     const params=this.activedRoute.snapshot.params;
     this.idEstudiante=params['idAlumno'];
     this.idCursoCurso=params['idCurso'];
@@ -77,6 +79,19 @@ export class ActividadesCursoAlumnoTutorComponent implements OnInit {
     this.getAnunciosPorGrado()
     this.obtenerDatosAlumno();
     this.alumnoIndividual=this.alumnoGet;
+  }
+
+  VisibilidadNotasDireccion(){
+    const token:any = localStorage.getItem('Acces-Token');
+    const {idUsuario}:any=decode(token);
+    this.calificacionesVistaEstudianteService.getVisibilidadNotasTutor(idUsuario).subscribe(
+      res=>{
+        this.absolvencia = res[0].ver_notas;
+      },
+      err=>{
+        console.log(err);
+      }
+    )
   }
 
   obtenerDatosAlumno(){

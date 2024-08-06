@@ -888,11 +888,11 @@
                           <span class="text-danger" *ngIf="submitted&&f.nombre_actividad.invalid">*** Campo Obligatorio
                             ***</span>
                         </div>
-                        <input type="radio" name="rad1" value="none" (change)="true" #checkBoxArchivo disabled> Archivo (En produccion...)
+                        <input type="radio" name="rad1" value="none" (change)="true" #checkBoxArchivo> Archivo
                         <br>
                         <div *ngIf="checkBoxArchivo.checked">
                           <label for="formFile" class="form-label">Seleccione su Archivo:</label>
-                          <input class="form-control" type="file" id="formFile">
+                          <input class="form-control" type="file" id="formRecursoFile">
                         </div>
                       </div>
                     </section>

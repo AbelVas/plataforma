@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService} from "../service/tutores";
+import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService,obtenerTutorNotasService} from "../service/tutores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 
@@ -20,6 +20,17 @@ const getTutor= async(req:Request,res:Response)=>{
         handleHttp(e, req, res);
     }
 }
+
+const GetNotasTutor = async(req:Request, res:Response)=>{
+    try{
+        const {id}=req.params;
+        const resultadoTutores=await obtenerTutorNotasService(id);
+        res.send(resultadoTutores);
+    }catch(e){
+        handleHttp(e,req,res);
+    }
+}
+
 const updateTutor= async(req:Request,res:Response)=>{
     try {
         const {id}=req.params;
@@ -93,4 +104,4 @@ const getAlumnoporTutor=async(req:Request,res:Response)=>{
     }
 }
 
-export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass,getAlumnoporTutor}
+export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass,getAlumnoporTutor,GetNotasTutor}
