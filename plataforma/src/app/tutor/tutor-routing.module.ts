@@ -14,6 +14,7 @@ import { VistaEstudianteComponent } from "./vista-estudiante/vista-estudiante.co
 import { CalificacionesVistaEstudianteComponent } from "./calificaciones-vista-estudiante/calificaciones-vista-estudiante.component";
 import { TutorialComponent } from "./tutorial/tutorial.component";
 import { PagosComponent } from "./pagos/pagos.component";
+import { NotificacionesMensajesComponent } from "./notificaciones-mensajes/notificaciones-mensajes.component";
 
 
 const routes:Routes=[
@@ -29,6 +30,7 @@ const routes:Routes=[
     {path:'perfil',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '3' },component:PerfilTutorComponent},
     {path:'tutorial',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:TutorialComponent},
     {path:'pagos',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:PagosComponent},
+    {path:'notificaciones',canActivate:[AuthGuard,RolesGuard],data:{expectedRole:'3'},component:NotificacionesMensajesComponent},
   ]
   },
 ]

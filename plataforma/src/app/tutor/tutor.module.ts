@@ -40,6 +40,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 import { PagosComponent } from './pagos/pagos.component';
 import { ErroresComponent } from './margenes/header/components/errores/errores.component';
 import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notificaciones-mensajes.component';
+import { NotificacionesTutorService } from "./service/notificaciones-tutor.service";
 @NgModule({
   imports:[
     TutorRoutingModule,
@@ -86,7 +87,8 @@ import { NotificacionesMensajesComponent } from './notificaciones-mensajes/notif
     ActividadesCursoAlumnoTutorService,
     VistaEstudianteService,
     CalificacionesVistaEstudianteService,
-    TematutoresService
+    TematutoresService,
+    NotificacionesTutorService
   ]
 })
 

@@ -285,7 +285,9 @@ export class OpcionesCursoComponent implements OnInit {
         idRolEnvia: "2",
         idUsuarioEnvia: this.idProfesor,
         idRolRecibe: "4",
+        idRolRecibe2: "3",
         idUsuarioRecibe: idAlumno,
+        idUsuarioRecibe2: "",
         titulo_notificacion: "Calificacion Actividad",
         mensaje: "Se ha calificado la siguiente actividad: " + this.ActividadIndividual.nombre_actividad,
         visto_recibe: "0",
@@ -294,14 +296,30 @@ export class OpcionesCursoComponent implements OnInit {
         disponible: this.ActividadIndividual.disponible,
       }
       console.log(nota)
-      this.actividadesOpcionesCursoService.calificarActividad(idActividad, nota).subscribe(
-        res => {
-          this.toastrService.success(`Calificaciones Guardadas`, 'Realizado')
 
+      this.actividadesOpcionesCursoService.buscarTutor(idAlumno).subscribe(
+        res => {
+          nota.idUsuarioRecibe2 = res
+          nota.idUsuarioRecibe2 = nota.idUsuarioRecibe2[0].idTutor
+          this.actividadesOpcionesCursoService.calificarActividad(idActividad, nota).subscribe(
+            res => {
+              this.toastrService.success(`Calificaciones Guardadas`, 'Realizado')
+            },
+            err => {
+              this.toastrService.error(`Calificaciones no Guardadas`, 'Error')
+            }
+          )
         },
         err => {
-          console.log(err)
-          this.toastrService.error(`Calificaciones no Guardadas`, 'Error')
+          console.log("No se pudo bb")
+          this.actividadesOpcionesCursoService.calificarActividad(idActividad, nota).subscribe(
+            res => {
+              this.toastrService.success(`Calificaciones Guardadas`, 'Realizado')
+            },
+            err => {
+              this.toastrService.error(`Calificaciones no Guardadas`, 'Error')
+            }
+          )
         }
       )
     }
@@ -501,7 +519,7 @@ export class OpcionesCursoComponent implements OnInit {
   //Controladores de foro
   get F() { return this.crearForoForm.controls; }
   fileTarea: File | null = null;
-  uploadProgress:any
+  uploadProgress: any
   crearTarea(form: HTMLFormElement) {
     this.submitted = true;
     if (this.crearTareaForm.invalid) {
@@ -523,27 +541,27 @@ export class OpcionesCursoComponent implements OnInit {
         this.fileTarea = fileInput.files[0];
         this.uploadFotoService.uploadFileWithProgress(this.fileTarea, this.idUsuario, this.idRol, 'tarea', this.extensiones_documentos, this.tamano_maximo_archivo_actividadaes, this.idCurso).subscribe(
           response => {
-            if (typeof response === 'number'){
+            if (typeof response === 'number') {
               if (response >= 0 && response <= 100) {
                 this.uploadProgress = response;
               }
-            }else if(typeof response === 'object' && response.filePath){
+            } else if (typeof response === 'object' && response.filePath) {
               this.tareaCreadaObj.ruta_recurso = response.filePath;
               this.tareaCreadaObj.peso_recurso = this.fileTarea?.size;
-            this.actividadesOpcionesCursoService.crearTarea(this.tareaCreadaObj).subscribe(
-              res => {
-                this.modalCloseCrear.nativeElement.click();
-                this.submitted = false;
-                this.crearTareaForm.reset();
-                this.getTareas()
-                this.toastrService.success(`Tarea Creada`, 'Realizado')
-              },
-              err => {
-                console.log(err)
-                this.toastrService.error(`Tarea no Creada`, 'Error')
-              }
-            )
-          }
+              this.actividadesOpcionesCursoService.crearTarea(this.tareaCreadaObj).subscribe(
+                res => {
+                  this.modalCloseCrear.nativeElement.click();
+                  this.submitted = false;
+                  this.crearTareaForm.reset();
+                  this.getTareas()
+                  this.toastrService.success(`Tarea Creada`, 'Realizado')
+                },
+                err => {
+                  console.log(err)
+                  this.toastrService.error(`Tarea no Creada`, 'Error')
+                }
+              )
+            }
 
           },
           err => {

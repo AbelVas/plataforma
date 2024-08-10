@@ -1,6 +1,7 @@
 import { Component,OnInit } from "@angular/core";
 import { TematutoresService } from "./service/tematutores.service";
 import { WebSocketService } from "../web-socket.service";
+import { ToastrService } from 'ngx-toastr';
 import decode from 'jwt-decode';
 
 
@@ -36,7 +37,7 @@ export class TutorComponent implements OnInit{
   ctexto2:string='';
   cfondo1:string='';
 
-  constructor( private tematutoresService:TematutoresService,private socket:WebSocketService){}
+  constructor( private tematutoresService:TematutoresService,private socket:WebSocketService, private toastrService:ToastrService){}
   token:any = localStorage.getItem('Acces-Token');
   ngOnInit(){
     this.obtenerDatosTema();
@@ -44,7 +45,14 @@ export class TutorComponent implements OnInit{
     const {idUsuario}:any=decode(this.token);
     const {idRol}:any=decode(this.token);
     const {rol}:any=decode(this.token);
+    //asociamos el socket al usuario
     this.socket.emitirEvento('associateUser', { idUsuario: idUsuario,idRol:idRol,rol:rol })
+    // En el componente o servicio del módulo profesor
+    this.socket.escucharEvento('nuevo-grado-guia-asignado').subscribe((data: any) => {
+      if(data.idUsuario==idUsuario&&data.idRol==idRol){
+        this.toastrService.success(data.mensaje, data.titulo_notificacion);//veamos
+      }
+    });
   }
 
   obtenerDatosTema(){

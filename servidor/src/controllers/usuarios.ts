@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import {getFotoPerfilAlumnoService,fotoPerfilAlumnoService,getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
-    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor} from "../service/usuarios";
+    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor,getTutorporAlumno} from "../service/usuarios";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 import { io } from "../app"; // Importa el objeto de Socket.io
@@ -185,5 +185,15 @@ const getFotoPerfilActivaAlumno=async(req:Request,res:Response)=>{
     }
 }
 
+const getTutorporAlumnoControl=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params
+        const consulta=await getTutorporAlumno(id)
+        res.send(consulta)
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+
 export {getFotoPerfilActivaAlumno,fotoPerfilAlumnoController,getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer,
-    ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor}
+    ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor,getTutorporAlumnoControl}

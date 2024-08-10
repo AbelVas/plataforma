@@ -26,12 +26,23 @@ const calificarActividad=async(req:Request,res:Response)=>{
         delete req.body.idAlumno
         delete req.body.verNota
         delete req.body.disponible
+        const idTutor = req.body.idUsuarioRecibe2
+        const Rol2 = req.body.idRolRecibe2
+        delete req.body.idRolRecibe2
+        delete req.body.idUsuarioRecibe2
         const resultado=await calificarActividadService(idAlumno,idDetalleActividad,calificacion);
 
         if(resultado){
             if(nota == "1" && disponible == "1"){
                 const insertNoti=await insertNotificacion(req.body)
                 io.emit("nueva-notificacion-usuario-recibida", {idUsuario:req.body.idUsuarioRecibe,idRol:req.body.idRolRecibe,mensaje:req.body.mensaje,titulo_notificacion:req.body.titulo_notificacion});
+
+                if(req.body.idUsuarioRecibe2!=""){
+                    req.body.idRolRecibe = Rol2
+                    req.body.idUsuarioRecibe = idTutor
+                    const insertNoti=await insertNotificacion(req.body)
+                    io.emit("nueva-notificacion-usuario-recibida", {idUsuario:idTutor,idRol:req.body.Rol2,mensaje:req.body.mensaje,titulo_notificacion:req.body.titulo_notificacion}); 
+                }
             }
         }
         res.send(resultado);

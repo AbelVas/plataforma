@@ -178,4 +178,11 @@ export class ActividadesOpcionesCursoService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
     );
   }
+
+  buscarTutor(idAlumno:string){
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/TutorAlumno/${idAlumno}`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    );
+  }
 }

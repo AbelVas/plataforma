@@ -132,6 +132,11 @@ const getFotoPerfilAlumnoService=async(id:string)=>{
     return getFoto
 }
 
+const getTutorporAlumno=async(id:string)=>{
+    const getId= await conexion.query("SELECT idTutor FROM tbReacionAlumnoTutor WHERE idAlumno=? LIMIT 1",[id]);
+    return getId
+}
+
 
 export{getFotoPerfilAlumnoService,fotoPerfilAlumnoService,getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
-    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor}
+    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor,getTutorporAlumno}
