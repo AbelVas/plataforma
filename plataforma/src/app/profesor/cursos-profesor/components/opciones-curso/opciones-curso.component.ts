@@ -311,7 +311,6 @@ export class OpcionesCursoComponent implements OnInit {
           )
         },
         err => {
-          console.log("No se pudo bb")
           this.actividadesOpcionesCursoService.calificarActividad(idActividad, nota).subscribe(
             res => {
               this.toastrService.success(`Calificaciones Guardadas`, 'Realizado')
@@ -417,6 +416,7 @@ export class OpcionesCursoComponent implements OnInit {
         this.modalCloseEditar.nativeElement.click();
         this.getTareas()
         this.toastrService.success(`Actividad Editada`, 'Realizado')
+        this.crearTareaForm.reset
       },
       err => {
         console.log(err)
