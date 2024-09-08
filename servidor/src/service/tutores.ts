@@ -8,11 +8,11 @@ const insertTutoresService=async(data:Request)=>{
     return responseInsert;
 }
 const obtenerTutoresService=async()=>{
-    const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor');
+    const responseGet=await conexion.query('SELECT  idTutor,nombre_tutor,apellido_tutor,telefono1,telefono2,telefono_casa,direccion,direccion_trabajo,usuario,pass,correo1,correo2,nombre_opcional,dpi,estado FROM tbTutor');
     return responseGet;
 }
 const obtenerTutorService=async(id:string)=>{
-    const responseGet=await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `telefono_casa`, `direccion`, `usuario`, `fecha_nacimiento`, `estado`, `correo1`, `correo2` FROM tbTutor WHERE idTutor=?',[id]);
+    const responseGet=await conexion.query('SELECT  idTutor,nombre_tutor,apellido_tutor,telefono1,telefono2,telefono_casa,direccion,direccion_trabajo,usuario,pass,correo1,correo2,nombre_opcional,dpi,estado FROM tbTutor WHERE idTutor=?',[id]);
     return responseGet;
 }
 
@@ -46,7 +46,7 @@ const verifyPassword=async(id:string,pass:string)=>{
 }
 
 const getTutorconAlumnoService=async(idAlum:string)=>{
-    const responseGetTutorconAlumno= await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idAlumno=? ',[idAlum])
+    const responseGetTutorconAlumno= await conexion.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`,  `estado` FROM tbTutor WHERE idAlumno=? ',[idAlum])
     return responseGetTutorconAlumno;
 }
 

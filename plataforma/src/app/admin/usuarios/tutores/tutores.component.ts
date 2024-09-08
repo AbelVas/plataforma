@@ -2,9 +2,8 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormControl,Validators } from '@angular/forms';
-import { CodigosService } from '../../services/codigos.service';
-import { TutoresService } from './tutores.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { TutoresService } from '../../services/tutores.service';
 
 
 @Component({
@@ -13,6 +12,9 @@ import { TutoresService } from './tutores.service';
   styleUrls: ['./tutores.component.css']
 })
 export class TutoresComponent implements OnInit {
+
+  constructor(private tutorService:TutoresService,private formBuilder:FormBuilder) { }
+
   listaTutores:any=[];
   docenteIndividual:any={}
   isEditPassword:string='0'
@@ -20,14 +22,7 @@ export class TutoresComponent implements OnInit {
   isCorrectCodigo:boolean=false
   codigoError:string=''
   passNoCoincide:string=''
-  docentePropiedadesCrear:any={
-    estatus:'1',
-    cambio_contrasena:'0',
-    imagen:'assets/img/blank_profile.png',
-    permitir_ver_correo:'1',
-    idRol:'2',
-    idCodigo:''
-  }
+
    //fecha para hoy
    hoy:any=new Date();
    mesActual=this.hoy.getMonth()+1;
@@ -41,7 +36,7 @@ export class TutoresComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   dataTable: any;
   dataSource:any;
-  docentesPorPagina=5;
+  tutoresPorPagina=10;
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,17 +45,25 @@ export class TutoresComponent implements OnInit {
     }
   }
   displayedColumns: string[] = ['no','Tutor','Hijo','usuario','estado','acciones'];
-  docenteForm=this.formBuilder.group({
-    nombre_profesor:new FormControl('',[Validators.required]),
-    apellido_profesor:new FormControl('',[Validators.required]),
-    telefono:new FormControl('',[Validators.required]),
-    CUI:new FormControl('',[Validators.required]),
-    usuario:new FormControl('',[Validators.required]),
-    fecha_nacimiento:new FormControl('',[Validators.required]),
-    estatus:new FormControl(''),
-    pass:new FormControl('',[Validators.required]),
-    confirmPass:new FormControl('',[Validators.required])
-  })
+
+  isEditing = false;  // Variable para controlar si estamos creando o editando
+  tutorIndividual: any;  // Aquí cargarás los datos del tutor seleccionado
+  //form de tutor
+  tutorForm = this.formBuilder.group({
+    nombre_tutor: ['', Validators.required],
+    apellido_tutor: ['', Validators.required],
+    telefono1: ['', [Validators.required, Validators.maxLength(20)]],
+    telefono2: ['', Validators.maxLength(20)],
+    telefono_casa: ['', Validators.maxLength(45)],
+    direccion: ['', Validators.required],
+    direccion_trabajo: [''],
+    usuario: ['', Validators.required],
+    correo1: ['', [Validators.required, Validators.email]],
+    correo2: ['', Validators.email],
+    nombre_opcional: [''],
+    dpi: ['', [Validators.required, Validators.maxLength(20)]],
+  });
+  //fin del form tutor
   alertaValor:any={
     classAlerta:'',
     mensajeAlerta:'',
@@ -71,7 +74,6 @@ export class TutoresComponent implements OnInit {
   icon=''
   intervalo:any
   submitted=false;
-  constructor(private tutorService:TutoresService,private formBuilder:FormBuilder,private codigoService:CodigosService) { }
 
   ngOnInit(): void {
     this.getTutores();
@@ -79,171 +81,99 @@ export class TutoresComponent implements OnInit {
   getTutores(){
     this.tutorService.getTutor().subscribe(
       res=>{
-        console.log(res)
         this.listaTutores=res
         this.dataSource = new MatTableDataSource(this.listaTutores);
         this.paginator._intl.itemsPerPageLabel = 'Tutores por Página: ';
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
       },
       err=>{
         console.log(err)
       }
     )
   }
-  /*
-  editarProfesor(idProfesor:string){
-    this.submitted = true;
-    if ((this.f.pass.value!=this.f.confirmPass.value)) {
-      this.passNoCoincide='border-danger'
-      return;
-    }
-    var DatoDocenteEditado:any={}
-    if(this.f.nombre_profesor.value!=''){
-      DatoDocenteEditado.nombre_profesor=this.f.nombre_profesor.value
-    }
-    if(this.f.apellido_profesor.value!=''){
-      DatoDocenteEditado.apellido_profesor=this.f.apellido_profesor.value
-    }
-    if(this.f.fecha_nacimiento.value!=''){
-      DatoDocenteEditado.fecha_nacimiento=this.f.fecha_nacimiento.value
-    }
-    if(this.f.telefono.value!=''){
-      DatoDocenteEditado.telefono=this.f.telefono.value
-    }
-    if(this.f.CUI.value!=''){
-      DatoDocenteEditado.CUI=this.f.CUI.value
-    }
-    if(this.f.usuario.value!=''){
-      DatoDocenteEditado.usuario=this.f.usuario.value
-    }
-    if(this.f.pass.value!=''){
-      DatoDocenteEditado.pass=this.f.pass.value
-    }
-    if(Object.entries(DatoDocenteEditado).length===0){
-      this.modalCloseEditar.nativeElement.click();
-      this.alertaValor.mensajeAlerta='No se editaron Datos'
-      this.alertaValor.classAlerta='bg-secondary bottom-0 end-0 position-absolute text-white toast show'
-      this.alertaValor.icon='fa-solid fa-question'
-      this.cerrarAlerta()
-    }else{
-      this.profesorService.updateProfesor(idProfesor,DatoDocenteEditado).subscribe(
-        res=>{
-          this.getProfesores()
-          this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Se Editaron los Datos Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+  // Función para abrir el modal en modo edición
+  editarTutor(): void {
+    if (this.tutorForm.valid) {
+      const formData = this.tutorForm.value;
+      this.tutorService.editTutor(this.tutorIndividual.idTutor, formData).subscribe(
+        res => {
+          console.log('Tutor actualizado exitosamente', res);
+          // Resetear y cerrar el modal
+          this.resetForm();
         },
-        err=>{
-          this.modalCloseEditar.nativeElement.click();
-          this.alertaValor.mensajeAlerta='Error al Editar el Docente'
-          this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-triangle-exclamation'
+        err => {
+          console.log('Error al actualizar el tutor', err);
         }
-      )
+      );
+    } else {
+      this.tutorForm.markAllAsTouched();
     }
   }
-  */
-  /*
-  eliminarDocente(idDocente:string){
-    this.profesorService.deleteProfesor(idDocente).subscribe(
-      res=>{
-        this.modalCloseEliminar.nativeElement.click();
-        this.getProfesores()
-        this.alertaValor.mensajeAlerta='Docente Eliminado Correctamente'
-        this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-circle-check'
-        this.cerrarAlerta()
-      },
-      err=>{
-        this.alertaValor.mensajeAlerta='Error Eliminar al Docente'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
-      }
-    )
-  }
-  crearDocente(){
-    this.submitted = true;
-    if (this.docenteForm.invalid||(this.f.pass.value!=this.f.confirmPass.value)) {
-      this.passNoCoincide='border-danger'
-      return;
-    }
-    var docenteInsert:any={}
-    docenteInsert=Object.assign(this.docenteForm.value,this.docentePropiedadesCrear)
-    docenteInsert.creado=this.fecha
-    delete docenteInsert.confirmPass
-    this.profesorService.insertDocente(docenteInsert).subscribe(
-      res=>{
-        if(res==false){
-          console.log('Docente Existe')
-        }else{
-          this.modalCloseCrear.nativeElement.click();
-          this.isCorrectCodigo=false
-          this.getProfesores()
-          this.alertaValor.mensajeAlerta='Docente Creado Correctamente'
-          this.alertaValor.classAlerta='bg-success bottom-0 end-0 position-absolute text-white toast show'
-          this.alertaValor.icon='fa-solid fa-circle-check'
-          this.cerrarAlerta()
+//funcion para crear y que variable  isEditing = false;
+creando(){
+  this.resetForm()
+  this.isEditing = false;
+}
+  crearTutor(): void {
+    if (this.tutorForm.valid) {
+      // Lógica para enviar los datos del formulario
+      const formData = {
+      ...this.tutorForm.value,  // Incluye los valores del formulario
+      ver_notas: 1,             // Propiedad adicional ver_notas
+      idRol: 3,
+      estado:1,
+      pass:"123456"
+    };
+      this.tutorService.insertTutor(formData).subscribe(
+        res => {
+          // Aquí puedes manejar la respuesta de la API
+          console.log('Tutor creado exitosamente', res);
+        },
+        err => {
+          console.log('Error al crear tutor', err);
         }
-      },
-      err=>{
-        this.alertaValor.mensajeAlerta='Error al Crear al Docente'
-        this.alertaValor.classAlerta='bg-danger bottom-0 end-0 position-absolute text-white toast show'
-        this.alertaValor.icon='fa-solid fa-triangle-exclamation'
-        this.cerrarAlerta()
-      }
-    )
-  }
-  */
-  verificaraCodigo(codigo:string){
-    var dataCodigoProfesor:any={
-      idTipoCodigo:'2',
-      codigo:codigo
-    }
-    this.codigoService.isCodigoCorrect(dataCodigoProfesor).subscribe(
-      res=>{
-        if(res==false){
-          this.codigoError='border-danger'
-        }else{
-          this.isCorrectCodigo=true;
-          this.docentePropiedadesCrear.idCodigo=res[0].idCodigo
-        }
-      },
-      err=>{
-        console.log(err)
-      }
-    )
-  }
-  buscarDocentesArray(idProfesor:string){
-    this.docenteIndividual=this.listaTutores.find((x:any)=>x.idProfesor===idProfesor)
-  }
-  selectedCheck(e:any){
-    if(e.target.checked){
-      this.isEditPassword='1'
-      return this.isEditPassword='1';
-    }else{
-      this.isEditPassword='0'
-      return this.isEditPassword='0';
+      );
+      // Resetear luego de guardar
+      this.resetForm();
+    } else {
+      // Marca todos los controles como tocados para mostrar errores
+      this.tutorForm.markAllAsTouched();
     }
   }
-  noselectedCheck(e:any){
-    if(e.target.checked==false){
-      this.isEditPassword='0'
-      return this.isEditPassword='0';
-    }else{
-      this.isEditPassword='1'
-      return this.isEditPassword='1';
-    }
+  resetForm(): void {
+    // Resetea el formulario y marca como no tocado
+    this.tutorForm.reset();
   }
-  cerrarAlerta(){
-    this.intervalo=setInterval(() => {//
-      this.closeAlert.nativeElement.click();
-      this.alertaValor.classAlerta='toast hide'
-    }, 5000);
+  onModalClose(): void {
+    // Llama a resetForm() al cerrar el modal
+    this.resetForm();
   }
-  get f() { return this.docenteForm.controls; }
+ // Cargar datos de un tutor en el formulario para editar
+ buscarTutoresArray(idTutor: string): void {
+  // Buscar al tutor en la lista por el ID
+  this.tutorIndividual = this.listaTutores.find((x: any) => x.idTutor === idTutor);
+
+  console.log(this.tutorIndividual)
+  if (this.tutorIndividual) {
+    // Cargar los datos del tutor en el formulario
+    this.tutorForm.patchValue({
+      nombre_tutor: this.tutorIndividual.nombre_tutor,
+      apellido_tutor: this.tutorIndividual.apellido_tutor,
+      telefono1: this.tutorIndividual.telefono1,
+      telefono2: this.tutorIndividual.telefono2,
+      telefono_casa: this.tutorIndividual.telefono_casa,
+      direccion: this.tutorIndividual.direccion,
+      direccion_trabajo: this.tutorIndividual.direccion_trabajo,
+      usuario: this.tutorIndividual.usuario,
+      correo1: this.tutorIndividual.correo1,
+      correo2: this.tutorIndividual.correo2,
+      nombre_opcional: this.tutorIndividual.nombre_opcional,
+      dpi: this.tutorIndividual.dpi,
+    });
+    // Cambiar a modo edición
+    this.isEditing = true;
+  }
+}
+  get f() { return this.tutorForm.controls; }
 }

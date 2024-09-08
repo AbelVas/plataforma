@@ -6,7 +6,7 @@
           <h5 class="card-title">Tutores <span>| Listado Rápido </span></h5>
         </div>
         <div class="text-end">
-          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#modalCrear"><i class="fa-solid fa-plus"></i></button>
+          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#crearTutor" (click)="creando()"><i class="fa-solid fa-plus"></i></button>
         </div>
         <mat-label>Buscar: </mat-label>
         <mat-form-field>
@@ -50,8 +50,8 @@
           <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
             <td mat-cell *matCellDef="let p" class="text-center">
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#EditProfesorModal"  (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorModal" (click)="buscarDocentesArray(p.idProfesor)"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearTutor"  (click)="buscarTutoresArray(p.idTutor)"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorModal" (click)="buscarTutoresArray(p.idTutor)"><i class="fa-solid fa-trash"></i></button>
             </td>
           </ng-container>
 
@@ -62,7 +62,7 @@
             <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
           </tr>
         </table>
-        <mat-paginator [pageSize]="docentesPorPagina" aria-label="Select page of users"></mat-paginator>
+        <mat-paginator [pageSize]="tutoresPorPagina" aria-label="Select page of users"></mat-paginator>
          <!--Alerta-->
          <div [class]="alertaValor.classAlerta" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="d-flex">
@@ -79,7 +79,112 @@
   </div>
   </div>
 
-  <!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="crearTutor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" (hidden)="onModalClose()">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{isEditing ? 'Editar Tutor' : 'Crear Tutor'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Crear formulario acá -->
+        <form [formGroup]="tutorForm" (ngSubmit)="crearTutor()">
+
+          <!-- Nombre Tutor -->
+          <div class="mb-3">
+            <label for="nombre_tutor" class="form-label">Nombre Tutor</label>
+            <input type="text" class="form-control" formControlName="nombre_tutor" [ngClass]="{'is-invalid': tutorForm.get('nombre_tutor')?.invalid && tutorForm.get('nombre_tutor')?.touched}" required>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('nombre_tutor')?.invalid && tutorForm.get('nombre_tutor')?.touched">Este campo es obligatorio.</div>
+          </div>
+
+          <!-- Apellido Tutor -->
+          <div class="mb-3">
+            <label for="apellido_tutor" class="form-label">Apellido Tutor</label>
+            <input type="text" class="form-control" formControlName="apellido_tutor" [ngClass]="{'is-invalid': tutorForm.get('apellido_tutor')?.invalid && tutorForm.get('apellido_tutor')?.touched}" required>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('apellido_tutor')?.invalid && tutorForm.get('apellido_tutor')?.touched">Este campo es obligatorio.</div>
+          </div>
+
+          <!-- Telefono1 -->
+          <div class="mb-3">
+            <label for="telefono1" class="form-label">Teléfono 1</label>
+            <input type="text" class="form-control" formControlName="telefono1" maxlength="20" [ngClass]="{'is-invalid': tutorForm.get('telefono1')?.invalid && tutorForm.get('telefono1')?.touched}" required>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('telefono1')?.invalid && tutorForm.get('telefono1')?.touched">Este campo es obligatorio y debe tener un máximo de 16 caracteres.</div>
+          </div>
+
+          <!-- Telefono2 -->
+          <div class="mb-3">
+            <label for="telefono2" class="form-label">Teléfono 2</label>
+            <input type="text" class="form-control" formControlName="telefono2" maxlength="20" [ngClass]="{'is-invalid': tutorForm.get('telefono2')?.invalid && tutorForm.get('telefono2')?.touched}">
+            <div class="invalid-feedback" *ngIf="tutorForm.get('telefono2')?.invalid && tutorForm.get('telefono2')?.touched">El número no debe exceder los 16 caracteres.</div>
+          </div>
+
+          <!-- Telefono Casa -->
+          <div class="mb-3">
+            <label for="telefono_casa" class="form-label">Teléfono de Casa</label>
+            <input type="text" class="form-control" formControlName="telefono_casa" maxlength="45" [ngClass]="{'is-invalid': tutorForm.get('telefono_casa')?.invalid && tutorForm.get('telefono_casa')?.touched}">
+            <div class="invalid-feedback" *ngIf="tutorForm.get('telefono_casa')?.invalid && tutorForm.get('telefono_casa')?.touched">Este campo no debe exceder los 16 caracteres.</div>
+          </div>
+
+          <!-- Dirección -->
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <textarea class="form-control" formControlName="direccion" rows="2" [ngClass]="{'is-invalid': tutorForm.get('direccion')?.invalid && tutorForm.get('direccion')?.touched}" required></textarea>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('direccion')?.invalid && tutorForm.get('direccion')?.touched">Este campo es obligatorio.</div>
+          </div>
+
+          <!-- Dirección Trabajo -->
+          <div class="mb-3">
+            <label for="direccion_trabajo" class="form-label">Dirección de Trabajo</label>
+            <textarea class="form-control" formControlName="direccion_trabajo" rows="2" [ngClass]="{'is-invalid': tutorForm.get('direccion_trabajo')?.invalid && tutorForm.get('direccion_trabajo')?.touched}"></textarea>
+          </div>
+
+          <!-- Usuario -->
+          <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario</label>
+            <input type="text" class="form-control" formControlName="usuario" [ngClass]="{'is-invalid': tutorForm.get('usuario')?.invalid && tutorForm.get('usuario')?.touched}" required>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('usuario')?.invalid && tutorForm.get('usuario')?.touched">Este campo es obligatorio.</div>
+          </div>
+
+          <!-- Correo 1 -->
+          <div class="mb-3">
+            <label for="correo1" class="form-label">Correo 1</label>
+            <input type="email" class="form-control" formControlName="correo1" [ngClass]="{'is-invalid': tutorForm.get('correo1')?.invalid && tutorForm.get('correo1')?.touched}" required>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('correo1')?.invalid && tutorForm.get('correo1')?.touched">Por favor, ingrese un correo válido.</div>
+          </div>
+
+          <!-- Correo 2 -->
+          <div class="mb-3">
+            <label for="correo2" class="form-label">Correo 2</label>
+            <input type="email" class="form-control" formControlName="correo2" [ngClass]="{'is-invalid': tutorForm.get('correo2')?.invalid && tutorForm.get('correo2')?.touched}">
+          </div>
+
+          <!-- Nombre Opcional -->
+          <div class="mb-3">
+            <label for="nombre_opcional" class="form-label">Nombre Opcional</label>
+            <input type="text" class="form-control" formControlName="nombre_opcional" [ngClass]="{'is-invalid': tutorForm.get('nombre_opcional')?.invalid && tutorForm.get('nombre_opcional')?.touched}">
+          </div>
+
+          <!-- DPI -->
+          <div class="mb-3">
+            <label for="dpi" class="form-label">DPI</label>
+            <input type="text" class="form-control" formControlName="dpi" maxlength="20" [ngClass]="{'is-invalid': tutorForm.get('dpi')?.invalid && tutorForm.get('dpi')?.touched}" required>
+            <div class="invalid-feedback" *ngIf="tutorForm.get('dpi')?.invalid && tutorForm.get('dpi')?.touched">El DPI es obligatorio y no debe exceder los 16 caracteres.</div>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="isEditing ? editarTutor() : crearTutor()" [disabled]="tutorForm.invalid">{{isEditing ? 'Guardar Cambios' : 'Crear'}}</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Datos Alumnos-->
 <div class="modal fade" id="staticBackdropVERALUMNO" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
