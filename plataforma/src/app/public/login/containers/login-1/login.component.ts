@@ -1,6 +1,6 @@
 import { Component,OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { LoginService } from "../components/auth-service.service";
+import { LoginService } from "../../components/auth-service.service";
 import decode from "jwt-decode"
 import { FormsModule,FormBuilder, FormControl,Validators } from "@angular/forms";
 import { CodigosService } from "src/app/admin/services/codigos.service";
