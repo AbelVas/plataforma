@@ -26,3 +26,6 @@ router.post("/EstadoTutorUpdate/:id", usuarios_1.updateEstadoTutor);
 //logica de foto de perfil
 router.put("/alumno-foto-perfil-update/:id", session_1.checkJwt, usuarios_1.fotoPerfilAlumnoController);
 router.get("/alumno-foto-perfil/:id", session_1.checkJwt, usuarios_1.getFotoPerfilActivaAlumno);
+router.get("/TutorAlumno/:id", session_1.checkJwt, usuarios_1.getTutorporAlumnoControl);
+//Buscar alumnos por código
+router.get("/alumno-por-codigo/:id/:idTutor", session_1.checkJwt, usuarios_1.getAlumnosPorCodigo);

@@ -82,7 +82,7 @@ export class TutoresComponent implements OnInit {
       this.getTutores();
     });
     this.socketService.escucharEvento('acciones-vinculacion').subscribe((data: any) => {
-      const toastMethod = data.titulo.includes('Eliminado') ? 'warning' : 'success';
+      const toastMethod = data.titulo.includes('Eliminado') ? 'warning' : data.titulo.includes('Creado') ? 'success' : 'warning'
       this.toastrService[toastMethod](data.mensaje, data.titulo);
       this.getTutores();
     });

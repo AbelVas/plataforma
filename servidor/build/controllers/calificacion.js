@@ -38,11 +38,21 @@ const calificarActividad = (req, res) => __awaiter(void 0, void 0, void 0, funct
         delete req.body.idAlumno;
         delete req.body.verNota;
         delete req.body.disponible;
+        const idTutor = req.body.idUsuarioRecibe2;
+        const Rol2 = req.body.idRolRecibe2;
+        delete req.body.idRolRecibe2;
+        delete req.body.idUsuarioRecibe2;
         const resultado = yield (0, calificacion_1.calificarActividadService)(idAlumno, idDetalleActividad, calificacion);
         if (resultado) {
             if (nota == "1" && disponible == "1") {
                 const insertNoti = yield (0, notificacionesGenerales_1.insertNotificacion)(req.body);
                 app_1.io.emit("nueva-notificacion-usuario-recibida", { idUsuario: req.body.idUsuarioRecibe, idRol: req.body.idRolRecibe, mensaje: req.body.mensaje, titulo_notificacion: req.body.titulo_notificacion });
+                if (req.body.idUsuarioRecibe2 != "") {
+                    req.body.idRolRecibe = Rol2;
+                    req.body.idUsuarioRecibe = idTutor;
+                    const insertNoti = yield (0, notificacionesGenerales_1.insertNotificacion)(req.body);
+                    app_1.io.emit("nueva-notificacion-usuario-recibida", { idUsuario: idTutor, idRol: req.body.Rol2, mensaje: req.body.mensaje, titulo_notificacion: req.body.titulo_notificacion });
+                }
             }
         }
         res.send(resultado);
