@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { fotoPerfilAlumnoController,getFotoPerfilActivaAlumno,getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer
-,ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor,getTutorporAlumnoControl} from "../controllers/usuarios";
+,ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor,getTutorporAlumnoControl,getAlumnosPorCodigo} from "../controllers/usuarios";
 import { logMiddleware } from "../middleware/log";
 import { checkJwt } from "../middleware/session";
 
@@ -27,7 +27,8 @@ router.post("/EstadoTutorUpdate/:id",updateEstadoTutor);
 router.put("/alumno-foto-perfil-update/:id",checkJwt,fotoPerfilAlumnoController)
 router.get("/alumno-foto-perfil/:id",checkJwt,getFotoPerfilActivaAlumno)
 router.get("/TutorAlumno/:id",checkJwt,getTutorporAlumnoControl);
-
+//Buscar alumnos por código
+router.get("/alumno-por-codigo/:id/:idTutor",checkJwt,getAlumnosPorCodigo)
 
 
 export {router};

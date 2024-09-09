@@ -13,6 +13,11 @@ const insertAlumnosService=async(data:any)=>{
         return false
     }
 }
+//este me sirve para validar la comunicación entre papás e hijos
+const obtenerAlumnosPorCodigoService=async(idCodigo:string,idTutor:string)=>{
+    const responseGet=await conexion.query('SELECT al.idAlumno, al.nombres_alumno, al.apellidos_alumno, al.sexo, al.usuario, g.nombre_grado, s.seccion, co.codigo, COUNT(reta.idAlumno) AS veces_vinculado, CASE WHEN rat.idAlumno IS NOT NULL THEN 1 ELSE 0 END AS ya_vinculado FROM tbAlumno al INNER JOIN tbGrado g ON g.idGrado = al.idGrado INNER JOIN tbSeccion s ON s.idSeccion = g.idSeccion INNER JOIN tbCodigo co ON co.idCodigo = al.idCodigo LEFT JOIN tbReacionAlumnoTutor reta ON reta.idAlumno = al.idAlumno LEFT JOIN tbReacionAlumnoTutor rat ON rat.idAlumno = al.idAlumno AND rat.idTutor = ? WHERE al.idRol = 4 AND co.codigo = ? GROUP BY al.idAlumno, al.nombres_alumno, al.apellidos_alumno, al.sexo, al.usuario, g.nombre_grado, s.seccion, co.codigo;',[idTutor,idCodigo]);
+    return responseGet;
+}
 const obtenerAlumnosService=async()=>{
     const responseGet=await conexion.query('SELECT al.idAlumno,al.nombres_alumno,al.apellidos_alumno,al.sexo,al.usuario,al.activo,g.nombre_grado,s.seccion FROM (tbAlumno al INNER JOIN tbGrado g on g.idGrado=al.idGrado)INNER JOIN tbSeccion s on s.idSeccion=g.idSeccion WHERE idRol=4');
     return responseGet;
@@ -139,4 +144,4 @@ const getTutorporAlumno=async(id:string)=>{
 
 
 export{getFotoPerfilAlumnoService,fotoPerfilAlumnoService,getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
-    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor,getTutorporAlumno}
+    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor,getTutorporAlumno,obtenerAlumnosPorCodigoService}

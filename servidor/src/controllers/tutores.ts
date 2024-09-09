@@ -1,8 +1,39 @@
 import { Request,Response } from "express";
-import {insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService,obtenerTutorNotasService} from "../service/tutores";
+import {deleteTutorAlumnoService,insertTutorAlumnoService,tutoresAlumnoService,insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService,obtenerTutorNotasService} from "../service/tutores";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
+import { io } from "../app"; // Importa el objeto de Socket.io
 
+const deleteTutorAlumno=async(req:Request,res:Response)=>{
+    try {
+        const {idTutor}=req.params;
+        const {idAlumno}=req.params;
+        const consulta=await deleteTutorAlumnoService(idTutor,idAlumno)
+        res.send(consulta);
+        io.emit('acciones-vinculacion',{mensaje:'Se ha Eliminado un vinculo de Alumno - Tutor',titulo:'Vinculo Eliminado'})
+        io.emit('acciones-vinculacion-tutor',{mensaje:'Se le Desasigno un Alumno',titulo:'Vinculo Eliminado'})
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+const insertTutorAlumno=async(req:Request,res:Response)=>{
+    try {
+        const consulta=await insertTutorAlumnoService(req.body)
+        res.send(consulta);
+        io.emit('acciones-vinculacion',{mensaje:'Se ha Insertado un vinculo de Alumno - Tutor',titulo:'Vinculo Creado'})
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
+const tutoresAlumno=async(req:Request,res:Response)=>{
+    try {
+        const {id}=req.params;
+        const consulta=await tutoresAlumnoService(id)
+        res.send(consulta);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+}
 const getTutores=async(req:Request,res:Response)=>{
     try{
         const resultadoTutores=await obtenerTutoresService();
@@ -38,11 +69,13 @@ const updateTutor= async(req:Request,res:Response)=>{
         if(pass==null){
             const resultado=await updateTutorService(req.body,id);
             res.send(resultado);
+            io.emit('actualizar-lista-tutores',{mensaje:'Se ha Editado a un Tutor',titulo:'Tutor Editado'})
         }else{
             const passEncrypt=await encrypt(pass);
             req.body.pass=passEncrypt;
             const resultado=await updateTutorService(req.body,id);
             res.send(resultado);
+            io.emit('actualizar-lista-tutores',{mensaje:'Se ha Editado a un Tutor',titulo:'Tutor Editado'})
         }
     } catch (e) {
         handleHttp(e, req, res);
@@ -53,6 +86,7 @@ const deleteTutor= async(req:Request,res:Response)=>{
        const {id}=req.params;
        const resultadoTutores=await deleteTutoresService(id);
        res.send(resultadoTutores);
+       io.emit('actualizar-lista-tutores',{mensaje:'Se ha Eliminado a un Tutor',titulo:'Tutor Eliminado'})
     }catch(e){
         handleHttp(e, req, res);
     }
@@ -67,6 +101,7 @@ const insertarTutor= async(req:Request,res:Response)=>{
             req.body.pass=passEncrypt
             const resultadoAlumno=await insertTutoresService(req.body);
             res.send(resultadoAlumno);
+            io.emit('actualizar-lista-tutores',{mensaje:'Se ha agregado un nuevo Tutor',titulo:'Tutor Creado'})
         }
     }catch(e){
         handleHttp(e, req, res);
@@ -104,4 +139,4 @@ const getAlumnoporTutor=async(req:Request,res:Response)=>{
     }
 }
 
-export {getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass,getAlumnoporTutor,GetNotasTutor}
+export {deleteTutorAlumno,insertTutorAlumno,tutoresAlumno,getTutores,getTutor,updateTutor,deleteTutor,insertarTutor,getTutorconAlumno,compararPass,getAlumnoporTutor,GetNotasTutor}

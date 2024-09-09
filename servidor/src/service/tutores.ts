@@ -3,6 +3,19 @@ import conexion from "../config/database";
 import { encrypt,verified } from "../utils/passwordFunction";
 
 //CRUD
+const deleteTutorAlumnoService=async(idTutor:string,idAlumno:string)=>{
+    const eliminarData=await conexion.query('DELETE FROM tbReacionAlumnoTutor WHERE idTutor=? and idAlumno=?',[idTutor,idAlumno])
+    return eliminarData
+}
+const insertTutorAlumnoService=async(data:Request)=>{
+    const insertData=await conexion.query('INSERT INTO tbReacionAlumnoTutor set ?',[data])
+    return insertData
+}
+const tutoresAlumnoService=async(idTutor:string)=>{
+    const responseGet=await conexion.query('SELECT al.idAlumno,CONCAT(al.apellidos_alumno," ",al.nombres_alumno) as alumno,CONCAT(g.nombre_grado,", Sección: ",s.seccion) as grado,tu.idTutor,co.codigo FROM tbReacionAlumnoTutor reta INNER JOIN tbAlumno al ON al.idAlumno=reta.idAlumno INNER JOIN tbTutor tu ON tu.idTutor=reta.idTutor INNER JOIN tbGrado g ON g.idGrado=al.idGrado INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion INNER JOIN tbCodigo co ON co.idCodigo=al.idCodigo WHERE tu.idTutor=?',[idTutor])
+    return responseGet
+}
+//asignación de tutores
 const insertTutoresService=async(data:Request)=>{
     const responseInsert=await conexion.query('INSERT INTO tbTutor set ?',[data]);
     return responseInsert;
@@ -55,4 +68,4 @@ const getAlumnoporTutorService=async(idTutor:string)=>{
     return responseGetAlumnoporTutor
 }
 
-export{insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService,obtenerTutorNotasService}
+export{deleteTutorAlumnoService,insertTutorAlumnoService,tutoresAlumnoService,insertTutoresService,obtenerTutoresService,obtenerTutorService,updateTutorService,deleteTutoresService,validarTutoresExisteSi,getTutorconAlumnoService,verifyPassword,getAlumnoporTutorService,obtenerTutorNotasService}

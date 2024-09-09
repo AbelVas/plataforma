@@ -1,205 +1,249 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-       <div class="card-body">
-        <div class="d-flex">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
           <h5 class="card-title">Tutores <span>| Listado Rápido </span></h5>
+          <div class="text-end">
+            <br>
+            <button type="button" class="btn btn-primary mb-3"  data-bs-toggle="modal" data-bs-target="#crearTutor" (click)="resetForm()"><i class="fa-solid fa-plus"></i> Agregar</button>
+            <button type="button" class="btn btn-success mb-3"  data-bs-toggle="modal" data-bs-target="#crearTutor" (click)="exportarExcel()"><i class="fa fa-file-excel"></i> Descargar</button>
+          </div>
         </div>
-        <div class="text-end">
-          <button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#crearTutor" (click)="creando()"><i class="fa-solid fa-plus"></i></button>
-        </div>
+        <!-- Filtro de búsqueda -->
         <mat-label>Buscar: </mat-label>
         <mat-form-field>
           <input autocomplete="off" class="form-control inputBorderSearch" matInput (keyup)="applyFilter($event)"  #input>
         </mat-form-field>
+
+        <!-- Tabla de tutores -->
         <div style="overflow-x: auto;">
-        <table mat-table [dataSource]="dataSource" class="table  align-middle table-striped table-hover">
-
-          <ng-container matColumnDef="no">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> No </th>
-            <td mat-cell *matCellDef="let p=index" class="text-center">{{p+1}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="Tutor">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Tutor </th>
-            <td mat-cell *matCellDef="let p" class="text-center">{{p.apellido_tutor+' '+p.nombre_tutor}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="Hijo">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Hijo(s) </th>
-            <td mat-cell *matCellDef="let p" class="text-center">
-              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdropVERALUMNO"><i class="fa-solid fa-eye"></i></button>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="usuario">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Usuario </th>
-            <td mat-cell *matCellDef="let p" class="text-center">{{p.usuario}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
-            <td mat-cell *matCellDef="let p" class="text-center">
-              <span class="badge bg-success" *ngIf="p.estado=='1';else activoInactivo">Activo</span>
-              <ng-template #activoInactivo>
-                <span class="badge bg-danger">Inactivo</span>
-              </ng-template>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
-            <td mat-cell *matCellDef="let p" class="text-center">
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearTutor"  (click)="buscarTutoresArray(p.idTutor)"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#EliminarProfesorModal" (click)="buscarTutoresArray(p.idTutor)"><i class="fa-solid fa-trash"></i></button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <!-- Row shown when there is no matching data. -->
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No se encuentran datos con: "{{input.value}}"</td>
-          </tr>
-        </table>
-        <mat-paginator [pageSize]="tutoresPorPagina" aria-label="Select page of users"></mat-paginator>
-         <!--Alerta-->
-         <div [class]="alertaValor.classAlerta" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="d-flex">
-            <div class="toast-body">
-              <i [class]="alertaValor.icon"></i> {{alertaValor.mensajeAlerta}}
-            </div>
-            <button type="button" #CerrarAlerta class="btn btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">x</button>
-          </div>
+          <table mat-table [dataSource]="dataSource" matSort class="table table-striped table-hover">
+            <!-- No -->
+            <ng-container matColumnDef="no">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">No</th>
+              <td mat-cell *matCellDef="let p = index" class="text-center">{{ p + 1 }}</td>
+            </ng-container>
+            <!-- Tutor -->
+            <ng-container matColumnDef="Tutor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Tutor</th>
+              <td mat-cell *matCellDef="let p" class="text-center">{{ p.apellido_tutor }}, {{ p.nombre_tutor }}</td>
+            </ng-container>
+            <!-- Usuario -->
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Usuario</th>
+              <td mat-cell *matCellDef="let p" class="text-center">{{ p.usuario }}</td>
+            </ng-container>
+            <!-- Estado -->
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Estado</th>
+              <td mat-cell *matCellDef="let p" class="text-center">
+                <span class="badge bg-success" *ngIf="p.estado == '1'; else inactivo">Activo</span>
+                <ng-template #inactivo>
+                  <span class="badge bg-danger">Inactivo</span>
+                </ng-template>
+              </td>
+            </ng-container>
+            <!-- Acciones -->
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
+              <td mat-cell *matCellDef="let p" class="text-center">
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#AgregarHijo" (click)="buscarTutoresArray(p.idTutor)">
+                  +<i class="fa-solid fa-child"></i>
+                </button>
+                <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#VerHijos" (click)="buscarTutoresArray(p.idTutor);obtenerAlumnosVinculadosTutor()">
+                  <i class="fa-solid fa-people-roof"></i>
+                </button>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#crearTutor" (click)="buscarTutoresArray(p.idTutor)">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarTutor" (click)="buscarTutoresArray(p.idTutor)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No se encuentran datos</td>
+            </tr>
+          </table>
+          <!-- Paginador -->
+          <mat-paginator [length]="listaTutores.length" [pageSize]="10" aria-label="Paginador de Tutores"></mat-paginator>
         </div>
-        <!--Alerta-->
-       </div>
-       </div>
+      </div>
     </div>
   </div>
-  </div>
-
-<!-- Modal -->
+</div>
+<!-- Modal Crear/Editar Tutor -->
 <div class="modal fade" id="crearTutor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" (hidden)="onModalClose()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">{{isEditing ? 'Editar Tutor' : 'Crear Tutor'}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title">{{ isEditing ? 'Editar Tutor' : 'Crear Tutor' }}</h5>
+        <button type="button" #CrearEditarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- Crear formulario acá -->
-        <form [formGroup]="tutorForm" (ngSubmit)="crearTutor()">
-
-          <!-- Nombre Tutor -->
-          <div class="mb-3">
-            <label for="nombre_tutor" class="form-label">Nombre Tutor</label>
-            <input type="text" class="form-control" formControlName="nombre_tutor" [ngClass]="{'is-invalid': tutorForm.get('nombre_tutor')?.invalid && tutorForm.get('nombre_tutor')?.touched}" required>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('nombre_tutor')?.invalid && tutorForm.get('nombre_tutor')?.touched">Este campo es obligatorio.</div>
+        <form [formGroup]="tutorForm" (ngSubmit)="guardarTutor()">
+          <!-- Formulario optimizado -->
+          <div *ngFor="let campo of camposFormulario">
+            <div class="mb-3">
+              <label [for]="campo.key" class="form-label">{{ campo.label }}</label>
+              <input [formControlName]="campo.key" type="text" class="form-control" [id]="campo.key">
+              <div *ngIf="tutorForm.get(campo.key)?.invalid && tutorForm.get(campo.key)?.touched" class="invalid-feedback">
+                Este campo es obligatorio.
+              </div>
+            </div>
           </div>
 
-          <!-- Apellido Tutor -->
-          <div class="mb-3">
-            <label for="apellido_tutor" class="form-label">Apellido Tutor</label>
-            <input type="text" class="form-control" formControlName="apellido_tutor" [ngClass]="{'is-invalid': tutorForm.get('apellido_tutor')?.invalid && tutorForm.get('apellido_tutor')?.touched}" required>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('apellido_tutor')?.invalid && tutorForm.get('apellido_tutor')?.touched">Este campo es obligatorio.</div>
-          </div>
-
-          <!-- Telefono1 -->
-          <div class="mb-3">
-            <label for="telefono1" class="form-label">Teléfono 1</label>
-            <input type="text" class="form-control" formControlName="telefono1" maxlength="20" [ngClass]="{'is-invalid': tutorForm.get('telefono1')?.invalid && tutorForm.get('telefono1')?.touched}" required>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('telefono1')?.invalid && tutorForm.get('telefono1')?.touched">Este campo es obligatorio y debe tener un máximo de 16 caracteres.</div>
-          </div>
-
-          <!-- Telefono2 -->
-          <div class="mb-3">
-            <label for="telefono2" class="form-label">Teléfono 2</label>
-            <input type="text" class="form-control" formControlName="telefono2" maxlength="20" [ngClass]="{'is-invalid': tutorForm.get('telefono2')?.invalid && tutorForm.get('telefono2')?.touched}">
-            <div class="invalid-feedback" *ngIf="tutorForm.get('telefono2')?.invalid && tutorForm.get('telefono2')?.touched">El número no debe exceder los 16 caracteres.</div>
-          </div>
-
-          <!-- Telefono Casa -->
-          <div class="mb-3">
-            <label for="telefono_casa" class="form-label">Teléfono de Casa</label>
-            <input type="text" class="form-control" formControlName="telefono_casa" maxlength="45" [ngClass]="{'is-invalid': tutorForm.get('telefono_casa')?.invalid && tutorForm.get('telefono_casa')?.touched}">
-            <div class="invalid-feedback" *ngIf="tutorForm.get('telefono_casa')?.invalid && tutorForm.get('telefono_casa')?.touched">Este campo no debe exceder los 16 caracteres.</div>
-          </div>
-
-          <!-- Dirección -->
-          <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <textarea class="form-control" formControlName="direccion" rows="2" [ngClass]="{'is-invalid': tutorForm.get('direccion')?.invalid && tutorForm.get('direccion')?.touched}" required></textarea>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('direccion')?.invalid && tutorForm.get('direccion')?.touched">Este campo es obligatorio.</div>
-          </div>
-
-          <!-- Dirección Trabajo -->
-          <div class="mb-3">
-            <label for="direccion_trabajo" class="form-label">Dirección de Trabajo</label>
-            <textarea class="form-control" formControlName="direccion_trabajo" rows="2" [ngClass]="{'is-invalid': tutorForm.get('direccion_trabajo')?.invalid && tutorForm.get('direccion_trabajo')?.touched}"></textarea>
-          </div>
-
-          <!-- Usuario -->
-          <div class="mb-3">
-            <label for="usuario" class="form-label">Usuario</label>
-            <input type="text" class="form-control" formControlName="usuario" [ngClass]="{'is-invalid': tutorForm.get('usuario')?.invalid && tutorForm.get('usuario')?.touched}" required>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('usuario')?.invalid && tutorForm.get('usuario')?.touched">Este campo es obligatorio.</div>
-          </div>
-
-          <!-- Correo 1 -->
-          <div class="mb-3">
-            <label for="correo1" class="form-label">Correo 1</label>
-            <input type="email" class="form-control" formControlName="correo1" [ngClass]="{'is-invalid': tutorForm.get('correo1')?.invalid && tutorForm.get('correo1')?.touched}" required>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('correo1')?.invalid && tutorForm.get('correo1')?.touched">Por favor, ingrese un correo válido.</div>
-          </div>
-
-          <!-- Correo 2 -->
-          <div class="mb-3">
-            <label for="correo2" class="form-label">Correo 2</label>
-            <input type="email" class="form-control" formControlName="correo2" [ngClass]="{'is-invalid': tutorForm.get('correo2')?.invalid && tutorForm.get('correo2')?.touched}">
-          </div>
-
-          <!-- Nombre Opcional -->
-          <div class="mb-3">
-            <label for="nombre_opcional" class="form-label">Nombre Opcional</label>
-            <input type="text" class="form-control" formControlName="nombre_opcional" [ngClass]="{'is-invalid': tutorForm.get('nombre_opcional')?.invalid && tutorForm.get('nombre_opcional')?.touched}">
-          </div>
-
-          <!-- DPI -->
-          <div class="mb-3">
-            <label for="dpi" class="form-label">DPI</label>
-            <input type="text" class="form-control" formControlName="dpi" maxlength="20" [ngClass]="{'is-invalid': tutorForm.get('dpi')?.invalid && tutorForm.get('dpi')?.touched}" required>
-            <div class="invalid-feedback" *ngIf="tutorForm.get('dpi')?.invalid && tutorForm.get('dpi')?.touched">El DPI es obligatorio y no debe exceder los 16 caracteres.</div>
-          </div>
-
-          <!-- Botones de acción -->
+          <!-- Botones del formulario -->
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="isEditing ? editarTutor() : crearTutor()" [disabled]="tutorForm.invalid">{{isEditing ? 'Guardar Cambios' : 'Crear'}}</button>
+            <button type="submit" class="btn btn-primary" [disabled]="tutorForm.invalid">{{ isEditing ? 'Guardar Cambios' : 'Crear' }}</button>
           </div>
-
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Modal Datos Alumnos-->
-<div class="modal fade" id="staticBackdropVERALUMNO" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Eliminar Tutor -->
+<div class="modal fade" id="eliminarTutor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Hijo(s)</h1>
+        <h1 class="modal-title fs-5">Eliminar Tutor</h1>
+        <button type="button" #cerrarEliminarModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading">Alerta</h4>
+          <p>Si el Tutor tiene asignado uno o más alumnos, no se podrá eliminar!!</p>
+          <hr>
+          <p class="mb-0">Esta Acción no se puede Deshacer</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarTutor()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal relacion Hijo Tutor-->
+<div class="modal fade" id="AgregarHijo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Asignar Hijo</h1>
+        <button type="button" #cerrarHijoModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <!-- Formulario de búsqueda -->
+         <form (ngSubmit)="getAlumnoPorCodigo()">
+          <div class="mb-3">
+            <label for="codigoEstudiante" class="form-label">Código de Estudiante</label>
+            <input type="text" class="form-control" name="codigoEstudiante" id="codigoEstudiante" placeholder="Ingrese código de estudiante" [(ngModel)]="codigoEstudiante" required>
+          </div>
+
+          <!-- Botón de buscar -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">
+              Buscar
+            </button>
+          </div>
+
+          <!-- Loader (se mostrará durante la búsqueda) -->
+          <div class="d-flex justify-content-center mt-3" *ngIf="isLoading">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+        </form>
+
+        <!-- Tabla de resultados (se muestra después de la búsqueda) -->
+        <div *ngIf="estudianteEncontrado" class="mt-4">
+          <h6>Resultados de búsqueda</h6>
+     <!-- Tabla de resultados de estudiantes -->
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Grado</th>
+                <th>Usuario</th>
+                <th>Cantidad de Vinculos</th>
+                <th>Código</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estudiante of listaEstudiantes">
+                <td>{{ estudiante.nombres_alumno+"," }} {{ estudiante.apellidos_alumno }}</td>
+                <td>{{ estudiante.nombre_grado+", Sección:" }} {{ estudiante.seccion }}</td>
+                <td>{{ estudiante.usuario }}</td>
+                <td>{{estudiante.veces_vinculado}}</td>
+                <td>{{ estudiante.codigo }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm"
+                    (click)="vincularAlumnoTutor(estudiante.idAlumno)"
+                    [disabled]="estudiante.ya_vinculado === 1">
+                    <i class="fa-solid fa-link"></i> Vincular
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="listaEstudiantes.length === 0">
+                <td colspan="5" class="text-center">No se encontraron estudiantes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="resetFormulario()" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal ver hijos -->
+<div class="modal fade" id="VerHijos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Hijos Asignados</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
-        <h4>Sin datos para mostrar</h4>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Grado</th>
+              <th>Código</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let estudianteTutor of listaTutorEstudiantesVinculados">
+              <td>{{ estudianteTutor.alumno }}</td>
+              <td>{{ estudianteTutor.grado}}</td>
+              <td>{{ estudianteTutor.codigo }}</td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm" (click)="desvincularAlumnoTutor(estudianteTutor.idAlumno,estudianteTutor.idTutor)">
+                  <i class="fa-solid fa-link-slash"></i> Desvincular
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="listaTutorEstudiantesVinculados.length === 0">
+              <td colspan="5" class="text-center">No se encontraron estudiantes</td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
       </div>
     </div>
   </div>
