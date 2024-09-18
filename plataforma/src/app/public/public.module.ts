@@ -1,12 +1,9 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../core/shared/components/shared.module";
 import { PublicRoutingModule } from "./public-routing.module";
-
-
-
 import { HomeComponent } from "./home/containers/home.component";
 import { PublicComponent } from "./public.component";
-import { LoginComponent } from "./login/containers/login.component";
+import { LoginComponent } from "./login/containers/login-1/login.component";
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderpequeComponent } from './loaderpeque/loaderpeque.component';
 import { CalendarioComponent } from './calendario/calendario.component';
@@ -29,13 +26,13 @@ import { Socket } from "socket.io-client";
   declarations:[
     PublicComponent,
     HomeComponent,
-    LoginComponent,
     LoaderComponent,
     LoaderpequeComponent,
     CalendarioComponent,
     LoaderchiquiComponent,
     LoaderConsolComponent,
     LoginNuevoComponent,
+    LoginComponent
   ],
   exports:[
     LoaderComponent,

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEstadoTutor = exports.getEstadoProfesor = exports.getEstadoAlumno = exports.UpdateStatusTutores = exports.UpdateStatusProfesor = exports.UpdateStatusAlumnos = exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = exports.fotoPerfilAlumnoService = exports.getFotoPerfilAlumnoService = void 0;
+exports.obtenerAlumnosPorCodigoService = exports.getTutorporAlumno = exports.getEstadoTutor = exports.getEstadoProfesor = exports.getEstadoAlumno = exports.UpdateStatusTutores = exports.UpdateStatusProfesor = exports.UpdateStatusAlumnos = exports.verifyPassword = exports.validarAlumnosExisteSi = exports.deleteAlumnoService = exports.updateAlumnosService = exports.obtenerAlumnoService = exports.obtenerAlumnosGradoService = exports.obtenerAlumnosService = exports.insertAlumnosService = exports.verNotasAlumnosService = exports.getNotasVerService = exports.fotoPerfilAlumnoService = exports.getFotoPerfilAlumnoService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const passwordFunction_1 = require("../utils/passwordFunction");
 //CRUD
@@ -28,6 +28,12 @@ const insertAlumnosService = (data) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.insertAlumnosService = insertAlumnosService;
+//este me sirve para validar la comunicación entre papás e hijos
+const obtenerAlumnosPorCodigoService = (idCodigo, idTutor) => __awaiter(void 0, void 0, void 0, function* () {
+    const responseGet = yield database_1.default.query('SELECT al.idAlumno, al.nombres_alumno, al.apellidos_alumno, al.sexo, al.usuario, g.nombre_grado, s.seccion, co.codigo, COUNT(reta.idAlumno) AS veces_vinculado, CASE WHEN rat.idAlumno IS NOT NULL THEN 1 ELSE 0 END AS ya_vinculado FROM tbAlumno al INNER JOIN tbGrado g ON g.idGrado = al.idGrado INNER JOIN tbSeccion s ON s.idSeccion = g.idSeccion INNER JOIN tbCodigo co ON co.idCodigo = al.idCodigo LEFT JOIN tbReacionAlumnoTutor reta ON reta.idAlumno = al.idAlumno LEFT JOIN tbReacionAlumnoTutor rat ON rat.idAlumno = al.idAlumno AND rat.idTutor = ? WHERE al.idRol = 4 AND co.codigo = ? GROUP BY al.idAlumno, al.nombres_alumno, al.apellidos_alumno, al.sexo, al.usuario, g.nombre_grado, s.seccion, co.codigo;', [idTutor, idCodigo]);
+    return responseGet;
+});
+exports.obtenerAlumnosPorCodigoService = obtenerAlumnosPorCodigoService;
 const obtenerAlumnosService = () => __awaiter(void 0, void 0, void 0, function* () {
     const responseGet = yield database_1.default.query('SELECT al.idAlumno,al.nombres_alumno,al.apellidos_alumno,al.sexo,al.usuario,al.activo,g.nombre_grado,s.seccion FROM (tbAlumno al INNER JOIN tbGrado g on g.idGrado=al.idGrado)INNER JOIN tbSeccion s on s.idSeccion=g.idSeccion WHERE idRol=4');
     return responseGet;
@@ -151,3 +157,8 @@ const getFotoPerfilAlumnoService = (id) => __awaiter(void 0, void 0, void 0, fun
     return getFoto;
 });
 exports.getFotoPerfilAlumnoService = getFotoPerfilAlumnoService;
+const getTutorporAlumno = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const getId = yield database_1.default.query("SELECT idTutor FROM tbReacionAlumnoTutor WHERE idAlumno=? LIMIT 1", [id]);
+    return getId;
+});
+exports.getTutorporAlumno = getTutorporAlumno;

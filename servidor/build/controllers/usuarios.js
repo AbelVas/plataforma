@@ -9,11 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEstadoTutor = exports.updateEstadoProfesor = exports.updateEstadoAlumno = exports.ObtEstadoTutor = exports.ObtEstadoProfesor = exports.ObtEstadoAlumno = exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = exports.fotoPerfilAlumnoController = exports.getFotoPerfilActivaAlumno = void 0;
+exports.getAlumnosPorCodigo = exports.getTutorporAlumnoControl = exports.updateEstadoTutor = exports.updateEstadoProfesor = exports.updateEstadoAlumno = exports.ObtEstadoTutor = exports.ObtEstadoProfesor = exports.ObtEstadoAlumno = exports.getNotasVer = exports.verNotasAlumnos = exports.compararPass = exports.insertarAlumno = exports.deleteAlumno = exports.updateAlumno = exports.getAlumnosGrado = exports.getAlumno = exports.getAlumnos = exports.fotoPerfilAlumnoController = exports.getFotoPerfilActivaAlumno = void 0;
 const usuarios_1 = require("../service/usuarios");
 const error_handle_1 = require("../utils/error.handle");
 const passwordFunction_1 = require("../utils/passwordFunction");
 const app_1 = require("../app"); // Importa el objeto de Socket.io
+const getAlumnosPorCodigo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { idTutor } = req.params;
+        const resultadoAlumno = yield (0, usuarios_1.obtenerAlumnosPorCodigoService)(id, idTutor);
+        res.send(resultadoAlumno);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getAlumnosPorCodigo = getAlumnosPorCodigo;
 const getAlumnos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultadoAlumno = yield (0, usuarios_1.obtenerAlumnosService)();
@@ -219,3 +231,14 @@ const getFotoPerfilActivaAlumno = (req, res) => __awaiter(void 0, void 0, void 0
     }
 });
 exports.getFotoPerfilActivaAlumno = getFotoPerfilActivaAlumno;
+const getTutorporAlumnoControl = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const consulta = yield (0, usuarios_1.getTutorporAlumno)(id);
+        res.send(consulta);
+    }
+    catch (e) {
+        (0, error_handle_1.handleHttp)(e, req, res);
+    }
+});
+exports.getTutorporAlumnoControl = getTutorporAlumnoControl;

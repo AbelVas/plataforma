@@ -12,6 +12,13 @@ export class AlumnosService {
   URL=environment.url
   constructor(private http:HttpClient,private errorHandler: ManejoDeErroresService) { }
 
+  //este es para el apartado de tutor
+  getAlumnoPorCodigo(codigo:string,idTutor:string):Observable<any>{
+    const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
+    return this.http.get(`${this.URL}/usuarios/alumno-por-codigo/${codigo}/${idTutor}`,httpOptions).pipe(
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleHttpError(error))
+    );
+  }
   getAlumno():Observable<any>{
     const httpOptions={headers:new HttpHeaders({'Auth-Token':`${localStorage['Acces-Token']}`})}
     return this.http.get(`${this.URL}/usuarios/`,httpOptions).pipe(

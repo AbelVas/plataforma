@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/shared/components/not-found/not-cound.component';
-import { LoginComponent } from './public/login/containers/login.component';
+import { LoginComponent } from './public/login/containers/login-1/login.component';
 
 const routes: Routes = [
   { path:'',loadChildren:()=>import('./public/public.module').then(m=>m.PublicModule)},

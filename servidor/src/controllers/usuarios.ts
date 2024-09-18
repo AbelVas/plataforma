@@ -1,10 +1,21 @@
 import { Request,Response } from "express";
 import {getFotoPerfilAlumnoService,fotoPerfilAlumnoService,getNotasVerService,verNotasAlumnosService,insertAlumnosService,obtenerAlumnosService,obtenerAlumnosGradoService,obtenerAlumnoService,updateAlumnosService,deleteAlumnoService,validarAlumnosExisteSi,verifyPassword,
-    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor,getTutorporAlumno} from "../service/usuarios";
+    UpdateStatusAlumnos,UpdateStatusProfesor,UpdateStatusTutores,getEstadoAlumno,getEstadoProfesor,getEstadoTutor,getTutorporAlumno,obtenerAlumnosPorCodigoService} from "../service/usuarios";
 import { handleHttp } from "../utils/error.handle";
 import { encrypt } from "../utils/passwordFunction";
 import { io } from "../app"; // Importa el objeto de Socket.io
 
+
+const getAlumnosPorCodigo= async(req:Request,res:Response)=>{
+    try{
+       const {id}=req.params;
+       const {idTutor}=req.params;
+       const resultadoAlumno=await obtenerAlumnosPorCodigoService(id,idTutor);
+       res.send(resultadoAlumno);
+    }catch(e){
+        handleHttp(e, req, res);
+    }
+}
 const getAlumnos=async(req:Request,res:Response)=>{
     try{
         const resultadoAlumno=await obtenerAlumnosService();
@@ -196,4 +207,4 @@ const getTutorporAlumnoControl=async(req:Request,res:Response)=>{
 }
 
 export {getFotoPerfilActivaAlumno,fotoPerfilAlumnoController,getAlumnos,getAlumno,getAlumnosGrado,updateAlumno,deleteAlumno,insertarAlumno,compararPass,verNotasAlumnos,getNotasVer,
-    ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor,getTutorporAlumnoControl}
+    ObtEstadoAlumno,ObtEstadoProfesor,ObtEstadoTutor,updateEstadoAlumno,updateEstadoProfesor,updateEstadoTutor,getTutorporAlumnoControl,getAlumnosPorCodigo}

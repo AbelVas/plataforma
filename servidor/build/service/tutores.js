@@ -12,25 +12,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAlumnoporTutorService = exports.verifyPassword = exports.getTutorconAlumnoService = exports.validarTutoresExisteSi = exports.deleteTutoresService = exports.updateTutorService = exports.obtenerTutorService = exports.obtenerTutoresService = exports.insertTutoresService = void 0;
+exports.obtenerTutorNotasService = exports.getAlumnoporTutorService = exports.verifyPassword = exports.getTutorconAlumnoService = exports.validarTutoresExisteSi = exports.deleteTutoresService = exports.updateTutorService = exports.obtenerTutorService = exports.obtenerTutoresService = exports.insertTutoresService = exports.tutoresAlumnoService = exports.insertTutorAlumnoService = exports.deleteTutorAlumnoService = void 0;
 const database_1 = __importDefault(require("../config/database"));
 const passwordFunction_1 = require("../utils/passwordFunction");
 //CRUD
+const deleteTutorAlumnoService = (idTutor, idAlumno) => __awaiter(void 0, void 0, void 0, function* () {
+    const eliminarData = yield database_1.default.query('DELETE FROM tbReacionAlumnoTutor WHERE idTutor=? and idAlumno=?', [idTutor, idAlumno]);
+    return eliminarData;
+});
+exports.deleteTutorAlumnoService = deleteTutorAlumnoService;
+const insertTutorAlumnoService = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const insertData = yield database_1.default.query('INSERT INTO tbReacionAlumnoTutor set ?', [data]);
+    return insertData;
+});
+exports.insertTutorAlumnoService = insertTutorAlumnoService;
+const tutoresAlumnoService = (idTutor) => __awaiter(void 0, void 0, void 0, function* () {
+    const responseGet = yield database_1.default.query('SELECT al.idAlumno,CONCAT(al.apellidos_alumno," ",al.nombres_alumno) as alumno,CONCAT(g.nombre_grado,", Sección: ",s.seccion) as grado,tu.idTutor,co.codigo FROM tbReacionAlumnoTutor reta INNER JOIN tbAlumno al ON al.idAlumno=reta.idAlumno INNER JOIN tbTutor tu ON tu.idTutor=reta.idTutor INNER JOIN tbGrado g ON g.idGrado=al.idGrado INNER JOIN tbSeccion s ON s.idSeccion=g.idSeccion INNER JOIN tbCodigo co ON co.idCodigo=al.idCodigo WHERE tu.idTutor=?', [idTutor]);
+    return responseGet;
+});
+exports.tutoresAlumnoService = tutoresAlumnoService;
+//asignación de tutores
 const insertTutoresService = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const responseInsert = yield database_1.default.query('INSERT INTO tbTutor set ?', [data]);
     return responseInsert;
 });
 exports.insertTutoresService = insertTutoresService;
 const obtenerTutoresService = () => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor');
+    const responseGet = yield database_1.default.query('SELECT  idTutor,nombre_tutor,apellido_tutor,telefono1,telefono2,telefono_casa,direccion,direccion_trabajo,usuario,pass,correo1,correo2,nombre_opcional,dpi,estado FROM tbTutor');
     return responseGet;
 });
 exports.obtenerTutoresService = obtenerTutoresService;
 const obtenerTutorService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGet = yield database_1.default.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `telefono_casa`, `direccion`, `usuario`, `fecha_nacimiento`, `estado`, `correo1`, `correo2` FROM tbTutor WHERE idTutor=?', [id]);
+    const responseGet = yield database_1.default.query('SELECT  idTutor,nombre_tutor,apellido_tutor,telefono1,telefono2,telefono_casa,direccion,direccion_trabajo,usuario,pass,correo1,correo2,nombre_opcional,dpi,estado FROM tbTutor WHERE idTutor=?', [id]);
     return responseGet;
 });
 exports.obtenerTutorService = obtenerTutorService;
+const obtenerTutorNotasService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const responseGet = yield database_1.default.query('SELECT ver_notas FROM tbTutor WHERE idTutor=?', [id]);
+    return responseGet;
+});
+exports.obtenerTutorNotasService = obtenerTutorNotasService;
 const updateTutorService = (data, id) => __awaiter(void 0, void 0, void 0, function* () {
     const responseUpdate = yield database_1.default.query('UPDATE tbTutor SET ? WHERE idTutor=?', [data, id]);
     return responseUpdate;
@@ -59,7 +80,7 @@ const verifyPassword = (id, pass) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.verifyPassword = verifyPassword;
 const getTutorconAlumnoService = (idAlum) => __awaiter(void 0, void 0, void 0, function* () {
-    const responseGetTutorconAlumno = yield database_1.default.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`, `fecha_nacimiento`, `estado` FROM tbTutor WHERE idAlumno=? ', [idAlum]);
+    const responseGetTutorconAlumno = yield database_1.default.query('SELECT `idTutor`, `nombre_tutor`, `apellido_tutor`, `telefono1`, `telefono2`, `direccion`, `usuario`,  `estado` FROM tbTutor WHERE idAlumno=? ', [idAlum]);
     return responseGetTutorconAlumno;
 });
 exports.getTutorconAlumnoService = getTutorconAlumnoService;
