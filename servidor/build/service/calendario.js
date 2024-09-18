@@ -42,7 +42,8 @@ const getActividadesPorTipoTarea = (idUsuario, idAlum) => __awaiter(void 0, void
 });
 exports.getActividadesPorTipoTarea = getActividadesPorTipoTarea;
 const getActividadesPorTipoForo = (idUsuario, idAlum) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield database_1.default.query('SELECT ac.nombre_actividad,ac.detalle,ta.idForo,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbForo ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?', [idUsuario, idAlum]);
+    const response = yield database_1.default.query('', [idUsuario, idAlum]);
+    //SELECT ac.nombre_actividad,ac.detalle,ta.idForo,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbForo ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?
     return response;
 });
 exports.getActividadesPorTipoForo = getActividadesPorTipoForo;

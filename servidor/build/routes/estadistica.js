@@ -7,7 +7,7 @@ const estadistica_1 = require("../controllers/estadistica");
 const router = (0, express_1.Router)();
 exports.router = router;
 router.get("/Alumnos-Total/", session_1.checkJwt, estadistica_1.obtenerAlumnosTotal);
-router.get("/Alumnos-Total/grados/", session_1.checkJwt, estadistica_1.obtenerAlumnosTotalPorGrado);
+//router.get("/Alumnos-Total/grados/",checkJwt,obtenerAlumnosTotalPorGrado);
 router.get("/Alumnos-Hombres/", session_1.checkJwt, estadistica_1.obtenerAlumnosHombres);
 router.get("/Alumnos-Mujeres/", session_1.checkJwt, estadistica_1.obtenerAlumnosMujeres);
 router.get("/Codigos-uso/", session_1.checkJwt, estadistica_1.obtenerCodigosEnUso);

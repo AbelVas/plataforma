@@ -16,90 +16,55 @@ exports.loginUser = void 0;
 const passwordFunction_1 = require("../utils/passwordFunction");
 const database_1 = __importDefault(require("../config/database"));
 const jwt_generador_1 = require("../utils/jwt.generador");
+// Función auxiliar para verificar usuario en una tabla específica
+const verificarUsuario = (table, emailColumn, nombreColumn, apellidoColumn, idColumn, conditionColumn, email) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = `
+        SELECT ${idColumn} AS idUsuario, ${table}.idRol, ${table}.pass, ${table}.${nombreColumn}, ${table}.${apellidoColumn}, ${table}.${emailColumn} AS usuario, r.rol 
+        FROM ${table} 
+        INNER JOIN tbRol r ON r.idRol = ${table}.idRol 
+        WHERE ${table}.${emailColumn} = ? AND ${table}.${conditionColumn} = '1' 
+        GROUP BY ${idColumn};
+    `;
+    const result = yield database_1.default.query(query, [email]);
+    return result.length ? result[0] : null;
+});
+// Función auxiliar para procesar el login y generar token
+const procesarLogin = (usuario, password, nombreKey, apellidoKey) => __awaiter(void 0, void 0, void 0, function* () {
+    const passwordHash = usuario.pass;
+    const isCorrect = yield (0, passwordFunction_1.verified)(password, passwordHash);
+    if (!isCorrect)
+        return "Usuario o Contraseña Incorrecta";
+    // Generar el token
+    const token = (0, jwt_generador_1.generateToken)(usuario.idUsuario, usuario.idRol, usuario[nombreKey], usuario[apellidoKey], usuario.rol);
+    // Preparar los datos del usuario sin la contraseña
+    delete usuario.pass;
+    return {
+        token,
+        user: [usuario]
+    };
+});
 const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
-    var data;
-    const checkIs = yield database_1.default.query("SELECT p.idProfesor,p.idRol,p.pass,p.nombre_profesor,p.apellido_profesor,p.usuario,r.rol FROM tbProfesor p INNER JOIN tbRol r ON r.idRol=p.idRol WHERE p.usuario=? and p.estatus='1' GROUP BY p.idProfesor", [email]);
-    if (checkIs == '') {
-        const checkIs = yield database_1.default.query("SELECT t.idTutor,t.idRol,t.pass,t.nombre_tutor,t.apellido_tutor,t.usuario,r.rol FROM tbTutor t INNER JOIN tbRol r ON r.idRol=t.idRol WHERE t.usuario=? and t.estado='1' GROUP BY t.idTutor", [email]);
-        if (checkIs == '') {
-            const checkIs = yield database_1.default.query("SELECT a.idAlumno,a.idRol,a.pass,a.nombres_alumno,a.apellidos_alumno,a.usuario,r.rol FROM tbAlumno a INNER JOIN tbRol r ON r.idRol=a.idRol WHERE a.usuario=? and a.activo='1' GROUP BY a.idAlumno", [email]);
-            if (checkIs == '') {
-                return "Usuario o Contraseña Incorrecta";
-            }
-            else {
-                const dataUsuario = Object.values(checkIs[0]);
-                const passwordHash = dataUsuario[2];
-                const isCorrect = yield (0, passwordFunction_1.verified)(password, passwordHash);
-                if (!isCorrect)
-                    return "Usuario o Contraseña Incorrecta";
-                // Datos para el Json Web Token
-                const idUsuario = dataUsuario[0];
-                const idRol = dataUsuario[1];
-                const nombres_alumnos = dataUsuario[3];
-                const apellidos_alumnos = dataUsuario[4];
-                const rol = dataUsuario[6];
-                // Fin de datos para el JSON webToken
-                //data en modo objeto
-                let results = JSON.parse(JSON.stringify(checkIs));
-                delete results[0].pass;
-                let datos = Object.values(results);
-                //fin de data en modo objeto
-                const token = (0, jwt_generador_1.generateToken)(idUsuario, idRol, nombres_alumnos, apellidos_alumnos, rol);
-                data = {
-                    token,
-                    user: datos
-                };
-            }
-        }
-        else {
-            const dataUsuario = Object.values(checkIs[0]);
-            const passwordHash = dataUsuario[2];
-            const isCorrect = yield (0, passwordFunction_1.verified)(password, passwordHash);
-            if (!isCorrect)
-                return "Usuario o Contraseña Incorrecta";
-            // Datos para el Json Web Token
-            const idUsuario = dataUsuario[0];
-            const idRol = dataUsuario[1];
-            const nombre_tutor = dataUsuario[3];
-            const apellido_tutor = dataUsuario[4];
-            const rol = dataUsuario[6];
-            // Fin de datos para el JSON webToken
-            //data en modo objeto
-            let results = JSON.parse(JSON.stringify(checkIs));
-            delete results[0].pass;
-            let datos = Object.values(results);
-            //fin de data en modo objeto
-            const token = (0, jwt_generador_1.generateToken)(idUsuario, idRol, nombre_tutor, apellido_tutor, rol);
-            data = {
-                token,
-                user: datos
-            };
-        }
+    // Intentar encontrar al usuario en las diferentes tablas
+    let usuario = yield verificarUsuario('tbProfesor', 'usuario', 'nombre_profesor', 'apellido_profesor', 'idProfesor', 'estatus', email);
+    if (!usuario) {
+        usuario = yield verificarUsuario('tbTutor', 'usuario', 'nombre_tutor', 'apellido_tutor', 'idTutor', 'estado', email);
+    }
+    if (!usuario) {
+        usuario = yield verificarUsuario('tbAlumno', 'usuario', 'nombres_alumno', 'apellidos_alumno', 'idAlumno', 'activo', email);
+    }
+    // Si no se encontró el usuario en ninguna tabla
+    if (!usuario) {
+        return "Usuario o Contraseña Incorrecta";
+    }
+    // Procesar el login según el tipo de usuario (profesor, tutor o alumno)
+    if (usuario.idRol === 1 || usuario.idRol === 2) {
+        return procesarLogin(usuario, password, 'nombre_profesor', 'apellido_profesor');
+    }
+    else if (usuario.idRol === 3) {
+        return procesarLogin(usuario, password, 'nombre_tutor', 'apellido_tutor');
     }
     else {
-        const dataUsuario = Object.values(checkIs[0]);
-        const passwordHash = dataUsuario[2];
-        const isCorrect = yield (0, passwordFunction_1.verified)(password, passwordHash);
-        if (!isCorrect)
-            return "Usuario o Contraseña Incorrecta";
-        // Datos para el Json Web Token
-        const idUsuario = dataUsuario[0];
-        const idRol = dataUsuario[1];
-        const nombre_profesor = dataUsuario[3];
-        const apellido_profesor = dataUsuario[4];
-        const rol = dataUsuario[6];
-        // Fin de datos para el JSON webToken
-        //data en modo objeto
-        let results = JSON.parse(JSON.stringify(checkIs));
-        delete results[0].pass;
-        let datos = Object.values(results);
-        //fin de data en modo objeto
-        const token = (0, jwt_generador_1.generateToken)(idUsuario, idRol, nombre_profesor, apellido_profesor, rol);
-        data = {
-            token,
-            user: datos
-        };
+        return procesarLogin(usuario, password, 'nombres_alumno', 'apellidos_alumno');
     }
-    return data;
 });
 exports.loginUser = loginUser;
