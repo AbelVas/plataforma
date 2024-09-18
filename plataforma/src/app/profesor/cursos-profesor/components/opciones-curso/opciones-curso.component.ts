@@ -300,9 +300,11 @@ export class OpcionesCursoComponent implements OnInit {
       this.actividadesOpcionesCursoService.buscarTutor(idAlumno).subscribe(
         res => {
           nota.idUsuarioRecibe2 = res
-          nota.idUsuarioRecibe2 = nota.idUsuarioRecibe2[0].idTutor
+          nota.idUsuarioRecibe2 = nota.idUsuarioRecibe2.idTutor
+          console.log(nota)
           this.actividadesOpcionesCursoService.calificarActividad(idActividad, nota).subscribe(
             res => {
+              console.log("Se encontró tutor y se calificó")
               this.toastrService.success(`Calificaciones Guardadas`, 'Realizado')
             },
             err => {
@@ -313,6 +315,7 @@ export class OpcionesCursoComponent implements OnInit {
         err => {
           this.actividadesOpcionesCursoService.calificarActividad(idActividad, nota).subscribe(
             res => {
+              console.log("Error al encontrar tutor pero si se calificó")
               this.toastrService.success(`Calificaciones Guardadas`, 'Realizado')
             },
             err => {
