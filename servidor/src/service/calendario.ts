@@ -28,7 +28,8 @@ const getActividadesPorTipoTarea=async(idUsuario:string,idAlum:string)=>{
 }
 
 const getActividadesPorTipoForo=async(idUsuario:string,idAlum:string)=>{
-    const response=await conexion.query('SELECT ac.nombre_actividad,ac.detalle,ta.idForo,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbForo ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?',[idUsuario,idAlum])
+    const response=await conexion.query('',[idUsuario,idAlum])
+    //SELECT ac.nombre_actividad,ac.detalle,ta.idForo,ac.valor,ca.calificacion FROM(tbDetalleActividad ac INNER JOIN tbForo ta ON ta.idDetalleActividad=ac.idDetalleActividad) INNER JOIN tbCalificacion ca ON ac.idDetalleActividad=ca.idDetalleActividad WHERE ac.idCurso=? AND ca.idAlumno=?
     return response;
 }
 
