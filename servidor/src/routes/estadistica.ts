@@ -2,12 +2,12 @@ import { Router} from "express";
 import { logMiddleware } from "../middleware/log";
 import { checkRol } from "../middleware/rolCheck";
 import { checkJwt } from "../middleware/session";
-import { getAlmacenamientoPlataformaController,obtenerAlumnosTotal, obtenerAlumnosTotalPorGrado,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada,GetCantidadGrados,GetCantidadDocentes} from "../controllers/estadistica"
+import { getAlmacenamientoPlataformaController,obtenerAlumnosTotal,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada,GetCantidadGrados,GetCantidadDocentes} from "../controllers/estadistica"
 
 const router = Router();
 
 router.get("/Alumnos-Total/",checkJwt,obtenerAlumnosTotal);
-router.get("/Alumnos-Total/grados/",checkJwt,obtenerAlumnosTotalPorGrado);
+//router.get("/Alumnos-Total/grados/",checkJwt,obtenerAlumnosTotalPorGrado);
 router.get("/Alumnos-Hombres/",checkJwt,obtenerAlumnosHombres);
 router.get("/Alumnos-Mujeres/",checkJwt,obtenerAlumnosMujeres);
 router.get("/Codigos-uso/",checkJwt,obtenerCodigosEnUso);

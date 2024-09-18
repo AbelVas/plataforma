@@ -1,8 +1,8 @@
-import { Component,OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginService } from "../../components/auth-service.service";
-import decode from "jwt-decode"
-import { FormsModule,FormBuilder, FormControl,Validators } from "@angular/forms";
+import decode from "jwt-decode";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { CodigosService } from "src/app/admin/services/codigos.service";
 import { GradosService } from "src/app/admin/services/grados-admin.service";
 import { AlumnosService } from "src/app/admin/services/alumnos.service";
@@ -12,145 +12,153 @@ import { AlumnosService } from "src/app/admin/services/alumnos.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+export class LoginComponent implements OnInit {
+  spinnerOn: boolean = false;
+  listaGrados: any[] = [];
+  submitted = false;
+  passNoCoincide: string = '';
+  guardado: boolean = false;
+  codigoError: string = '';
+  registrarse: boolean = false;
+  alertaError: string = '0';
+  alertaCreadoCorrecto: string = '3';
+  subido: boolean = false;
+  errorLogininputs: string = 'form-control form-control-lg';
+  isCorrectCodigo: boolean = false;
 
-export class LoginComponent implements OnInit{
-  sppinerOn:boolean=false;
-  listaGrados:any=[]
-  alumnoForm=this.formBuilder.group({
-    idGrado:new FormControl('',[Validators.required]),
-    nombres_alumno:new FormControl('',[Validators.required]),
-    apellidos_alumno:new FormControl('',[Validators.required]),
-    usuario:new FormControl('',[Validators.required]),
-    carnet:new FormControl(''),
-    pass:new FormControl('',[Validators.required]),
-    confirmPass:new FormControl('',[Validators.required])
-  })
-  loginForm=this.formBuilder.group({
-    usuario:new FormControl('',[Validators.required]),
-    pass:new FormControl('',[Validators.required])
-  })
+  AlumnoPropiedadesCrear = {
+    creado: '2023-01-30',
+    activo: '1',
+    ver_notas: '1',
+    imagen: 'assets/img/blank_profile.png',
+    idRol: '4',
+    idCodigo: '',
+    idTutor: '1',
+    sexo: '1'
+  };
 
-  submitted=false;
-  passNoCoincide:string=''
-  guardado:boolean=false;
-  codigoError:any
-  registrarse:boolean=false;
-  alertaError='0';
-  alertaCreadoCorrecto:any='3'
-  subido:boolean=false
-  errorLogininputs='form-control form-control-lg'
-  isCorrectCodigo:boolean=false
-  AlumnoPropiedadesCrear:any={
-    creado:'2023-01-30',
-    activo:'1',
-    ver_notas:'1',
-    imagen:'assets/img/blank_profile.png',
-    idRol:'4',
-    idCodigo:'',
-    idTutor:'1',
-    sexo:'1'
-  }
-  constructor(private router:Router,private loginService:LoginService,private formBuilder:FormBuilder,private codigoService:CodigosService,private gradosService:GradosService, private alumnoService:AlumnosService){}
-  ngOnInit(){
+  alumnoForm = this.formBuilder.group({
+    idGrado: new FormControl('', [Validators.required]),
+    nombres_alumno: new FormControl('', [Validators.required]),
+    apellidos_alumno: new FormControl('', [Validators.required]),
+    usuario: new FormControl('', [Validators.required]),
+    carnet: new FormControl(''),
+    pass: new FormControl('', [Validators.required]),
+    confirmPass: new FormControl('', [Validators.required])
+  });
 
-  }
-  verificarCodigo(codigo:any){
-    var dataCodigoAlumno:any={
-      idTipoCodigo:'3',
-      codigo:codigo
-    }
+  loginForm = this.formBuilder.group({
+    usuario: new FormControl('', [Validators.required]),
+    pass: new FormControl('', [Validators.required])
+  });
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private formBuilder: FormBuilder,
+    private codigoService: CodigosService,
+    private gradosService: GradosService,
+    private alumnoService: AlumnosService
+  ) {}
+
+  ngOnInit(): void {}
+
+  verificarCodigo(codigo: string): void {
+    const dataCodigoAlumno = { idTipoCodigo: '3', codigo };
     this.codigoService.isCodigoCorrect(dataCodigoAlumno).subscribe(
-      res=>{
-        console.log(res)
-        if(res==false){
-          this.codigoError='border-danger'
-        }else{
-          this.isCorrectCodigo=true;
-          this.AlumnoPropiedadesCrear.idCodigo=res[0].idCodigo
+      res => {
+        if (!res) {
+          this.codigoError = 'border-danger';
+        } else {
+          this.isCorrectCodigo = true;
+          this.AlumnoPropiedadesCrear.idCodigo = res[0].idCodigo;
+          this.getGrados();
         }
-        this.getGrados()
       },
-      err=>{
-        console.log(err)
-      }
-    )
+      err => console.error(err)
+    );
   }
-  getGrados(){
+
+  getGrados(): void {
     this.gradosService.getGrados().subscribe(
-      res=>{
-        this.listaGrados=res;
-      },
-      err=>{
-        console.log(err)
-      }
-    )
+      res => (this.listaGrados = res),
+      err => console.error(err)
+    );
   }
-  inicioRegistro(){
-    this.registrarse=true
+
+  inicioRegistro(): void {
+    this.registrarse = true;
   }
-  salirRegistro(){
-    this.registrarse=false
-    this.isCorrectCodigo=false
+
+  salirRegistro(): void {
+    this.registrarse = false;
+    this.isCorrectCodigo = false;
   }
-  register(){
-    this.subido=true
+
+  register(): void {
+    this.subido = true;
     this.submitted = true;
-    if (this.alumnoForm.invalid||(this.f.pass.value!=this.f.confirmPass.value)) {
-      this.passNoCoincide='border-danger'
+    if (this.alumnoForm.invalid || this.f.pass.value !== this.f.confirmPass.value) {
+      this.passNoCoincide = 'border-danger';
       return;
     }
-    var alumnoInsert:any={}
-    alumnoInsert=Object.assign(this.alumnoForm.value,this.AlumnoPropiedadesCrear)
-    delete alumnoInsert.confirmPass
+
+    const alumnoInsert = { ...this.alumnoForm.value, ...this.AlumnoPropiedadesCrear };
+    delete alumnoInsert.confirmPass;
+
     this.alumnoService.insertAlumno(alumnoInsert).subscribe(
-      res=>{
+      () => {
         this.alumnoForm.reset();
         this.router.navigate(['admin']);
-        console.log(alumnoInsert)
-        this.alertaCreadoCorrecto='1'
-        this.salirRegistro()
+        this.alertaCreadoCorrecto = '1';
+        this.salirRegistro();
       },
-      err=>{
-        this.alertaCreadoCorrecto='0'
-      }
-    )
+      () => (this.alertaCreadoCorrecto = '0')
+    );
   }
 
-  loginIn(){
-    this.sppinerOn=true;
+  loginIn(): void {
+    this.spinnerOn = true;
     if (this.loginForm.invalid) {
-      this.sppinerOn=false;
-      this.errorLogininputs='form-control form-control-lg border-danger';
-      this.alertaError='1'
+      this.spinnerOn = false;
+      this.errorLogininputs = 'form-control form-control-lg border-danger';
+      this.alertaError = '1';
       return;
     }
-    var loginData:any={}
-    loginData=Object.assign(this.loginForm.value)
-    this.loginService.login(loginData).subscribe((res:any)=>{
-        localStorage.setItem('Acces-Token',res.token);
-        const {idRol}:any=decode(res.token);
-        if(idRol==1){
-          this.sppinerOn=false;
-          this.router.navigate(['admin']);
-        }else if(idRol==2){
-          this.sppinerOn=false;
-          this.router.navigate(['teacher']);
-        }else if(idRol==3){
-          this.sppinerOn=false;
-          this.router.navigate(['tutor']);
-        }else if(idRol==4){
-          this.sppinerOn=false;
-          this.router.navigate(['student']);
+
+    this.loginService.login(this.loginForm.value).subscribe(
+      (res: any) => {
+        localStorage.setItem('Acces-Token', res.token);
+        const { idRol }: any = decode(res.token);
+        this.spinnerOn = false;
+        switch (idRol) {
+          case 1:
+            this.router.navigate(['admin']);
+            break;
+          case 2:
+            this.router.navigate(['teacher']);
+            break;
+          case 3:
+            this.router.navigate(['tutor']);
+            break;
+          case 4:
+            this.router.navigate(['student']);
+            break;
         }
       },
-      error=>{
-        console.log(error)
-        this.sppinerOn=false;
-        this.errorLogininputs='form-control form-control-lg border-danger';
-        this.alertaError='1'
+      () => {
+        this.spinnerOn = false;
+        this.errorLogininputs = 'form-control form-control-lg border-danger';
+        this.alertaError = '1';
       }
-    )
+    );
   }
-  get f() { return this.alumnoForm.controls; }
-  get g(){ return this.loginForm.controls;}
+
+  get f() {
+    return this.alumnoForm.controls;
+  }
+
+  get g() {
+    return this.loginForm.controls;
+  }
 }

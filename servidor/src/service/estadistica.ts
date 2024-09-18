@@ -1,62 +1,89 @@
 import conexion from "../config/database";
 
-const GetAlumnosTotal=async()=>{
-
-    const responseGet=await conexion.query('SELECT COUNT(idAlumno) AS CantidadAlumnos FROM tbAlumno');
+// Obtener el total de alumnos
+const GetAlumnosTotal = async () => {
+    const responseGet = await conexion.query('SELECT COUNT(idAlumno) AS CantidadAlumnos FROM tbAlumno');
+    return responseGet;
+}
+// Obtener el total de alumnos según el sexo
+const GetAlumnosTotalPorSexo = async () => {
+    const responseGet = await conexion.query('SELECT sexo, COUNT(idAlumno) AS CantidadAlumno FROM tbAlumno GROUP BY sexo');
     return responseGet;
 }
 
-const GetAlumnosTotalPorGrado=async()=>{ //Usé esta para contar a los alumnos según el género
-
-    const responseGet=await conexion.query('SELECT sexo, COUNT(idAlumno) CantidadAlumno FROM tbAlumno group by sexo');
+// Obtener la cantidad de alumnos hombres
+const GetAlumnosHombres = async () => {
+    const responseGet = await conexion.query("SELECT COUNT(idAlumno) AS nino FROM tbAlumno WHERE sexo = '1'");
     return responseGet;
 }
 
-const GetAlumnosHombres=async()=>{
-
-    const responseGet=await conexion.query('SELECT COUNT(idAlumno) AS nino FROM tbAlumno WHERE sexo=1');
+// Obtener la cantidad de alumnos mujeres
+const GetAlumnosMujeres = async () => {
+    const responseGet = await conexion.query("SELECT COUNT(idAlumno) AS nina FROM tbAlumno WHERE sexo = '0'");
     return responseGet;
 }
 
-const GetAlumnosMujeres=async()=>{
-
-    const responseGet=await conexion.query('SELECT COUNT(idAlumno) AS nina FROM tbAlumno WHERE sexo=0');
+// Obtener la cantidad de códigos en uso (activos)
+const GetCodigosEnUso = async () => {
+    const responseGet = await conexion.query('SELECT COUNT(*) AS activo FROM tbCodigo WHERE activo = 1');
     return responseGet;
 }
 
-const GetCodigosEnUso=async()=>{ //Usé esta para contar los códigos activos e inactivos
-
-    const responseGet=await conexion.query('SELECT COUNT(activo) as activo FROM tbCodigo WHERE activo=1 group by activo');
+// Obtener la cantidad de códigos en desuso (inactivos)
+const GetCodigosEnDesuso = async () => {
+    const responseGet = await conexion.query('SELECT COUNT(*) AS noActivo FROM tbCodigo WHERE activo = 0');
     return responseGet;
 }
 
-const GetCodigosEnDesuso=async()=>{
-
-    const responseGet=await conexion.query('SELECT COUNT(activo) as noActivo FROM tbCodigo WHERE activo=0');
+// Obtener el número de profesores que han cambiado su contraseña
+const GetContrasenaProfesorCambiada = async () => {
+    const responseGet = await conexion.query(`
+        SELECT 
+            SUM(CASE WHEN cambio_contrasena = '1' THEN 1 ELSE 0 END) AS sicambio,
+            SUM(CASE WHEN cambio_contrasena = '0' THEN 1 ELSE 0 END) AS nocambio
+        FROM tbProfesor
+    `);
     return responseGet;
 }
 
-const GetContrasenaProfesorCambiada=async()=>{  //Usé esta para contar las contraseñas cambiadas y no cambiadas
-    const responseGet=await conexion.query('SELECT SUM(CASE WHEN cambio_contrasena = 1 THEN 1 ELSE 0 END) AS sicambio,SUM(CASE WHEN `cambio_contrasena` = 0 THEN 1 ELSE 0 END) AS nocambio FROM tbProfesor');
+// Obtener la cantidad de grados en la escuela
+const GetCantidadGradosService = async () => {
+    const responseGet = await conexion.query('SELECT COUNT(idGrado) AS CantidadGrados FROM tbGrado');
     return responseGet;
 }
 
-const GetCantidadGradosService=async()=>{
-    
-    const responseGet=await conexion.query('SELECT COUNT(idGrado) AS CantidadGrados FROM tbGrado');
+// Obtener la cantidad de docentes (diferentes de admin)
+const GetCantidadDocentesService = async () => {
+    const responseGet = await conexion.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor WHERE idRol > 1');
     return responseGet;
 }
 
-const GetCantidadDocentesService=async()=>{
-
-    const responseGet=await conexion.query('SELECT COUNT(idProfesor) AS CantidadProfesores FROM tbProfesor WHERE idRol>1');
-    return responseGet;
+// Obtener el almacenamiento total utilizado en gigas
+const getAlmacenamientoGigasService = async () => {
+    const data = await conexion.query(`
+        SELECT SUM(peso_archivo) AS almacenamiento_ocupado 
+        FROM (
+            SELECT peso_archivo FROM tbImagenPerfilProfesor 
+            UNION ALL 
+            SELECT peso_archivo FROM tbImagenPerfilAlumno 
+            UNION ALL 
+            SELECT peso_archivo FROM tbImagenCurso 
+            UNION ALL 
+            SELECT peso_archivo FROM tbRenasPenalesPoliciales
+        ) AS subquery
+    `);
+    return data;
 }
 
-const getAlmacenamientoGigasService=async()=>{
-    const data=await conexion.query('SELECT SUM(peso_archivo) AS almacenamiento_ocupado FROM (SELECT peso_archivo FROM tbImagenPerfilProfesor UNION ALL SELECT peso_archivo FROM tbImagenPerfilAlumno UNION ALL SELECT peso_archivo FROM tbImagenCurso UNION ALL SELECT peso_archivo FROM tbRenasPenalesPoliciales) AS subquery;')
-    return data
-}
-
-
-export{getAlmacenamientoGigasService,GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetCantidadGradosService,GetCantidadDocentesService}
+export {
+    getAlmacenamientoGigasService,
+    GetAlumnosTotal,
+    GetAlumnosTotalPorSexo,
+    GetAlumnosHombres,
+    GetAlumnosMujeres,
+    GetCodigosEnUso,
+    GetCodigosEnDesuso,
+    GetContrasenaProfesorCambiada,
+    GetCantidadGradosService,
+    GetCantidadDocentesService
+};
