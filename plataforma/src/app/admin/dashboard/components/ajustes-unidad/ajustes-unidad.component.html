@@ -1,180 +1,101 @@
 <div class="row">
-    <div class="card">
-      <div class="card-body">
-          <h5 class="card-title">Bimestres <span>| Activos/Inactivos</span></h5>
-          <div class="activity">
-            <!--Aqui debo meter el for-->
-            <div *ngIf="sppinerOn==true;else Mostrar1">
-              <app-loaderpeque></app-loaderpeque>
-            </div>
-            <!--Dentro del loader-->
-            <ng-template #Mostrar1>
-          <div>
-            <div class="row">
-              <div class="activity-item d-flex col-md-6" *ngFor="let u of unidades">
-                <div class="activite-label">
-                  <div class="form-check form-switch">
-                    <div *ngIf="u.estado==1; else switchOff" >
-                      <input class="form-check-input" type="checkbox" (change)="selectedCheck($event,u.idUnidad)" role="switch" value="{{u.idUnidad}}" checked>
-                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label>
-                    </div>
-                    <ng-template #switchOff>
-                     <div>
-                      <input class="form-check-input" type="checkbox"(change)="noselectedCheck($event,u.idUnidad)" role="switch" value="{{u.idUnidad}}">
-                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{ u.unidad }}</b></label></div>
-                    </ng-template>
-                  </div>
-                </div>
-            </div>
-            </div>
-            <!--aqui finaliza el for-->
-          </div>
-          <div *ngIf="errorServicio!=''">
-            <div class="alert alert-danger text-center" role="alert">{{errorServicio.codigoError}} <b>, Detalles:</b> {{errorServicio.Mensaje}}</div>
-          </div>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-body">
-          <h5 class="card-title">Ingresos <span>|  Usuarios</span></h5>
-          <div class="activity">
-            <!--Aqui debo meter el for-->
-            <div *ngIf="sppinerOn3==true;else Mostrar3">
-              <app-loaderpeque></app-loaderpeque>
-            </div>
-            <!--Dentro del loader-->
-            <ng-template #Mostrar3>
-          <div>
-            <div class="row">
-              <div class="activity-item d-flex col-md-6">
-                <div class="activite-label">
-                  <div class="form-check form-switch">
-                    <div *ngIf="estadoFinalAlumno=='1'; else switchOffAlumno" >
-                      <input class="form-check-input" type="checkbox" (change)="selectedCheckAlumno($event)" role="switch" value="{{estadoFinalAlumno}}" checked>
-                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{"Ingresos Alumnos"}}</b></label>
-                    </div>
-                    <ng-template #switchOffAlumno>
-                     <div>
-                      <input class="form-check-input" type="checkbox"(change)="noselectedCheckAlumno($event)" role="switch" value="{{estadoFinalAlumno}}">
-                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{"Ingresos Alumnos"}}</b></label></div>
-                    </ng-template>
-                  </div>
-                  <div class="form-check form-switch">
-                    <div *ngIf="estadoFinalProfesor=='1'; else switchOffProfesor" >
-                      <input class="form-check-input" type="checkbox" (change)="selectedCheckProfesor($event)" role="switch" value="{{estadoFinalProfesor}}" checked>
-                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{"Ingresos Profesor"}}</b></label>
-                    </div>
-                    <ng-template #switchOffProfesor>
-                     <div>
-                      <input class="form-check-input" type="checkbox"(change)="noselectedCheckProfesor($event)" role="switch" value="{{estadoFinalProfesor}}">
-                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{"Ingresos Profesor"}}</b></label></div>
-                    </ng-template>
-                  </div>
-                  <div class="form-check form-switch">
-                  <div *ngIf="estadoFinalTutor=='1'; else switchOffTutor" >
-                    <input class="form-check-input" type="checkbox" (change)="selectedCheckTutor($event)" role="switch" value="{{estadoFinalTutor}}" checked>
-                    <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{"Ingresos Tutor"}}</b></label>
-                  </div>
-                  <ng-template #switchOffTutor>
-                   <div>
-                    <input class="form-check-input" type="checkbox"(change)="noselectedCheckTutor($event)" role="switch" value="{{estadoFinalTutor}}">
-                    <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{"Ingresos Tutor"}}</b></label></div>
-                  </ng-template>
-                </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <!--aqui finaliza el for-->
-          </ng-template>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-body pb-0">
-        <h5 class="card-title">Visualización  <span>| de Notas</span></h5>
-        <!--Aqui debo meter el for-->
-        <div *ngIf="sppinerOn2==true;else Mostrar4">
+  <!-- Bimestres Card -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Bimestres <span>| Activos/Inactivos</span></h5>
+      <div class="activity">
+        <div *ngIf="sppinerOn; else Mostrar1">
           <app-loaderpeque></app-loaderpeque>
         </div>
-        <!--Dentro del loader-->
-        <ng-template #Mostrar4>
-        <div class="text-center">
-          <div>
-            <div class="row">
-              <div class="activity-item d-flex col-md-6">
-                <div class="activite-label">
-                  <div class="form-check form-switch aling-center">
-                    <div *ngIf="estadoFinalNotas=='1'; else switchOffNotas" >
-                      <input class="form-check-input" type="checkbox" (change)="selectedCheckNotas($event)" role="switch" value="{{estadoFinalNotas}}" checked>
-                      <label class="form-check-label text-success" for="flexSwitchCheckChecked"><b>{{'Estado Notas'}}</b></label>
-                    </div>
-                    <ng-template #switchOffNotas>
-                     <div>
-                      <input class="form-check-input" type="checkbox"(change)="noselectedCheckNotas($event)" role="switch" value="{{estadoFinalNotas}}">
-                      <label class="form-check-label text-danger"  for="flexSwitchCheckChecked"><b>{{'Estado Notas'}}</b></label></div>
-                    </ng-template>
-                  </div>
-                </div>
-            </div>
-            </div>
-            <!--aqui finaliza el for-->
-          </div>
+        <ng-template #Mostrar1>
           <div class="row">
-            <div class="col-md-6">Habilitados: {{estado.ver}}</div>
-            <div class="col-md-6">Deshabilitados: {{estado.noVer}}</div>
+            <div class="activity-item d-flex col-md-6" *ngFor="let u of unidades">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" [checked]="u.estado == 1" (change)="toggleEstado($event, u.idUnidad, u.estado)" role="switch">
+                <label class="form-check-label" [class.text-success]="u.estado == 1" [class.text-danger]="u.estado != 1"><b>{{ u.unidad }}</b></label>
+              </div>
+            </div>
           </div>
-        </div>
+          <div *ngIf="errorServicio">
+            <div class="alert alert-danger text-center" role="alert">{{errorServicio.codigoError}} <b>, Detalles:</b> {{errorServicio.Mensaje}}</div>
+          </div>
         </ng-template>
       </div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="card-body pb-0">
-          <h5 class="card-title">Estadisticas <span>| Resumen General</span></h5>
-          <div *ngIf="sppinerOn4==true;else Mostrar2">
-            <app-loaderpeque></app-loaderpeque>
-          </div>
-          <!--Dentro del loader-->
-          <ng-template #Mostrar2>
+  <!-- Ingresos Card -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ingresos <span>| Usuarios</span></h5>
+      <div class="activity">
+        <div *ngIf="sppinerOn3; else Mostrar3">
+          <app-loaderpeque></app-loaderpeque>
+        </div>
+        <ng-template #Mostrar3>
           <div class="row">
-            <div class="col-md-6">
-              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-hombre.png"><div><b class="texto-esta-alumnos">Niños: </b>{{totalNinos}}</div></div>
-            </div>
-            <br>
-            <div class="col-md-6">
-              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-mujer.png"><div> <b class="texto-esta-alumnos">Niñas: </b>{{totalNinas}}</div></div>
-            </div>
-          </div>
-          <hr>
-          <br>
-          <div class="row">
-            <h5 class="text-center">Estado de Códigos:</h5>
-            <div class="col-md-6">
-              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/activ-inactivo/codigo-inactivo.png"><div><b class="texto-esta-alumnos">En Uso:</b> {{codigoInactivo}}</div></div>
-             </div>
-             <br>
-            <div class="col-md-6" >
-              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/activ-inactivo/codigo-activo.png"><div><b class="texto-esta-alumnos">Sin usar:</b> {{codigoActivo}}</div></div>
+            <div class="activity-item d-flex col-md-6" *ngFor="let estado of estadosUsuarios">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" [checked]="estado.valor == '1'" (change)="toggleEstadoUsuario($event, estado.tipo)" role="switch">
+                <label class="form-check-label" [class.text-success]="estado.valor == '1'" [class.text-danger]="estado.valor != '1'"><b>{{estado.label}}</b></label>
+              </div>
             </div>
           </div>
-          <hr>
-          <div class="row">
-            <h5 class="text-center">Contraseñas Docentes:</h5>
-            <div class="col-md-6">
-              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/pass-change/pass-change.png"><div><b class="texto-esta-alumnos">Cambiadas:</b> {{passDocenteCambiada}}</div></div>
-             </div>
-             <br>
-            <div class="col-md-6" >
-              <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/pass-change/pass-not-change.png"><div><b class="texto-esta-alumnos">Sin Cambiar:</b> {{passDocenteNoCambiada}}</div></div>
-            </div>
-          </div>
-          </ng-template>
+        </ng-template>
       </div>
     </div>
-</div>
+  </div>
 
+  <!-- Notas Card -->
+  <div class="card">
+    <div class="card-body pb-0">
+      <h5 class="card-title">Visualización <span>| de Notas</span></h5>
+      <div *ngIf="sppinerOn2; else Mostrar4">
+        <app-loaderpeque></app-loaderpeque>
+      </div>
+      <ng-template #Mostrar4>
+        <div class="text-center">
+          <div class="activity-item d-flex col-md-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" [checked]="estadoFinalNotas == '1'" (change)="toggleEstadoNotas($event)" role="switch">
+              <label class="form-check-label" [class.text-success]="estadoFinalNotas == '1'" [class.text-danger]="estadoFinalNotas != '1'"><b>Estado Notas</b></label>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Estadísticas Card -->
+  <div class="card">
+    <div class="card-body pb-0">
+      <h5 class="card-title">Estadísticas <span>| Resumen General</span></h5>
+      <div *ngIf="sppinerOn4; else Mostrar2">
+        <app-loaderpeque></app-loaderpeque>
+      </div>
+      <ng-template #Mostrar2>
+        <div class="row">
+          <!-- General Statistics Content -->
+          <div class="col-md-6">
+            <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-hombre.png"><div><b class="texto-esta-alumnos">Niños: </b>{{totalNinos}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/nino-nina/astronauta-mujer.png"><div><b class="texto-esta-alumnos">Niñas: </b>{{totalNinas}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/activ-inactivo/codigo-activo.png"><div><b class="texto-esta-alumnos">Codigos en Uso: </b>{{totalNinas}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/activ-inactivo/codigo-inactivo.png"><div><b class="texto-esta-alumnos">Codigos sin Uso: </b>{{totalNinas}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/pass-change/pass-change.png"><div><b class="texto-esta-alumnos">Contraseña modificada: </b>{{totalNinas}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="text-center"><img src="assets/img/iconos/iconos-dashboard/pass-change/pass-not-change.png"><div><b class="texto-esta-alumnos">Contraseña no modificada: </b>{{totalNinas}}</div></div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

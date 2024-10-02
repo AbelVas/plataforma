@@ -1,9 +1,19 @@
-import { Component, OnInit, ElementRef} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BimestreService } from '../../../services/bimestres.service';
 import { UnidadesService } from '../../../services/unidades.service';
 import { EstadisticasDashboardService } from '../../../services/estadisticas-dashboard.service';
-import { Chart, registerables } from 'node_modules/chart.js'
-Chart.register(...registerables);
+import { Observable } from 'rxjs';
+
+// Definir las interfaces para las respuestas del servicio
+interface EstadoResponse {
+  noActivo: number;
+  siActivo: number;
+}
+
+interface NotasResponse {
+  noVer: number;
+  ver: number;
+}
 
 @Component({
   selector: 'app-admin-ajustes-unidad-dashboard',
@@ -11,33 +21,30 @@ Chart.register(...registerables);
   styleUrls: ['./ajustes-unidad.component.css']
 })
 export class AjustesUnidadComponent implements OnInit {
-  sppinerOn:boolean=true; //Unidades
-  sppinerOn2:boolean=true; //Ver estado notas
-  sppinerOn3:boolean=true;  // Ingreso Alumnos, Profesores, Tutores
-  sppinerOn4:boolean=true; //Estadisticas generales
-  unidades:any =[];
-  ActivoInactivo='cheked';
-  errorServicio:any={};
-  estadoUnidad:any={
-    estado:''
-  }
-  EstadoProfesor:any={}
-  EstadoAlumno:any={}
-  EstadoTutor:any={}
-  estado:any={}
-  totalNinos:any=''
-  totalNinas:any=''
-  codigoActivo:any=''
-  codigoInactivo:any=''
-  passDocenteCambiada:any=0
-  passDocenteNoCambiada:any=0
+  sppinerOn: boolean = true; // Unidades
+  sppinerOn2: boolean = true; // Ver estado notas
+  sppinerOn3: boolean = true; // Ingreso Alumnos, Profesores, Tutores
+  sppinerOn4: boolean = true; // Estadísticas generales
+  unidades: any = [];
+  errorServicio: any = {};
+  estadoFinalNotas = '';
+  estadosUsuarios = [
+    { tipo: 'Alumno', valor: '', label: 'Ingresos Alumnos' },
+    { tipo: 'Profesor', valor: '', label: 'Ingresos Profesor' },
+    { tipo: 'Tutor', valor: '', label: 'Ingresos Tutor' }
+  ];
+  totalNinos: any = '';
+  totalNinas: any = '';
+  codigoActivo: any = '';
+  codigoInactivo: any = '';
+  passDocenteCambiada: any = 0;
+  passDocenteNoCambiada: any = 0;
 
-  estadoFinalAlumno=''
-  estadoFinalProfesor=''
-  estadoFinalTutor=''
-  estadoFinalNotas=''
-
-  constructor(private servicioBimestre:BimestreService,private estadisticaService:EstadisticasDashboardService, private elementRef: ElementRef,private unidadesService:UnidadesService) { }
+  constructor(
+    private servicioBimestre: BimestreService,
+    private estadisticaService: EstadisticasDashboardService,
+    private unidadesService: UnidadesService
+  ) {}
 
   ngOnInit(): void {
     this.getUnidades();
@@ -45,404 +52,195 @@ export class AjustesUnidadComponent implements OnInit {
     this.getCodigoActivoInactivo();
     this.getPassChangeDocentes();
     this.getEstadoVerNotas();
-    this.GetEstadoAlumnos();
-    this.GetEstadoProfesor();
-    this.GetEstadoTutor();
+    this.getEstadoUsuarios(); // Obtener estados de alumnos, profesores y tutores
   }
 
-  getEstadoVerNotas(){
-    this.unidadesService.getNotasVer().subscribe(
-      res=>{
-        this.estado=res
-        if(this.estado.noVer<this.estado.ver){
-          this.estadoFinalNotas = '1';
-        }else{
-          this.estadoFinalNotas = '0';
-        }
-        this.sppinerOn2=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn2=false;
-      }
-    )
-  }
-  //Check Ver notas
-
-  selectedCheckNotas(e:any) { // here e is a native event
-    if(e.target.checked){
-      this.estadoFinalNotas='1';
-      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
-        response=>{
-          this.getEstadoVerNotas()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalNotas='0';
-      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
-        response=>{
-          this.getEstadoVerNotas()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
-  }
-  noselectedCheckNotas(e:any){
-    if(!e.target.checked){
-      this.estadoFinalNotas='0';
-      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
-        response=>{
-          this.getEstadoVerNotas()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalNotas='1';
-      this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
-        response=>{
-          this.getEstadoVerNotas()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
-  }
-
-
-
-  //Gets
-  getNinosNinas(){
-    this.sppinerOn4=true;
-    this.estadisticaService.getTotalAlumnosHombres().subscribe(
-      res=>{
-        this.totalNinos=res[0].nino
-        this.sppinerOn4=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn4=false;
-      }
-    )
-    this.sppinerOn4=true;
-    this.estadisticaService.getTotalAlumnosMujeres().subscribe(
-      res=>{
-        this.totalNinas=res[0].nina
-        this.sppinerOn4=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn4=false;
-      }
-    )
-  }
-
-//Contraseñas cambiadas
-
-  getPassChangeDocentes(){
-    this.sppinerOn4=true;
-    this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
-      res=>{
-        this.passDocenteCambiada=res[0].sicambio
-        this.passDocenteNoCambiada=res[0].nocambio
-        this.sppinerOn4=false;
-      },
-      err=>{
-       console.log(err)
-       this.sppinerOn4=false;
-      }
-    )
-  }
-
-
-  getCodigoActivoInactivo(){
-    this.sppinerOn4=true;
-    this.estadisticaService.getTotalCodigosUso().subscribe(
-      res=>{
-        this.codigoActivo=res[0].activo
-        this.sppinerOn4=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn4=false;
-      }
-    )
-    this.sppinerOn4=true;
-    this.estadisticaService.getTotalCodigosNoUso().subscribe(
-      res=>{
-        this.codigoInactivo=res[0].noActivo
-        this.sppinerOn4=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn4=false;
-      }
-    )
-  }
-  getUnidades(){
+  // Obtener unidades
+  getUnidades(): void {
     this.servicioBimestre.getUnidades().subscribe(
-      response=>{
-        this.unidades=response;
-        this.errorServicio=''
-        this.sppinerOn=false;
+      response => {
+        this.unidades = response;
+        this.errorServicio = '';
+        this.sppinerOn = false;
       },
-      error=>{
-        this.errorServicio=error
-        console.log(this.errorServicio);
-        this.sppinerOn=false;
+      error => {
+        this.errorServicio = error;
+        this.sppinerOn = false;
       }
-    )
-  }
-  selectedCheck(e:any,idUnidad:string) { // here e is a native event
-    if(e.target.checked){
-      this.estadoUnidad.estado='1';
-      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
-        response=>{
-          this.getUnidades()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoUnidad.estado='0';
-      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
-        response=>{
-          this.getUnidades()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
-  }
-  noselectedCheck(e:any,idUnidad:string){
-    if(!e.target.checked){
-      this.estadoUnidad.estado='0';
-      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
-        response=>{
-          this.getUnidades()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoUnidad.estado='1';
-      this.servicioBimestre.updateUnidadesEstado(idUnidad,this.estadoUnidad).subscribe(
-        response=>{
-          this.getUnidades()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
+    );
   }
 
-  //Estados Usuarios
-  GetEstadoAlumnos(){
-    this.sppinerOn=true;
-    this.unidadesService.getEstadoAlumno().subscribe(
-      res=>{
-        this.EstadoAlumno=res
-        if(this.EstadoAlumno.noActivo<this.EstadoAlumno.siActivo){
-          this.estadoFinalAlumno = '1';
-        }else{
-          this.estadoFinalAlumno = '0';
-        }
-        this.sppinerOn3=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn3=false;
+  // Actualizar el estado de las unidades
+  toggleEstado(event: any, idUnidad: string, estadoActual: number): void {
+    const nuevoEstado = event.target.checked ? '1' : '0';
+    this.servicioBimestre.updateUnidadesEstado(idUnidad, { estado: nuevoEstado }).subscribe(
+      () => this.getUnidades(),
+      error => {
+        this.errorServicio = error;
       }
-    )
-  }
-  GetEstadoProfesor(){
-    this.sppinerOn3=true;
-    this.unidadesService.getEstadoProfesor().subscribe(
-      res=>{
-        this.EstadoProfesor=res
-        if(this.EstadoProfesor.noActivo<this.EstadoProfesor.siActivo){
-          this.estadoFinalProfesor = '1';
-        }else{
-          this.estadoFinalProfesor = '0';
-        }
-        this.sppinerOn3=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn3=false;
-      }
-    )
-  }
-  GetEstadoTutor(){
-    this.sppinerOn3=true;
-    this.unidadesService.getEstadoTutor().subscribe(
-      res=>{
-        this.EstadoTutor=res
-        if(this.EstadoTutor.noActivo<this.EstadoTutor.siActivo){
-          this.estadoFinalTutor = '1';
-        }else{
-          this.estadoFinalTutor = '0';
-        }
-        this.sppinerOn3=false;
-      },
-      err=>{
-        console.log(err)
-        this.sppinerOn3=false;
-      }
-    )
-  }
-//Checks de alumno
-  selectedCheckAlumno(e:any) { // here e is a native event
-    if(e.target.checked){
-      this.estadoFinalAlumno='1';
-      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
-        response=>{
-          this.GetEstadoAlumnos()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalAlumno='0';
-      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
-        response=>{
-          this.GetEstadoAlumnos()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
-  }
-  noselectedCheckAlumno(e:any){
-    if(!e.target.checked){
-      this.estadoFinalAlumno='0';
-      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
-        response=>{
-          this.GetEstadoAlumnos()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalAlumno='1';
-      this.unidadesService.updateEstadoAlumno(this.estadoFinalAlumno).subscribe(
-        response=>{
-          this.GetEstadoAlumnos()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
+    );
   }
 
-  //Checks Profesor
-  selectedCheckProfesor(e:any) { // here e is a native event
-    if(e.target.checked){
-      this.estadoFinalProfesor='1';
-      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
-        response=>{
-          this.GetEstadoProfesor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalProfesor='0';
-      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
-        response=>{
-          this.GetEstadoProfesor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
-  }
-  noselectedCheckProfesor(e:any){
-    if(!e.target.checked){
-      this.estadoFinalProfesor='0';
-      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
-        response=>{
-          this.GetEstadoProfesor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalProfesor='1';
-      this.unidadesService.updateEstadoProfesor(this.estadoFinalProfesor).subscribe(
-        response=>{
-          this.GetEstadoProfesor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
+  // Obtener el estado de notas
+  getEstadoVerNotas(): void {
+    this.unidadesService.getNotasVer().subscribe(
+      (res: any) => {
+        this.estadoFinalNotas = res.noVer < res.ver ? '1' : '0';
+        this.sppinerOn2 = false;
+      },
+      err => {
+        console.log(err);
+        this.sppinerOn2 = false;
+      }
+    );
   }
 
-  //Checks Tutor
-  selectedCheckTutor(e:any) { // here e is a native event
-    if(e.target.checked){
-      this.estadoFinalTutor='1';
-      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
-        response=>{
-          this.GetEstadoTutor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalTutor='0';
-      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
-        response=>{
-          this.GetEstadoTutor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }
+  // Cambiar el estado de las notas
+  toggleEstadoNotas(event: any): void {
+    this.estadoFinalNotas = event.target.checked ? '1' : '0';
+    this.unidadesService.habilitarVerNotas(this.estadoFinalNotas).subscribe(
+      () => this.getEstadoVerNotas(),
+      error => {
+        this.errorServicio = error;
+      }
+    );
   }
-  noselectedCheckTutor(e:any){
-    if(!e.target.checked){
-      this.estadoFinalTutor='0';
-      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
-        response=>{
-          this.GetEstadoTutor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
-    }else{
-      this.estadoFinalTutor='1';
-      this.unidadesService.updateEstadoTutor(this.estadoFinalTutor).subscribe(
-        response=>{
-          this.GetEstadoTutor()
-        },
-        error=>{
-          this.errorServicio=error
-        }
-      )
+
+  // Obtener estados de alumnos, profesores y tutores
+  getEstadoUsuarios(): void {
+    this.getEstadoPorTipo('Alumno');
+    this.getEstadoPorTipo('Profesor');
+    this.getEstadoPorTipo('Tutor');
+  }
+
+  // Obtener el estado de un tipo específico de usuario (Alumno, Profesor, Tutor)
+  getEstadoPorTipo(tipo: string): void {
+    let getEstadoFn:any;
+
+    // Seleccionar el servicio correcto basado en el tipo
+    switch (tipo) {
+      case 'Alumno':
+        getEstadoFn = this.unidadesService.getEstadoAlumno();
+        break;
+      case 'Profesor':
+        getEstadoFn = this.unidadesService.getEstadoProfesor();
+        break;
+      case 'Tutor':
+        getEstadoFn = this.unidadesService.getEstadoTutor();
+        break;
+      default:
+        return;
     }
+
+    getEstadoFn.subscribe(
+      (res: EstadoResponse) => {
+        const valor = res.noActivo < res.siActivo ? '1' : '0';
+        const usuario = this.estadosUsuarios.find(e => e.tipo === tipo);
+        if (usuario) {
+          usuario.valor = valor;
+        }
+        this.sppinerOn3 = false;
+      },
+      (err:any) => {
+        console.log(err);
+        this.sppinerOn3 = false;
+      }
+    );
+  }
+
+  // Cambiar el estado de un tipo específico de usuario (Alumno, Profesor, Tutor)
+  toggleEstadoUsuario(event: any, tipo: string): void {
+    const nuevoEstado = event.target.checked ? '1' : '0';
+    let updateEstadoFn: Observable<any>;
+
+    // Seleccionar el método correcto para actualizar el estado
+    switch (tipo) {
+      case 'Alumno':
+        updateEstadoFn = this.unidadesService.updateEstadoAlumno(nuevoEstado);
+        break;
+      case 'Profesor':
+        updateEstadoFn = this.unidadesService.updateEstadoProfesor(nuevoEstado);
+        break;
+      case 'Tutor':
+        updateEstadoFn = this.unidadesService.updateEstadoTutor(nuevoEstado);
+        break;
+      default:
+        return;
+    }
+
+    updateEstadoFn.subscribe(
+      () => this.getEstadoPorTipo(tipo),
+      error => {
+        this.errorServicio = error;
+      }
+    );
+  }
+
+  // Obtener estadísticas generales (Niños y Niñas)
+  getNinosNinas(): void {
+    this.sppinerOn4 = true;
+    this.estadisticaService.getTotalAlumnosHombres().subscribe(
+      res => {
+        this.totalNinos = res[0].nino;
+        this.sppinerOn4 = false;
+      },
+      err => {
+        console.log(err);
+        this.sppinerOn4 = false;
+      }
+    );
+
+    this.estadisticaService.getTotalAlumnosMujeres().subscribe(
+      res => {
+        this.totalNinas = res[0].nina;
+        this.sppinerOn4 = false;
+      },
+      err => {
+        console.log(err);
+        this.sppinerOn4 = false;
+      }
+    );
+  }
+
+  // Obtener el estado de los códigos activos e inactivos
+  getCodigoActivoInactivo(): void {
+    this.sppinerOn4 = true;
+    this.estadisticaService.getTotalCodigosUso().subscribe(
+      res => {
+        this.codigoActivo = res[0].activo;
+        this.sppinerOn4 = false;
+      },
+      err => {
+        console.log(err);
+        this.sppinerOn4 = false;
+      }
+    );
+
+    this.estadisticaService.getTotalCodigosNoUso().subscribe(
+      res => {
+        this.codigoInactivo = res[0].noActivo;
+        this.sppinerOn4 = false;
+      },
+      err => {
+        console.log(err);
+        this.sppinerOn4 = false;
+      }
+    );
+  }
+
+  // Obtener el estado de cambio de contraseñas de los docentes
+  getPassChangeDocentes(): void {
+    this.sppinerOn4 = true;
+    this.estadisticaService.getDocenteContrasenaCambiada().subscribe(
+      res => {
+        this.passDocenteCambiada = res[0].sicambio;
+        this.passDocenteNoCambiada = res[0].nocambio;
+        this.sppinerOn4 = false;
+      },
+      err => {
+        console.log(err);
+        this.sppinerOn4 = false;
+      }
+    );
   }
 }

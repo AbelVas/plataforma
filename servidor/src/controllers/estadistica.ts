@@ -1,88 +1,127 @@
-import { Request,Response } from "express"
-import { handleHttp } from "../utils/error.handle"
-import { getAlmacenamientoGigasService,GetAlumnosTotal,GetAlumnosTotalPorGrado,GetAlumnosHombres,GetAlumnosMujeres,GetCodigosEnUso, GetCodigosEnDesuso,GetContrasenaProfesorCambiada,GetCantidadGradosService,GetCantidadDocentesService} from  "../service/estadistica"
+import { Request, Response } from "express";
+import { handleHttp } from "../utils/error.handle";
+import { 
+    getAlmacenamientoGigasService, 
+    GetAlumnosTotal, 
+    GetAlumnosTotalPorSexo, 
+    GetAlumnosHombres, 
+    GetAlumnosMujeres, 
+    GetCodigosEnUso, 
+    GetCodigosEnDesuso, 
+    GetContrasenaProfesorCambiada, 
+    GetCantidadGradosService, 
+    GetCantidadDocentesService 
+} from "../service/estadistica";
 
-const obtenerAlumnosTotal=async(req:Request,res:Response)=>{
+// Obtener el total de alumnos
+const obtenerAlumnosTotal = async (req: Request, res: Response) => {
     try {
-        const resultadoGrados=await GetAlumnosTotal();
-        res.send(resultadoGrados);
+        const resultado = await GetAlumnosTotal();
+        res.status(200).send(resultado);
     } catch (e) {
         handleHttp(e, req, res);
     }
-}
-const obtenerAlumnosTotalPorGrado=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetAlumnosTotalPorGrado();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
-const obtenerAlumnosHombres=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetAlumnosHombres();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
-const obtenerAlumnosMujeres=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetAlumnosMujeres();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
-const obtenerCodigosEnUso=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetCodigosEnUso();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
-const obtenerCodigosEnDesuso=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetCodigosEnDesuso();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
-const obtenerContrasenaProfesorCambiada=async(req:Request,res:Response)=>{
-    try {
-        const resultadoGrados=await GetContrasenaProfesorCambiada();
-        res.send(resultadoGrados);
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
+};
 
-const GetCantidadGrados=async(req:Request,res:Response)=>{
+// Obtener el total de alumnos por sexo
+const obtenerAlumnosTotalPorSexo = async (req: Request, res: Response) => {
     try {
-        const resultado=await GetCantidadGradosService()
-        res.send(resultado)
+        const resultado = await GetAlumnosTotalPorSexo();
+        res.status(200).send(resultado);
     } catch (e) {
         handleHttp(e, req, res);
     }
-}
-const GetCantidadDocentes=async(req:Request,res:Response)=>{
-    try {
-        const resultado=await GetCantidadDocentesService()
-        res.send(resultado)
-    } catch (e) {
-        handleHttp(e, req, res);
-    }
-}
+};
 
-const getAlmacenamientoPlataformaController=async(req:Request,res:Response)=>{
+// Obtener el total de alumnos hombres
+const obtenerAlumnosHombres = async (req: Request, res: Response) => {
     try {
-        const resultado=await getAlmacenamientoGigasService()
-        res.send(resultado)
+        const resultado = await GetAlumnosHombres();
+        res.status(200).send(resultado);
     } catch (e) {
         handleHttp(e, req, res);
     }
-}
+};
 
-export{getAlmacenamientoPlataformaController,GetCantidadGrados,GetCantidadDocentes,obtenerAlumnosTotal, obtenerAlumnosTotalPorGrado,obtenerAlumnosHombres,obtenerAlumnosMujeres,obtenerCodigosEnUso,obtenerCodigosEnDesuso,obtenerContrasenaProfesorCambiada}
+// Obtener el total de alumnas mujeres
+const obtenerAlumnosMujeres = async (req: Request, res: Response) => {
+    try {
+        const resultado = await GetAlumnosMujeres();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+// Obtener el total de códigos en uso
+const obtenerCodigosEnUso = async (req: Request, res: Response) => {
+    try {
+        const resultado = await GetCodigosEnUso();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+// Obtener el total de códigos en desuso
+const obtenerCodigosEnDesuso = async (req: Request, res: Response) => {
+    try {
+        const resultado = await GetCodigosEnDesuso();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+// Obtener el número de profesores que han cambiado su contraseña
+const obtenerContrasenaProfesorCambiada = async (req: Request, res: Response) => {
+    try {
+        const resultado = await GetContrasenaProfesorCambiada();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+// Obtener el total de grados en la escuela
+const GetCantidadGrados = async (req: Request, res: Response) => {
+    try {
+        const resultado = await GetCantidadGradosService();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+// Obtener el total de docentes
+const GetCantidadDocentes = async (req: Request, res: Response) => {
+    try {
+        const resultado = await GetCantidadDocentesService();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+// Obtener el almacenamiento total en la plataforma
+const getAlmacenamientoPlataformaController = async (req: Request, res: Response) => {
+    try {
+        const resultado = await getAlmacenamientoGigasService();
+        res.status(200).send(resultado);
+    } catch (e) {
+        handleHttp(e, req, res);
+    }
+};
+
+export {
+    getAlmacenamientoPlataformaController,
+    GetCantidadGrados,
+    GetCantidadDocentes,
+    obtenerAlumnosTotal,
+    obtenerAlumnosTotalPorSexo,
+    obtenerAlumnosHombres,
+    obtenerAlumnosMujeres,
+    obtenerCodigosEnUso,
+    obtenerCodigosEnDesuso,
+    obtenerContrasenaProfesorCambiada
+};

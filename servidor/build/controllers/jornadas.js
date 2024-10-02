@@ -12,53 +12,70 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.insertarJornada = exports.deleteJornada = exports.updateJornada = exports.getJornada = exports.getJornadas = void 0;
 const jornadas_1 = require("../service/jornadas");
 const error_handle_1 = require("../utils/error.handle");
+// Obtener todas las jornadas
 const getJornadas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultadoJornada = yield (0, jornadas_1.obtenerJornadasService)();
-        res.send(resultadoJornada);
+        res.status(200).send(resultadoJornada);
     }
     catch (e) {
         (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getJornadas = getJornadas;
+// Obtener una jornada por su ID
 const getJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const resultadoJornada = yield (0, jornadas_1.obtenerJornadaService)(id);
-        res.send(resultadoJornada);
+        if (!resultadoJornada) {
+            res.status(404).send({ message: "Jornada no encontrada" });
+            return;
+        }
+        res.status(200).send(resultadoJornada);
     }
     catch (e) {
         (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.getJornada = getJornada;
+// Actualizar una jornada
 const updateJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const resultadoJornada = yield (0, jornadas_1.updateJornadaService)(req.body, id);
-        res.send(resultadoJornada);
+        if (resultadoJornada.affectedRows === 0) {
+            res.status(404).send({ message: "No se pudo actualizar, jornada no encontrada" });
+            return;
+        }
+        res.status(200).send({ message: "Jornada actualizada con éxito" });
     }
     catch (e) {
         (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.updateJornada = updateJornada;
+// Eliminar una jornada
 const deleteJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const resultadoJornada = yield (0, jornadas_1.deleteJornadaService)(id);
-        res.send(resultadoJornada);
+        if (resultadoJornada.affectedRows === 0) {
+            res.status(404).send({ message: "No se pudo eliminar, jornada no encontrada" });
+            return;
+        }
+        res.status(200).send({ message: "Jornada eliminada con éxito" });
     }
     catch (e) {
         (0, error_handle_1.handleHttp)(e, req, res);
     }
 });
 exports.deleteJornada = deleteJornada;
+// Insertar una nueva jornada
 const insertarJornada = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const resultadoJornada = yield (0, jornadas_1.insertJornadaService)(req.body);
-        res.send(resultadoJornada);
+        res.status(201).send({ message: "Jornada creada con éxito", id: resultadoJornada.insertId });
     }
     catch (e) {
         (0, error_handle_1.handleHttp)(e, req, res);

@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormControl,Validators } from '@angular/forms';
 import { CodigosService } from '../services/codigos.service';
-import { ToastrService } from 'ngx-toastr'; // PASO 1: IMPORTAR EL SERVICIO, ESTA RUTA NUNCA CAMBIA
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-codigos',
@@ -12,77 +11,81 @@ import { ToastrService } from 'ngx-toastr'; // PASO 1: IMPORTAR EL SERVICIO, EST
   styleUrls: ['./codigos.component.css']
 })
 export class CodigosComponent implements OnInit {
-  sppinerOn:boolean=true;
-  listaCodigos:any=[]
-  codigoIndividual:any={}
-  dataTable: any;
-  dataSource:any;
-  cantidadRegistros:any=[]
-  codigoPorPagina=10;
-  errorServicio:any={};
-  codigoVacioError='form-control';
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  spinnerOn: boolean = true;
+  listaCodigos: any[] = [];
+  codigoIndividual: any = {};
+  dataSource!: MatTableDataSource<any>;
+  codigoVacioError = 'form-control';
+  // Aquí se define la cantidad de códigos por página
+  codigoPorPagina: number = 10;  // Define el número de elementos por página
+
+  displayedColumns: string[] = ['no', 'codigo', 'tipo', 'estado', 'editar'];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;  // ViewChild para MatSort
+
+  constructor(private codigoService: CodigosService, private toastrService: ToastrService) {}
+
+  ngOnInit(): void {
+    this.getCodigos();
+  }
+
+  getCodigos(): void {
+    this.codigoService.getCodigos().subscribe(
+      res => {
+        this.listaCodigos = res.map((codigo: any, index: number) => ({
+          ...codigo,
+          no: index + 1
+        }));
+
+        this.dataSource = new MatTableDataSource(this.listaCodigos);
+        // Asignar paginator y sort después de configurar el dataSource
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;  // Enlazar MatSort aquí
+        this.spinnerOn = false;
+      },
+      err => {
+        this.spinnerOn = false;
+        this.toastrService.error('Error al obtener los códigos', 'Error');
+        console.error(err);
+      }
+    );
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-  displayedColumns: string[] = ['no','codigo','tipo','estado','editar'];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  constructor(private codigoService:CodigosService, private toastrService:ToastrService) { } // PASO 2: CREAR EL COSO ESE
 
-  ngOnInit(): void {
-    this.getCodigos()
-  }
-  getCodigos(){
-    this.codigoService.getCodigos().subscribe(
-      res=>{
-        for(let i=0;i<res.length;i++){
-          res[i].no=i+1;
-        }
-        this.listaCodigos=res
-        this.cantidadRegistros=this.listaCodigos.length
-        this.dataSource = new MatTableDataSource(this.listaCodigos);
-        this.sppinerOn=false;
-        this.paginator._intl.itemsPerPageLabel = 'Códigos por Página: ';
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      err=>{
-        this.sppinerOn=false;
-        console.log(err)
-      }
-    )
-  }
-  buscarCodigoArray(idCodigo:string){
-    this.codigoIndividual=this.listaCodigos.find((x:any)=>x.idCodigo===idCodigo)
+  buscarCodigoArray(idCodigo: string): void {
+    this.codigoIndividual = this.listaCodigos.find(codigo => codigo.idCodigo === idCodigo);
   }
 
-  EditCodigo(idCodigo:string){
-    this.errorServicio='';
-
-    if(this.codigoIndividual.codigo==''){
-      this.codigoVacioError='form-control border-danger';
-    }else{
-      this.codigoVacioError='form-control';
-      const codigo={
-        idCodigo:this.codigoIndividual.idCodigo,
-        codigo:this.codigoIndividual.codigo
-      }
-      this.codigoService.updateCodigo(idCodigo,codigo).subscribe(
-        res=>{
-          this.getCodigos();
-          this.toastrService.success(`Codigo Editado`,'Realizado')  // PASO 3: PONER EL MENSAJITO, SE COLOCARÍA DESPUÉS DE REALIZAR UNA ACCIÓN
-                                                                    // .success o .error define el color, lo que esta entre comillas el mensaje
-                                                                    // La primera parte es el body y la segunda el encabezado del mensaje
-        },
-        err=>{
-          this.errorServicio=err;
-          this.toastrService.error(`Codigo no Editado`,'Error')     // LO MISMO AQUÍ
-        }
-      )
+  EditCodigo(idCodigo: string): void {
+    if (!this.codigoIndividual.codigo) {
+      this.codigoVacioError = 'form-control border-danger';
+      return;
     }
+
+    this.codigoVacioError = 'form-control';
+    const codigo = {
+      idCodigo: this.codigoIndividual.idCodigo,
+      codigo: this.codigoIndividual.codigo
+    };
+
+    this.codigoService.updateCodigo(idCodigo, codigo).subscribe(
+      () => {
+        this.getCodigos();
+        this.toastrService.success('Código editado correctamente', 'Realizado');
+      },
+      err => {
+        this.toastrService.error('Error al editar el código', 'Error');
+        console.error(err);
+      }
+    );
   }
 }

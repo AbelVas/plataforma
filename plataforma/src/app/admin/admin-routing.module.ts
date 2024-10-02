@@ -27,8 +27,12 @@ import { AspectosTecnicosComponent } from "./aspectos-tecnicos-plan/aspectos-tec
 
 
 const routes:Routes=[
-  {path:'',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component: AdminComponent,children:
-  [
+  {
+    path:'',
+    canActivate:[AuthGuard,RolesGuard],
+    data: { expectedRole: '1' },
+    component: AdminComponent,
+    children:[
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'dashboard',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' }, component:IndexAdminComponent},
     {path:'settings/basic',canActivate:[AuthGuard,RolesGuard],data: { expectedRole: '1' },component:ConfigBasicasComponent},
