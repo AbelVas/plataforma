@@ -21,7 +21,7 @@ const insertTutoresService=async(data:Request)=>{
     return responseInsert;
 }
 const obtenerTutoresService=async()=>{
-    const responseGet=await conexion.query('SELECT  idTutor,nombre_tutor,apellido_tutor,telefono1,telefono2,telefono_casa,direccion,direccion_trabajo,usuario,pass,correo1,correo2,nombre_opcional,dpi,estado FROM tbTutor');
+    const responseGet=await conexion.query('SELECT  idTutor,nombre_tutor,apellido_tutor,telefono1,telefono2,telefono_casa,direccion,direccion_trabajo,usuario,pass,correo1,correo2,nombre_opcional,dpi,estado,ver_notas FROM tbTutor');
     return responseGet;
 }
 const obtenerTutorService=async(id:string)=>{
