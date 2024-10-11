@@ -11,12 +11,12 @@ export class AppComponent implements OnInit{
   constructor(private elementRef: ElementRef,  public  _router: Router,private socketService: WebSocketService) { }
 
   ngOnInit(): void {
+    /*
     var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = "../assets/js/main.js";
     this.elementRef.nativeElement.appendChild(s);
-
+*/
     }
 
   }
-
