@@ -95,6 +95,11 @@
               </div>
             </div>
           </div>
+          <div *ngIf="isEditing" class="mb-3">
+            <label for="ver_notas" class="form-label" style="margin-right:5px;">Ver Notas</label>
+            <input formControlName="ver_notas" type="checkbox" class="form-check-input" id="ver_notas" 
+            (change)="onCheckboxChange($event)">
+          </div>
 
           <!-- Botones del formulario -->
           <div class="modal-footer">

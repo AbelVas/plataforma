@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TutoresService } from '../../services/tutores.service';
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from 'src/app/web-socket.service';
@@ -28,13 +28,13 @@ export class TutoresComponent implements OnInit {
   codigoEstudiante: string = ''; // Almacena el valor del código de estudiante buscado
   listaEstudiantes:any[]=[]
   listaTutorEstudiantesVinculados:any[]=[]
+  boleano = true
 
   listaTutores: any[] = [];
   tutorIndividual: any = {};
   dataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['no', 'Tutor', 'usuario', 'estado', 'acciones'];
   isEditing = false;  // Controla si estamos en modo edición o creación
-
   // Formulario de tutor
   tutorForm = this.formBuilder.group({
     nombre_tutor: ['', Validators.required],
@@ -49,6 +49,7 @@ export class TutoresComponent implements OnInit {
     correo2: ['', Validators.email],
     nombre_opcional: [''],
     dpi: ['', [Validators.required, Validators.maxLength(20)]],
+    ver_notas:[false]
   });
 
   camposFormulario = [
@@ -63,7 +64,7 @@ export class TutoresComponent implements OnInit {
     { key: 'usuario', label: 'Usuario' },
     { key: 'correo1', label: 'Correo Electrónico 1' },
     { key: 'correo2', label: 'Correo Electrónico 2' },
-    { key: 'nombre_opcional', label: 'Nombre Opcional'}
+    { key: 'nombre_opcional', label: 'Nombre Opcional'},
   ];
 
   constructor(
@@ -223,7 +224,6 @@ export class TutoresComponent implements OnInit {
     if (this.tutorForm.valid) {
       const formData = {
         ...this.tutorForm.value,
-        ver_notas: 1,
         idRol: 3,
         estado: 1,
         pass: '123456'
@@ -281,6 +281,11 @@ export class TutoresComponent implements OnInit {
   buscarTutoresArray(idTutor: string): void {
     this.tutorIndividual = this.listaTutores.find((tutor: any) => tutor.idTutor === idTutor);
     if (this.tutorIndividual) {
+      if(this.tutorIndividual.ver_notas==1){
+        this.boleano = true;
+      }else{
+        this.boleano = false;
+      }
       this.tutorForm.patchValue({
         nombre_tutor: this.tutorIndividual.nombre_tutor,
         apellido_tutor: this.tutorIndividual.apellido_tutor,
@@ -293,7 +298,8 @@ export class TutoresComponent implements OnInit {
         correo1: this.tutorIndividual.correo1,
         correo2: this.tutorIndividual.correo2,
         nombre_opcional: this.tutorIndividual.nombre_opcional,
-        dpi: this.tutorIndividual.dpi
+        dpi: this.tutorIndividual.dpi,
+        ver_notas: this.boleano,
       });
       this.isEditing = true;
     }
@@ -302,5 +308,11 @@ export class TutoresComponent implements OnInit {
   // Retorna los controles del formulario
   get f() {
     return this.tutorForm.controls;
+  }
+
+  onCheckboxChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.tutorForm.get('ver_notas')!.setValue(target.checked ? true : false);
+    console.log(this.tutorForm.value.ver_notas)
   }
 }

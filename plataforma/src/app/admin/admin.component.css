@@ -1,6 +1,31 @@
 @media print{
-  app-header-component,app-sidebar,app-footer{
+  app-header-component, app-sidebar, app-footer{
     display: none;
   }
+}
 
+
+html, body {
+  height: 100%; /* Aseguramos que el HTML y el body ocupen toda la ventana */
+  margin: 0; /* Eliminar márgenes por defecto */
+  display: flex;
+  flex-direction: column;
+}
+
+app-header-component,
+app-sidebar,
+router-outlet {
+  flex: 1; /* Hacemos que el contenido principal ocupe el espacio disponible */
+}
+
+app-footer {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+body.mat-typography {
+  height: 100% !important;  /* Sobreescribir cualquier estilo conflictivo */
+  display: flex !important;
+  flex-direction: column !important;
 }

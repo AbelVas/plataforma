@@ -7,7 +7,7 @@ import decode from 'jwt-decode';
 @Component({
   selector:'app-alumno',
   templateUrl:'./student.component.html',
-  styleUrls:['./student.component.scss']
+  styleUrls:['./student.component.css']
 })
 export class StudentComponent implements OnInit{
 
